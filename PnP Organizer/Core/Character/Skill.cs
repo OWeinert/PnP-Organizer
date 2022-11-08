@@ -4,7 +4,6 @@ namespace PnP_Organizer.Core.Character
 {
     public struct Skill
     {
-        public int ID { get; }
         public string Name { get; set; }
         public string Description { get; set; }
         public SkillCategory SkillCategory { get; set; }
@@ -32,9 +31,8 @@ namespace PnP_Organizer.Core.Character
         private readonly Func<int, int, bool> _isActivePredicate;
         private  Func<bool>? _skillableDependencyPredicate;
 
-        public Skill(int id, string name, SkillCategory skillCategory, int maxSkillPoints, SkillUsableType skillActivationType, string description = "")
+        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, SkillUsableType skillActivationType, string description = "")
         {
-            ID = id;
             Name = name;
             SkillCategory = skillCategory;
             Description = description;
