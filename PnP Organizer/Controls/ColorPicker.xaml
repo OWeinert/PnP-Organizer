@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="PnP_Organizer.Controls.ColorPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PnP_Organizer.Controls"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:models="clr-namespace:PnP_Organizer.Models"
+             xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="18" d:DesignWidth="18"
+             d:DataContext="{d:DesignInstance local:ColorPicker,
+                                              IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+    </UserControl.Resources>
+    <Grid>
+
+        <ToggleButton x:Name="ColorPickerButton"
+                      Padding="0"
+                      Foreground="{Binding Foreground}"
+                      BorderThickness="0"
+                      ToolTip="Select Color"
+                      IsHitTestVisible="{Binding IsOpen, ElementName=ColorPickerPopup, Converter={StaticResource BooleanInvertConverter}}">
+            <ToggleButton.Content>
+                <Binding Path="ButtonContent" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+            </ToggleButton.Content>
+        </ToggleButton>
+        <Popup x:Name="ColorPickerPopup"
+               IsOpen="{Binding Path=IsChecked, ElementName=ColorPickerButton}"
+               AllowsTransparency="True"
+               PopupAnimation="Scroll"
+               PlacementTarget="{Binding ElementName=ColorPickerButton}"
+               Placement="Bottom"
+               StaysOpen="False">
+            <DockPanel Background="Transparent">
+                <Border Width="Auto"
+                        Height="Auto"
+                        Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                        CornerRadius="4"
+                        BorderBrush="{DynamicResource ControlHighlightColorBrush}"
+                        BorderThickness="2">
+                    <ui:VirtualizingItemsControl ItemsSource="{Binding ColorsSource, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                 MaxWidth="90"
+                                                 Margin="2"
+                                                 Background="Transparent">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:ColorModel}">
+                                <ui:Button x:Name="ColorButton"
+                                           Width="18"
+                                           Height="18"
+                                           Padding="0"
+                                           Background="{Binding Brush}"
+                                           Margin="2"
+                                           BorderThickness="0"
+                                           Click="ColorPickerButton_Click"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ui:VirtualizingItemsControl>
+                </Border>
+            </DockPanel>
+        </Popup>
+    </Grid>
+</UserControl>

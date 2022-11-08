@@ -1,0 +1,544 @@
+﻿<ui:UiPage
+    x:Class="PnP_Organizer.Views.Pages.OverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PnP_Organizer.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:p="clr-namespace:PnP_Organizer.Properties"
+    Title="OverviewPage"
+    d:DataContext="{d:DesignInstance local:OverviewPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="500"
+    d:DesignWidth="920" 
+    mc:Ignorable="d"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Scrollable="True"
+    Tag="overview">
+
+    <ui:UiPage.Resources>
+        <Style TargetType="ui:NumberBox" x:Key="AttributeNumBox" BasedOn="{StaticResource {x:Type ui:NumberBox}}">
+            <Setter Property="IntegersOnly" Value="True"/>
+            <Setter Property="DecimalPlaces" Value="1"/>
+            <Setter Property="Min" Value="0"/>
+            <Setter Property="Max" Value="999"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="ClearButtonEnabled" Value="False"/>
+            <EventSetter Event="MouseWheel" Handler="AttributeNumBox_MouseWheel"/>
+        </Style>
+
+        <Style TargetType="ui:Button" x:Key="ClipboardCopyButton" BasedOn="{StaticResource {x:Type ui:Button}}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Icon" Value="Copy24"/>
+            <Setter Property="ToolTip" Value="Copy to Clipboard"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="ToolTip" Value="{x:Static p:Resources.Tooltip_CopyToClipboard}"/>
+        </Style>
+
+        <helpers:AttributeBonusColorConverter x:Key="AttributeBonusColorConverter"/>
+        <helpers:PearlsColorConverter x:Key="PearlsColorConverter"/>
+    </ui:UiPage.Resources>
+
+    <VirtualizingStackPanel Margin="17,-4,17,0">
+        <!-- General Character Info -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left">
+                <Grid Margin="8">
+                    <Border x:Name="AccentBorder"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderThickness="0,0,0,1"
+                            CornerRadius="4">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                        </Border.BorderBrush>
+                        <Viewbox MaxHeight="48" MaxWidth="48">
+                            <ui:SymbolIcon Symbol="AddCircle32"
+                                           Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+                        </Viewbox>
+                    </Border>
+                    <Border HorizontalAlignment="Left"                  
+                            Background="{DynamicResource ControlFillColorInputDisabledBrush}"
+                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                        <ui:Button x:Name="CharacterImageBtn"
+                                   Click="CharacterImageBtn_Click"
+                                   Padding="0"
+                                   ToolTip="{x:Static p:Resources.Tooltip_AddImage}">
+                            <Image x:Name="CharacterImage"
+                                   HorizontalAlignment="Center"
+                                   Height="250"
+                                   Width="200"
+                                   Stretch="UniformToFill"
+                                   Source="{Binding ViewModel.CharacterImage}"/>
+                        </ui:Button>
+                    </Border>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Margin="8,0,0,9">
+
+                <Label Content="{x:Static p:Resources.Overview_Name}"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"/>
+                <ui:TextBox x:Name="NameTextBox"
+                            Text="{Binding ViewModel.CharacterName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            FontSize="16"
+                            MinWidth="256"
+                            MaxWidth="256"
+                            Margin="0,0,0,12"/>
+
+                <Label Content="{x:Static p:Resources.Overview_Age}"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"/>
+                <ui:TextBox x:Name="AgeNumBox"
+                            Text="{Binding ViewModel.CharacterAgeStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            FontSize="16"
+                            MinWidth="128"
+                            MaxWidth="128"
+                            Margin="0,0,0,12"
+                            PreviewTextInput="NumTextBox_PreviewTextInput"/>
+
+                <Label Content="{x:Static p:Resources.Overview_Height}"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"/>
+                <ui:TextBox x:Name="HeightNumBox"
+                            Text="{Binding ViewModel.CharacterHeightStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            FontSize="16"
+                            MinWidth="128"
+                            MaxWidth="128"
+                            PreviewTextInput="NumTextBox_PreviewTextInput"/>
+            </StackPanel>
+
+            <Grid Grid.Column="2"
+                  VerticalAlignment="Bottom"
+                  HorizontalAlignment="Right"
+                  Margin="0,0,-30,0">
+
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Margin" Value="0,6"/>
+                    </Style>
+                    <Style TargetType="ui:TextBox" BasedOn="{StaticResource {x:Type ui:TextBox}}">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="ClearButtonEnabled" Value="False"/>
+                        <Setter Property="MinWidth" Value="64"/>
+                        <Setter Property="MaxWidth" Value="{Binding MinWidth, RelativeSource={RelativeSource Self}}"/>
+                        <Setter Property="MaxHeight" Value="37"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="Margin" Value="8,0,50,13"/>
+                    </Style>
+                    <Style TargetType="ui:NumberBox" BasedOn="{StaticResource {x:Type ui:NumberBox}}">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="ClearButtonEnabled" Value="False"/>
+                        <Setter Property="SpinButtonsEnabled" Value="False"/>
+                        <Setter Property="Width" Value="64"/>
+                        <Setter Property="IntegersOnly" Value="True"/>
+                        <Setter Property="Margin" Value="8,0,114,13"/>
+                        <EventSetter Event="MouseWheel" Handler="AttributeNumBox_MouseWheel"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Health -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="{x:Static p:Resources.Overview_Health}"/>
+                <ui:NumberBox x:Name="CurrentHealthNumBox"
+                              Grid.Row="0"
+                              Grid.Column="1"
+                              Value="{Binding ViewModel.CurrentHealth, Mode=TwoWay}"
+                              Text="{Binding ViewModel.CurrentHealth, Mode=TwoWay}"
+                              Min="-100"
+                              Max="{Binding ViewModel.MaxHealth}"/>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Content="/"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0,5,42,0"/>
+                <ui:TextBox x:Name="HealthTextBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding ViewModel.MaxHealth, Mode=TwoWay}"/>
+
+                <!-- Energy -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="{x:Static p:Resources.Overview_Energy}"/>
+                <ui:NumberBox x:Name="CurrentEnergyNumBox"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Value="{Binding ViewModel.CurrentEnergy, Mode=TwoWay}"
+                              Text="{Binding ViewModel.CurrentEnergy, Mode=TwoWay}"
+                              Min="0"
+                              Max="{Binding ViewModel.MaxEnergy}"/>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Content="/"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0,5,42,0"/>
+                <ui:TextBox x:Name="EnergyTextBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding ViewModel.MaxEnergy, Mode=TwoWay}"/>
+
+                <!-- Stamina -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="{x:Static p:Resources.Overview_Stamina}"/>
+                <ui:NumberBox x:Name="CurrentStaminaNumBox"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              Value="{Binding ViewModel.CurrentStamina, Mode=TwoWay}"
+                              Text="{Binding ViewModel.CurrentStamina, Mode=TwoWay}"
+                              Min="0"
+                              Max="{Binding ViewModel.MaxStamina}"/>
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       Content="/"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0,5,42,0"/>
+                <ui:TextBox x:Name="StaminaTextBox"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="{Binding ViewModel.MaxStamina, Mode=TwoWay}"/>
+
+                <!-- Initiative -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="{x:Static p:Resources.Overview_Initiative}"/>
+                <StackPanel Grid.Row="3"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Margin="8,0,0,8">
+                    <ui:TextBox x:Name="InititativeTextBox"
+                                Text="{Binding ViewModel.Initiative, Mode=TwoWay}"
+                                Margin="0,0,0,0"/>
+                    <TextBlock Text="+ 1D6"
+                               VerticalAlignment="Center"
+                               Margin="8,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <ui:NavigationSeparator/>
+
+        <!-- Pearls and Attributes -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+
+                <!-- Pearls -->
+                <StackPanel HorizontalAlignment="Left">
+
+                    <Label Content="{x:Static p:Resources.Overview_Pearls}"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Margin="6,8,0,12"/>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                Margin="7,0,0,0">
+
+                        <StackPanel Margin="0,0,24,0">
+                            <Label Content="{x:Static p:Resources.Overview_PearlsFire}"
+                                   Foreground="{DynamicResource PaletteRedBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="FirePearlNumBox"
+                                          Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.FirePearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.FirePearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+
+                            <Label Content="{x:Static p:Resources.Overview_PearlsEarth}"
+                                   Foreground="{DynamicResource PaletteBrownBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="EarthPearlNumBox"
+                                          Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.EarthPearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.EarthPearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,24,0">
+                            <Label Content="{x:Static p:Resources.Overview_PearlsMetal}"
+                                   Foreground="{DynamicResource PaletteBlueGreyBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="MetalPearlNumBox"
+                                          Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.MetalPearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.MetalPearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+
+                            <Label Content="{x:Static p:Resources.Overview_PearlsAir}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="AirPearlNumBox"
+                                          Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.AirPearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.AirPearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="{x:Static p:Resources.Overview_PearlsWood}"
+                                   Foreground="{DynamicResource PaletteGreenBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="WoodPearlNumBox"
+                                           Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.WoodPearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.WoodPearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+
+                            <Label Content="{x:Static p:Resources.Overview_PearlsWater}"
+                                   Foreground="{DynamicResource PaletteBlueBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+                            <ui:NumberBox x:Name="WaterPearlNumBox"
+                                           Style="{StaticResource AttributeNumBox}"
+                                          Value="{Binding ViewModel.WaterPearls, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Foreground="{Binding ViewModel.WaterPearls,
+                                                       Converter={StaticResource PearlsColorConverter}}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Attributes -->
+                <StackPanel HorizontalAlignment="Right"
+                            Margin="48,0,0,0">
+
+                    <Label Content="{x:Static p:Resources.Overview_Attributes}"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Margin="6,8,0,12"/>
+
+                    <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        Margin="7,0,0,0">
+
+                        <StackPanel Margin="0,0,24,0">
+                            <!-- Strength -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrStrength}"
+                                           Foreground="{DynamicResource PaletteRedBrush}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.StrengthBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.StrengthBonus,
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="StrengthNumBox"
+                                          Value="{Binding ViewModel.Strength, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                            <!-- Constitution -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrConstitution}"
+                                           Foreground="{DynamicResource PaletteGreyBrush}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.ConstitutionBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.ConstitutionBonus, 
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="ConstitutionNumBox"
+                                          Value="{Binding ViewModel.Constitution, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,24,0">
+                            <!-- Dexterity -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrDexterity}"
+                                           Foreground="{DynamicResource PaletteYellowBrush}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.DexterityBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.DexterityBonus, 
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="DexterityNumBox"
+                                          Value="{Binding ViewModel.Dexterity, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                            <!-- Wisdom -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrWisdom}"
+                                           Foreground="{DynamicResource PaletteLightGreenBrush}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.WisdomBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.WisdomBonus, 
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="WisdomNumBox"
+                                          Value="{Binding ViewModel.Wisdom, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <!-- Intelligence -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrIntelligence}"
+                                           Foreground="{DynamicResource PaletteCyanBrush}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.IntelligenceBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.IntelligenceBonus, 
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="IntelligenceNumBox"
+                                          Value="{Binding ViewModel.Intelligence, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                            <!-- Charisma -->
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Left"
+                                         MaxHeight="24"
+                                         MaxWidth="96">
+                                    <Label Content="{x:Static p:Resources.Overview_AttrCharisma}"
+                                           Foreground="{DynamicResource PalettePinkBrush}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                </Viewbox>
+                                <Label Content="{Binding ViewModel.CharismaBonus}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{Binding ViewModel.CharismaBonus, 
+                                                    Converter={StaticResource AttributeBonusColorConverter}}"
+                                       FontSize="16"
+                                       Margin="0,0,4,0"
+                                       FontWeight="SemiBold">
+                                </Label>
+                            </Grid>
+                            <ui:NumberBox x:Name="CharismaNumBox"
+                                          Value="{Binding ViewModel.Charisma, Mode=TwoWay}"
+                                          Text="{Binding Path=Value, RelativeSource={RelativeSource Self}}"
+                                          Style="{StaticResource AttributeNumBox}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </VirtualizingStackPanel>
+</ui:UiPage>
