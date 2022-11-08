@@ -486,23 +486,110 @@
   <data name="Skills_Skillable" xml:space="preserve">
     <value>Skillbar</value>
   </data>
+  <data name="Skills_SkillAccurateMelee" xml:space="preserve">
+    <value>Treffsicher</value>
+  </data>
+  <data name="Skills_SkillAccurateRanged" xml:space="preserve">
+    <value>Treffsicher</value>
+  </data>
   <data name="Skills_SkillActorByBirth" xml:space="preserve">
     <value>Geborener Schauspieler</value>
+  </data>
+  <data name="Skills_SkillAgressiveFighting" xml:space="preserve">
+    <value>Aggressiver Kampf</value>
+  </data>
+  <data name="Skills_SkillAimedAttackMelee" xml:space="preserve">
+    <value>Gezielter Schlag</value>
+  </data>
+  <data name="Skills_SkillAimedAttackRanged" xml:space="preserve">
+    <value>Gezielter Angriff</value>
   </data>
   <data name="Skills_SkillAlertness" xml:space="preserve">
     <value>Aufmerksam</value>
   </data>
+  <data name="Skills_SkillArmor" xml:space="preserve">
+    <value>Rüstung</value>
+  </data>
+  <data name="Skills_SkillArmorBreaker" xml:space="preserve">
+    <value>Rüstungsbrecher</value>
+  </data>
+  <data name="Skills_SkillArmorUp" xml:space="preserve">
+    <value>Armor Up</value>
+  </data>
+  <data name="Skills_SkillAssassinate" xml:space="preserve">
+    <value>Meucheln</value>
+  </data>
+  <data name="Skills_SkillAttackOfOpportunity" xml:space="preserve">
+    <value>Attack of Opportunity</value>
+  </data>
   <data name="Skills_SkillAvenger" xml:space="preserve">
     <value>Rächer</value>
   </data>
+  <data name="Skills_SkillBackLine" xml:space="preserve">
+    <value>Backline</value>
+  </data>
+  <data name="Skills_SkillBetterThanThrowing" xml:space="preserve">
+    <value>Besser als Schmeißen</value>
+  </data>
+  <data name="Skills_SkillBladeFan" xml:space="preserve">
+    <value>Klingenfächer</value>
+  </data>
+  <data name="Skills_SkillBowMaking" xml:space="preserve">
+    <value>Bogenbau</value>
+  </data>
+  <data name="Skills_SkillBuildArrows" xml:space="preserve">
+    <value>Pfeile bauen</value>
+  </data>
+  <data name="Skills_SkillCalmAiming" xml:space="preserve">
+    <value>Ruhiges Zielen</value>
+  </data>
+  <data name="Skills_SkillCavallery" xml:space="preserve">
+    <value>Kavallerie</value>
+  </data>
+  <data name="Skills_SkillChainAttack" xml:space="preserve">
+    <value>Kettenangrif</value>
+  </data>
   <data name="Skills_SkillClimbing" xml:space="preserve">
     <value>Klettern</value>
+  </data>
+  <data name="Skills_SkillCombo" xml:space="preserve">
+    <value>Kombo</value>
   </data>
   <data name="Skills_SkillCommandTone" xml:space="preserve">
     <value>Befehlston</value>
   </data>
   <data name="Skills_SkillCounterfeiting" xml:space="preserve">
     <value>Fälschen</value>
+  </data>
+  <data name="Skills_SkillCripplingBlow" xml:space="preserve">
+    <value>Verkrüppelnder Schlag</value>
+  </data>
+  <data name="Skills_SkillCurvedShot" xml:space="preserve">
+    <value>Curved Shot</value>
+  </data>
+  <data name="Skills_SkillDefensiveFighting" xml:space="preserve">
+    <value>Defensiver Kampf</value>
+  </data>
+  <data name="Skills_SkillDefensiveStance" xml:space="preserve">
+    <value>Defensive Haltung</value>
+  </data>
+  <data name="Skills_SkillDevastatingAttack" xml:space="preserve">
+    <value>Vernichtender Angriff</value>
+  </data>
+  <data name="Skills_SkillDisarmMelee" xml:space="preserve">
+    <value>Entwaffnen</value>
+  </data>
+  <data name="Skills_SkillDisarmRanged" xml:space="preserve">
+    <value>Entwaffnen</value>
+  </data>
+  <data name="Skills_SkillDoubleShot" xml:space="preserve">
+    <value>Doubleshot</value>
+  </data>
+  <data name="Skills_SkillDualThrow" xml:space="preserve">
+    <value>Doppelwurf</value>
+  </data>
+  <data name="Skills_SkillDuplexFerrum" xml:space="preserve">
+    <value>Duplex Ferrum</value>
   </data>
   <data name="Skills_Skilled" xml:space="preserve">
     <value>Geskillt</value>
@@ -516,8 +603,20 @@
   <data name="Skills_SkillEtiquette" xml:space="preserve">
     <value>Etikette</value>
   </data>
+  <data name="Skills_SkillEveryBlowAHit" xml:space="preserve">
+    <value>Jeder Schlag ein Treffer</value>
+  </data>
+  <data name="Skills_SkillFeint" xml:space="preserve">
+    <value>Finte</value>
+  </data>
+  <data name="Skills_SkillFencing" xml:space="preserve">
+    <value>Fechter</value>
+  </data>
   <data name="Skills_SkillFlirting" xml:space="preserve">
     <value>Flirten</value>
+  </data>
+  <data name="Skills_SkillFullDamage" xml:space="preserve">
+    <value>Ganzer Schaden</value>
   </data>
   <data name="Skills_SkillFutureMarket" xml:space="preserve">
     <value>Future Market</value>
@@ -528,11 +627,38 @@
   <data name="Skills_SkillHardToKill" xml:space="preserve">
     <value>Schwer zu töten</value>
   </data>
+  <data name="Skills_SkillHeadshot" xml:space="preserve">
+    <value>Headshot</value>
+  </data>
   <data name="Skills_SkillHealing" xml:space="preserve">
     <value>Heilung</value>
   </data>
+  <data name="Skills_SkillHeavyFighting" xml:space="preserve">
+    <value>Schwerer Kampf</value>
+  </data>
+  <data name="Skills_SkillHeavyParade" xml:space="preserve">
+    <value>Schwere Parade</value>
+  </data>
+  <data name="Skills_SkillHijackerMelee" xml:space="preserve">
+    <value>Hijacker</value>
+  </data>
+  <data name="Skills_SkillHijackerRanged" xml:space="preserve">
+    <value>Hijacker</value>
+  </data>
+  <data name="Skills_SkillHuntersMark" xml:space="preserve">
+    <value>Hunter's Mark</value>
+  </data>
   <data name="Skills_SkillIntimidate" xml:space="preserve">
     <value>Einschüchtern</value>
+  </data>
+  <data name="Skills_SkillJumpAttack" xml:space="preserve">
+    <value>Sprungangriff</value>
+  </data>
+  <data name="Skills_SkillKick" xml:space="preserve">
+    <value>Tritt</value>
+  </data>
+  <data name="Skills_SkillKillingSpree" xml:space="preserve">
+    <value>Killing Spree</value>
   </data>
   <data name="Skills_SkillKnowledgeOfPeople" xml:space="preserve">
     <value>Menschenkenntnis</value>
@@ -540,23 +666,74 @@
   <data name="Skills_SkillLastBreath" xml:space="preserve">
     <value>Last Breath</value>
   </data>
+  <data name="Skills_SkillLastShot" xml:space="preserve">
+    <value>Last Shot</value>
+  </data>
   <data name="Skills_SkillLieDetector" xml:space="preserve">
     <value>Lügendetektor</value>
+  </data>
+  <data name="Skills_SkillLightBlow" xml:space="preserve">
+    <value>Leichter Schlag</value>
+  </data>
+  <data name="Skills_SkillLightShot" xml:space="preserve">
+    <value>Leichter Schuss</value>
   </data>
   <data name="Skills_SkillLockpicking" xml:space="preserve">
     <value>Schlösser knacken</value>
   </data>
+  <data name="Skills_SkillLoneWarrior" xml:space="preserve">
+    <value>Einzelkämpfer</value>
+  </data>
   <data name="Skills_SkillLuck" xml:space="preserve">
     <value>Glück</value>
+  </data>
+  <data name="Skills_SkillLuckyShot" xml:space="preserve">
+    <value>Lucky Shot</value>
+  </data>
+  <data name="Skills_SkillMagazine" xml:space="preserve">
+    <value>Magazin</value>
+  </data>
+  <data name="Skills_SkillMasterfulArcher" xml:space="preserve">
+    <value>Meisterlicher Bogenschütze</value>
+  </data>
+  <data name="Skills_SkillMasterOfThrowingWeapons" xml:space="preserve">
+    <value>Meister der Wurfwaffen</value>
   </data>
   <data name="Skills_SkillMomentum" xml:space="preserve">
     <value>Momentum</value>
   </data>
+  <data name="Skills_SkillNailDown" xml:space="preserve">
+    <value>Festnageln</value>
+  </data>
   <data name="Skills_SkillNatureStudy" xml:space="preserve">
     <value>Naturkunde</value>
   </data>
+  <data name="Skills_SkillNimble" xml:space="preserve">
+    <value>Flink</value>
+  </data>
+  <data name="Skills_SkillOneHandedFighting" xml:space="preserve">
+    <value>Einhändiger Kampf</value>
+  </data>
+  <data name="Skills_SkillOneshot" xml:space="preserve">
+    <value>Oneshot</value>
+  </data>
+  <data name="Skills_SkillParade" xml:space="preserve">
+    <value>Parade</value>
+  </data>
+  <data name="Skills_SkillPerfectBlock" xml:space="preserve">
+    <value>Perfekter Block</value>
+  </data>
+  <data name="Skills_SkillPerfectBlow" xml:space="preserve">
+    <value>Perfekter Schlag</value>
+  </data>
+  <data name="Skills_SkillPerfectShot" xml:space="preserve">
+    <value>Perfekter Schuss</value>
+  </data>
   <data name="Skills_SkillPerseverence" xml:space="preserve">
     <value>Ausdauernd</value>
+  </data>
+  <data name="Skills_SkillPiercingArrow" xml:space="preserve">
+    <value>Piercing Arrow</value>
   </data>
   <data name="Skills_SkillPlunge" xml:space="preserve">
     <value>Hechtsprung</value>
@@ -564,8 +741,62 @@
   <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
     <value>Gifte</value>
   </data>
+  <data name="Skills_SkillPreciseThrow" xml:space="preserve">
+    <value>Präziser Wurf</value>
+  </data>
+  <data name="Skills_SkillProfessionalSlingshotMarksman" xml:space="preserve">
+    <value>Professioneller Schleuderer</value>
+  </data>
+  <data name="Skills_SkillQuickAim" xml:space="preserve">
+    <value>Schnelles Zielen</value>
+  </data>
+  <data name="Skills_SkillQuickdraw" xml:space="preserve">
+    <value>Schnelles Spannen</value>
+  </data>
+  <data name="Skills_SkillQuickParade" xml:space="preserve">
+    <value>Schnelle Parade</value>
+  </data>
+  <data name="Skills_SkillReadiness" xml:space="preserve">
+    <value>Bereitschaft</value>
+  </data>
+  <data name="Skills_SkillRecklessAttack" xml:space="preserve">
+    <value>Reckless Attack</value>
+  </data>
+  <data name="Skills_SkillRecognizeStyle" xml:space="preserve">
+    <value>Stil erkennen</value>
+  </data>
   <data name="Skills_SkillRescueIsNear" xml:space="preserve">
     <value>Rettung naht</value>
+  </data>
+  <data name="Skills_SkillReturn" xml:space="preserve">
+    <value>Rücksendung</value>
+  </data>
+  <data name="Skills_SkillRiposte" xml:space="preserve">
+    <value>Riposte</value>
+  </data>
+  <data name="Skills_SkillRoundHouseAttack" xml:space="preserve">
+    <value>Rundum-Angriff</value>
+  </data>
+  <data name="Skills_SkillRoutinedWithThrowingWeapons" xml:space="preserve">
+    <value>Routiniert mit Wurfwaffen</value>
+  </data>
+  <data name="Skills_SkillRunOver" xml:space="preserve">
+    <value>Umrennen</value>
+  </data>
+  <data name="Skills_SkillSecondHand" xml:space="preserve">
+    <value>Zweiter Schlag</value>
+  </data>
+  <data name="Skills_SkillShield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="Skills_SkillShieldBash" xml:space="preserve">
+    <value>Schildschlag</value>
+  </data>
+  <data name="Skills_SkillShieldBreaker" xml:space="preserve">
+    <value>Schildbrecher</value>
+  </data>
+  <data name="Skills_SkillShootFromTheSaddle" xml:space="preserve">
+    <value>Vom Sattel schießen</value>
   </data>
   <data name="Skills_SkillSkilledLier" xml:space="preserve">
     <value>Erfahrener Lügner</value>
@@ -573,17 +804,50 @@
   <data name="Skills_SkillSkilledSpeaker" xml:space="preserve">
     <value>Gekonnter Redner</value>
   </data>
+  <data name="Skills_SkillSkilledWithThrowingWeapons" xml:space="preserve">
+    <value>Geschickt mit Wurfwaffen</value>
+  </data>
+  <data name="Skills_SkillSkillfulRetreat" xml:space="preserve">
+    <value>Geschickter Rückzug</value>
+  </data>
+  <data name="Skills_SkillSlingshotMarksman" xml:space="preserve">
+    <value>Schleuderschütze</value>
+  </data>
+  <data name="Skills_SkillSmithing" xml:space="preserve">
+    <value>Schmieden</value>
+  </data>
   <data name="Skills_SkillSneaking" xml:space="preserve">
     <value>Schleichen</value>
   </data>
+  <data name="Skills_SkillSomethingWithShield" xml:space="preserve">
+    <value>Irgendwas mit Schild</value>
+  </data>
+  <data name="Skills_SkillStrongArrows" xml:space="preserve">
+    <value>Starke Pfeile</value>
+  </data>
+  <data name="Skills_SkillStrongThrow" xml:space="preserve">
+    <value>Starker Wurf</value>
+  </data>
+  <data name="Skills_SkillSurpriseAttack" xml:space="preserve">
+    <value>Überraschungsangriff</value>
+  </data>
   <data name="Skills_SkillSympathic" xml:space="preserve">
     <value>Sympatisch</value>
+  </data>
+  <data name="Skills_SkillTakeAHit" xml:space="preserve">
+    <value>Take a Hit</value>
+  </data>
+  <data name="Skills_SkillTaunt" xml:space="preserve">
+    <value>Taunt</value>
   </data>
   <data name="Skills_SkillTeacher" xml:space="preserve">
     <value>Lehrer</value>
   </data>
   <data name="Skills_SkillTheft" xml:space="preserve">
     <value>Diebstahl</value>
+  </data>
+  <data name="Skills_SkillThereAndAway" xml:space="preserve">
+    <value>Hier und Weg</value>
   </data>
   <data name="Skills_SkillTracking" xml:space="preserve">
     <value>Fährtenlesen</value>
@@ -594,8 +858,14 @@
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>
   </data>
+  <data name="Skills_SkillTrueshot" xml:space="preserve">
+    <value>Trueshot</value>
+  </data>
   <data name="Skills_SkillVirtuallyInvisible" xml:space="preserve">
     <value>Quasi unsichtbar</value>
+  </data>
+  <data name="Skills_SkillWeaponsAndArmor" xml:space="preserve">
+    <value>Waffen und Rüstung</value>
   </data>
   <data name="Skill_BurningBlade" xml:space="preserve">
     <value>Flammende Klinge</value>
