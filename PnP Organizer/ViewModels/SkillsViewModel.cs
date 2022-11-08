@@ -13,7 +13,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Threading;
 using System.Threading.Tasks;
 
 namespace PnP_Organizer.ViewModels
@@ -119,7 +118,6 @@ namespace PnP_Organizer.ViewModels
                         UsedSkillPoints = SkillModels.Sum(skillModel => skillModel.SkillPoints);
                     }
                     SkillModelsView?.Refresh();
-
                 });
             }
         }
