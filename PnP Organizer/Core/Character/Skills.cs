@@ -1,6 +1,7 @@
 ﻿using PnP_Organizer.Properties;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace PnP_Organizer.Core.Character
 {
@@ -315,6 +316,22 @@ namespace PnP_Organizer.Core.Character
 
             #endregion Ranged
             #endregion Skill Definitions
+        }
+
+        public int GetSkillIndexFromName(string name)
+        {
+            int l = 0;
+            int r = SkillsList.Count - 1;
+            while(l <= r)
+            {
+                if (SkillsList[l].Name == name)
+                    return l;
+                if (SkillsList[r].Name == name)
+                    return r;
+                l++;
+                r--;
+            }
+            return -1;
         }
 
         private Skill CreateSkill(string name, SkillCategory skillCategory, int maxSkillPoints, SkillUsableType skillActivationType, string description = "") => AddSkill(new Skill(name, skillCategory, maxSkillPoints, skillActivationType, description));
