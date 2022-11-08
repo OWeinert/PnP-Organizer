@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttributeTests_Acrobatic" xml:space="preserve">
+    <value>Akrobatik</value>
+  </data>
+  <data name="AttributeTests_Athletic" xml:space="preserve">
+    <value>Athletik</value>
+  </data>
+  <data name="AttributeTests_Bluff" xml:space="preserve">
+    <value>Täuschung</value>
+  </data>
+  <data name="AttributeTests_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="AttributeTests_FirstAid" xml:space="preserve">
+    <value>Medizin</value>
+  </data>
+  <data name="AttributeTests_HandleAnimals" xml:space="preserve">
+    <value>Umgang mit Tieren</value>
+  </data>
+  <data name="AttributeTests_History" xml:space="preserve">
+    <value>Geschichte</value>
+  </data>
+  <data name="AttributeTests_Insight" xml:space="preserve">
+    <value>Einsicht</value>
+  </data>
+  <data name="AttributeTests_Inspect" xml:space="preserve">
+    <value>Untersuchen</value>
+  </data>
+  <data name="AttributeTests_Intimidate" xml:space="preserve">
+    <value>Einschüchtern</value>
+  </data>
+  <data name="AttributeTests_Nature" xml:space="preserve">
+    <value>Natur</value>
+  </data>
+  <data name="AttributeTests_OrderBy" xml:space="preserve">
+    <value>Sortieren</value>
+  </data>
+  <data name="AttributeTests_Perceive" xml:space="preserve">
+    <value>Wahrnehmung</value>
+  </data>
+  <data name="AttributeTests_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="AttributeTests_Persuade" xml:space="preserve">
+    <value>Überzeugen</value>
+  </data>
+  <data name="AttributeTests_Physique" xml:space="preserve">
+    <value>Konstitution</value>
+  </data>
+  <data name="AttributeTests_SleightOfHand" xml:space="preserve">
+    <value>Fingerfertigkeit</value>
+  </data>
+  <data name="AttributeTests_SneakHide" xml:space="preserve">
+    <value>Schleichen / Verbergen</value>
+  </data>
+  <data name="AttributeTests_TitleProfessions" xml:space="preserve">
+    <value>Professionen</value>
+  </data>
+  <data name="AttributeTests_TitleTests" xml:space="preserve">
+    <value>Tests</value>
+  </data>
+  <data name="AttributeTests_TypeCharisma" xml:space="preserve">
+    <value>Ch</value>
+  </data>
+  <data name="AttributeTests_TypeConstitution" xml:space="preserve">
+    <value>Ve</value>
+  </data>
+  <data name="AttributeTests_TypeDexterity" xml:space="preserve">
+    <value>Ge</value>
+  </data>
+  <data name="AttributeTests_TypeIntelligence" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="AttributeTests_TypeStrength" xml:space="preserve">
+    <value>St</value>
+  </data>
+  <data name="AttributeTests_TypeWisdom" xml:space="preserve">
+    <value>We</value>
+  </data>
+  <data name="Calculator_Armor" xml:space="preserve">
+    <value>Rüstung</value>
+  </data>
+  <data name="Calculator_AttackMode" xml:space="preserve">
+    <value>Angriffsmodus</value>
+  </data>
+  <data name="Calculator_BaseArmor" xml:space="preserve">
+    <value>Grundrüstung</value>
+  </data>
+  <data name="Calculator_BaseDamage" xml:space="preserve">
+    <value>Grundschaden</value>
+  </data>
+  <data name="Calculator_BaseDamageMultiplier" xml:space="preserve">
+    <value>Grundschadenmultiplikator</value>
+  </data>
+  <data name="Calculator_Calculate" xml:space="preserve">
+    <value>Berechnen</value>
+  </data>
+  <data name="Calculator_Damage" xml:space="preserve">
+    <value>Schaden</value>
+  </data>
+  <data name="Calculator_DodgeParry" xml:space="preserve">
+    <value>Ausweichen / Parieren</value>
+  </data>
+  <data name="Calculator_EndDamageMultiplier" xml:space="preserve">
+    <value>Endschadenmultiplikator</value>
+  </data>
+  <data name="Calculator_Hit" xml:space="preserve">
+    <value>Treffer</value>
+  </data>
+  <data name="Calculator_Melee" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="Calculator_Modifiers" xml:space="preserve">
+    <value>Modifikatoren</value>
+  </data>
+  <data name="Calculator_Ranged" xml:space="preserve">
+    <value>Fernkampf</value>
+  </data>
+  <data name="Container_MenuEdit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="Container_MenuExit" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="Container_MenuFile" xml:space="preserve">
+    <value>Datei</value>
+  </data>
+  <data name="Container_MenuNew" xml:space="preserve">
+    <value>Neuer Charakter</value>
+  </data>
+  <data name="Container_MenuOpen" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="Container_MenuSave" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Container_MenuSaveAs" xml:space="preserve">
+    <value>Speichern unter</value>
+  </data>
+  <data name="Container_MenuSettings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Container_NavigationAttributeTests" xml:space="preserve">
+    <value>Attribut-Tests</value>
+  </data>
+  <data name="Container_NavigationCalculator" xml:space="preserve">
+    <value>Rechner</value>
+  </data>
+  <data name="Container_NavigationDashboard" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Container_NavigationInventory" xml:space="preserve">
+    <value>Inventar</value>
+  </data>
+  <data name="Container_NavigationNotes" xml:space="preserve">
+    <value>Notizen</value>
+  </data>
+  <data name="Container_NavigationOverview" xml:space="preserve">
+    <value>Übersicht</value>
+  </data>
+  <data name="Container_NavigationSettings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Container_NavigationSkills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="Dashboard_TooltipLoadCharacter" xml:space="preserve">
+    <value>Charakter Laden</value>
+  </data>
+  <data name="Dashboard_TooltipNewCharacter" xml:space="preserve">
+    <value>Neuer Charakter</value>
+  </data>
+  <data name="Dashboard_WelcomeMessage" xml:space="preserve">
+    <value>Willkommen zurück!</value>
+  </data>
+  <data name="Dialog_ButtonCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Dialog_ButtonClear" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="Dialog_ButtonDelete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Dialog_ButtonDiscardChanges" xml:space="preserve">
+    <value>Änderungen verwerfen</value>
+  </data>
+  <data name="Dialog_ButtonNo" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="Dialog_ButtonSaveChanges" xml:space="preserve">
+    <value>Änderungen speichern</value>
+  </data>
+  <data name="Dialog_ButtonYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="Dialog_ItemClearingMessage" xml:space="preserve">
+    <value>Soll das Item wirklich zurückgesetzt werden?</value>
+  </data>
+  <data name="Dialog_ItemClearingTitle" xml:space="preserve">
+    <value>Item Zurücksetzung bestätigen</value>
+  </data>
+  <data name="Dialog_ItemDeletionMessage" xml:space="preserve">
+    <value>Soll das Item wirklich gelöscht werden?</value>
+  </data>
+  <data name="Dialog_ItemDeletionTitle" xml:space="preserve">
+    <value>Item Löschung bestätigen</value>
+  </data>
+  <data name="Dialog_NewCharacterTitle" xml:space="preserve">
+    <value>Neuen Charakter erstellen</value>
+  </data>
+  <data name="Dialog_OpenCharacterTitle" xml:space="preserve">
+    <value>Charakter öffnen</value>
+  </data>
+  <data name="Dialog_OpenImage" xml:space="preserve">
+    <value>Bild öffnen</value>
+  </data>
+  <data name="Dialog_OpenLastCharacterMessage" xml:space="preserve">
+    <value>Soll der zuletzt gespeicherte Charakter geöffnet werden?</value>
+  </data>
+  <data name="Dialog_OpenLastCharacterTitle" xml:space="preserve">
+    <value>Letzten Charakter öffnen</value>
+  </data>
+  <data name="Dialog_SaveCharacterTitle" xml:space="preserve">
+    <value>Charakter speichern</value>
+  </data>
+  <data name="Dialog_UnsavedCharacterCloseMessage" xml:space="preserve">
+    <value>Es sind nicht gespeicherte Änderungen vorhanden! Soll der Charakter vor dem Schließen gespeichert werden?</value>
+  </data>
+  <data name="Dialog_UnsavedCharacterCloseTitle" xml:space="preserve">
+    <value>Nicht gespeicherter Änderungen</value>
+  </data>
+  <data name="Dialog_UnsavedCharacterNewMessage" xml:space="preserve">
+    <value>Es gibt nicht gespeicherte Änderungen. Soll trotzdem ein neuer Charakter erstellt werden?</value>
+  </data>
+  <data name="Dialog_UnsavedCharacterOpenMessage" xml:space="preserve">
+    <value>Es gibt nicht gespeicherte Änderungen. Soll trotzdem ein anderer Charakter geöffnet werden?</value>
+  </data>
+  <data name="Inventory_PlaceholderDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Inventory_PlaceholderName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Inventory_SearchItemPlaceholder" xml:space="preserve">
+    <value>Item suchen...</value>
+  </data>
+  <data name="Inventory_TooltipAddItem" xml:space="preserve">
+    <value>Item hinzufügen</value>
+  </data>
+  <data name="Inventory_TooltipChangeColor" xml:space="preserve">
+    <value>Farbe ändern</value>
+  </data>
+  <data name="Inventory_TooltipClearItem" xml:space="preserve">
+    <value>Item zurücksetzen</value>
+  </data>
+  <data name="Inventory_TooltipDeleteItem" xml:space="preserve">
+    <value>Item löschen</value>
+  </data>
+  <data name="Overview_Age" xml:space="preserve">
+    <value>Alter</value>
+  </data>
+  <data name="Overview_AttrCharisma" xml:space="preserve">
+    <value>Charisma</value>
+  </data>
+  <data name="Overview_AttrConstitution" xml:space="preserve">
+    <value>Verfassung</value>
+  </data>
+  <data name="Overview_AttrDexterity" xml:space="preserve">
+    <value>Geschicklichkeit</value>
+  </data>
+  <data name="Overview_Attributes" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+  <data name="Overview_AttrIntelligence" xml:space="preserve">
+    <value>Intelligenz</value>
+  </data>
+  <data name="Overview_AttrStrength" xml:space="preserve">
+    <value>Stärke</value>
+  </data>
+  <data name="Overview_AttrWisdom" xml:space="preserve">
+    <value>Weisheit</value>
+  </data>
+  <data name="Overview_Energy" xml:space="preserve">
+    <value>Energie</value>
+  </data>
+  <data name="Overview_Health" xml:space="preserve">
+    <value>Lebenspunkte</value>
+  </data>
+  <data name="Overview_Height" xml:space="preserve">
+    <value>Größe</value>
+  </data>
+  <data name="Overview_Initiative" xml:space="preserve">
+    <value>Initiative</value>
+  </data>
+  <data name="Overview_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Overview_Pearls" xml:space="preserve">
+    <value>Perlen</value>
+  </data>
+  <data name="Overview_PearlsAir" xml:space="preserve">
+    <value>Luft</value>
+  </data>
+  <data name="Overview_PearlsEarth" xml:space="preserve">
+    <value>Erde</value>
+  </data>
+  <data name="Overview_PearlsFire" xml:space="preserve">
+    <value>Feuer</value>
+  </data>
+  <data name="Overview_PearlsMetal" xml:space="preserve">
+    <value>Metall</value>
+  </data>
+  <data name="Overview_PearlsWater" xml:space="preserve">
+    <value>Wasser</value>
+  </data>
+  <data name="Overview_PearlsWood" xml:space="preserve">
+    <value>Holz</value>
+  </data>
+  <data name="Overview_Stamina" xml:space="preserve">
+    <value>Ausdauer</value>
+  </data>
+  <data name="Settings_About" xml:space="preserve">
+    <value>Über PnP-Organizer</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="Settings_LogCalculations" xml:space="preserve">
+    <value>Berechnungen loggen</value>
+  </data>
+  <data name="Settings_Logging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="Settings_MaximumLogfiles" xml:space="preserve">
+    <value>Maximale Logdateien</value>
+  </data>
+  <data name="Settings_OpenLastCharacterDialogEnable" xml:space="preserve">
+    <value>"Zuletzt gespeicherten Character öffnen" Dialog</value>
+  </data>
+  <data name="Settings_Other" xml:space="preserve">
+    <value>Anderes</value>
+  </data>
+  <data name="Skills_All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Skills_Character" xml:space="preserve">
+    <value>Charakter</value>
+  </data>
+  <data name="Skills_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Skills_Locked" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="Skills_Melee" xml:space="preserve">
+    <value>Nahkampf</value>
+  </data>
+  <data name="Skills_Ranged" xml:space="preserve">
+    <value>Fernkampf</value>
+  </data>
+  <data name="Skills_SearchSkillPlaceholder" xml:space="preserve">
+    <value>Skill suchen...</value>
+  </data>
+  <data name="Skills_Skillability" xml:space="preserve">
+    <value>Skillbarkeit</value>
+  </data>
+  <data name="Skills_Skillable" xml:space="preserve">
+    <value>Skillbar</value>
+  </data>
+  <data name="Skills_Skilled" xml:space="preserve">
+    <value>Geskillt</value>
+  </data>
+  <data name="Skills_SkillTree" xml:space="preserve">
+    <value>Skill Tree</value>
+  </data>
+  <data name="Skill_BurningBlade" xml:space="preserve">
+    <value>Flammende Klinge</value>
+  </data>
+  <data name="Skill_BurningBladeDescription" xml:space="preserve">
+    <value>+ 1 * Feuerperlen Schaden</value>
+  </data>
+  <data name="Skill_EarthBow" xml:space="preserve">
+    <value>Erdwirkerbogen</value>
+  </data>
+  <data name="Skill_EarthBowDescription" xml:space="preserve">
+    <value>+1 * Erdperlen Schaden</value>
+  </data>
+  <data name="Skill_MetalActive" xml:space="preserve">
+    <value>Metallwirken Aktiv</value>
+  </data>
+  <data name="Skill_MetalActiveDescription" xml:space="preserve">
+    <value>+ 1 * Metallperlen Schaden</value>
+  </data>
+  <data name="Skill_OnGround" xml:space="preserve">
+    <value>Erdkontakt</value>
+  </data>
+  <data name="Skill_OnGroundDescription" xml:space="preserve">
+    <value>+1 * Erdperlen Schaden</value>
+  </data>
+  <data name="Skill_Speeded" xml:space="preserve">
+    <value>Gespeedet</value>
+  </data>
+  <data name="Skill_SpeededDescription" xml:space="preserve">
+    <value>+1 * Luftperlen Schaden, Parieren und Ausweichen
++0.5 * Luftperlen erhaltener Schaden</value>
+  </data>
+  <data name="Skill_WeaponProfession" xml:space="preserve">
+    <value>Waffenprofession</value>
+  </data>
+  <data name="Skill_WeaponProfessionDescription" xml:space="preserve">
+    <value>+1 Schaden</value>
+  </data>
+  <data name="Snackbar_CharacterLoaded" xml:space="preserve">
+    <value>Charakter geladen aus</value>
+  </data>
+  <data name="Snackbar_CharacterNew" xml:space="preserve">
+    <value>Neuer Charakter erstellt!</value>
+  </data>
+  <data name="Snackbar_CharacterSaved" xml:space="preserve">
+    <value>Charakter gespeichert in</value>
+  </data>
+  <data name="Snackbar_CopyToClipboard" xml:space="preserve">
+    <value>Wert wurde in die Zwischenablage kopiert</value>
+  </data>
+  <data name="Tooltip_AddImage" xml:space="preserve">
+    <value>Klicken um Bild hinzuzufügen</value>
+  </data>
+  <data name="Tooltip_CopyToClipboard" xml:space="preserve">
+    <value>In Zwischenablage kopieren</value>
+  </data>
+</root>

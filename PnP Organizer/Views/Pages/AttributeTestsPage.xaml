@@ -1,0 +1,248 @@
+﻿<ui:UiPage
+    x:Class="PnP_Organizer.Views.Pages.AttributeTestsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:local="clr-namespace:PnP_Organizer.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:p="clr-namespace:PnP_Organizer.Properties"
+    Title="SettingsPage"
+    d:DataContext="{d:DesignInstance local:AttributeTestsPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+
+    <ui:UiPage.Resources>
+        <helpers:AttributeBonusColorConverter x:Key="AttributeBonusColorConverter"/>
+        <helpers:ProfessionModelTemplateSelector x:Key="ProfessionModelTemplateSelector"/>
+    </ui:UiPage.Resources>
+    
+    <Grid Margin="24,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.33*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0"
+                    Margin="0,0,24,16">
+
+            <Grid>
+                <TextBlock Text="{x:Static p:Resources.AttributeTests_TitleTests}"
+                           VerticalAlignment="Center"
+                       FontSize="24"
+                       FontWeight="SemiBold"
+                       Margin="14,0,0,0"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,14,0">
+                    <TextBlock Text="{x:Static p:Resources.AttributeTests_Filter}"
+                           VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Margin="14,0,0,0"/>
+                    <ComboBox x:Name="FilterComboBox"
+                              MinWidth="100"
+                              SelectedIndex="0"
+                              SelectedItem="{Binding ViewModel.SelectedAttributeFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="8,0,0,0">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="{x:Static p:Resources.Skills_All}"
+                                          Tag="All"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrStrength}"
+                                          Tag="Strength"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrConstitution}"
+                                          Tag="Constitution"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrDexterity}"
+                                          Tag="Dexterity"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrWisdom}"
+                                          Tag="Wisdom"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrIntelligence}"
+                                          Tag="Intelligence"/>
+                            <ComboBoxItem Content="{x:Static p:Resources.Overview_AttrCharisma}"
+                                          Tag="Charisma"/>
+                        </ComboBox.Items>
+                    </ComboBox>
+
+                    <TextBlock Text="{x:Static p:Resources.AttributeTests_OrderBy}"
+                           VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Margin="14,0,0,0"/>
+                    <ComboBox x:Name="OrderComboBox"
+                              MinWidth="100"
+                              SelectedIndex="0"
+                              Margin="8,0,0,0">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Name A-Z"
+                                          Tag="nameAsc"/>
+                            <ComboBoxItem Content="Name Z-A"
+                                          Tag="nameDesc"/>
+                            <ComboBoxItem Content="Attribute A-Z"
+                                          Tag="attributeAsc"/>
+                            <ComboBoxItem Content="Attribute Z-A"
+                                          Tag="attributeDesc"/>
+                            <ComboBoxItem Content="Bonus Ascending"
+                                          Tag="bonusAsc"/>
+                            <ComboBoxItem Content="Bonus Descending"
+                                          Tag="bonusDesc"/>
+                        </ComboBox.Items>
+                    </ComboBox>
+                </StackPanel>
+            </Grid> 
+
+            <ui:VirtualizingItemsControl HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         ItemsSource="{Binding ViewModel.AttributeTestModelsView}"
+                                         Margin="0,16,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="AttributeTestModel">
+                        <ui:Card Margin="6"
+                             Padding="16,8,16,8"
+                             ToolTip="{Binding ToolTip}"
+                             ToolTipService.InitialShowDelay="0"
+                                 ToolTipService.Placement="Right"
+                                 ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource Self}}"
+                                 ToolTipService.IsEnabled="{Binding HasToolTip}">
+                            <ui:Card.Content>
+                                <Grid Width="200">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.66*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Viewbox Grid.Column="0"
+                                             HorizontalAlignment="Left"
+                                             MaxHeight="20">
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </Viewbox>
+
+                                    <Separator Grid.Column="1"
+                                               Margin="4,0"/>
+
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding LocalizedAttributeType}"
+                                               Foreground="{Binding Brush}"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+
+                                    <Separator Grid.Column="3"
+                                               Margin="4,0,0,0"/>
+
+                                    <Label Grid.Column="4"
+                                       Content="{Binding BonusSum}"
+                                       Foreground="{Binding BonusSum, Converter={StaticResource AttributeBonusColorConverter}}"
+                                           FontWeight="SemiBold"
+                                       HorizontalAlignment="Right"
+                                       Width="20"
+                                       HorizontalContentAlignment="Right"
+                                       Margin="0,0,0,0"/>
+                                </Grid>
+                            </ui:Card.Content>
+                        </ui:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
+        </StackPanel>
+
+        <Separator Grid.Column="1"
+                   Margin="0,0,0,8"/>
+
+        <Grid Grid.Column="2"
+              Margin="24,0,0,0">
+            <TextBlock Text="{x:Static p:Resources.AttributeTests_TitleProfessions}"
+                       VerticalAlignment="Top"
+                       FontSize="24"
+                       FontWeight="SemiBold"
+                       Margin="0,4,0,0"/>
+
+            <ui:VirtualizingItemsControl Grid.Column="2"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         ItemsSource="{Binding ViewModel.ProfessionsModels}"
+                                         ItemTemplateSelector="{StaticResource ProfessionModelTemplateSelector}"
+                                         Margin="0,54,0,0"
+                                         ScrollViewer.CanContentScroll="True"
+                                         ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ui:VirtualizingItemsControl.Resources>
+                    <DataTemplate x:Key="AddProfessionModelTemplate"
+                      DataType="AddProfessionModel">
+                        <Border MinWidth="241"
+                                Height="52"
+                                BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
+                                BorderThickness="2"
+                                CornerRadius="4"
+                                Margin="6">
+                            <ui:Button HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Appearance="Transparent"
+                                       BorderThickness="0"
+                                       Command="{Binding AddProfessionCommand}">
+                                <Button.Content>
+                                    <Viewbox MaxHeight="28">
+                                        <ui:SymbolIcon Symbol="AddCircle28"
+                                                       Filled="True"
+                                                       Foreground="{DynamicResource ControlFillColorSecondaryBrush}"/>
+                                    </Viewbox>
+                                </Button.Content>
+                            </ui:Button>
+                        </Border>
+                    </DataTemplate>
+                    <DataTemplate x:Key="ProfessionModelTemplate"
+                      DataType="ProfessionModel">
+                        <ui:Card Margin="6"
+                                 MinWidth="240"
+                                 Height="Auto"
+                                 Padding="16,8,16,8">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox MaxWidth="140"
+                                          MinWidth="140"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          FontSize="12"
+                                          ItemsSource="{Binding ViewModel.AttributeTestModels}"
+                                          SelectedItem="{Binding SelectedAttributeTest, Mode=TwoWay}"
+                                          DisplayMemberPath="Name"
+                                              Margin="0,1,8,0"/>
+
+                                    <ui:NumberBox Text="{Binding Bonus, Mode=TwoWay}"
+                                              Value="{Binding Bonus, Mode=TwoWay}"
+                                              MinWidth="44"
+                                              MaxWidth="44"
+                                              FontSize="13"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              IntegersOnly="True"
+                                              SpinButtonsEnabled="False"
+                                              ClearButtonEnabled="False"
+                                              Min="-99"
+                                              Max="99"
+                                              MouseWheel="NumberBox_MouseWheel"
+                                              IsEnabled="{Binding IsAttributeTestSelected}"/>
+                                </StackPanel>
+
+                                <ui:Button HorizontalAlignment="Right"
+                                           VerticalAlignment="Bottom"
+                                           Icon="Delete12"
+                                           Padding="0"
+                                           Margin="0,0,-12,-4"
+                                           Command="{Binding DeleteCommand}"/>
+                            </Grid>
+                        </ui:Card>
+                    </DataTemplate>
+                </ui:VirtualizingItemsControl.Resources>
+            </ui:VirtualizingItemsControl>
+        </Grid>
+
+    </Grid>
+</ui:UiPage>
