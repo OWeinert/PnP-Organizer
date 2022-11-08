@@ -1,7 +1,7 @@
 ﻿using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.IO;
-using PnP_Organizer.Debug;
+using PnP_Organizer.Logging;
 using System;
 using System.Drawing;
 using System.Globalization;
