@@ -144,7 +144,8 @@
                                      MaxWidth="900"
                                      Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                      ItemsSource="{Binding ViewModel.SkillModelsView, Mode=TwoWay}"
-                                     VirtualizingPanel.CacheLengthUnit="Item"
+                                     VirtualizingPanel.CacheLengthUnit="Page"
+                                     ScrollViewer.CanContentScroll="True"
                                      Margin="-64,10,8,0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:SkillModel}">
@@ -156,7 +157,7 @@
                                 Background="{Binding Brush}"
                                 CornerRadius="8"
                                 Padding="0"
-                                Margin="6">
+                                Margin="16">
                         <Border.Effect>
                             <DropShadowEffect Opacity="0.25" Direction="-90" BlurRadius="2" ShadowDepth="2"/>
                         </Border.Effect>
