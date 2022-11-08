@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using PnP_Organizer.Debug;
+using PnP_Organizer.Logging;
 using PnP_Organizer.IO;
 using PnP_Organizer.Views;
 using System;

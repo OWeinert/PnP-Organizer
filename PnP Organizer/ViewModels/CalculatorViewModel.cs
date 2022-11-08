@@ -2,7 +2,7 @@
 using PnP_Organizer.Calculators;
 using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
-using PnP_Organizer.Debug;
+using PnP_Organizer.Logging;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using PnP_Organizer.Views.Pages;

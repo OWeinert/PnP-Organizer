@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character;
-using PnP_Organizer.Debug;
+using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Services;
 using System.IO;
