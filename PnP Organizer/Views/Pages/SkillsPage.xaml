@@ -217,13 +217,28 @@
                                                    Icon="Subtract24"
                                                    Click="SPButton_Click"/>
 
-                                    <TextBlock Text="{Binding AcquiredSkillPoints}"
-                                                   HorizontalAlignment="Center"
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                MaxWidth="90">
+                                        <TextBlock Text="{Binding SkillPoints}"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,0,0,2"/>
+                                        <TextBlock Text=" / "
                                                    VerticalAlignment="Center"
                                                    MaxWidth="90"
                                                    FontSize="16"
                                                    FontWeight="SemiBold"
                                                    Margin="0,0,0,2"/>
+                                        <TextBlock Text="{Binding MaxSkillPoints}"
+                                                   VerticalAlignment="Center"
+                                                   MaxWidth="90"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,0,0,2"/>
+                                    </StackPanel>
 
                                     <ui:Button x:Name="SPIncreaseButton"
                                                    HorizontalAlignment="Right"
