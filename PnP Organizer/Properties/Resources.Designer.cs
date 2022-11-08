@@ -1295,6 +1295,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actor by Birth.
+        /// </summary>
+        public static string Skills_SkillActorByBirth {
+            get {
+                return ResourceManager.GetString("Skills_SkillActorByBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agressive Fighting.
         /// </summary>
         public static string Skills_SkillAgressiveFighting {
@@ -1318,6 +1327,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillAimedAttackRanged {
             get {
                 return ResourceManager.GetString("Skills_SkillAimedAttackRanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alertness.
+        /// </summary>
+        public static string Skills_SkillAlertness {
+            get {
+                return ResourceManager.GetString("Skills_SkillAlertness", resourceCulture);
             }
         }
         
@@ -1363,6 +1381,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillAttackOfOpportunity {
             get {
                 return ResourceManager.GetString("Skills_SkillAttackOfOpportunity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avenger.
+        /// </summary>
+        public static string Skills_SkillAvenger {
+            get {
+                return ResourceManager.GetString("Skills_SkillAvenger", resourceCulture);
             }
         }
         
@@ -1439,11 +1466,38 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Climbing.
+        /// </summary>
+        public static string Skills_SkillClimbing {
+            get {
+                return ResourceManager.GetString("Skills_SkillClimbing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Combo.
         /// </summary>
         public static string Skills_SkillCombo {
             get {
                 return ResourceManager.GetString("Skills_SkillCombo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command Tone.
+        /// </summary>
+        public static string Skills_SkillCommandTone {
+            get {
+                return ResourceManager.GetString("Skills_SkillCommandTone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counterfeiting.
+        /// </summary>
+        public static string Skills_SkillCounterfeiting {
+            get {
+                return ResourceManager.GetString("Skills_SkillCounterfeiting", resourceCulture);
             }
         }
         
@@ -1547,6 +1601,33 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encouragement.
+        /// </summary>
+        public static string Skills_SkillEncouragement {
+            get {
+                return ResourceManager.GetString("Skills_SkillEncouragement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy Boost.
+        /// </summary>
+        public static string Skills_SkillEnergyBoost {
+            get {
+                return ResourceManager.GetString("Skills_SkillEnergyBoost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Etiquette.
+        /// </summary>
+        public static string Skills_SkillEtiquette {
+            get {
+                return ResourceManager.GetString("Skills_SkillEtiquette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Every Blow a Hit.
         /// </summary>
         public static string Skills_SkillEveryBlowAHit {
@@ -1574,6 +1655,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flirting.
+        /// </summary>
+        public static string Skills_SkillFlirting {
+            get {
+                return ResourceManager.GetString("Skills_SkillFlirting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Damage.
         /// </summary>
         public static string Skills_SkillFullDamage {
@@ -1583,11 +1673,47 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Future Market.
+        /// </summary>
+        public static string Skills_SkillFutureMarket {
+            get {
+                return ResourceManager.GetString("Skills_SkillFutureMarket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gambling.
+        /// </summary>
+        public static string Skills_SkillGambling {
+            get {
+                return ResourceManager.GetString("Skills_SkillGambling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hard to Kill.
+        /// </summary>
+        public static string Skills_SkillHardToKill {
+            get {
+                return ResourceManager.GetString("Skills_SkillHardToKill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Headshot.
         /// </summary>
         public static string Skills_SkillHeadshot {
             get {
                 return ResourceManager.GetString("Skills_SkillHeadshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Healing.
+        /// </summary>
+        public static string Skills_SkillHealing {
+            get {
+                return ResourceManager.GetString("Skills_SkillHealing", resourceCulture);
             }
         }
         
@@ -1637,6 +1763,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Intimidate.
+        /// </summary>
+        public static string Skills_SkillIntimidate {
+            get {
+                return ResourceManager.GetString("Skills_SkillIntimidate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jump Attack.
         /// </summary>
         public static string Skills_SkillJumpAttack {
@@ -1664,11 +1799,38 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Knowledge of People.
+        /// </summary>
+        public static string Skills_SkillKnowledgeOfPeople {
+            get {
+                return ResourceManager.GetString("Skills_SkillKnowledgeOfPeople", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Breath.
+        /// </summary>
+        public static string Skills_SkillLastBreath {
+            get {
+                return ResourceManager.GetString("Skills_SkillLastBreath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Shot.
         /// </summary>
         public static string Skills_SkillLastShot {
             get {
                 return ResourceManager.GetString("Skills_SkillLastShot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lie Detector.
+        /// </summary>
+        public static string Skills_SkillLieDetector {
+            get {
+                return ResourceManager.GetString("Skills_SkillLieDetector", resourceCulture);
             }
         }
         
@@ -1691,11 +1853,29 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lockpicking.
+        /// </summary>
+        public static string Skills_SkillLockpicking {
+            get {
+                return ResourceManager.GetString("Skills_SkillLockpicking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lone Warrior.
         /// </summary>
         public static string Skills_SkillLoneWarrior {
             get {
                 return ResourceManager.GetString("Skills_SkillLoneWarrior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luck.
+        /// </summary>
+        public static string Skills_SkillLuck {
+            get {
+                return ResourceManager.GetString("Skills_SkillLuck", resourceCulture);
             }
         }
         
@@ -1736,11 +1916,29 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Momentum.
+        /// </summary>
+        public static string Skills_SkillMomentum {
+            get {
+                return ResourceManager.GetString("Skills_SkillMomentum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nail Down.
         /// </summary>
         public static string Skills_SkillNailDown {
             get {
                 return ResourceManager.GetString("Skills_SkillNailDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nature Study.
+        /// </summary>
+        public static string Skills_SkillNatureStudy {
+            get {
+                return ResourceManager.GetString("Skills_SkillNatureStudy", resourceCulture);
             }
         }
         
@@ -1808,11 +2006,38 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perseverence.
+        /// </summary>
+        public static string Skills_SkillPerseverence {
+            get {
+                return ResourceManager.GetString("Skills_SkillPerseverence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Piercing Arrow.
         /// </summary>
         public static string Skills_SkillPiercingArrow {
             get {
                 return ResourceManager.GetString("Skills_SkillPiercingArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plunge.
+        /// </summary>
+        public static string Skills_SkillPlunge {
+            get {
+                return ResourceManager.GetString("Skills_SkillPlunge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poison Knowledge.
+        /// </summary>
+        public static string Skills_SkillPoisonKnowledge {
+            get {
+                return ResourceManager.GetString("Skills_SkillPoisonKnowledge", resourceCulture);
             }
         }
         
@@ -1885,6 +2110,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillRecognizeStyle {
             get {
                 return ResourceManager.GetString("Skills_SkillRecognizeStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescue is near.
+        /// </summary>
+        public static string Skills_SkillRescueIsNear {
+            get {
+                return ResourceManager.GetString("Skills_SkillRescueIsNear", resourceCulture);
             }
         }
         
@@ -1979,6 +2213,24 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skilled Lier.
+        /// </summary>
+        public static string Skills_SkillSkilledLier {
+            get {
+                return ResourceManager.GetString("Skills_SkillSkilledLier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skilled Speaker.
+        /// </summary>
+        public static string Skills_SkillSkilledSpeaker {
+            get {
+                return ResourceManager.GetString("Skills_SkillSkilledSpeaker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skilled with Throwing Weapons.
         /// </summary>
         public static string Skills_SkillSkilledWithThrowingWeapons {
@@ -2011,6 +2263,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillSmithing {
             get {
                 return ResourceManager.GetString("Skills_SkillSmithing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sneaking.
+        /// </summary>
+        public static string Skills_SkillSneaking {
+            get {
+                return ResourceManager.GetString("Skills_SkillSneaking", resourceCulture);
             }
         }
         
@@ -2051,6 +2312,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sympathic.
+        /// </summary>
+        public static string Skills_SkillSympathic {
+            get {
+                return ResourceManager.GetString("Skills_SkillSympathic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take a Hit.
         /// </summary>
         public static string Skills_SkillTakeAHit {
@@ -2069,11 +2339,47 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teacher.
+        /// </summary>
+        public static string Skills_SkillTeacher {
+            get {
+                return ResourceManager.GetString("Skills_SkillTeacher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theft.
+        /// </summary>
+        public static string Skills_SkillTheft {
+            get {
+                return ResourceManager.GetString("Skills_SkillTheft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There and Away.
         /// </summary>
         public static string Skills_SkillThereAndAway {
             get {
                 return ResourceManager.GetString("Skills_SkillThereAndAway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tracking.
+        /// </summary>
+        public static string Skills_SkillTracking {
+            get {
+                return ResourceManager.GetString("Skills_SkillTracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trading.
+        /// </summary>
+        public static string Skills_SkillTrading {
+            get {
+                return ResourceManager.GetString("Skills_SkillTrading", resourceCulture);
             }
         }
         
@@ -2092,6 +2398,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillTrueshot {
             get {
                 return ResourceManager.GetString("Skills_SkillTrueshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtually Invisible.
+        /// </summary>
+        public static string Skills_SkillVirtuallyInvisible {
+            get {
+                return ResourceManager.GetString("Skills_SkillVirtuallyInvisible", resourceCulture);
             }
         }
         

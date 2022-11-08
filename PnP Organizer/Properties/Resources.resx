@@ -492,6 +492,9 @@
   <data name="Skills_SkillAccurateRanged" xml:space="preserve">
     <value>Accurate</value>
   </data>
+  <data name="Skills_SkillActorByBirth" xml:space="preserve">
+    <value>Actor by Birth</value>
+  </data>
   <data name="Skills_SkillAgressiveFighting" xml:space="preserve">
     <value>Agressive Fighting</value>
   </data>
@@ -500,6 +503,9 @@
   </data>
   <data name="Skills_SkillAimedAttackRanged" xml:space="preserve">
     <value>Aimed Attack</value>
+  </data>
+  <data name="Skills_SkillAlertness" xml:space="preserve">
+    <value>Alertness</value>
   </data>
   <data name="Skills_SkillArmor" xml:space="preserve">
     <value>Armor</value>
@@ -515,6 +521,9 @@
   </data>
   <data name="Skills_SkillAttackOfOpportunity" xml:space="preserve">
     <value>Attack of Opportunity</value>
+  </data>
+  <data name="Skills_SkillAvenger" xml:space="preserve">
+    <value>Avenger</value>
   </data>
   <data name="Skills_SkillBackLine" xml:space="preserve">
     <value>Backline</value>
@@ -540,8 +549,17 @@
   <data name="Skills_SkillChainAttack" xml:space="preserve">
     <value>Chain Attack</value>
   </data>
+  <data name="Skills_SkillClimbing" xml:space="preserve">
+    <value>Climbing</value>
+  </data>
   <data name="Skills_SkillCombo" xml:space="preserve">
     <value>Combo</value>
+  </data>
+  <data name="Skills_SkillCommandTone" xml:space="preserve">
+    <value>Command Tone</value>
+  </data>
+  <data name="Skills_SkillCounterfeiting" xml:space="preserve">
+    <value>Counterfeiting</value>
   </data>
   <data name="Skills_SkillCripplingBlow" xml:space="preserve">
     <value>Crippling Blow</value>
@@ -576,6 +594,15 @@
   <data name="Skills_Skilled" xml:space="preserve">
     <value>Skilled</value>
   </data>
+  <data name="Skills_SkillEncouragement" xml:space="preserve">
+    <value>Encouragement</value>
+  </data>
+  <data name="Skills_SkillEnergyBoost" xml:space="preserve">
+    <value>Energy Boost</value>
+  </data>
+  <data name="Skills_SkillEtiquette" xml:space="preserve">
+    <value>Etiquette</value>
+  </data>
   <data name="Skills_SkillEveryBlowAHit" xml:space="preserve">
     <value>Every Blow a Hit</value>
   </data>
@@ -585,11 +612,26 @@
   <data name="Skills_SkillFencing" xml:space="preserve">
     <value>Fencing</value>
   </data>
+  <data name="Skills_SkillFlirting" xml:space="preserve">
+    <value>Flirting</value>
+  </data>
   <data name="Skills_SkillFullDamage" xml:space="preserve">
     <value>Full Damage</value>
   </data>
+  <data name="Skills_SkillFutureMarket" xml:space="preserve">
+    <value>Future Market</value>
+  </data>
+  <data name="Skills_SkillGambling" xml:space="preserve">
+    <value>Gambling</value>
+  </data>
+  <data name="Skills_SkillHardToKill" xml:space="preserve">
+    <value>Hard to Kill</value>
+  </data>
   <data name="Skills_SkillHeadshot" xml:space="preserve">
     <value>Headshot</value>
+  </data>
+  <data name="Skills_SkillHealing" xml:space="preserve">
+    <value>Healing</value>
   </data>
   <data name="Skills_SkillHeavyFighting" xml:space="preserve">
     <value>Heavy Fighting</value>
@@ -606,6 +648,9 @@
   <data name="Skills_SkillHuntersMark" xml:space="preserve">
     <value>Hunter's Mark</value>
   </data>
+  <data name="Skills_SkillIntimidate" xml:space="preserve">
+    <value>Intimidate</value>
+  </data>
   <data name="Skills_SkillJumpAttack" xml:space="preserve">
     <value>Jump Attack</value>
   </data>
@@ -615,8 +660,17 @@
   <data name="Skills_SkillKillingSpree" xml:space="preserve">
     <value>Killing Spree</value>
   </data>
+  <data name="Skills_SkillKnowledgeOfPeople" xml:space="preserve">
+    <value>Knowledge of People</value>
+  </data>
+  <data name="Skills_SkillLastBreath" xml:space="preserve">
+    <value>Last Breath</value>
+  </data>
   <data name="Skills_SkillLastShot" xml:space="preserve">
     <value>Last Shot</value>
+  </data>
+  <data name="Skills_SkillLieDetector" xml:space="preserve">
+    <value>Lie Detector</value>
   </data>
   <data name="Skills_SkillLightBlow" xml:space="preserve">
     <value>Light Blow</value>
@@ -624,8 +678,14 @@
   <data name="Skills_SkillLightShot" xml:space="preserve">
     <value>Light Shot</value>
   </data>
+  <data name="Skills_SkillLockpicking" xml:space="preserve">
+    <value>Lockpicking</value>
+  </data>
   <data name="Skills_SkillLoneWarrior" xml:space="preserve">
     <value>Lone Warrior</value>
+  </data>
+  <data name="Skills_SkillLuck" xml:space="preserve">
+    <value>Luck</value>
   </data>
   <data name="Skills_SkillLuckyShot" xml:space="preserve">
     <value>Lucky Shot</value>
@@ -639,8 +699,14 @@
   <data name="Skills_SkillMasterOfThrowingWeapons" xml:space="preserve">
     <value>Master of Throwing Weapons</value>
   </data>
+  <data name="Skills_SkillMomentum" xml:space="preserve">
+    <value>Momentum</value>
+  </data>
   <data name="Skills_SkillNailDown" xml:space="preserve">
     <value>Nail Down</value>
+  </data>
+  <data name="Skills_SkillNatureStudy" xml:space="preserve">
+    <value>Nature Study</value>
   </data>
   <data name="Skills_SkillNimble" xml:space="preserve">
     <value>Nimble</value>
@@ -663,8 +729,17 @@
   <data name="Skills_SkillPerfectShot" xml:space="preserve">
     <value>Perfect Shot</value>
   </data>
+  <data name="Skills_SkillPerseverence" xml:space="preserve">
+    <value>Perseverence</value>
+  </data>
   <data name="Skills_SkillPiercingArrow" xml:space="preserve">
     <value>Piercing Arrow</value>
+  </data>
+  <data name="Skills_SkillPlunge" xml:space="preserve">
+    <value>Plunge</value>
+  </data>
+  <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
+    <value>Poison Knowledge</value>
   </data>
   <data name="Skills_SkillPreciseThrow" xml:space="preserve">
     <value>Precise Throw</value>
@@ -689,6 +764,9 @@
   </data>
   <data name="Skills_SkillRecognizeStyle" xml:space="preserve">
     <value>Recognize Style</value>
+  </data>
+  <data name="Skills_SkillRescueIsNear" xml:space="preserve">
+    <value>Rescue is near</value>
   </data>
   <data name="Skills_SkillReturn" xml:space="preserve">
     <value>Return</value>
@@ -720,6 +798,12 @@
   <data name="Skills_SkillShootFromTheSaddle" xml:space="preserve">
     <value>Shoot from the Saddle</value>
   </data>
+  <data name="Skills_SkillSkilledLier" xml:space="preserve">
+    <value>Skilled Lier</value>
+  </data>
+  <data name="Skills_SkillSkilledSpeaker" xml:space="preserve">
+    <value>Skilled Speaker</value>
+  </data>
   <data name="Skills_SkillSkilledWithThrowingWeapons" xml:space="preserve">
     <value>Skilled with Throwing Weapons</value>
   </data>
@@ -731,6 +815,9 @@
   </data>
   <data name="Skills_SkillSmithing" xml:space="preserve">
     <value>Smithing</value>
+  </data>
+  <data name="Skills_SkillSneaking" xml:space="preserve">
+    <value>Sneaking</value>
   </data>
   <data name="Skills_SkillSomethingWithShield" xml:space="preserve">
     <value>Something with Shield</value>
@@ -744,20 +831,38 @@
   <data name="Skills_SkillSurpriseAttack" xml:space="preserve">
     <value>Surprise Attack</value>
   </data>
+  <data name="Skills_SkillSympathic" xml:space="preserve">
+    <value>Sympathic</value>
+  </data>
   <data name="Skills_SkillTakeAHit" xml:space="preserve">
     <value>Take a Hit</value>
   </data>
   <data name="Skills_SkillTaunt" xml:space="preserve">
     <value>Taunt</value>
   </data>
+  <data name="Skills_SkillTeacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="Skills_SkillTheft" xml:space="preserve">
+    <value>Theft</value>
+  </data>
   <data name="Skills_SkillThereAndAway" xml:space="preserve">
     <value>There and Away</value>
+  </data>
+  <data name="Skills_SkillTracking" xml:space="preserve">
+    <value>Tracking</value>
+  </data>
+  <data name="Skills_SkillTrading" xml:space="preserve">
+    <value>Trading</value>
   </data>
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>
   </data>
   <data name="Skills_SkillTrueshot" xml:space="preserve">
     <value>Trueshot</value>
+  </data>
+  <data name="Skills_SkillVirtuallyInvisible" xml:space="preserve">
+    <value>Virtually Invisible</value>
   </data>
   <data name="Skills_SkillWeaponsAndArmor" xml:space="preserve">
     <value>Weapons and Armor</value>
