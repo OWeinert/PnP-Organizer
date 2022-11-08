@@ -486,11 +486,116 @@
   <data name="Skills_Skillable" xml:space="preserve">
     <value>Skillbar</value>
   </data>
+  <data name="Skills_SkillActorByBirth" xml:space="preserve">
+    <value>Geborener Schauspieler</value>
+  </data>
+  <data name="Skills_SkillAlertness" xml:space="preserve">
+    <value>Aufmerksam</value>
+  </data>
+  <data name="Skills_SkillAvenger" xml:space="preserve">
+    <value>Rächer</value>
+  </data>
+  <data name="Skills_SkillClimbing" xml:space="preserve">
+    <value>Klettern</value>
+  </data>
+  <data name="Skills_SkillCommandTone" xml:space="preserve">
+    <value>Befehlston</value>
+  </data>
+  <data name="Skills_SkillCounterfeiting" xml:space="preserve">
+    <value>Fälschen</value>
+  </data>
   <data name="Skills_Skilled" xml:space="preserve">
     <value>Geskillt</value>
   </data>
+  <data name="Skills_SkillEncouragement" xml:space="preserve">
+    <value>Ansporn</value>
+  </data>
+  <data name="Skills_SkillEnergyBoost" xml:space="preserve">
+    <value>Energie-Schub</value>
+  </data>
+  <data name="Skills_SkillEtiquette" xml:space="preserve">
+    <value>Etikette</value>
+  </data>
+  <data name="Skills_SkillFlirting" xml:space="preserve">
+    <value>Flirten</value>
+  </data>
+  <data name="Skills_SkillFutureMarket" xml:space="preserve">
+    <value>Future Market</value>
+  </data>
+  <data name="Skills_SkillGambling" xml:space="preserve">
+    <value>Glücksspiel</value>
+  </data>
+  <data name="Skills_SkillHardToKill" xml:space="preserve">
+    <value>Schwer zu töten</value>
+  </data>
+  <data name="Skills_SkillHealing" xml:space="preserve">
+    <value>Heilung</value>
+  </data>
+  <data name="Skills_SkillIntimidate" xml:space="preserve">
+    <value>Einschüchtern</value>
+  </data>
+  <data name="Skills_SkillKnowledgeOfPeople" xml:space="preserve">
+    <value>Menschenkenntnis</value>
+  </data>
+  <data name="Skills_SkillLastBreath" xml:space="preserve">
+    <value>Last Breath</value>
+  </data>
+  <data name="Skills_SkillLieDetector" xml:space="preserve">
+    <value>Lügendetektor</value>
+  </data>
+  <data name="Skills_SkillLockpicking" xml:space="preserve">
+    <value>Schlösser knacken</value>
+  </data>
+  <data name="Skills_SkillLuck" xml:space="preserve">
+    <value>Glück</value>
+  </data>
+  <data name="Skills_SkillMomentum" xml:space="preserve">
+    <value>Momentum</value>
+  </data>
+  <data name="Skills_SkillNatureStudy" xml:space="preserve">
+    <value>Naturkunde</value>
+  </data>
+  <data name="Skills_SkillPerseverence" xml:space="preserve">
+    <value>Ausdauernd</value>
+  </data>
+  <data name="Skills_SkillPlunge" xml:space="preserve">
+    <value>Hechtsprung</value>
+  </data>
+  <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
+    <value>Gifte</value>
+  </data>
+  <data name="Skills_SkillRescueIsNear" xml:space="preserve">
+    <value>Rettung naht</value>
+  </data>
+  <data name="Skills_SkillSkilledLier" xml:space="preserve">
+    <value>Erfahrener Lügner</value>
+  </data>
+  <data name="Skills_SkillSkilledSpeaker" xml:space="preserve">
+    <value>Gekonnter Redner</value>
+  </data>
+  <data name="Skills_SkillSneaking" xml:space="preserve">
+    <value>Schleichen</value>
+  </data>
+  <data name="Skills_SkillSympathic" xml:space="preserve">
+    <value>Sympatisch</value>
+  </data>
+  <data name="Skills_SkillTeacher" xml:space="preserve">
+    <value>Lehrer</value>
+  </data>
+  <data name="Skills_SkillTheft" xml:space="preserve">
+    <value>Diebstahl</value>
+  </data>
+  <data name="Skills_SkillTracking" xml:space="preserve">
+    <value>Fährtenlesen</value>
+  </data>
+  <data name="Skills_SkillTrading" xml:space="preserve">
+    <value>Handel</value>
+  </data>
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>
+  </data>
+  <data name="Skills_SkillVirtuallyInvisible" xml:space="preserve">
+    <value>Quasi unsichtbar</value>
   </data>
   <data name="Skill_BurningBlade" xml:space="preserve">
     <value>Flammende Klinge</value>
