@@ -35,6 +35,8 @@ bld/
 
 # Setup Project
 PnPOrganizerSetup/
+PnPOrganizerSetup-cache/
+PnPOrganizerSetup-SetupFiles/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
