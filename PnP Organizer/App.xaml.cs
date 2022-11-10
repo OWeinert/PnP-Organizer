@@ -1,18 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PnP_Organizer.Core;
-using PnP_Organizer.Core.Character;
-using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Services;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 

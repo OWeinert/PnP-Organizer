@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core.Character;
-using PnP_Organizer.Logging;
 using PnP_Organizer.IO;
+using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Properties;
 using System;
@@ -10,10 +10,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Threading.Tasks;
 
 namespace PnP_Organizer.ViewModels
 {

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using PnP_Organizer.Views;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace PnP_Organizer.Core
 {

@@ -4,7 +4,6 @@ using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace PnP_Organizer.Models
 {

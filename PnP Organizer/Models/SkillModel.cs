@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.Options;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using System.Collections.Generic;

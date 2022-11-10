@@ -1,10 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Controls.Events;
+﻿using PnP_Organizer.Controls.Events;
 using PnP_Organizer.Models;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

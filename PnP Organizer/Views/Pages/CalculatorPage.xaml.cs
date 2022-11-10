@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
