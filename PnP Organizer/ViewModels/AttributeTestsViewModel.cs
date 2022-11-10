@@ -4,12 +4,8 @@ using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 

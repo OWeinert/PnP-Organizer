@@ -1,5 +1,4 @@
-﻿using PnP_Organizer.IO;
-using Wpf.Ui.Common.Interfaces;
+﻿using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.Views.Pages

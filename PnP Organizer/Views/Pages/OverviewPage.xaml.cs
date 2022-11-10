@@ -3,7 +3,6 @@ using PnP_Organizer.IO;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;

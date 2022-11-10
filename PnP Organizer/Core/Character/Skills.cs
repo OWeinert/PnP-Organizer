@@ -1,7 +1,6 @@
 ﻿using PnP_Organizer.Properties;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace PnP_Organizer.Core.Character
 {

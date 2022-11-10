@@ -1,19 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Windows.Input;
-using Wpf.Ui.Common.Interfaces;
-using System.Collections.ObjectModel;
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using PnP_Organizer.IO;
-using System.Linq;
-using System.Threading;
-using System.Globalization;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core.IO;
-using System.Windows.Markup;
-using System.Windows;
-using System.Xaml;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using Wpf.Ui.Common.Interfaces;
 
 namespace PnP_Organizer.ViewModels
 {

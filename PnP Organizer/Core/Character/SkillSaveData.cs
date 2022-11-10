@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PnP_Organizer.Core.Character
+﻿namespace PnP_Organizer.Core.Character
 {
     /// <summary>
     /// Simplified Skill which only contains it's index in the Skills.SkilList and the currently invested SkillPoints

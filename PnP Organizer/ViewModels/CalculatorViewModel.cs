@@ -3,17 +3,13 @@ using PnP_Organizer.Calculators;
 using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Logging;
-using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using PnP_Organizer.Views.Pages;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Windows.Media;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
