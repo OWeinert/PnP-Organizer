@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using PnP_Organizer.IO;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -63,8 +64,9 @@ namespace PnP_Organizer.Views.Pages
                 textRange.Load(ms, DataFormats.Xaml);
         }
 
-        private void RootTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private async void RootTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            await Task.CompletedTask;
             FileIO.IsCharacterSaved = false;
         }
 
@@ -75,9 +77,9 @@ namespace PnP_Organizer.Views.Pages
             textRange.ApplyPropertyValue(TextElement.ForegroundProperty, ColorPickerBG);
         }
 
-        private void ExportButton_Click(object sender, RoutedEventArgs e) => ExportDocument();
+        private async void ExportButton_Click(object sender, RoutedEventArgs e) => await ExportDocument();
 
-        private void ExportDocument()
+        private async Task ExportDocument()
         {
             SaveFileDialog saveDialog = new()
             {
@@ -109,7 +111,7 @@ namespace PnP_Organizer.Views.Pages
                     docContent.Save(fs, dataFormat);
                 }
             }
-            _ = _snackbarControl.ShowAsync("Notes saved to:", $"\"{saveDialog.FileName}\"", Wpf.Ui.Common.SymbolRegular.Save28);
+            await _snackbarControl.ShowAsync("Notes saved to:", $"\"{saveDialog.FileName}\"", Wpf.Ui.Common.SymbolRegular.Save28);
         }
     }
 }
