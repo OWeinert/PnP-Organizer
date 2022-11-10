@@ -41,8 +41,6 @@ namespace PnP_Organizer.Models
         private Visibility _activeOverlayVisibility = Visibility.Hidden;
         [ObservableProperty]
         private Visibility _skillableOverlayVisibility = Visibility.Hidden;
-        [ObservableProperty]
-        private string _acquiredSkillPoints = "0/0";
 
         [ObservableProperty]
         private List<SkillModel>? _children;
@@ -99,10 +97,7 @@ namespace PnP_Organizer.Models
         {
             IsActive = _skill.IsActive();
             UpdateOverlay();
-            UpdateAcquiredSkillPoints();
         }
-
-        private void UpdateAcquiredSkillPoints() => AcquiredSkillPoints = $"{SkillPoints} / {MaxSkillPoints}";
 
         private void UpdateOverlay()
         {

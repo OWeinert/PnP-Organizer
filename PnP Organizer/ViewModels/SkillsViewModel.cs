@@ -13,6 +13,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace PnP_Organizer.ViewModels
 {
@@ -90,40 +91,44 @@ namespace PnP_Organizer.ViewModels
             Logger.Log($"{SkillModels.Count} SkillModels for {Skills.Instance.SkillsList.Count} Skills initialized");
         }
 
-        private void SkillModels_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private async void SkillModels_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach(SkillModel skillModel in e.NewItems!)
                     {
-                        CheckSkillModelSkillability(skillModel);
+                        await CheckSkillModelSkillability(skillModel);
                         skillModel.PropertyChanged += new PropertyChangedEventHandler(SkillModel_PropertyChanged);
                     }
                     break;
             }
         }
 
-        private void SkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private async void SkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             SkillModel? senderSkillModel = (SkillModel?)sender;
             if (senderSkillModel != null && e.PropertyName is nameof(senderSkillModel.SkillPoints))
             {
-                foreach(SkillModel skillModel in SkillModels!)
+                await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    CheckSkillModelSkillability(skillModel);
-                    UsedSkillPoints = SkillModels.Sum(skillModel => skillModel.SkillPoints);
-                }
+                    foreach (SkillModel skillModel in SkillModels!)
+                    {
+                        await CheckSkillModelSkillability(skillModel);
+                        UsedSkillPoints = SkillModels.Sum(skillModel => skillModel.SkillPoints);
+                    }
+                    SkillModelsView?.Refresh();
+                });
             }
-            SkillModelsView?.Refresh();
         }
 
-        private void CheckSkillModelSkillability(SkillModel skillModel)
+        private async Task CheckSkillModelSkillability(SkillModel skillModel)
         {
             List<string> dependedActiveSkills = SkillModels!
                 .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill.DependendSkillNames.Contains(dependendSkill.Name))
                 .ToList().ConvertAll(skillModel => skillModel.Name);
             skillModel.IsSkillable = (dependedActiveSkills.Any() || !skillModel.Skill.DependendSkillNames.Any()) && skillModel.Skill.IsSkillable();
+            await Task.CompletedTask;
         }
 
         private void SelectedTreeFilterIndexChanged(object? sender, PropertyChangedEventArgs e)

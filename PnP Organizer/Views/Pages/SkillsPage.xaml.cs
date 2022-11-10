@@ -24,43 +24,51 @@ namespace PnP_Organizer.Views.Pages
         }
 
         // TODO SPButton_Click move logic to ViewModel
-        private void SPButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void SPButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            WpfUiButton button = (WpfUiButton)sender;
-            SkillModel dataSkillModel = ViewModel.SkillModels![Core.Character.Skills.Instance.GetSkillIndexFromName(((SkillModel)button.DataContext).Name)];
-            SkillModel visualSkillModel = (SkillModel)button.DataContext;
-            switch (button.Tag)
+            await Dispatcher.InvokeAsync(() =>
             {
-                case "spIncrease":
-                    dataSkillModel.SkillPoints += dataSkillModel.SkillPoints < dataSkillModel.MaxSkillPoints ? 1 : 0;
-                    break;
-                case "spDecrease":
-                    dataSkillModel.SkillPoints -= dataSkillModel.SkillPoints > 0 ? 1 : 0;
-                    break;
-                default:
-                    break;
-            }
-            visualSkillModel.SkillPoints = dataSkillModel.SkillPoints;
-            e.Handled = true;
+                WpfUiButton button = (WpfUiButton)sender;
+                SkillModel dataSkillModel = ViewModel.SkillModels![Core.Character.Skills.Instance.GetSkillIndexFromName(((SkillModel)button.DataContext).Name)];
+                SkillModel visualSkillModel = (SkillModel)button.DataContext;
+                switch (button.Tag)
+                {
+                    case "spIncrease":
+                        dataSkillModel.SkillPoints += dataSkillModel.SkillPoints < dataSkillModel.MaxSkillPoints ? 1 : 0;
+                        break;
+                    case "spDecrease":
+                        dataSkillModel.SkillPoints -= dataSkillModel.SkillPoints > 0 ? 1 : 0;
+                        break;
+                    default:
+                        break;
+                }
+                visualSkillModel.SkillPoints = dataSkillModel.SkillPoints;
+            });
         }
 
         // TODO FilterButton_Click move logic to ViewModel
-        private void FilterTreeButton_Click(object sender, RoutedEventArgs e)
+        private async void FilterTreeButton_Click(object sender, RoutedEventArgs e)
         {
-            int selectedFilterIndex = ViewModel.SelectedTreeFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
-            selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
-            if (selectedFilterIndex >= ViewModel.TreeFilters!.Count)
-                selectedFilterIndex = 0;
-            ViewModel.SelectedTreeFilterIndex = selectedFilterIndex;
+            await Dispatcher.InvokeAsync(() =>
+            {
+                int selectedFilterIndex = ViewModel.SelectedTreeFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
+                selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
+                if (selectedFilterIndex >= ViewModel.TreeFilters!.Count)
+                    selectedFilterIndex = 0;
+                ViewModel.SelectedTreeFilterIndex = selectedFilterIndex;
+            });
         }
 
-        private void FilterSkillableButton_Click(object sender, RoutedEventArgs e)
+        private async void FilterSkillableButton_Click(object sender, RoutedEventArgs e)
         {
-            int selectedFilterIndex = ViewModel.SelectedSkillableFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
-            selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
-            if (selectedFilterIndex >= ViewModel.SkillableFilters!.Count)
-                selectedFilterIndex = 0;
-            ViewModel.SelectedSkillableFilterIndex = selectedFilterIndex;
+            await Dispatcher.InvokeAsync(() =>
+            {
+                int selectedFilterIndex = ViewModel.SelectedSkillableFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
+                selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
+                if (selectedFilterIndex >= ViewModel.SkillableFilters!.Count)
+                    selectedFilterIndex = 0;
+                ViewModel.SelectedSkillableFilterIndex = selectedFilterIndex;
+            });
         }
     }
 }

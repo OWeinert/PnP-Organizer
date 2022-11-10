@@ -5,16 +5,27 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PnP Organizer", "PnP Organizer\PnP Organizer.csproj", "{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "PnPOrganizerSetup", "PnPOrganizerSetup\PnPOrganizerSetup.aiproj", "{78312B61-F83F-4599-BB20-E92EC8E6B7FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DefaultBuild|Any CPU = DefaultBuild|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.Debug|Any CPU.Build.0 = DefaultBuild
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{78312B61-F83F-4599-BB20-E92EC8E6B7FC}.Release|Any CPU.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
