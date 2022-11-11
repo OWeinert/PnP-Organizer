@@ -28,10 +28,9 @@ namespace PnP_Organizer.Core.Character
         // TODO Direct Skill references would be better, but maybe won't work with the SkillModel
         public string[] DependendSkillNames { get; private set; }
 
-        private readonly Func<int, int, bool> _isActivePredicate;
         private  Func<bool>? _skillableDependencyPredicate;
 
-        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, SkillUsableType skillActivationType, string description = "")
+        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description = "")
         {
             Name = name;
             SkillCategory = skillCategory;
@@ -43,19 +42,14 @@ namespace PnP_Organizer.Core.Character
             SkillPoints = 0;
             DependendSkillNames = Array.Empty<string>();
 
-            if (skillActivationType == SkillUsableType.Maxed)
-                _isActivePredicate = (skillPoints, maxSkillPoints) => skillPoints == maxSkillPoints;
-            else
-                _isActivePredicate = (skillPoints, maxSkillPoints) => skillPoints > 0;
-
             _skillableDependencyPredicate = null;
         }
 
         /// <summary>
-        /// Checks if the skill is active dependend on the current skill points and the SkillUsableType
+        /// Checks if the skill is active, i.e. the max skill points are reached
         /// </summary>
         /// <returns></returns>
-        public bool IsActive() => _isActivePredicate(SkillPoints, MaxSkillPoints);
+        public bool IsActive() => SkillPoints == MaxSkillPoints;
 
         /// <summary>
         /// 
@@ -63,7 +57,7 @@ namespace PnP_Organizer.Core.Character
         /// <returns></returns>
         public bool IsSkillable() => _skillableDependencyPredicate == null || _skillableDependencyPredicate();
 
-        public Skill AddSkillDependencies(string[] dependendSkillNames, Func<bool> skillableDependencyPredicate)
+        public Skill AddSkillDependencies(string[] dependendSkillNames, Func<bool>? skillableDependencyPredicate = null)
         {
             DependendSkillNames = dependendSkillNames;
             _skillableDependencyPredicate = skillableDependencyPredicate;
