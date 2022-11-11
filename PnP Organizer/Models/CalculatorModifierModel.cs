@@ -74,7 +74,6 @@ namespace PnP_Organizer.Models
     {
         public static readonly List<CalculatorModifierModel> Modifiers = new();
 
-        // TODO PearlModifierModels: Add Descriptions, Change Name strings to Properties.Resources references
         public static readonly CalculatorModifierModel OnGround = Add(new ConditionalCalculatorModifierModel(Properties.Resources.Skill_OnGround, Properties.Resources.Skill_OnGroundDescription, ApplianceMode.BaseValue, damage => damage += FileIO.LoadedCharacter.Pearls.Earth, () => FileIO.LoadedCharacter.Pearls.Earth > 0, AttackMode.Ranged | AttackMode.Melee));
         public static readonly CalculatorModifierModel Speeded = Add(new ConditionalCalculatorModifierModel(Properties.Resources.Skill_Speeded, Properties.Resources.Skill_SpeededDescription, ApplianceMode.BaseValue, damage => damage += FileIO.LoadedCharacter.Pearls.Air, () => FileIO.LoadedCharacter.Pearls.Air > 0, AttackMode.Ranged | AttackMode.Melee));
         public static readonly CalculatorModifierModel BurningBlade = Add(new ConditionalCalculatorModifierModel(Properties.Resources.Skill_BurningBlade, Properties.Resources.Skill_BurningBladeDescription, ApplianceMode.BaseValue, damage => damage += FileIO.LoadedCharacter.Pearls.Fire, () => FileIO.LoadedCharacter.Pearls.Fire > 0, AttackMode.Melee));
