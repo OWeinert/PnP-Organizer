@@ -5,19 +5,32 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PnP Organizer", "PnP Organizer\PnP Organizer.csproj", "{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "PnP-OrganizerSetup", "PnP-OrganizerSetup\PnP-OrganizerSetup.aiproj", "{85043DAE-521F-40BE-BE2C-FAAB909C669D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		DefaultBuild|Any CPU = DefaultBuild|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.All|Any CPU.Build.0 = Release|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.DefaultBuild|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3CE03CE-E36A-4B0B-BADB-188EEC0E031E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.All|Any CPU.ActiveCfg = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.All|Any CPU.Build.0 = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.Debug|Any CPU.Build.0 = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{85043DAE-521F-40BE-BE2C-FAAB909C669D}.Release|Any CPU.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
