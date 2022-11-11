@@ -867,6 +867,9 @@
   <data name="Skills_SkillWeaponsAndArmor" xml:space="preserve">
     <value>Weapons and Armor</value>
   </data>
+  <data name="Skills_UsedSkillPoints" xml:space="preserve">
+    <value>Used Skill Points</value>
+  </data>
   <data name="Skill_BurningBlade" xml:space="preserve">
     <value>Burning Blade</value>
   </data>

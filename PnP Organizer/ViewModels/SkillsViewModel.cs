@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,7 +50,7 @@ namespace PnP_Organizer.ViewModels
 
         private void InitializeViewModel()
         {
-            PropertyChanged += SelectedTreeFilterIndexChanged;
+            PropertyChanged += SelectedFiltersChanged;
             
             TreeFilters = new List<SkillTreeFilter>()
             {
@@ -112,12 +113,12 @@ namespace PnP_Organizer.ViewModels
             {
                 await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    foreach (SkillModel skillModel in SkillModels!)
+                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill.DependendSkillNames.Contains(senderSkillModel.Skill.Name));
+                    foreach (SkillModel skillModel in dependendSkillModels)
                     {
                         await CheckSkillModelSkillability(skillModel);
-                        UsedSkillPoints = SkillModels.Sum(skillModel => skillModel.SkillPoints);
                     }
-                    SkillModelsView?.Refresh();
+                    UsedSkillPoints = SkillModels!.Sum(sM => sM.SkillPoints);
                 });
             }
         }
@@ -131,14 +132,14 @@ namespace PnP_Organizer.ViewModels
             await Task.CompletedTask;
         }
 
-        private void SelectedTreeFilterIndexChanged(object? sender, PropertyChangedEventArgs e)
+        private void SelectedFiltersChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(SelectedTreeFilterIndex))
+            if(e.PropertyName is nameof(SelectedTreeFilterIndex) or nameof(SelectedSkillableFilterIndex) or nameof(SearchBoxText))
+            {
                 SelectedTreeFilter = TreeFilters![SelectedTreeFilterIndex];
-            if (e.PropertyName == nameof(SelectedSkillableFilterIndex))
                 SelectedSkillableFilter = SkillableFilters![SelectedSkillableFilterIndex];
-
-            SkillModelsView?.Refresh();
+                SkillModelsView?.Refresh();
+            }
         }
 
         private bool SkillModelsView_Filter(object item)

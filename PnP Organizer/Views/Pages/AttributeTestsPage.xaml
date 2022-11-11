@@ -68,31 +68,6 @@
                                           Tag="Charisma"/>
                         </ComboBox.Items>
                     </ComboBox>
-
-                    <TextBlock Text="{x:Static p:Resources.AttributeTests_OrderBy}"
-                           VerticalAlignment="Center"
-                       FontSize="16"
-                       FontWeight="SemiBold"
-                       Margin="14,0,0,0"/>
-                    <ComboBox x:Name="OrderComboBox"
-                              MinWidth="100"
-                              SelectedIndex="0"
-                              Margin="8,0,0,0">
-                        <ComboBox.Items>
-                            <ComboBoxItem Content="Name A-Z"
-                                          Tag="nameAsc"/>
-                            <ComboBoxItem Content="Name Z-A"
-                                          Tag="nameDesc"/>
-                            <ComboBoxItem Content="Attribute A-Z"
-                                          Tag="attributeAsc"/>
-                            <ComboBoxItem Content="Attribute Z-A"
-                                          Tag="attributeDesc"/>
-                            <ComboBoxItem Content="Bonus Ascending"
-                                          Tag="bonusAsc"/>
-                            <ComboBoxItem Content="Bonus Descending"
-                                          Tag="bonusDesc"/>
-                        </ComboBox.Items>
-                    </ComboBox>
                 </StackPanel>
             </Grid> 
 

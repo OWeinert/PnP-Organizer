@@ -2420,6 +2420,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Used Skill Points.
+        /// </summary>
+        public static string Skills_UsedSkillPoints {
+            get {
+                return ResourceManager.GetString("Skills_UsedSkillPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Character loaded from.
         /// </summary>
         public static string Snackbar_CharacterLoaded {

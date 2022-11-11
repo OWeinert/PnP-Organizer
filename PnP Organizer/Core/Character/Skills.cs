@@ -131,7 +131,7 @@ namespace PnP_Organizer.Core.Character
         public readonly Skill RoutinedWithThrowingWeapons;
         public readonly Skill ProfessionalSlingshotMarksman;
         public readonly Skill PerfectShot;
-        public readonly Skill SupriseAttack;
+        public readonly Skill SurpriseAttack;
         public readonly Skill NailDown;
         public readonly Skill CurvedShot;
         public readonly Skill QuickAim;
@@ -160,158 +160,272 @@ namespace PnP_Organizer.Core.Character
             #region Skill Definitions
             #region Character
             // Checkpoint 0
-            Sneaking = CreateSkill(Resources.Skills_SkillSneaking, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            VirtuallyInvisible = CreateSkill(Resources.Skills_SkillVirtuallyInvisible, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Intimidate = CreateSkill(Resources.Skills_SkillIntimidate, SkillCategory.Character, 2, SkillUsableType.Skilled, "");
-            Flirting = CreateSkill(Resources.Skills_SkillFlirting, SkillCategory.Character, 2, SkillUsableType.Skilled, "");
-            NatureStudy = CreateSkill(Resources.Skills_SkillNatureStudy, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Theft = CreateSkill(Resources.Skills_SkillTheft, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Lockpicking = CreateSkill(Resources.Skills_SkillLockpicking, SkillCategory.Character, 1, SkillUsableType.Maxed, "");
-            Counterfeiting = CreateSkill(Resources.Skills_SkillCounterfeiting, SkillCategory.Character, 1, SkillUsableType.Maxed, "");
-            KnowledgeOfPeople = CreateSkill(Resources.Skills_SkillKnowledgeOfPeople, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            ActorByBirth = CreateSkill(Resources.Skills_SkillActorByBirth, SkillCategory.Character, 3, SkillUsableType.Maxed, "");
-            Tracking = CreateSkill(Resources.Skills_SkillTracking, SkillCategory.Character, 1, SkillUsableType.Maxed, "");
-            PoisonKnowledge = CreateSkill(Resources.Skills_SkillPoisonKnowledge, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Gambling = CreateSkill(Resources.Skills_SkillGambling, SkillCategory.Character, 1, SkillUsableType.Maxed, "");
-            SkilledLier = CreateSkill(Resources.Skills_SkillSkilledLier, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            LieDetector = CreateSkill(Resources.Skills_SkillLieDetector, SkillCategory.Character, 2, SkillUsableType.Maxed, ""); ;
-            SkilledSpeaker = CreateSkill(Resources.Skills_SkillSkilledSpeaker, SkillCategory.Character, 3, SkillUsableType.Maxed, "");
+            Sneaking = CreateAndAddSkill(Resources.Skills_SkillSneaking, SkillCategory.Character, 2, "");
+            Intimidate = CreateAndAddSkill(Resources.Skills_SkillIntimidate, SkillCategory.Character, 2, "");
+            Flirting = CreateAndAddSkill(Resources.Skills_SkillFlirting, SkillCategory.Character, 2, "");
+            NatureStudy = CreateAndAddSkill(Resources.Skills_SkillNatureStudy, SkillCategory.Character, 2, "");
+            VirtuallyInvisible = CreateAndAddSkill(Resources.Skills_SkillVirtuallyInvisible, SkillCategory.Character, 2,
+                "", new string[] { Sneaking.Name });
+            Theft = CreateAndAddSkill(Resources.Skills_SkillTheft, SkillCategory.Character, 2, 
+                "", new string[] { Sneaking.Name });
+            Lockpicking = CreateAndAddSkill(Resources.Skills_SkillLockpicking, SkillCategory.Character, 1, 
+                "", new string[] { Sneaking.Name });
+            Counterfeiting = CreateAndAddSkill(Resources.Skills_SkillCounterfeiting, SkillCategory.Character, 1, 
+                "", new string[] { Sneaking.Name });
+            KnowledgeOfPeople = CreateAndAddSkill(Resources.Skills_SkillKnowledgeOfPeople, SkillCategory.Character, 2, 
+                "", new string[] { Intimidate.Name, Flirting.Name });
+            ActorByBirth = CreateAndAddSkill(Resources.Skills_SkillActorByBirth, SkillCategory.Character, 3, 
+                "", new string[] { KnowledgeOfPeople.Name });
+            Tracking = CreateAndAddSkill(Resources.Skills_SkillTracking, SkillCategory.Character, 1, 
+                "", new string[] { NatureStudy.Name });
+            PoisonKnowledge = CreateAndAddSkill(Resources.Skills_SkillPoisonKnowledge, SkillCategory.Character, 2, 
+                "", new string[] { NatureStudy.Name });
+            Gambling = CreateAndAddSkill(Resources.Skills_SkillGambling, SkillCategory.Character, 1, 
+                "", new string[] { Theft.Name, Lockpicking.Name, Counterfeiting.Name });
+            SkilledLier = CreateAndAddSkill(Resources.Skills_SkillSkilledLier, SkillCategory.Character, 2, 
+                "", new string[] { Theft.Name, Lockpicking.Name, Counterfeiting.Name });
+            LieDetector = CreateAndAddSkill(Resources.Skills_SkillLieDetector, SkillCategory.Character, 2, 
+                "", new string[] { SkilledLier.Name, KnowledgeOfPeople.Name });
+            SkilledSpeaker = CreateAndAddSkill(Resources.Skills_SkillSkilledSpeaker, SkillCategory.Character, 3, 
+                "", new string[] { KnowledgeOfPeople.Name });
 
             // Checkpoint 1
-            Climbing = CreateSkill(Resources.Skills_SkillClimbing, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Teacher = CreateSkill(Resources.Skills_SkillTeacher, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Plunge = CreateSkill(Resources.Skills_SkillPlunge, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            HardToKill = CreateSkill(Resources.Skills_SkillHardToKill, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Sympathic = CreateSkill(Resources.Skills_SkillSympathic, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Alertness = CreateSkill(Resources.Skills_SkillAlertness, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            RescueIsNear = CreateSkill(Resources.Skills_SkillRescueIsNear, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Etiquette = CreateSkill(Resources.Skills_SkillEtiquette, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Trading = CreateSkill(Resources.Skills_SkillTrading, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
+            Climbing = CreateAndAddSkill(Resources.Skills_SkillClimbing, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            Teacher = CreateAndAddSkill(Resources.Skills_SkillTeacher, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            Plunge = CreateAndAddSkill(Resources.Skills_SkillPlunge, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            HardToKill = CreateAndAddSkill(Resources.Skills_SkillHardToKill, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            Sympathic = CreateAndAddSkill(Resources.Skills_SkillSympathic, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            Alertness = CreateAndAddSkill(Resources.Skills_SkillAlertness, SkillCategory.Character, 2, 
+                "", new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
+            RescueIsNear = CreateAndAddSkill(Resources.Skills_SkillRescueIsNear, SkillCategory.Character, 2, 
+                "", new string[] { Plunge.Name });
+            Etiquette = CreateAndAddSkill(Resources.Skills_SkillEtiquette, SkillCategory.Character, 2, 
+                "", new string[] { Sympathic.Name });
+            Trading = CreateAndAddSkill(Resources.Skills_SkillTrading, SkillCategory.Character, 2, 
+                "", new string[] { Sympathic.Name });
 
             // Checkpoint 2
-            Perserverence = CreateSkill(Resources.Skills_SkillPerseverence, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Encouragement = CreateSkill(Resources.Skills_SkillEncouragement, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            EnergyBoost = CreateSkill(Resources.Skills_SkillEnergyBoost, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Momentum = CreateSkill(Resources.Skills_SkillMomentum, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            CommandTone = CreateSkill(Resources.Skills_SkillCommandTone, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Luck = CreateSkill(Resources.Skills_SkillLuck, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Healing = CreateSkill(Resources.Skills_SkillHealing, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            LastBreath = CreateSkill(Resources.Skills_SkillLastBreath, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            FutureMarket = CreateSkill(Resources.Skills_SkillFutureMarket, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
-            Avenger = CreateSkill(Resources.Skills_SkillAvenger, SkillCategory.Character, 2, SkillUsableType.Maxed, "");
+            Perserverence = CreateAndAddSkill(Resources.Skills_SkillPerseverence, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            Encouragement = CreateAndAddSkill(Resources.Skills_SkillEncouragement, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            EnergyBoost = CreateAndAddSkill(Resources.Skills_SkillEnergyBoost, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            Momentum = CreateAndAddSkill(Resources.Skills_SkillMomentum, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            CommandTone = CreateAndAddSkill(Resources.Skills_SkillCommandTone, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            Luck = CreateAndAddSkill(Resources.Skills_SkillLuck, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            Healing = CreateAndAddSkill(Resources.Skills_SkillHealing, SkillCategory.Character, 2, 
+                "", new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
+            LastBreath = CreateAndAddSkill(Resources.Skills_SkillLastBreath, SkillCategory.Character, 2, 
+                "", new string[] { Perserverence.Name });
+            FutureMarket = CreateAndAddSkill(Resources.Skills_SkillFutureMarket, SkillCategory.Character, 2,
+                "", new string[] { Perserverence.Name });
+            Avenger = CreateAndAddSkill(Resources.Skills_SkillAvenger, SkillCategory.Character, 2,
+                "", new string[] { Momentum.Name });
             #endregion Character
 
             #region Melee
             // Checkpoint 0
-            LightBlow = CreateSkill(Resources.Skills_SkillLightBlow, SkillCategory.Melee, 1, SkillUsableType.Maxed, "")
+            LightBlow = CreateAndAddSkill(Resources.Skills_SkillLightBlow, SkillCategory.Melee, 1, "")
                 .AddDamageModifier(damage => damage / 2, ApplianceMode.EndValue);
-            Smithing = CreateSkill(Resources.Skills_SkillSmithing, SkillCategory.Melee, 1, SkillUsableType.Maxed, "");
-            RunOver = CreateSkill(Resources.Skills_SkillRunOver, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            AimedAttackMelee = CreateSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2, SkillUsableType.Maxed, "")
-                .AddSkillDependencies(new string[] { LightBlow.Name }, () => true);
-            WeaponsAndArmor = CreateSkill(Resources.Skills_SkillWeaponsAndArmor, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Kick = CreateSkill(Resources.Skills_SkillKick, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Taunt = CreateSkill(Resources.Skills_SkillTaunt, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ArmorBreaker = CreateSkill(Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Assassinate = CreateSkill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            JumpAttack = CreateSkill(Resources.Skills_SkillJumpAttack, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
+            Smithing = CreateAndAddSkill(Resources.Skills_SkillSmithing, SkillCategory.Melee, 1, "");
+            RunOver = CreateAndAddSkill(Resources.Skills_SkillRunOver, SkillCategory.Melee, 2, "");
+            AimedAttackMelee = CreateAndAddSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2, 
+                "", new string[] { LightBlow.Name })
+                .AddSkillDependencies(new string[] { LightBlow.Name });
+            WeaponsAndArmor = CreateAndAddSkill(Resources.Skills_SkillWeaponsAndArmor, SkillCategory.Melee, 2, 
+                "", new string[] { WeaponsAndArmor.Name });
+            Kick = CreateAndAddSkill(Resources.Skills_SkillKick, SkillCategory.Melee, 2, 
+                "", new string[] { RunOver.Name });
+            Taunt = CreateAndAddSkill(Resources.Skills_SkillTaunt, SkillCategory.Melee, 2, 
+                "", new string[] { RunOver.Name });
+            ArmorBreaker = CreateAndAddSkill(Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 2, 
+                "", new string[] { AimedAttackMelee.Name });
+            Assassinate = CreateAndAddSkill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, 
+                "", new string[] { AimedAttackMelee.Name });
+            JumpAttack = CreateAndAddSkill(Resources.Skills_SkillJumpAttack, SkillCategory.Melee, 2, 
+                "", new string[] { Kick.Name });
 
             // Checkpoint 1
-            OneHandedCombat = CreateSkill(Resources.Skills_SkillOneHandedFighting, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            SecondHand = CreateSkill(Resources.Skills_SkillSecondHand, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Shield = CreateSkill(Resources.Skills_SkillShield, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            DefensiveFighting = CreateSkill(Resources.Skills_SkillDefensiveFighting, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Nimble = CreateSkill(Resources.Skills_SkillNimble, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            AggressiveCombat = CreateSkill(Resources.Skills_SkillAgressiveFighting, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Fencing = CreateSkill(Resources.Skills_SkillFencing, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            FullDamage = CreateSkill(Resources.Skills_SkillFullDamage, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ShieldBash = CreateSkill(Resources.Skills_SkillShieldBash, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Parade = CreateSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ThereAndAway = CreateSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            RecklessAttack = CreateSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            DuplexFerrum = CreateSkill(Resources.Skills_SkillDuplexFerrum, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            SomethingWithShield = CreateSkill(Resources.Skills_SkillSomethingWithShield, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            QuickParade = CreateSkill(Resources.Skills_SkillQuickParade, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            SkillfulRetreat = CreateSkill(Resources.Skills_SkillSkillfulRetreat, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Feint = CreateSkill(Resources.Skills_SkillFeint, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            RoundHouseAttack = CreateSkill(Resources.Skills_SkillRoundHouseAttack, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            HeavyParade = CreateSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            PerfectBlock = CreateSkill(Resources.Skills_SkillPerfectBlock, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            DevastatingAttack = CreateSkill(Resources.Skills_SkillDevastatingAttack, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
+            OneHandedCombat = CreateAndAddSkill(Resources.Skills_SkillOneHandedFighting, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            SecondHand = CreateAndAddSkill(Resources.Skills_SkillSecondHand, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            Shield = CreateAndAddSkill(Resources.Skills_SkillShield, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            DefensiveFighting = CreateAndAddSkill(Resources.Skills_SkillDefensiveFighting, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            Nimble = CreateAndAddSkill(Resources.Skills_SkillNimble, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            AggressiveCombat = CreateAndAddSkill(Resources.Skills_SkillAgressiveFighting, SkillCategory.Melee, 2, 
+                "", new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+            Fencing = CreateAndAddSkill(Resources.Skills_SkillFencing, SkillCategory.Melee, 2, 
+                "", new string[] { OneHandedCombat.Name });
+            FullDamage = CreateAndAddSkill(Resources.Skills_SkillFullDamage, SkillCategory.Melee, 2, 
+                "", new string[] { SecondHand.Name });
+            ShieldBash = CreateAndAddSkill(Resources.Skills_SkillShieldBash, SkillCategory.Melee, 2, 
+                "", new string[] { ShieldBash.Name });
+            Parade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
+                "", new string[] { Parade.Name });
+            ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2, 
+                "", new string[] { ThereAndAway.Name });
+            RecklessAttack = CreateAndAddSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, 
+                "", new string[] { RecklessAttack.Name });
+            DuplexFerrum = CreateAndAddSkill(Resources.Skills_SkillDuplexFerrum, SkillCategory.Melee, 2, 
+                "", new string[] { FullDamage.Name });
+            SomethingWithShield = CreateAndAddSkill(Resources.Skills_SkillSomethingWithShield, SkillCategory.Melee, 2, 
+                "", new string[] { ShieldBash.Name });
+            QuickParade = CreateAndAddSkill(Resources.Skills_SkillQuickParade, SkillCategory.Melee, 2, 
+                "", new string[] { Parade.Name });
+            SkillfulRetreat = CreateAndAddSkill(Resources.Skills_SkillSkillfulRetreat, SkillCategory.Melee, 2, 
+                "", new string[] { DefensiveFighting.Name, ThereAndAway.Name });
+            Feint = CreateAndAddSkill(Resources.Skills_SkillFeint, SkillCategory.Melee, 2, 
+                "", new string[] { Nimble.Name });
+            RoundHouseAttack = CreateAndAddSkill(Resources.Skills_SkillRoundHouseAttack, SkillCategory.Melee, 2, 
+                "", new string[] { RecklessAttack.Name });
+            HeavyParade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
+                "", new string[] { QuickParade.Name });
+            PerfectBlock = CreateAndAddSkill(Resources.Skills_SkillPerfectBlock, SkillCategory.Melee, 2, 
+                "", new string[] { QuickParade.Name });
+            DevastatingAttack = CreateAndAddSkill(Resources.Skills_SkillDevastatingAttack, SkillCategory.Melee, 2, 
+                "", new string[] { RoundHouseAttack.Name });
 
             // Checkpoint 2
-            Cavallery = CreateSkill(Resources.Skills_SkillCavallery, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            DefensiveStance = CreateSkill(Resources.Skills_SkillDefensiveStance, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ArmorUp = CreateSkill(Resources.Skills_SkillArmorUp, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            AccurateMelee = CreateSkill(Resources.Skills_SkillAccurateMelee, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            RecognizeStyle = CreateSkill(Resources.Skills_SkillRecognizeStyle, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            CripplingBlow = CreateSkill(Resources.Skills_SkillCripplingBlow, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            HijackerMelee = CreateSkill(Resources.Skills_SkillHijackerMelee, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Armor = CreateSkill(Resources.Skills_SkillArmor, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Combo = CreateSkill(Resources.Skills_SkillCombo, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            PerfectBlow = CreateSkill(Resources.Skills_SkillPerfectBlow, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            EveryBlowAHit = CreateSkill(Resources.Skills_SkillEveryBlowAHit, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            TakeAHit = CreateSkill(Resources.Skills_SkillTakeAHit, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
+            Cavallery = CreateAndAddSkill(Resources.Skills_SkillCavallery, SkillCategory.Melee, 2, 
+                "", new string[] { Fencing.Name, DuplexFerrum.Name, HeavyParade.Name, PerfectBlock.Name, SkillfulRetreat.Name, Feint.Name, DevastatingAttack.Name });
+            DefensiveStance = CreateAndAddSkill(Resources.Skills_SkillDefensiveStance, SkillCategory.Melee, 2,
+                "", new string[] { Fencing.Name, DuplexFerrum.Name, HeavyParade.Name, PerfectBlock.Name, SkillfulRetreat.Name, Feint.Name, DevastatingAttack.Name });
+            ArmorUp = CreateAndAddSkill(Resources.Skills_SkillArmorUp, SkillCategory.Melee, 2,
+                "", new string[] { DefensiveStance.Name });
+            AccurateMelee = CreateAndAddSkill(Resources.Skills_SkillAccurateMelee, SkillCategory.Melee, 2, 
+                "", new string[] { Fencing.Name, DuplexFerrum.Name, HeavyParade.Name, PerfectBlock.Name, SkillfulRetreat.Name, Feint.Name, DevastatingAttack.Name });
+            RecognizeStyle = CreateAndAddSkill(Resources.Skills_SkillRecognizeStyle, SkillCategory.Melee, 2,
+                "", new string[] { Fencing.Name, DuplexFerrum.Name, HeavyParade.Name, PerfectBlock.Name, SkillfulRetreat.Name, Feint.Name, DevastatingAttack.Name });
+            CripplingBlow = CreateAndAddSkill(Resources.Skills_SkillCripplingBlow, SkillCategory.Melee, 2,
+                "", new string[] { RecognizeStyle.Name });
+            HijackerMelee = CreateAndAddSkill(Resources.Skills_SkillHijackerMelee, SkillCategory.Melee, 2, 
+                "", new string[] { Cavallery.Name });
+            Armor = CreateAndAddSkill(Resources.Skills_SkillArmor, SkillCategory.Melee, 2, 
+                "", new string[] { DefensiveStance.Name });
+            Combo = CreateAndAddSkill(Resources.Skills_SkillCombo, SkillCategory.Melee, 2,
+                "", new string[] { AccurateMelee.Name });
+            PerfectBlow = CreateAndAddSkill(Resources.Skills_SkillPerfectBlow, SkillCategory.Melee, 2, 
+                "", new string[] { AccurateMelee.Name });
+            EveryBlowAHit = CreateAndAddSkill(Resources.Skills_SkillEveryBlowAHit, SkillCategory.Melee, 2, 
+                "", new string[] { AccurateMelee.Name });
+            TakeAHit = CreateAndAddSkill(Resources.Skills_SkillTakeAHit, SkillCategory.Melee, 2,
+                "", new string[] { RecognizeStyle.Name });
 
             // Checkpoint 3
-            AttackOfOpportunity = CreateSkill(Resources.Skills_SkillAttackOfOpportunity, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            DisarmMelee = CreateSkill(Resources.Skills_SkillDisarmMelee, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            KillingSpree = CreateSkill(Resources.Skills_SkillKillingSpree, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            HeavyFighting = CreateSkill(Resources.Skills_SkillHeavyFighting, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            Riposte = CreateSkill(Resources.Skills_SkillRiposte, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            LoneWarrior = CreateSkill(Resources.Skills_SkillLoneWarrior, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ChainAttack = CreateSkill(Resources.Skills_SkillChainAttack, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            ShieldBreaker = CreateSkill(Resources.Skills_SkillShieldBreaker, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
-            BladeFan = CreateSkill(Resources.Skills_SkillBladeFan, SkillCategory.Melee, 2, SkillUsableType.Maxed, "");
+            AttackOfOpportunity = CreateAndAddSkill(Resources.Skills_SkillAttackOfOpportunity, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            DisarmMelee = CreateAndAddSkill(Resources.Skills_SkillDisarmMelee, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            KillingSpree = CreateAndAddSkill(Resources.Skills_SkillKillingSpree, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            HeavyFighting = CreateAndAddSkill(Resources.Skills_SkillHeavyFighting, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            Riposte = CreateAndAddSkill(Resources.Skills_SkillRiposte, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            LoneWarrior = CreateAndAddSkill(Resources.Skills_SkillLoneWarrior, SkillCategory.Melee, 2, 
+                "", new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
+            ChainAttack = CreateAndAddSkill(Resources.Skills_SkillChainAttack, SkillCategory.Melee, 2, 
+                "", new string[] { DisarmMelee.Name });
+            ShieldBreaker = CreateAndAddSkill(Resources.Skills_SkillShieldBreaker, SkillCategory.Melee, 2, 
+                "", new string[] { HeavyFighting.Name });
+            BladeFan = CreateAndAddSkill(Resources.Skills_SkillBladeFan, SkillCategory.Melee, 2, 
+                "", new string[] { Riposte.Name });
 
             #endregion Melee
 
             #region Ranged
             // Checkpoint 0
-            LightShot = CreateSkill(Resources.Skills_SkillLightShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Quickdraw = CreateSkill(Resources.Skills_SkillQuickdraw, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            SkilledWithThrowingWeapons = CreateSkill(Resources.Skills_SkillSkilledWithThrowingWeapons, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            BetterThanThrowing = CreateSkill(Resources.Skills_SkillBetterThanThrowing, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            CalmAiming = CreateSkill(Resources.Skills_SkillCalmAiming, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            DisarmRanged = CreateSkill(Resources.Skills_SkillDisarmRanged, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            DualThrow = CreateSkill(Resources.Skills_SkillDualThrow, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            SlingshotMarksman = CreateSkill(Resources.Skills_SkillSlingshotMarksman, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
+            LightShot = CreateAndAddSkill(Resources.Skills_SkillLightShot, SkillCategory.Ranged, 2, "");
+            Quickdraw = CreateAndAddSkill(Resources.Skills_SkillQuickdraw, SkillCategory.Ranged, 2, "");
+            SkilledWithThrowingWeapons = CreateAndAddSkill(Resources.Skills_SkillSkilledWithThrowingWeapons, SkillCategory.Ranged, 2, "");
+            BetterThanThrowing = CreateAndAddSkill(Resources.Skills_SkillBetterThanThrowing, SkillCategory.Ranged, 2, "");
+            CalmAiming = CreateAndAddSkill(Resources.Skills_SkillCalmAiming, SkillCategory.Ranged, 2,
+                "", new string[]{ LightShot.Name });
+            DisarmRanged = CreateAndAddSkill(Resources.Skills_SkillDisarmRanged, SkillCategory.Ranged, 2,
+                "", new string[]{ Quickdraw.Name });
+            DualThrow = CreateAndAddSkill(Resources.Skills_SkillDualThrow, SkillCategory.Ranged, 2,
+                "", new string[]{ SkilledWithThrowingWeapons.Name });
+            SlingshotMarksman = CreateAndAddSkill(Resources.Skills_SkillSlingshotMarksman, SkillCategory.Ranged, 2,
+                "", new string[]{ BetterThanThrowing.Name });
 
             // Checkpoint 1
-            ShootFromTheSaddle = CreateSkill(Resources.Skills_SkillShootFromTheSaddle, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            BuildArrows = CreateSkill(Resources.Skills_SkillBuildArrows, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            PreciseThrow = CreateSkill(Resources.Skills_SkillPreciseThrow, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            AimedAttackRanged = CreateSkill(Resources.Skills_SkillAimedAttackRanged, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            AccurateRanged = CreateSkill(Resources.Skills_SkillAccurateRanged, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            HijackerRanged = CreateSkill(Resources.Skills_SkillHijackerRanged, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            BowMaking = CreateSkill(Resources.Skills_SkillBowMaking, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            StrongThrow = CreateSkill(Resources.Skills_SkillStrongThrow, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Headshot = CreateSkill(Resources.Skills_SkillHeadshot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            BackLine = CreateSkill(Resources.Skills_SkillBackLine, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            RoutinedWithThrowingWeapons = CreateSkill(Resources.Skills_SkillRoutinedWithThrowingWeapons, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            ProfessionalSlingshotMarksman = CreateSkill(Resources.Skills_SkillProfessionalSlingshotMarksman, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            PerfectShot = CreateSkill(Resources.Skills_SkillPerfectShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
+            ShootFromTheSaddle = CreateAndAddSkill(Resources.Skills_SkillShootFromTheSaddle, SkillCategory.Ranged, 2, 
+                "", new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name });
+            BuildArrows = CreateAndAddSkill(Resources.Skills_SkillBuildArrows, SkillCategory.Ranged, 2, 
+                "", new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name });
+            PreciseThrow = CreateAndAddSkill(Resources.Skills_SkillPreciseThrow, SkillCategory.Ranged, 2, 
+                "", new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name });
+            AimedAttackRanged = CreateAndAddSkill(Resources.Skills_SkillAimedAttackRanged, SkillCategory.Ranged, 2, 
+                "", new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name });
+            AccurateRanged = CreateAndAddSkill(Resources.Skills_SkillAccurateRanged, SkillCategory.Ranged, 2, 
+                "", new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name });
+            HijackerRanged = CreateAndAddSkill(Resources.Skills_SkillHijackerRanged, SkillCategory.Ranged, 2, 
+                "", new string[]{ ShootFromTheSaddle.Name });
+            BowMaking = CreateAndAddSkill(Resources.Skills_SkillBowMaking, SkillCategory.Ranged, 2, 
+                "", new string[]{ BuildArrows.Name });
+            StrongThrow = CreateAndAddSkill(Resources.Skills_SkillStrongThrow, SkillCategory.Ranged, 2, 
+                "", new string[]{ PreciseThrow.Name });
+            Headshot = CreateAndAddSkill(Resources.Skills_SkillHeadshot, SkillCategory.Ranged, 2, 
+                "", new string[]{ AimedAttackRanged.Name });
+            BackLine = CreateAndAddSkill(Resources.Skills_SkillBackLine, SkillCategory.Ranged, 2, 
+                "", new string[]{ AccurateRanged.Name });
+            RoutinedWithThrowingWeapons = CreateAndAddSkill(Resources.Skills_SkillRoutinedWithThrowingWeapons, SkillCategory.Ranged, 2, 
+                "", new string[]{ StrongThrow.Name });
+            ProfessionalSlingshotMarksman = CreateAndAddSkill(Resources.Skills_SkillProfessionalSlingshotMarksman, SkillCategory.Ranged, 2, 
+                "", new string[]{ AccurateRanged.Name });
+            PerfectShot = CreateAndAddSkill(Resources.Skills_SkillPerfectShot, SkillCategory.Ranged, 2, 
+                "", new string[]{ BackLine.Name });
 
             // Checkpoint 2
-            SupriseAttack = CreateSkill(Resources.Skills_SkillSurpriseAttack, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            NailDown = CreateSkill(Resources.Skills_SkillNailDown, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            CurvedShot = CreateSkill(Resources.Skills_SkillCurvedShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            QuickAim = CreateSkill(Resources.Skills_SkillQuickAim, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            StrongArrows = CreateSkill(Resources.Skills_SkillStrongArrows, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            PiercingArrow = CreateSkill(Resources.Skills_SkillPiercingArrow, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            LuckyShot = CreateSkill(Resources.Skills_SkillLuckyShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            DoubleShot = CreateSkill(Resources.Skills_SkillDoubleShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            MasterfulArcher = CreateSkill(Resources.Skills_SkillMasterfulArcher, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Magazine = CreateSkill(Resources.Skills_SkillMagazine, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
+            SurpriseAttack = CreateAndAddSkill(Resources.Skills_SkillSurpriseAttack, SkillCategory.Ranged, 2, 
+                "", new string[]{ HijackerRanged.Name, BowMaking.Name, RoutinedWithThrowingWeapons.Name, Headshot.Name, ProfessionalSlingshotMarksman.Name, PerfectShot.Name });
+            NailDown = CreateAndAddSkill(Resources.Skills_SkillNailDown, SkillCategory.Ranged, 2, 
+                "", new string[] { HijackerRanged.Name, BowMaking.Name, RoutinedWithThrowingWeapons.Name, Headshot.Name, ProfessionalSlingshotMarksman.Name, PerfectShot.Name });
+            CurvedShot = CreateAndAddSkill(Resources.Skills_SkillCurvedShot, SkillCategory.Ranged, 2, 
+                "", new string[] { HijackerRanged.Name, BowMaking.Name, RoutinedWithThrowingWeapons.Name, Headshot.Name, ProfessionalSlingshotMarksman.Name, PerfectShot.Name });
+            QuickAim = CreateAndAddSkill(Resources.Skills_SkillQuickAim, SkillCategory.Ranged, 2, 
+                "", new string[] { HijackerRanged.Name, BowMaking.Name, RoutinedWithThrowingWeapons.Name, Headshot.Name, ProfessionalSlingshotMarksman.Name, PerfectShot.Name });
+            StrongArrows = CreateAndAddSkill(Resources.Skills_SkillStrongArrows, SkillCategory.Ranged, 2, 
+                "", new string[] { HijackerRanged.Name, BowMaking.Name, RoutinedWithThrowingWeapons.Name, Headshot.Name, ProfessionalSlingshotMarksman.Name, PerfectShot.Name });
+            PiercingArrow = CreateAndAddSkill(Resources.Skills_SkillPiercingArrow, SkillCategory.Ranged, 2, 
+                "", new string[]{ NailDown.Name });
+            LuckyShot = CreateAndAddSkill(Resources.Skills_SkillLuckyShot, SkillCategory.Ranged, 2, 
+                "", new string[]{ CurvedShot.Name });
+            DoubleShot = CreateAndAddSkill(Resources.Skills_SkillDoubleShot, SkillCategory.Ranged, 2, 
+                "", new string[]{ QuickAim.Name });
+            MasterfulArcher = CreateAndAddSkill(Resources.Skills_SkillMasterfulArcher, SkillCategory.Ranged, 2, 
+                "", new string[]{ StrongArrows.Name });
+            Magazine = CreateAndAddSkill(Resources.Skills_SkillMagazine, SkillCategory.Ranged, 2, 
+                "", new string[]{ DoubleShot.Name });
 
             // Checkpoint 3
-            Oneshot = CreateSkill(Resources.Skills_SkillOneshot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            LastShot = CreateSkill(Resources.Skills_SkillLastShot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            HuntersMark = CreateSkill(Resources.Skills_SkillHuntersMark, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Readiness = CreateSkill(Resources.Skills_SkillReadiness, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            MasterOfThrowingWeapons = CreateSkill(Resources.Skills_SkillMasterOfThrowingWeapons, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Trueshot = CreateSkill(Resources.Skills_SkillTrueshot, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
-            Return = CreateSkill(Resources.Skills_SkillReturn, SkillCategory.Ranged, 2, SkillUsableType.Maxed, "");
+            Oneshot = CreateAndAddSkill(Resources.Skills_SkillOneshot, SkillCategory.Ranged, 2, 
+                "", new string[]{ SurpriseAttack.Name, PiercingArrow.Name, LuckyShot.Name, Magazine.Name, MasterfulArcher.Name });
+            LastShot = CreateAndAddSkill(Resources.Skills_SkillLastShot, SkillCategory.Ranged, 2, 
+                "", new string[] { SurpriseAttack.Name, PiercingArrow.Name, LuckyShot.Name, Magazine.Name, MasterfulArcher.Name });
+            HuntersMark = CreateAndAddSkill(Resources.Skills_SkillHuntersMark, SkillCategory.Ranged, 2, 
+                "", new string[] { SurpriseAttack.Name, PiercingArrow.Name, LuckyShot.Name, Magazine.Name, MasterfulArcher.Name });
+            Readiness = CreateAndAddSkill(Resources.Skills_SkillReadiness, SkillCategory.Ranged, 2, 
+                "", new string[] { SurpriseAttack.Name, PiercingArrow.Name, LuckyShot.Name, Magazine.Name, MasterfulArcher.Name });
+            MasterOfThrowingWeapons = CreateAndAddSkill(Resources.Skills_SkillMasterOfThrowingWeapons, SkillCategory.Ranged, 2, 
+                "", new string[] { SurpriseAttack.Name, PiercingArrow.Name, LuckyShot.Name, Magazine.Name, MasterfulArcher.Name });
+            Trueshot = CreateAndAddSkill(Resources.Skills_SkillTrueshot, SkillCategory.Ranged, 2, 
+                "", new string[]{ Oneshot.Name });
+            Return = CreateAndAddSkill(Resources.Skills_SkillReturn, SkillCategory.Ranged, 2, 
+                "", new string[]{ MasterOfThrowingWeapons.Name });
 
             #endregion Ranged
             #endregion Skill Definitions
@@ -333,7 +447,14 @@ namespace PnP_Organizer.Core.Character
             return -1;
         }
 
-        private Skill CreateSkill(string name, SkillCategory skillCategory, int maxSkillPoints, SkillUsableType skillActivationType, string description = "") => AddSkill(new Skill(name, skillCategory, maxSkillPoints, skillActivationType, description));
+        private Skill CreateAndAddSkill(string name, SkillCategory skillCategory, int maxSkillPoints, 
+            string description = "", string[]? skillDependencies = null) 
+        {
+            var skill = new Skill(name, skillCategory, maxSkillPoints, description);
+            if(skillDependencies != null)
+                skill.AddSkillDependencies(skillDependencies);
+            return AddSkill(skill);
+        }
 
         private Skill AddSkill(Skill skill)
         {

@@ -116,7 +116,7 @@
                         MinWidth="240"
                         MaxWidth="400"
                         PlaceholderText="{x:Static p:Resources.Skills_SearchSkillPlaceholder}"
-                        Text="{Binding ViewModel.SearchBoxText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding ViewModel.SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         AutoWordSelection="True"
                         Icon="Search24"
                         IconPlacement="Right"/>
@@ -126,7 +126,7 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,-64,48,0">
-            <TextBlock Text="Used Skill Points:"
+            <TextBlock Text="{x:Static p:Resources.Skills_UsedSkillPoints}"
                        VerticalAlignment="Center"
                        FontSize="16"/>
             <TextBlock Text="{Binding ViewModel.UsedSkillPoints}"
