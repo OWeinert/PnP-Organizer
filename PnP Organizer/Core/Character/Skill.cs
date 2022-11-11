@@ -25,7 +25,7 @@ namespace PnP_Organizer.Core.Character
         /// <summary>
         /// Names of skills which need to be skilled in order to unlock this skill.
         /// </summary>
-        // TODO Direct Skill references would be better, but maybe won't work with the SkillModel
+        // HACK Direct Skill references would be better, but maybe won't work with the SkillModel
         public string[] DependendSkillNames { get; private set; }
 
         private  Func<bool>? _skillableDependencyPredicate;
