@@ -488,7 +488,7 @@ namespace PnP_Organizer.Core.Character
         }
 
         private Skill CreateAndAddSkill(string name, SkillCategory skillCategory, int maxSkillPoints, 
-            string description = Resources.Skills_SkillDescr, string[]? skillDependencies = null) 
+            string description = "", string[]? skillDependencies = null) 
         {
             var skill = new Skill(name, skillCategory, maxSkillPoints, description);
             if(skillDependencies != null)
