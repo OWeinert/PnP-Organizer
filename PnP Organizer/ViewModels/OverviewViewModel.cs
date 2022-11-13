@@ -71,15 +71,23 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _maxHealth = 0;
         [ObservableProperty]
+        private int _maxHealthBonus = 0;
+        [ObservableProperty]
         private int _currentEnergy = 0;
         [ObservableProperty]
         private int _maxEnergy = 0;
+        [ObservableProperty]
+        private int _maxEnergyBonus = 0;
         [ObservableProperty]
         private int _currentStamina = 0;
         [ObservableProperty]
         private int _maxStamina = 0;
         [ObservableProperty]
+        private int _maxStaminaBonus = 0;
+        [ObservableProperty]
         private int _initiative = 0;
+        [ObservableProperty]
+        private int _initiativeBonus = 0;
 
         private bool _isLoading = false;
 
