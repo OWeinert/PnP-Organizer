@@ -91,7 +91,9 @@ namespace PnP_Organizer.ViewModels
         private void OnOverviewPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             PropertyInfo overviewProperty = GetType().GetProperty(e.PropertyName!)!;
-            if (e.PropertyName is nameof(Strength) or nameof(Constitution) or nameof(Dexterity) or nameof(Wisdom) or nameof(Intelligence) or nameof(Charisma))
+            if (e.PropertyName is nameof(Strength) or nameof(Constitution) or nameof(Dexterity) 
+                or nameof(Wisdom) or nameof(Intelligence) or nameof(Charisma)
+                || e.PropertyName!.Contains("Pearls"))
             {
                 UpdateAttributeBonus(overviewProperty);
                 UpdateCharacterStats();
@@ -128,7 +130,8 @@ namespace PnP_Organizer.ViewModels
         {
             MaxHealth = Strength + Constitution;
             MaxEnergy = (int)Math.Round((Constitution + Charisma + Intelligence) / 3.0);
-            Initiative = Constitution + Dexterity;
+            MaxStamina = 15 + ConstitutionBonus + DexterityBonus;
+            Initiative = Constitution + Dexterity + AirPearls;
         }
 
         #region Stats Save / Load
