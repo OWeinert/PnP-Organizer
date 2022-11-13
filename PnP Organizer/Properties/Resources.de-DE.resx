@@ -435,7 +435,7 @@
   <data name="Overview_PearlsWood" xml:space="preserve">
     <value>Holz</value>
   </data>
-  <data name="Overview_Stamina" xml:space="preserve">
+  <data name="Overview_Ausdauer" xml:space="preserve">
     <value>Ausdauer</value>
   </data>
   <data name="Settings_About" xml:space="preserve">
@@ -489,23 +489,46 @@
   <data name="Skills_SkillAccurateMelee" xml:space="preserve">
     <value>Treffsicher</value>
   </data>
+  <data name="Skills_SkillAccurateMeleeDescr" xml:space="preserve">
+    <value>+1 auf Trefferwürfe. Nur Nahkampf.</value>
+  </data>
   <data name="Skills_SkillAccurateRanged" xml:space="preserve">
     <value>Treffsicher</value>
+  </data>
+  <data name="Skills_SkillAccurateRangedDescr" xml:space="preserve">
+    <value>+1 auf Trefferwürfe. Nur Fernkampf.</value>
   </data>
   <data name="Skills_SkillActorByBirth" xml:space="preserve">
     <value>Geborener Schauspieler</value>
   </data>
+  <data name="Skills_SkillActorByBirthDescr" xml:space="preserve">
+    <value>+1D4+2 auf "Performance"-Proben.</value>
+  </data>
   <data name="Skills_SkillAgressiveFighting" xml:space="preserve">
     <value>Aggressiver Kampf</value>
+  </data>
+  <data name="Skills_SkillAgressiveFightingDescr" xml:space="preserve">
+    <value>+2 auf Treffer-, -2 auf Parade- and Ausweichwürfe.</value>
   </data>
   <data name="Skills_SkillAimedAttackMelee" xml:space="preserve">
     <value>Gezielter Schlag</value>
   </data>
+  <data name="Skills_SkillAimedAttackMeleeDescr" xml:space="preserve">
+    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.
+Kosten: 2 Ausdauer</value>
+  </data>
   <data name="Skills_SkillAimedAttackRanged" xml:space="preserve">
     <value>Gezielter Angriff</value>
   </data>
+  <data name="Skills_SkillAimedAttackRangedDescr" xml:space="preserve">
+    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.
+Kosten: 2 Ausdauer</value>
+  </data>
   <data name="Skills_SkillAlertness" xml:space="preserve">
     <value>Aufmerksam</value>
+  </data>
+  <data name="Skills_SkillAlertnessDescr" xml:space="preserve">
+    <value>+1 auf "Wahrnehmung"- und "Untersuchen"-Proben</value>
   </data>
   <data name="Skills_SkillArmor" xml:space="preserve">
     <value>Rüstung</value>
@@ -513,83 +536,182 @@
   <data name="Skills_SkillArmorBreaker" xml:space="preserve">
     <value>Rüstungsbrecher</value>
   </data>
+  <data name="Skills_SkillArmorBreakerDescr" xml:space="preserve">
+    <value>Reduziert gegnerische Rüstung um 3.
+Kosten: 5 Ausdauer</value>
+  </data>
+  <data name="Skills_SkillArmorDescr" xml:space="preserve">
+    <value>Keine Nachteile mehr durch das Rüstungsgewicht.</value>
+  </data>
   <data name="Skills_SkillArmorUp" xml:space="preserve">
     <value>Armor Up</value>
+  </data>
+  <data name="Skills_SkillArmorUpDescr" xml:space="preserve">
+    <value>Hauptaktionen beim Anlegen von Rüstung
+werden zu Nebenaktionen.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillAssassinate" xml:space="preserve">
     <value>Meucheln</value>
   </data>
+  <data name="Skills_SkillAssassinateDescr" xml:space="preserve">
+    <value>Endschaden * 3 bei einem Hinterrücksangriff. 
+Nicht mit "Reckless Attack" und "Vernichtender Angriff" kombinierbar.
+Kosten: 1 Ausdauer</value>
+  </data>
   <data name="Skills_SkillAttackOfOpportunity" xml:space="preserve">
     <value>Attack of Opportunity</value>
+  </data>
+  <data name="Skills_SkillAttackOfOpportunityDescr" xml:space="preserve">
+    <value>Wenn ein Gegner den direkten Kampf mit dir verlässt, kann ein weiterer Schlag nach ihm gesetzt werden.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillAvenger" xml:space="preserve">
     <value>Rächer</value>
   </data>
+  <data name="Skills_SkillAvengerDescr" xml:space="preserve">
+    <value>Wenn ein anderer Spielercharakter zu Boden geht: 
++5 Initiative, +1 auf Treffer- und Paradewürfe, 
++1D4 Schaden solange der Spielercharakter auf dem Boden ist.</value>
+  </data>
   <data name="Skills_SkillBackLine" xml:space="preserve">
     <value>Backline</value>
+  </data>
+  <data name="Skills_SkillBackLineDescr" xml:space="preserve">
+    <value>Vor dem ersten genommenen Treffer, erhalte +1 auf Trefferwürfe.</value>
   </data>
   <data name="Skills_SkillBetterThanThrowing" xml:space="preserve">
     <value>Besser als Schmeißen</value>
   </data>
+  <data name="Skills_SkillBetterThanThrowingDescr" xml:space="preserve">
+    <value>Keine Nachteile bei der Benutzung einer Schleuder.</value>
+  </data>
   <data name="Skills_SkillBladeFan" xml:space="preserve">
     <value>Klingenfächer</value>
+  </data>
+  <data name="Skills_SkillBladeFanDescr" xml:space="preserve">
+    <value>Ermöglicht es einen Klingenfächer vor sich aufzubauen. Dieser kann nur durch kritische Treffer durchdrungen werden. -10 auf Trefferwürfe.</value>
   </data>
   <data name="Skills_SkillBowMaking" xml:space="preserve">
     <value>Bogenbau</value>
   </data>
+  <data name="Skills_SkillBowMakingDescr" xml:space="preserve">
+    <value>Ermöglicht es Bögen zu bauen.</value>
+  </data>
   <data name="Skills_SkillBuildArrows" xml:space="preserve">
     <value>Pfeile bauen</value>
+  </data>
+  <data name="Skills_SkillBuildArrowsDescr" xml:space="preserve">
+    <value>Ermöglicht es Pfeile zu bauen.</value>
   </data>
   <data name="Skills_SkillCalmAiming" xml:space="preserve">
     <value>Ruhiges Zielen</value>
   </data>
+  <data name="Skills_SkillCalmAimingDescr" xml:space="preserve">
+    <value>Initiative gesenkt ( immer Letzter in der Zugreihenfolge). +2 auf Trefferwürfe.</value>
+  </data>
   <data name="Skills_SkillCavallery" xml:space="preserve">
     <value>Kavallerie</value>
+  </data>
+  <data name="Skills_SkillCavalleryDescr" xml:space="preserve">
+    <value>Ermöglicht den Kampf vom Pferd ohne Nachteile.</value>
   </data>
   <data name="Skills_SkillChainAttack" xml:space="preserve">
     <value>Kettenangrif</value>
   </data>
+  <data name="Skills_SkillChainAttackDescr" xml:space="preserve">
+    <value>Nach dem Entwaffnen eines Gegners kann dessen Waffe auf einen Gegner geworfen werden.
+Kosten: 1 Ausdauer</value>
+  </data>
   <data name="Skills_SkillClimbing" xml:space="preserve">
     <value>Klettern</value>
+  </data>
+  <data name="Skills_SkillClimbingDescr" xml:space="preserve">
+    <value>+1 auf Attributproben für das Klettern.</value>
   </data>
   <data name="Skills_SkillCombo" xml:space="preserve">
     <value>Kombo</value>
   </data>
+  <data name="Skills_SkillComboDescr" xml:space="preserve">
+    <value>Nach 3 erfolgreichen Treffern in Folge trifft der nächste Schlag definitiv.</value>
+  </data>
   <data name="Skills_SkillCommandTone" xml:space="preserve">
     <value>Befehlston</value>
+  </data>
+  <data name="Skills_SkillCommandToneDescr" xml:space="preserve">
+    <value>Wenn du beweisbar einen höheren Rang als eine andere Person hast, wird diese deine Befehle meistens blind befolgen.</value>
   </data>
   <data name="Skills_SkillCounterfeiting" xml:space="preserve">
     <value>Fälschen</value>
   </data>
+  <data name="Skills_SkillCounterfeitingDescr" xml:space="preserve">
+    <value>+1D4+2 auf "Fingerfertigkeit"-Proben bei dem Versuch Etwas zu fälschen.</value>
+  </data>
   <data name="Skills_SkillCripplingBlow" xml:space="preserve">
     <value>Verkrüppelnder Schlag</value>
+  </data>
+  <data name="Skills_SkillCripplingBlowDescr" xml:space="preserve">
+    <value>-1 auf den Trefferwurf. Gegnerische Initiative -3.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillCurvedShot" xml:space="preserve">
     <value>Curved Shot</value>
   </data>
+  <data name="Skills_SkillCurvedShotDescr" xml:space="preserve">
+    <value>Ermöglicht es Gegner hinter Hindernissen zu treffen.
+Erschwernis hängt von der Schwierigkeit des Schusses ab.</value>
+  </data>
   <data name="Skills_SkillDefensiveFighting" xml:space="preserve">
     <value>Defensiver Kampf</value>
+  </data>
+  <data name="Skills_SkillDefensiveFightingDescr" xml:space="preserve">
+    <value>+2 auf Parade- und Ausweichwürfe, -2 auf Trefferwürfe.</value>
   </data>
   <data name="Skills_SkillDefensiveStance" xml:space="preserve">
     <value>Defensive Haltung</value>
   </data>
+  <data name="Skills_SkillDefensiveStanceDescr" xml:space="preserve">
+    <value>Rüstung ist verdoppelt, +1D6+2 auf Paradewürfe, jedoch können keine Angriffe getätigt werden.</value>
+  </data>
   <data name="Skills_SkillDevastatingAttack" xml:space="preserve">
     <value>Vernichtender Angriff</value>
+  </data>
+  <data name="Skills_SkillDevastatingAttackDescr" xml:space="preserve">
+    <value>Endschaden * 2, jedoch muss die nächste Runde ausgesetzt werden und bis dahin kann weder pariert noch ausgewichen werden.
+Kosten: 3 Ausdauer</value>
   </data>
   <data name="Skills_SkillDisarmMelee" xml:space="preserve">
     <value>Entwaffnen</value>
   </data>
+  <data name="Skills_SkillDisarmMeleeDescr" xml:space="preserve">
+    <value>Ermöglicht es Gegner zu entwaffnen. Entwaffnungsschlag verursacht keinen Schaden.
+Kosten: 1 Ausdauer</value>
+  </data>
   <data name="Skills_SkillDisarmRanged" xml:space="preserve">
     <value>Entwaffnen</value>
+  </data>
+  <data name="Skills_SkillDisarmRangedDescr" xml:space="preserve">
+    <value>Ermöglicht es Gegner zu entwaffnen. +3 auf den Entwaffnungsversuch. 
+Entwaffnungsschlag verursacht keinen Schaden.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillDoubleShot" xml:space="preserve">
     <value>Doubleshot</value>
   </data>
+  <data name="Skills_SkillDoubleShotDescr" xml:space="preserve">
+    <value>Ermöglicht 2 Schüsse in einer Runde. Nur einmal im Kampf nutzbar.</value>
+  </data>
   <data name="Skills_SkillDualThrow" xml:space="preserve">
     <value>Doppelwurf</value>
   </data>
+  <data name="Skills_SkillDualThrowDescr" xml:space="preserve">
+    <value>Ermöglicht es 2 Wurfwaffen pro Runde zu werfen.</value>
+  </data>
   <data name="Skills_SkillDuplexFerrum" xml:space="preserve">
     <value>Duplex Ferrum</value>
+  </data>
+  <data name="Skills_SkillDuplexFerrumDescr" xml:space="preserve">
+    <value>Kein Schadensmalus bei dem Kampf mit zwei Waffen. +1D4 auf Paradewürfe.</value>
   </data>
   <data name="Skills_Skilled" xml:space="preserve">
     <value>Geskillt</value>
@@ -597,194 +719,416 @@
   <data name="Skills_SkillEncouragement" xml:space="preserve">
     <value>Ansporn</value>
   </data>
+  <data name="Skills_SkillEncouragementDescr" xml:space="preserve">
+    <value>Jedes Gruppenmitglied im Radius von 4 Feldern erhält zu Beginn eines Kampfes +2 Ausdauer.</value>
+  </data>
   <data name="Skills_SkillEnergyBoost" xml:space="preserve">
     <value>Energie-Schub</value>
+  </data>
+  <data name="Skills_SkillEnergyBoostDescr" xml:space="preserve">
+    <value>Jedes Gruppenmitglied im Radius von 4 Feldern erhält zu Beginn eines Kampfes +2 Energie.</value>
   </data>
   <data name="Skills_SkillEtiquette" xml:space="preserve">
     <value>Etikette</value>
   </data>
+  <data name="Skills_SkillEtiquetteDescr" xml:space="preserve">
+    <value>Man fällt wenig bis garnicht unter Civitas auf.</value>
+  </data>
   <data name="Skills_SkillEveryBlowAHit" xml:space="preserve">
     <value>Jeder Schlag ein Treffer</value>
+  </data>
+  <data name="Skills_SkillEveryBlowAHitDescr" xml:space="preserve">
+    <value>+2 auf Trefferwürfe.</value>
   </data>
   <data name="Skills_SkillFeint" xml:space="preserve">
     <value>Finte</value>
   </data>
+  <data name="Skills_SkillFeintDescr" xml:space="preserve">
+    <value>+1D4 auf eine Finte. 
+Bei Erfolg erhält der Gegner -5 auf Parade- und 
+Ausweichwürfe.
+Bei Misserfolg wird der Schlag automatisch pariert.
+Gegner können Finten erkennen und aus ihnen lernen.
+Kosten: 2 Ausdauer</value>
+  </data>
   <data name="Skills_SkillFencing" xml:space="preserve">
     <value>Fechter</value>
+  </data>
+  <data name="Skills_SkillFencingDescr" xml:space="preserve">
+    <value>2 Angriffe pro Runde bei Benutzung einer Fechtwaffe
+(z.B. Rapier)</value>
   </data>
   <data name="Skills_SkillFlirting" xml:space="preserve">
     <value>Flirten</value>
   </data>
+  <data name="Skills_SkillFlirtingDescr" xml:space="preserve">
+    <value>+1D4 auf Attributproben für einen Flirtversuch 
+(z.B. Performance)</value>
+  </data>
   <data name="Skills_SkillFullDamage" xml:space="preserve">
     <value>Ganzer Schaden</value>
+  </data>
+  <data name="Skills_SkillFullDamageDescr" xml:space="preserve">
+    <value>Der zweite Schlag bei dem Kampf mit zwei Waffen verursacht -3 Schaden anstatt der Hälfte des Schadens.</value>
   </data>
   <data name="Skills_SkillFutureMarket" xml:space="preserve">
     <value>Future Market</value>
   </data>
+  <data name="Skills_SkillFutureMarketDescr" xml:space="preserve">
+    <value>+4 Energie, aber man bricht am Ende des Kampfes zusammen.</value>
+  </data>
   <data name="Skills_SkillGambling" xml:space="preserve">
     <value>Glücksspiel</value>
+  </data>
+  <data name="Skills_SkillGamblingDescr" xml:space="preserve">
+    <value>Ermöglicht es bei Glückspielen zu betrügen.
++1D4 auf Attributproben für den Betrugsversuch
+(z.B. Fingerfertigkeit)</value>
   </data>
   <data name="Skills_SkillHardToKill" xml:space="preserve">
     <value>Schwer zu töten</value>
   </data>
+  <data name="Skills_SkillHardToKillDescr" xml:space="preserve">
+    <value>1D4+1 Heilung pro Hauptaktion. Erhöht auch die Heilung außerhalb des Kampfes.</value>
+  </data>
   <data name="Skills_SkillHeadshot" xml:space="preserve">
     <value>Headshot</value>
+  </data>
+  <data name="Skills_SkillHeadshotDescr" xml:space="preserve">
+    <value>Ermöglicht es bereits mit einer 19 oder höher einen kritischen Treffer zu landen.</value>
   </data>
   <data name="Skills_SkillHealing" xml:space="preserve">
     <value>Heilung</value>
   </data>
+  <data name="Skills_SkillHealingDescr" xml:space="preserve">
+    <value>+1D6+1 HP bei der Heilung mit Verbandsmaterial.</value>
+  </data>
   <data name="Skills_SkillHeavyFighting" xml:space="preserve">
     <value>Schwerer Kampf</value>
+  </data>
+  <data name="Skills_SkillHeavyFightingDescr" xml:space="preserve">
+    <value>+1 maximales Waffengewicht.</value>
   </data>
   <data name="Skills_SkillHeavyParade" xml:space="preserve">
     <value>Schwere Parade</value>
   </data>
+  <data name="Skills_SkillHeavyParadeDescr" xml:space="preserve">
+    <value>Mit einer Parade können auch starke Treffer geblockt werden.</value>
+  </data>
   <data name="Skills_SkillHijackerMelee" xml:space="preserve">
     <value>Hijacker</value>
+  </data>
+  <data name="Skills_SkillHijackerMeleeDescr" xml:space="preserve">
+    <value>Ermöglicht es ein Pferd zu kapern, welches bereits geritten wird.</value>
   </data>
   <data name="Skills_SkillHijackerRanged" xml:space="preserve">
     <value>Hijacker</value>
   </data>
+  <data name="Skills_SkillHijackerRangedDescr" xml:space="preserve">
+    <value>Ermöglicht es ein Pferd zu kapern, welches bereits geritten wird.</value>
+  </data>
   <data name="Skills_SkillHuntersMark" xml:space="preserve">
     <value>Hunter's Mark</value>
+  </data>
+  <data name="Skills_SkillHuntersMarkDescr" xml:space="preserve">
+    <value>Ein Gegner wird für 3 Runden markiert:
+2 Trefferwürfe werden für alle Treffer gewürfelt, 
+Bei Angriff des Markierten zählt der bessere Wurf und man erhält +1D4 Schaden.
+Bei dem Angriff auf Andere zählt der schlechtere Wurf.</value>
   </data>
   <data name="Skills_SkillIntimidate" xml:space="preserve">
     <value>Einschüchtern</value>
   </data>
+  <data name="Skills_SkillIntimidateDescr" xml:space="preserve">
+    <value>+1D4 auf "Einschüchtern"-Proben</value>
+  </data>
   <data name="Skills_SkillJumpAttack" xml:space="preserve">
     <value>Sprungangriff</value>
+  </data>
+  <data name="Skills_SkillJumpAttackDescr" xml:space="preserve">
+    <value>+1D6+2 Schaden auf einen Angriff von oben. 
+Bei Misserfolg: -3 auf Ausweich- und Paradewürfe bis zur nächsten Hauptaktion.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillKick" xml:space="preserve">
     <value>Tritt</value>
   </data>
+  <data name="Skills_SkillKickDescr" xml:space="preserve">
+    <value>Nach dem Treffen eines Gegners kann dieser zusätzlich getreten werden.
+Bei Erfolg: +1D4 Truedamage.
+Bei Misserfolg: -1 auf Parade- und Ausweichwürfe.
+Kosten: 1 Ausdauer</value>
+  </data>
   <data name="Skills_SkillKillingSpree" xml:space="preserve">
     <value>Killing Spree</value>
+  </data>
+  <data name="Skills_SkillKillingSpreeDescr" xml:space="preserve">
+    <value>Nach dem Töten eines Gegners kann erneut angegriffen werden.</value>
   </data>
   <data name="Skills_SkillKnowledgeOfPeople" xml:space="preserve">
     <value>Menschenkenntnis</value>
   </data>
+  <data name="Skills_SkillKnowledgeOfPeopleDescr" xml:space="preserve">
+    <value>+1 auf "Einsicht"-Proben.</value>
+  </data>
   <data name="Skills_SkillLastBreath" xml:space="preserve">
     <value>Last Breath</value>
+  </data>
+  <data name="Skills_SkillLastBreathDescr" xml:space="preserve">
+    <value>Es kann eine letzte Aktion getätigt werden, wobei deren Ausdauerkosten ignoriert werden. Danach bricht man zusammen.</value>
   </data>
   <data name="Skills_SkillLastShot" xml:space="preserve">
     <value>Last Shot</value>
   </data>
+  <data name="Skills_SkillLastShotDescr" xml:space="preserve">
+    <value>+2.5*Holzperlen Schaden, +1D6 auf den Trefferwurf, keine Rüstungsverrechnung, aber der Bogen wird zerstört.</value>
+  </data>
   <data name="Skills_SkillLieDetector" xml:space="preserve">
     <value>Lügendetektor</value>
+  </data>
+  <data name="Skills_SkillLieDetectorDescr" xml:space="preserve">
+    <value>+1D6+2 auf "Einsicht"-Proben.</value>
   </data>
   <data name="Skills_SkillLightBlow" xml:space="preserve">
     <value>Leichter Schlag</value>
   </data>
+  <data name="Skills_SkillLightBlowDescr" xml:space="preserve">
+    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.
+Kosten: 1 Ausdauer</value>
+  </data>
   <data name="Skills_SkillLightShot" xml:space="preserve">
     <value>Leichter Schuss</value>
+  </data>
+  <data name="Skills_SkillLightShotDescr" xml:space="preserve">
+    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillLockpicking" xml:space="preserve">
     <value>Schlösser knacken</value>
   </data>
+  <data name="Skills_SkillLockpickingDescr" xml:space="preserve">
+    <value>+1D4 auf "Fingerfertigkeit"-Proben bei dem Knacken eines Schlosses.</value>
+  </data>
   <data name="Skills_SkillLoneWarrior" xml:space="preserve">
     <value>Einzelkämpfer</value>
+  </data>
+  <data name="Skills_SkillLoneWarriorDescr" xml:space="preserve">
+    <value>+1 auf jeden Wurf während sich kein Gruppenmitglied in deiner Nähe befindet.</value>
   </data>
   <data name="Skills_SkillLuck" xml:space="preserve">
     <value>Glück</value>
   </data>
+  <data name="Skills_SkillLuckDescr" xml:space="preserve">
+    <value>+1D6 auf einen Wurf. Einmal pro Long Rest einsetzbar.</value>
+  </data>
   <data name="Skills_SkillLuckyShot" xml:space="preserve">
     <value>Lucky Shot</value>
+  </data>
+  <data name="Skills_SkillLuckyShotDescr" xml:space="preserve">
+    <value>-6 auf den nächsten Trefferwurf, aber der Schadenswürfel wird verdoppelt (z.B. D6 -&gt; D12).</value>
   </data>
   <data name="Skills_SkillMagazine" xml:space="preserve">
     <value>Magazin</value>
   </data>
+  <data name="Skills_SkillMagazineDescr" xml:space="preserve">
+    <value>3 Shots per Round, but requires 3 Rounds to refill ( = skip 2 Turns )</value>
+  </data>
   <data name="Skills_SkillMasterfulArcher" xml:space="preserve">
     <value>Meisterlicher Bogenschütze</value>
+  </data>
+  <data name="Skills_SkillMasterfulArcherDescr" xml:space="preserve">
+    <value>+2 auf Trefferwürfe mit dem Bogen.</value>
   </data>
   <data name="Skills_SkillMasterOfThrowingWeapons" xml:space="preserve">
     <value>Meister der Wurfwaffen</value>
   </data>
+  <data name="Skills_SkillMasterOfThrowingWeaponsDescr" xml:space="preserve">
+    <value>+2 auf Treffwürfe und +1 Schaden mit Wurfwaffen.</value>
+  </data>
   <data name="Skills_SkillMomentum" xml:space="preserve">
     <value>Momentum</value>
+  </data>
+  <data name="Skills_SkillMomentumDescr" xml:space="preserve">
+    <value>Starte in den Kampf mit -1 auf jeden Wurf. Erhalte +1 auf jeden Wurf für jede Tötung eines Gegners.
+Maximaler Bonus von +5.</value>
   </data>
   <data name="Skills_SkillNailDown" xml:space="preserve">
     <value>Festnageln</value>
   </data>
+  <data name="Skills_SkillNailDownDescr" xml:space="preserve">
+    <value>+3 auf einen Schuss, der den Gegner festnagelt. Der Gegner muss dadurch eine Runde aussetzen. Verursacht nur den Würfelschaden.</value>
+  </data>
   <data name="Skills_SkillNatureStudy" xml:space="preserve">
     <value>Naturkunde</value>
+  </data>
+  <data name="Skills_SkillNatureStudyDescr" xml:space="preserve">
+    <value>+1D4 auf "Natur"-Proben.</value>
   </data>
   <data name="Skills_SkillNimble" xml:space="preserve">
     <value>Flink</value>
   </data>
+  <data name="Skills_SkillNimbleDescr" xml:space="preserve">
+    <value>+2 Initiative und +3 Bewegungsdistanz.</value>
+  </data>
   <data name="Skills_SkillOneHandedFighting" xml:space="preserve">
     <value>Einhändiger Kampf</value>
+  </data>
+  <data name="Skills_SkillOneHandedFightingDescr" xml:space="preserve">
+    <value>+1 on Ausweich- und Paradewürfe, +1 Initiative und
++1 Schaden bei dem Kampf mit einer Einhandwaffe. </value>
   </data>
   <data name="Skills_SkillOneshot" xml:space="preserve">
     <value>Oneshot</value>
   </data>
+  <data name="Skills_SkillOneshotDescr" xml:space="preserve">
+    <value>Der nächste Treffer verursacht kritischen Schaden ( Schaden * 2 ), aber der Schuss muss eine Runde lang vorbereitet werden.</value>
+  </data>
   <data name="Skills_SkillParade" xml:space="preserve">
     <value>Parade</value>
+  </data>
+  <data name="Skills_SkillParadeDescr" xml:space="preserve">
+    <value>+1D4 auf Paradewürfe.</value>
   </data>
   <data name="Skills_SkillPerfectBlock" xml:space="preserve">
     <value>Perfekter Block</value>
   </data>
+  <data name="Skills_SkillPerfectBlockDescr" xml:space="preserve">
+    <value>Der nächste erhaltene Treffer wird geblockt.
+Kosten: 5 Ausdauer</value>
+  </data>
   <data name="Skills_SkillPerfectBlow" xml:space="preserve">
     <value>Perfekter Schlag</value>
+  </data>
+  <data name="Skills_SkillPerfectBlowDescr" xml:space="preserve">
+    <value>Der nächste Angriff trifft definitiv. Nicht mit anderen Skills kombinierbar.
+Kosten: 5 Ausdauer</value>
   </data>
   <data name="Skills_SkillPerfectShot" xml:space="preserve">
     <value>Perfekter Schuss</value>
   </data>
+  <data name="Skills_SkillPerfectShotDescr" xml:space="preserve">
+    <value>Der nächste Schuss trifft definitiv. Nicht mit anderen Skills kombinierbar.
+Kosten: 5 Ausdauer</value>
+  </data>
   <data name="Skills_SkillPerseverence" xml:space="preserve">
     <value>Ausdauernd</value>
+  </data>
+  <data name="Skills_SkillPerseverenceDescr" xml:space="preserve">
+    <value>+1D4 Ausdauer am Anfang des Kampfes. Man kann mehrere Tage ohne Schlaf überstehen, allerdings muss dieser danach nachgeholt werden.</value>
   </data>
   <data name="Skills_SkillPiercingArrow" xml:space="preserve">
     <value>Piercing Arrow</value>
   </data>
+  <data name="Skills_SkillPiercingArrowDescr" xml:space="preserve">
+    <value>Der nächste Schuss durchdringt den Gegner: 1D4 Blutungsschaden pro Runde, aber -3 auf den Trefferwurf und halber Schaden für den Angriff.</value>
+  </data>
   <data name="Skills_SkillPlunge" xml:space="preserve">
     <value>Hechtsprung</value>
+  </data>
+  <data name="Skills_SkillPlungeDescr" xml:space="preserve">
+    <value>+8 auf den nächsten Ausweichwurf.
+Kosten: 3 Ausdauer</value>
   </data>
   <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
     <value>Gifte</value>
   </data>
+  <data name="Skills_SkillPoisonKnowledgeDescr" xml:space="preserve">
+    <value>+1D4+1 auf Attributproben bei der Untersuchung oder dem Herstellen von Giften (z.B. Natur)</value>
+  </data>
   <data name="Skills_SkillPreciseThrow" xml:space="preserve">
     <value>Präziser Wurf</value>
+  </data>
+  <data name="Skills_SkillPreciseThrowDescr" xml:space="preserve">
+    <value>-4 auf den Trefferwurf. Die gegnerische Rüstung ist für den Treffer halbiert. Nur für Wurfwaffen.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillProfessionalSlingshotMarksman" xml:space="preserve">
     <value>Professioneller Schleuderer</value>
   </data>
+  <data name="Skills_SkillProfessionalSlingshotMarksmanDescr" xml:space="preserve">
+    <value>+2 auf Trefferwürfe und +1D6+2 Schaden bei der Nutzung einer Schleuder.</value>
+  </data>
   <data name="Skills_SkillQuickAim" xml:space="preserve">
     <value>Schnelles Zielen</value>
+  </data>
+  <data name="Skills_SkillQuickAimDescr" xml:space="preserve">
+    <value>Initiative wird bis zur nächsten Runde um 5 erhöht, dafür erhält man -3 auf Trefferwürfe bis dahin.</value>
   </data>
   <data name="Skills_SkillQuickdraw" xml:space="preserve">
     <value>Schnelles Spannen</value>
   </data>
+  <data name="Skills_SkillQuickdrawDescr" xml:space="preserve">
+    <value>Der Bogen kann in einer Nebenaktion gespannt werden.</value>
+  </data>
   <data name="Skills_SkillQuickParade" xml:space="preserve">
     <value>Schnelle Parade</value>
+  </data>
+  <data name="Skills_SkillQuickParadeDescr" xml:space="preserve">
+    <value>Ermöglicht eine weitere Parade pro Runde.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillReadiness" xml:space="preserve">
     <value>Bereitschaft</value>
   </data>
+  <data name="Skills_SkillReadinessDescr" xml:space="preserve">
+    <value>Der Bogen bleibt dauerhaft gespannt, allerdings kann man sich, während dieser Skill aktiv ist, nicht bewegen. </value>
+  </data>
   <data name="Skills_SkillRecklessAttack" xml:space="preserve">
     <value>Reckless Attack</value>
+  </data>
+  <data name="Skills_SkillRecklessAttackDescr" xml:space="preserve">
+    <value>Grundschaden * 2, jedoch kann bis zur nächsten Hauptaktion weder pariert noch ausgewichen werden.
+Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillRecognizeStyle" xml:space="preserve">
     <value>Stil erkennen</value>
   </data>
+  <data name="Skills_SkillRecognizeStyleDescr" xml:space="preserve">
+    <value>Nach 3 Runden im Kampf mit einem Gegner: +1 auf Parade-, Ausweich- und Trefferwürfe.</value>
+  </data>
   <data name="Skills_SkillRescueIsNear" xml:space="preserve">
     <value>Rettung naht</value>
+  </data>
+  <data name="Skills_SkillRescueIsNearDescr" xml:space="preserve">
+    <value>Ermöglicht es, sich im Zug eines Anderes zu Bewegen. Allerdings kann im eigenen Zug danach keine Hauptaktion ausgeführt werden.</value>
   </data>
   <data name="Skills_SkillReturn" xml:space="preserve">
     <value>Rücksendung</value>
   </data>
+  <data name="Skills_SkillReturnDescr" xml:space="preserve">
+    <value>Ermöglicht es, Wurfwaffen aus der Luft zu fangen und erneut zu werfen.</value>
+  </data>
   <data name="Skills_SkillRiposte" xml:space="preserve">
     <value>Riposte</value>
+  </data>
+  <data name="Skills_SkillRiposteDescr" xml:space="preserve">
+    <value>Ermöglicht es bereits mit einer 19 einen Konter bei einer Parade auszuführen.</value>
   </data>
   <data name="Skills_SkillRoundHouseAttack" xml:space="preserve">
     <value>Rundum-Angriff</value>
   </data>
+  <data name="Skills_SkillRoundHouseAttackDescr" xml:space="preserve">
+    <value>Trifft jeden Gegner in Reichweite.
+Kosten: 3 Ausdauer</value>
+  </data>
   <data name="Skills_SkillRoutinedWithThrowingWeapons" xml:space="preserve">
     <value>Routiniert mit Wurfwaffen</value>
+  </data>
+  <data name="Skills_SkillRoutinedWithThrowingWeaponsDescr" xml:space="preserve">
+    <value>+2 auf Trefferwürfe mit Wurfwaffen.</value>
   </data>
   <data name="Skills_SkillRunOver" xml:space="preserve">
     <value>Umrennen</value>
   </data>
+  <data name="Skills_SkillRunOverDescr" xml:space="preserve">
+    <value>+1D4+2 auf den Wurf beim Umrennen eines Gegners. Der Gegner erhält -1 auf Parade- und Ausweichwürfe und muss eine Runde aussetzen.
+Kosten: 3 Ausdauer</value>
+  </data>
   <data name="Skills_SkillSecondHand" xml:space="preserve">
     <value>Zweiter Schlag</value>
+  </data>
+  <data name="Skills_SkillSecondHandDescr" xml:space="preserve">
+    <value>Keine Treffernachteile bei der Nutzung einer zweiten Waffen.</value>
   </data>
   <data name="Skills_SkillShield" xml:space="preserve">
     <value>Schild</value>
@@ -792,68 +1136,143 @@
   <data name="Skills_SkillShieldBash" xml:space="preserve">
     <value>Schildschlag</value>
   </data>
+  <data name="Skills_SkillShieldBashDescr" xml:space="preserve">
+    <value>Zwingt einen Gegner zu Boden. Der Gegner muss die nächste Runde aussetzen. Bei einem Angriff von hinten muss der Gegner 3 Runden aussetzen.
+Kosten: 2 Ausdauer</value>
+  </data>
   <data name="Skills_SkillShieldBreaker" xml:space="preserve">
     <value>Schildbrecher</value>
+  </data>
+  <data name="Skills_SkillShieldBreakerDescr" xml:space="preserve">
+    <value>Wenn der Schlag von einem gegnerischen Schild geblockt wird, gibt dieser Schild nur noch den halben Paradebonus.
+Bei einem weiteren Schlag wird er zerstört.</value>
+  </data>
+  <data name="Skills_SkillShieldDescr" xml:space="preserve">
+    <value>Keine Nachteile beim Kampf mit einem Schild.</value>
   </data>
   <data name="Skills_SkillShootFromTheSaddle" xml:space="preserve">
     <value>Vom Sattel schießen</value>
   </data>
+  <data name="Skills_SkillShootFromTheSaddleDescr" xml:space="preserve">
+    <value>Ermöglicht es vom Pferd aus zu schießen. Benötigt einen Reiterbogen.</value>
+  </data>
   <data name="Skills_SkillSkilledLier" xml:space="preserve">
     <value>Erfahrener Lügner</value>
+  </data>
+  <data name="Skills_SkillSkilledLierDescr" xml:space="preserve">
+    <value>+1 auf "Täuschung"-Proben.</value>
   </data>
   <data name="Skills_SkillSkilledSpeaker" xml:space="preserve">
     <value>Gekonnter Redner</value>
   </data>
+  <data name="Skills_SkillSkilledSpeakerDescr" xml:space="preserve">
+    <value>+1D4+1 auf "Überzeugen"-Proben.</value>
+  </data>
   <data name="Skills_SkillSkilledWithThrowingWeapons" xml:space="preserve">
     <value>Geschickt mit Wurfwaffen</value>
+  </data>
+  <data name="Skills_SkillSkilledWithThrowingWeaponsDescr" xml:space="preserve">
+    <value>+1 auf Trefferwürfe mit Wurfwaffen.</value>
   </data>
   <data name="Skills_SkillSkillfulRetreat" xml:space="preserve">
     <value>Geschickter Rückzug</value>
   </data>
+  <data name="Skills_SkillSkillfulRetreatDescr" xml:space="preserve">
+    <value>Verhindert eine generische "Attack of Opportunity".</value>
+  </data>
   <data name="Skills_SkillSlingshotMarksman" xml:space="preserve">
     <value>Schleuderschütze</value>
+  </data>
+  <data name="Skills_SkillSlingshotMarksmanDescr" xml:space="preserve">
+    <value>+1D6+2 Schaden bei Benutzung einer Schleuder.</value>
   </data>
   <data name="Skills_SkillSmithing" xml:space="preserve">
     <value>Schmieden</value>
   </data>
+  <data name="Skills_SkillSmithingDescr" xml:space="preserve">
+    <value>+1D6+6 auf Attributproben beim Schmieden
+( z.B. Fingerfertigkeit)</value>
+  </data>
   <data name="Skills_SkillSneaking" xml:space="preserve">
     <value>Schleichen</value>
+  </data>
+  <data name="Skills_SkillSneakingDescr" xml:space="preserve">
+    <value>+1D4 auf "Schleichen"-Proben.</value>
   </data>
   <data name="Skills_SkillSomethingWithShield" xml:space="preserve">
     <value>Irgendwas mit Schild</value>
   </data>
+  <data name="Skills_SkillSomethingWithShieldDescr" xml:space="preserve">
+    <value>Ermöglicht es, die gegnerische Waffe beseite zu schlagen. Der Gegner erhält -5 auf eine Parade.
+Kosten: 3 Ausdauer</value>
+  </data>
   <data name="Skills_SkillStrongArrows" xml:space="preserve">
     <value>Starke Pfeile</value>
+  </data>
+  <data name="Skills_SkillStrongArrowsDescr" xml:space="preserve">
+    <value>Pfeile können nicht zerbrechen.</value>
   </data>
   <data name="Skills_SkillStrongThrow" xml:space="preserve">
     <value>Starker Wurf</value>
   </data>
+  <data name="Skills_SkillStrongThrowDescr" xml:space="preserve">
+    <value>Wurfwaffen verursachen +1D6 Schaden.</value>
+  </data>
   <data name="Skills_SkillSurpriseAttack" xml:space="preserve">
     <value>Überraschungsangriff</value>
+  </data>
+  <data name="Skills_SkillSurpriseAttackDescr" xml:space="preserve">
+    <value>Während man ungesehen ist: +1D4 Schaden und die Schüsse sind schwerer zu parieren.</value>
   </data>
   <data name="Skills_SkillSympathic" xml:space="preserve">
     <value>Sympatisch</value>
   </data>
+  <data name="Skills_SkillSympathicDescr" xml:space="preserve">
+    <value>NPCs vertrauen einem schneller.</value>
+  </data>
   <data name="Skills_SkillTakeAHit" xml:space="preserve">
     <value>Take a Hit</value>
+  </data>
+  <data name="Skills_SkillTakeAHitDescr" xml:space="preserve">
+    <value>Es ist keine Parade möglich, dafür kann direkt nach dem gegnerischen Angriff ein Gegenangriff ausgeführt werden.</value>
   </data>
   <data name="Skills_SkillTaunt" xml:space="preserve">
     <value>Taunt</value>
   </data>
+  <data name="Skills_SkillTauntDescr" xml:space="preserve">
+    <value>Man vollführt einen "Performance"-Wurf. Alle Gegner in Reichweite müssen daraufhin einen "Verfassung"-Gegenwurf vollführen. Jeder Gegner der diesen verliert muss einen solange angreifen, bis er den Wurf gewinnt.</value>
+  </data>
   <data name="Skills_SkillTeacher" xml:space="preserve">
     <value>Lehrer</value>
+  </data>
+  <data name="Skills_SkillTeacherDescr" xml:space="preserve">
+    <value>Andere zu lehren ist effizienter.</value>
   </data>
   <data name="Skills_SkillTheft" xml:space="preserve">
     <value>Diebstahl</value>
   </data>
+  <data name="Skills_SkillTheftDescr" xml:space="preserve">
+    <value>+1D4 auf "Fingerfertigkeit"-Proben bei Taschendiebstahl.</value>
+  </data>
   <data name="Skills_SkillThereAndAway" xml:space="preserve">
     <value>Hier und Weg</value>
+  </data>
+  <data name="Skills_SkillThereAndAwayDescr" xml:space="preserve">
+    <value>+1/2 Nebenaktion bei einem Waffengewicht &lt; 2.</value>
   </data>
   <data name="Skills_SkillTracking" xml:space="preserve">
     <value>Fährtenlesen</value>
   </data>
+  <data name="Skills_SkillTrackingDescr" xml:space="preserve">
+    <value>+1D4 auf Attributproben beim Fährtenlesen
+( z.B. Natur, Untersuchen)</value>
+  </data>
   <data name="Skills_SkillTrading" xml:space="preserve">
     <value>Handel</value>
+  </data>
+  <data name="Skills_SkillTradingDescr" xml:space="preserve">
+    <value>+1D4+1 auf Attributproben beim Handel
+( z.B. Überzeugen)</value>
   </data>
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>
@@ -861,11 +1280,20 @@
   <data name="Skills_SkillTrueshot" xml:space="preserve">
     <value>Trueshot</value>
   </data>
+  <data name="Skills_SkillTrueshotDescr" xml:space="preserve">
+    <value>Verursacht 1D6+Grundschaden und ignoriert Rüstung.</value>
+  </data>
   <data name="Skills_SkillVirtuallyInvisible" xml:space="preserve">
     <value>Quasi unsichtbar</value>
   </data>
+  <data name="Skills_SkillVirtuallyInvisibleDescr" xml:space="preserve">
+    <value>+1 auf "Schleichen"-Proben.</value>
+  </data>
   <data name="Skills_SkillWeaponsAndArmor" xml:space="preserve">
     <value>Waffen und Rüstung</value>
+  </data>
+  <data name="Skills_SkillWeaponsAndArmorDescr" xml:space="preserve">
+    <value>Ermöglicht das Herstellen von Waffen und Rüstungen.</value>
   </data>
   <data name="Skills_UsedSkillPoints" xml:space="preserve">
     <value>Verwendete Skillpunkte</value>
