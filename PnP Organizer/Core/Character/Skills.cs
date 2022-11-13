@@ -294,7 +294,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillShieldBashDescr, new string[] { ShieldBash.Name });
             Parade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillParadeDescr, new string[] { Parade.Name });
-            ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2, 
+            ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2,
                 Resources.Skills_SkillThereAndAwayDescr, new string[] { Nimble.Name });
             RecklessAttack = CreateAndAddSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillRecklessAttackDescr, new string[] { RecklessAttack.Name });
