@@ -295,7 +295,7 @@ namespace PnP_Organizer.Core.Character
             Parade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillParadeDescr, new string[] { Parade.Name });
             ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillThereAndAwayDescr, new string[] { ThereAndAway.Name });
+                Resources.Skills_SkillThereAndAwayDescr, new string[] { Nimble.Name });
             RecklessAttack = CreateAndAddSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillRecklessAttackDescr, new string[] { RecklessAttack.Name });
             DuplexFerrum = CreateAndAddSkill(Resources.Skills_SkillDuplexFerrum, SkillCategory.Melee, 2, 
