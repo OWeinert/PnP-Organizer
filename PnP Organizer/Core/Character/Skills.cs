@@ -270,22 +270,22 @@ namespace PnP_Organizer.Core.Character
             // Checkpoint 1
             OneHandedCombat = CreateAndAddSkill(Resources.Skills_SkillOneHandedFighting, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillOneHandedFightingDescr, 
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             SecondHand = CreateAndAddSkill(Resources.Skills_SkillSecondHand, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillSecondHandDescr, 
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             Shield = CreateAndAddSkill(Resources.Skills_SkillShield, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillShieldDescr, 
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             DefensiveFighting = CreateAndAddSkill(Resources.Skills_SkillDefensiveFighting, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillDefensiveFightingDescr, 
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             Nimble = CreateAndAddSkill(Resources.Skills_SkillNimble, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillNimbleDescr,
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             AggressiveCombat = CreateAndAddSkill(Resources.Skills_SkillAgressiveFighting, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillAgressiveFightingDescr, 
-                new string[] { ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
+                new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             Fencing = CreateAndAddSkill(Resources.Skills_SkillFencing, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillFencingDescr, new string[] { OneHandedCombat.Name });
             FullDamage = CreateAndAddSkill(Resources.Skills_SkillFullDamage, SkillCategory.Melee, 2, 
