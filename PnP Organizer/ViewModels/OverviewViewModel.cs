@@ -71,7 +71,10 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _maxHealth = 0;
         [ObservableProperty]
+        private int _totalMaxHealth = 0;
+        [ObservableProperty]
         private int _maxHealthBonus = 0;
+
         [ObservableProperty]
         private int _currentEnergy = 0;
         [ObservableProperty]
@@ -79,15 +82,23 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _maxEnergyBonus = 0;
         [ObservableProperty]
+        private int _totalMaxEnergy = 0;
+
+        [ObservableProperty]
         private int _currentStamina = 0;
         [ObservableProperty]
         private int _maxStamina = 0;
         [ObservableProperty]
         private int _maxStaminaBonus = 0;
         [ObservableProperty]
+        private int _totalMaxStamina = 0;
+
+        [ObservableProperty]
         private int _initiative = 0;
         [ObservableProperty]
         private int _initiativeBonus = 0;
+        [ObservableProperty]
+        private int _totalInitiative = 0;
 
         private bool _isLoading = false;
 
@@ -124,6 +135,15 @@ namespace PnP_Organizer.ViewModels
             if (e.PropertyName == nameof(MaxStamina) && CurrentStamina > MaxStamina)
                 CurrentStamina = MaxStamina;
 
+            if((e.PropertyName.Contains("Max") || e.PropertyName.Contains(nameof(Initiative))) 
+                && !e.PropertyName.Contains("Total"))
+            {
+                TotalMaxHealth = MaxHealth + MaxHealthBonus;
+                TotalMaxEnergy = MaxEnergy + MaxEnergyBonus;
+                TotalMaxStamina = MaxStamina + MaxStaminaBonus;
+                TotalInitiative = Initiative + InitiativeBonus;
+            }
+
             FileIO.IsCharacterSaved = false;
         }
 
@@ -158,6 +178,11 @@ namespace PnP_Organizer.ViewModels
             FileIO.LoadedCharacter.CurrentEnergy = CurrentEnergy;
             FileIO.LoadedCharacter.CurrentStamina = CurrentStamina;
 
+            FileIO.LoadedCharacter.MaxHealthBonus = MaxHealthBonus;
+            FileIO.LoadedCharacter.MaxEnergyBonus = MaxEnergyBonus;
+            FileIO.LoadedCharacter.MaxStaminaBonus = MaxStaminaBonus;
+            FileIO.LoadedCharacter.InitiativeBonus = InitiativeBonus;
+
             SaveCharacterAttributes();
             SaveCharacterPearls();
             SaveCharacterImage();
@@ -182,6 +207,11 @@ namespace PnP_Organizer.ViewModels
             CurrentHealth = FileIO.LoadedCharacter.CurrentHealth;
             CurrentEnergy = FileIO.LoadedCharacter.CurrentEnergy;
             CurrentStamina = FileIO.LoadedCharacter.CurrentStamina;
+
+            MaxHealthBonus = FileIO.LoadedCharacter.MaxHealthBonus;
+            MaxEnergyBonus = FileIO.LoadedCharacter.MaxEnergyBonus;
+            MaxStaminaBonus = FileIO.LoadedCharacter.MaxStaminaBonus;
+            InitiativeBonus = FileIO.LoadedCharacter.InitiativeBonus;
 
             LoadCharacterAttributes();
             LoadCharacterPearls();
@@ -220,7 +250,6 @@ namespace PnP_Organizer.ViewModels
             FileIO.LoadedCharacter.CharacterImage = Utils.BitmapImageToBytes(CharacterImage, _characterImageFileExt);
             FileIO.LoadedCharacter.CharacterImageFileExt = _characterImageFileExt;
         }
-
 
         private void LoadCharacterAttributes()
         {
