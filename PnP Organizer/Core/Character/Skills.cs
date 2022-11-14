@@ -263,7 +263,7 @@ namespace PnP_Organizer.Core.Character
             ArmorBreaker = CreateAndAddSkill(Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillArmorBreakerDescr, new string[] { AimedAttackMelee.Name });
             Assassinate = CreateAndAddSkill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillAssassinateDescr, new string[] { AimedAttackMelee.Name });
+                Resources.Skills_SkillAssassinateDescr, new string[] { AimedAttackMelee.Name, Sneaking.Name });
             JumpAttack = CreateAndAddSkill(Resources.Skills_SkillJumpAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillJumpAttackDescr, new string[] { Kick.Name });
 
