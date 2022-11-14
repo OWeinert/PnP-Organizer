@@ -8,6 +8,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
+    xmlns:c="clr-namespace:PnP_Organizer.Controls"
     Title="OverviewPage"
     d:DataContext="{d:DesignInstance local:OverviewPage,
                                      IsDesignTimeCreatable=False}"
@@ -148,7 +149,7 @@
             <Grid Grid.Column="2"
                   VerticalAlignment="Bottom"
                   HorizontalAlignment="Right"
-                  Margin="0,0,-30,0">
+                  Margin="0,0,-20,0">
 
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -207,12 +208,17 @@
                        Content="/"
                        HorizontalAlignment="Center"
                        FontSize="20"
-                       Margin="0,5,42,0"/>
+                       Margin="0,2,42,0"/>
                 <ui:TextBox x:Name="HealthTextBox"
                             Grid.Row="0"
                             Grid.Column="1"
-                            Text="{Binding ViewModel.MaxHealth, Mode=TwoWay}"/>
-
+                            Text="{Binding ViewModel.TotalMaxHealth, Mode=TwoWay}"/>
+                <c:StatBonusSelector x:Name="HealthBonusSelector"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     BonusValue="{Binding ViewModel.MaxHealthBonus, Mode=TwoWay}"/>
                 <!-- Energy -->
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
@@ -230,11 +236,17 @@
                        Content="/"
                        HorizontalAlignment="Center"
                        FontSize="20"
-                       Margin="0,5,42,0"/>
+                       Margin="0,2,42,0"/>
                 <ui:TextBox x:Name="EnergyTextBox"
                             Grid.Row="1"
                             Grid.Column="1"
-                            Text="{Binding ViewModel.MaxEnergy, Mode=TwoWay}"/>
+                            Text="{Binding ViewModel.TotalMaxEnergy, Mode=TwoWay}"/>
+                <c:StatBonusSelector x:Name="EnergyBonusSelector"
+                                     Grid.Row="1"
+                                     Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     BonusValue="{Binding ViewModel.MaxEnergyBonus, Mode=TwoWay}"/>
 
                 <!-- Stamina -->
                 <TextBlock Grid.Row="2"
@@ -253,11 +265,17 @@
                        Content="/"
                        HorizontalAlignment="Center"
                        FontSize="20"
-                       Margin="0,5,42,0"/>
+                       Margin="0,2,42,0"/>
                 <ui:TextBox x:Name="StaminaTextBox"
                             Grid.Row="2"
                             Grid.Column="1"
-                            Text="{Binding ViewModel.MaxStamina, Mode=TwoWay}"/>
+                            Text="{Binding ViewModel.TotalMaxStamina, Mode=TwoWay}"/>
+                <c:StatBonusSelector x:Name="StaminaBonusSelector"
+                                     Grid.Row="2"
+                                     Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     BonusValue="{Binding ViewModel.MaxStaminaBonus, Mode=TwoWay}"/>
 
                 <!-- Initiative -->
                 <TextBlock Grid.Row="3"
@@ -269,12 +287,19 @@
                             Orientation="Horizontal"
                             Margin="8,0,0,8">
                     <ui:TextBox x:Name="InititativeTextBox"
-                                Text="{Binding ViewModel.Initiative, Mode=TwoWay}"
-                                Margin="0,0,0,0"/>
+                                Text="{Binding ViewModel.TotalInitiative, Mode=TwoWay}"
+                                Margin="0"/>
                     <TextBlock Text="+ 1D6"
                                VerticalAlignment="Center"
                                Margin="8,0,0,0"/>
                 </StackPanel>
+                <c:StatBonusSelector x:Name="InitiativeBonusSelector"
+                                     Grid.Row="3"
+                                     Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     BonusValue="{Binding ViewModel.InitiativeBonus, Mode=TwoWay}"/>
+                
             </Grid>
         </Grid>
 
