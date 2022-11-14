@@ -255,7 +255,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillAimedAttackMeleeDescr, new string[] { LightBlow.Name })
                 .AddSkillDependencies(new string[] { LightBlow.Name });
             WeaponsAndArmor = CreateAndAddSkill(Resources.Skills_SkillWeaponsAndArmor, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillWeaponsAndArmorDescr, new string[] { WeaponsAndArmor.Name });
+                Resources.Skills_SkillWeaponsAndArmorDescr, new string[] { Smithing.Name });
             Kick = CreateAndAddSkill(Resources.Skills_SkillKick, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillKickDescr, new string[] { RunOver.Name });
             Taunt = CreateAndAddSkill(Resources.Skills_SkillTaunt, SkillCategory.Melee, 2, 
