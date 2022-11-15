@@ -20,7 +20,13 @@
                       Width="36"
                       Height="36"
                       IsHitTestVisible="{Binding IsOpen, ElementName=BonusSelectorPopup, Converter={StaticResource BooleanInvertConverter}}"
-                      Margin="0,0.1,8,0"/>
+                      Margin="0,0.1,8,0"
+                      Padding="0">
+            <Viewbox Width="24"
+                     Height="24">
+                <ui:SymbolIcon Symbol="ArrowBidirectionalUpDown24"/>
+            </Viewbox>
+        </ToggleButton>
         <Popup x:Name="BonusSelectorPopup"
                Placement="Left"
                PlacementTarget="{Binding ElementName=BonusSelectorButton}"
