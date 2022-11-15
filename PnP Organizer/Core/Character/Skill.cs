@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace PnP_Organizer.Core.Character
 {
@@ -28,9 +29,7 @@ namespace PnP_Organizer.Core.Character
         // HACK Direct Skill references would be better, but maybe won't work with the SkillModel
         public string[] DependendSkillNames { get; private set; }
 
-        private  Func<bool>? _skillableDependencyPredicate;
-
-        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description = "")
+        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description = "", string[] dependendSkillNames = null)
         {
             Name = name;
             SkillCategory = skillCategory;
@@ -40,9 +39,8 @@ namespace PnP_Organizer.Core.Character
             ApplianceMode = null;
             DamageModifer = null;
             SkillPoints = 0;
-            DependendSkillNames = Array.Empty<string>();
 
-            _skillableDependencyPredicate = null;
+            DependendSkillNames = dependendSkillNames != null ? dependendSkillNames : Array.Empty<string>();
         }
 
         /// <summary>
@@ -50,19 +48,6 @@ namespace PnP_Organizer.Core.Character
         /// </summary>
         /// <returns></returns>
         public bool IsActive() => SkillPoints == MaxSkillPoints;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool IsSkillable() => _skillableDependencyPredicate == null || _skillableDependencyPredicate();
-
-        public Skill AddSkillDependencies(string[] dependendSkillNames, Func<bool>? skillableDependencyPredicate = null)
-        {
-            DependendSkillNames = dependendSkillNames;
-            _skillableDependencyPredicate = skillableDependencyPredicate;
-            return this;
-        }
 
         public Skill AddDamageModifier(Func<float, float> damageModifier, ApplianceMode applianceMode)
         {

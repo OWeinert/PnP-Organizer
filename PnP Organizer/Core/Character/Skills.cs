@@ -251,9 +251,8 @@ namespace PnP_Organizer.Core.Character
                 .AddDamageModifier(damage => damage / 2, ApplianceMode.EndValue);
             Smithing = CreateAndAddSkill(Resources.Skills_SkillSmithing, SkillCategory.Melee, 1, Resources.Skills_SkillSmithingDescr);
             RunOver = CreateAndAddSkill(Resources.Skills_SkillRunOver, SkillCategory.Melee, 2, Resources.Skills_SkillRunOverDescr);
-            AimedAttackMelee = CreateAndAddSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillAimedAttackMeleeDescr, new string[] { LightBlow.Name })
-                .AddSkillDependencies(new string[] { LightBlow.Name });
+            AimedAttackMelee = CreateAndAddSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2,
+                Resources.Skills_SkillAimedAttackMeleeDescr, new string[] { LightBlow.Name });
             WeaponsAndArmor = CreateAndAddSkill(Resources.Skills_SkillWeaponsAndArmor, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillWeaponsAndArmorDescr, new string[] { Smithing.Name });
             Kick = CreateAndAddSkill(Resources.Skills_SkillKick, SkillCategory.Melee, 2, 
@@ -490,9 +489,7 @@ namespace PnP_Organizer.Core.Character
         private Skill CreateAndAddSkill(string name, SkillCategory skillCategory, int maxSkillPoints, 
             string description = "", string[]? skillDependencies = null) 
         {
-            var skill = new Skill(name, skillCategory, maxSkillPoints, description);
-            if(skillDependencies != null)
-                skill.AddSkillDependencies(skillDependencies);
+            var skill = new Skill(name, skillCategory, maxSkillPoints, description, skillDependencies);
             return AddSkill(skill);
         }
 
