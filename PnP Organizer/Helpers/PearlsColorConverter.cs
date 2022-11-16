@@ -17,11 +17,11 @@ namespace PnP_Organizer.Helpers
                 throw new ArgumentNullException(nameof(value));
 
             double dValue = System.Convert.ToDouble(value);
-            if(dValue > 0)
+            if(dValue >= 1)
             {
-                if(dValue > 3)
+                if(dValue >= 4)
                 {
-                    if(dValue > 7)
+                    if(dValue >= 7)
                     {
                         return (Brush)Application.Current.FindResource("PaletteRedBrush");
                     }
