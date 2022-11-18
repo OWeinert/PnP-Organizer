@@ -1,5 +1,4 @@
 ﻿using PnP_Organizer.ViewModels;
-using System;
 using System.Reflection;
 
 namespace PnP_Organizer.Core.Character.StatModifiers
