@@ -1,17 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Properties;
 using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
 namespace PnP_Organizer.Models
 {
-    [INotifyPropertyChanged]
-    public partial class AttributeTestModel
+    public partial class AttributeTestModel : ObservableObject
     {
         [ObservableProperty]
         private string _name = string.Empty;
@@ -22,9 +23,15 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private int _baseBonus = 0;
         [ObservableProperty]
-        private int[] _externalBoni = Array.Empty<int>();
+        private int _pearlBonus = 0;
+        [ObservableProperty]
+        private ObservableCollection<int> _externalBoni = new();
+        [ObservableProperty]
+        private ObservableCollection<Dice> _externalDiceBoni = new();
         [ObservableProperty]
         private int _bonusSum = 0;
+        [ObservableProperty]
+        private string _totalBonus = string.Empty;
         [ObservableProperty]
         private string _toolTip = string.Empty;
         [ObservableProperty]
@@ -32,24 +39,14 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private bool _hasToolTip = false;
 
-        public AttributeTestModel(string name, AttributeType attributeType, int[]? externalBoni = null)
+        public AttributeTestModel(string name, AttributeType attributeType)
         {
             Name = name;
             AttributeType = attributeType;
 
-            if(externalBoni != null)
-                _externalBoni = externalBoni;
-
-            LocalizedAttributeType = AttributeType switch
-            {
-                AttributeType.Strength => Resources.AttributeTests_TypeStrength,
-                AttributeType.Constitution => Resources.AttributeTests_TypeConstitution,
-                AttributeType.Dexterity => Resources.AttributeTests_TypeDexterity,
-                AttributeType.Wisdom => Resources.AttributeTests_TypeWisdom,
-                AttributeType.Intelligence => Resources.AttributeTests_TypeIntelligence,
-                AttributeType.Charisma => Resources.AttributeTests_TypeCharisma,
-                _ => string.Empty,
-            };
+            LocalizedAttributeType = (string)typeof(Resources)
+                                        .GetProperty($"AttributeTests_Type{attributeType}", BindingFlags.Public | BindingFlags.Static)!
+                                        .GetValue(null, null)!;
 
             Brush = AttributeType switch
             {
@@ -66,34 +63,76 @@ namespace PnP_Organizer.Models
             {
                 if (e.PropertyName is nameof(BaseBonus) or nameof(ExternalBoni))
                     UpdateBonusSum();
+                UpdateToolTip();
+            };
 
-                HasToolTip = GetHasToolTip();
-                ToolTip = GetToolTip();
+            ExternalBoni.CollectionChanged += (sender, e) =>
+            {
+                UpdateBonusSum();
+                UpdateToolTip();
+            };
+
+            ExternalDiceBoni.CollectionChanged += (sender, e) =>
+            {
+                UpdateTotalBonus();
+                UpdateToolTip();
             };
         }
 
-        public void UpdateBonusSum() => BonusSum = BaseBonus + ExternalBoni.Sum();
+        public void UpdateBonusSum() => BonusSum = BaseBonus + PearlBonus + ExternalBoni.Sum();
+
+        public void UpdateTotalBonus()
+        {
+            var sb = new StringBuilder();
+            if(BonusSum > 0 || !ExternalDiceBoni.Any())
+                sb.Append($"{BonusSum} ");
+            foreach (var externalDiceBonus in ExternalDiceBoni)
+            {
+                sb.Append($"+ 1D{externalDiceBonus.Name}");
+            }
+            TotalBonus= sb.ToString();
+        }
+
+        private void UpdateToolTip()
+        {
+            HasToolTip = GetHasToolTip();
+            ToolTip = GetToolTip();
+        }
 
         private string GetToolTip()
         {
             if (HasToolTip)
             {
-                StringBuilder sb = new();
+                var sb = new StringBuilder();
                 sb.Append($"{BaseBonus} ");
+                AppendExtraBonus(ref sb, PearlBonus);
                 foreach (int externalBonus in ExternalBoni)
                 {
-                    if (externalBonus != 0)
-                    {
-                        string plusMinus = externalBonus > 0 ? "+" : "-";
-                        sb.Append($"{plusMinus} {externalBonus} ");
-                    }
+                    AppendExtraBonus(ref sb, externalBonus);
                 }
-                sb.Append($"= {BonusSum}");
+                foreach(Dice externalDiceBonus in ExternalDiceBoni)
+                {
+                    sb.Append($"+ 1D{externalDiceBonus.Name} ");
+                }
+
+                int maxBonus = BonusSum + ExternalDiceBoni.Sum(dice => dice.MaxValue);
+                string plusMinus = maxBonus > 0 ? "+" : string.Empty;
+                sb.Append($"= {BonusSum + ExternalDiceBoni.Count} <-> {plusMinus}{maxBonus}");
+
                 return sb.ToString();
             }
             return string.Empty;
         }
 
-        private bool GetHasToolTip() => ExternalBoni.Any(bonus => bonus != 0);
+        private static void AppendExtraBonus(ref StringBuilder sb, int bonus)
+        {
+            if (bonus != 0)
+            {
+                string plusMinus = bonus > 0 ? "+" : string.Empty;
+                sb.Append($"{plusMinus} {bonus} ");
+            }
+        }
+
+        private bool GetHasToolTip() => PearlBonus != 0 || ExternalBoni.Any(bonus => bonus != 0) || ExternalDiceBoni.Any();
     }
 }
