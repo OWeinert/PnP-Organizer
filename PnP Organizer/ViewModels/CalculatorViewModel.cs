@@ -2,6 +2,7 @@
 using PnP_Organizer.Calculators;
 using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Views.Pages;
@@ -106,14 +107,17 @@ namespace PnP_Organizer.ViewModels
                     CalculatorModifiers?.Add(modifier);
             }
 
+            /*
             SkillsViewModel viewModel = _pageService!.GetPage<SkillsPage>()!.ViewModel;
-            List<Skill> activeSkills = viewModel.SkillModels!.Where(skillModel => skillModel.Skill.IsActive()).ToList().ConvertAll(skillModel => skillModel.Skill);
+            List<Skill> activeSkills = viewModel.SkillModels!.Where(skillModel => skillModel.Skill.IsActive() && skillModel.Skill.StatModifier is CalculatorModifierStatModifier)
+                .ToList().ConvertAll(skillModel => skillModel.Skill);
 
             foreach (Skill skill in activeSkills)
             {
-                CalculatorModifierModel modifierModel = new(skill.Name, skill.Description, skill.ApplianceMode, skill.DamageModifer!);
+                CalculatorModifierModel modifierModel = new(skill.Name, skill.Description);
                 CalculatorModifiers?.Add(modifierModel);
             }
+            */
         }
 
         // TODO CalculateValues(): Implement calculation for hit, armor and dodge/parry
