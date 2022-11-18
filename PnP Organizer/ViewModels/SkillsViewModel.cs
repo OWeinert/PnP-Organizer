@@ -128,7 +128,7 @@ namespace PnP_Organizer.ViewModels
             List<string> dependedActiveSkills = SkillModels!
                 .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill.DependendSkillNames.Contains(dependendSkill.Name))
                 .ToList().ConvertAll(skillModel => skillModel.Name);
-            skillModel.IsSkillable = (dependedActiveSkills.Any() || !skillModel.Skill.DependendSkillNames.Any()) && skillModel.Skill.IsSkillable();
+            skillModel.IsSkillable = dependedActiveSkills.Any() || !skillModel.Skill.DependendSkillNames.Any();
             await Task.CompletedTask;
         }
 
