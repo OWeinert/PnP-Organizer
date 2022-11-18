@@ -17,15 +17,15 @@
     mc:Ignorable="d">
 
     <ui:UiPage.Resources>
-        <helpers:AttributeBonusColorConverter x:Key="AttributeBonusColorConverter"/>
+        <helpers:AttributeTestColorConverter x:Key="AttributeTestColorConverter"/>
         <helpers:ProfessionModelTemplateSelector x:Key="ProfessionModelTemplateSelector"/>
     </ui:UiPage.Resources>
     
-    <Grid Margin="24,0">
+    <Grid Margin="24,0,16,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="0.33*"/>
+            <ColumnDefinition Width="0.29*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0"
@@ -85,7 +85,7 @@
                                  ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource Self}}"
                                  ToolTipService.IsEnabled="{Binding HasToolTip}">
                             <ui:Card.Content>
-                                <Grid Width="200">
+                                <Grid Width="234">
 
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0.66*"/>
@@ -102,7 +102,7 @@
                                     </Viewbox>
 
                                     <Separator Grid.Column="1"
-                                               Margin="4,0"/>
+                                               Margin="4,0,0,0"/>
 
                                     <TextBlock Grid.Column="2"
                                                Text="{Binding LocalizedAttributeType}"
@@ -110,17 +110,24 @@
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"/>
 
-                                    <Separator Grid.Column="3"
-                                               Margin="4,0,0,0"/>
+                                    <Separator Grid.Column="3"/>
 
-                                    <Label Grid.Column="4"
-                                       Content="{Binding BonusSum}"
-                                       Foreground="{Binding BonusSum, Converter={StaticResource AttributeBonusColorConverter}}"
-                                           FontWeight="SemiBold"
-                                       HorizontalAlignment="Right"
-                                       Width="20"
-                                       HorizontalContentAlignment="Right"
-                                       Margin="0,0,0,0"/>
+                                    <Viewbox Grid.Column="4"
+                                             Margin="4,0,0,0"
+                                             HorizontalAlignment="Right"
+                                             Width="40"
+                                             MaxHeight="22">
+                                        <Label Content="{Binding TotalBonus}"
+                                               FontWeight="SemiBold"
+                                               HorizontalContentAlignment="Right">
+                                            <Label.Foreground>
+                                                <MultiBinding Converter="{StaticResource AttributeTestColorConverter}">
+                                                    <Binding Path="BonusSum"/>
+                                                    <Binding Path="TotalBonus"/>
+                                                </MultiBinding>
+                                            </Label.Foreground>
+                                        </Label>
+                                    </Viewbox>
                                 </Grid>
                             </ui:Card.Content>
                         </ui:Card>
