@@ -1,17 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core;
+using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
+using PnP_Organizer.Properties;
+using PnP_Organizer.Views.Pages;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.ViewModels
 {
-    public partial class AttributeTestsViewModel : ObservableObject
+    public partial class AttributeTestsViewModel : ObservableObject, INavigationAware
     {
         [ObservableProperty]
         private ICollectionView? _attributeTestModelsView;
@@ -25,26 +33,30 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private ObservableCollection<AttributeTestModel> _attributeTestModels = new()
         {
-            new AttributeTestModel(Properties.Resources.AttributeTests_Acrobatic, AttributeType.Dexterity),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Athletic, AttributeType.Strength, new int[] { FileIO.LoadedCharacter.Pearls.Earth }),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Insight, AttributeType.Wisdom),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Intimidate, AttributeType.Charisma),
-            new AttributeTestModel(Properties.Resources.AttributeTests_SleightOfHand, AttributeType.Dexterity),
-            new AttributeTestModel(Properties.Resources.AttributeTests_History, AttributeType.Intelligence),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Physique, AttributeType.Constitution),
-            new AttributeTestModel(Properties.Resources.AttributeTests_FirstAid, AttributeType.Wisdom),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Nature, AttributeType.Intelligence),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Performance, AttributeType.Charisma),
-            new AttributeTestModel(Properties.Resources.AttributeTests_SneakHide, AttributeType.Dexterity),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Bluff,AttributeType.Charisma),
-            new AttributeTestModel(Properties.Resources.AttributeTests_HandleAnimals, AttributeType.Wisdom),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Inspect, AttributeType.Intelligence),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Persuade, AttributeType.Charisma, new int[] { (int)(Math.Floor(FileIO.LoadedCharacter.Pearls.Fire * 0.5)) }),
-            new AttributeTestModel(Properties.Resources.AttributeTests_Perceive, AttributeType.Wisdom),
+             new(Resources.AttributeTests_Acrobatic, AttributeType.Dexterity),
+             new(Resources.AttributeTests_Athletic, AttributeType.Strength),
+             new(Resources.AttributeTests_Insight, AttributeType.Wisdom),
+             new(Resources.AttributeTests_Intimidate, AttributeType.Charisma),
+             new(Resources.AttributeTests_SleightOfHand, AttributeType.Dexterity),
+             new(Resources.AttributeTests_History, AttributeType.Intelligence),
+             new(Resources.AttributeTests_Physique, AttributeType.Constitution),
+             new(Resources.AttributeTests_FirstAid, AttributeType.Wisdom),
+             new(Resources.AttributeTests_Nature, AttributeType.Intelligence),
+             new(Resources.AttributeTests_Performance, AttributeType.Charisma),
+             new(Resources.AttributeTests_SneakHide, AttributeType.Dexterity),
+             new(Resources.AttributeTests_Bluff, AttributeType.Charisma),
+             new(Resources.AttributeTests_HandleAnimals, AttributeType.Wisdom),
+             new(Resources.AttributeTests_Inspect, AttributeType.Intelligence),
+             new(Resources.AttributeTests_Persuade, AttributeType.Charisma),
+             new(Resources.AttributeTests_Perceive, AttributeType.Wisdom)
         };
 
-        public AttributeTestsViewModel()
+        private IPageService _pageService;
+
+        public AttributeTestsViewModel(IPageService pageService)
         {
+            _pageService = pageService;
+
             PropertyChanged += AttributeTestsViewModel_PropertyChanged;
 
             UpdateAttributeTestBoni();
@@ -56,9 +68,26 @@ namespace PnP_Organizer.ViewModels
 
             AttributeTestModelsView.Filter += AttributeTestModelsView_Filter;
 
-            Views.Container.FinishedLoading += (sender, e) => UpdateAttributeTestBoni();
-            FileIO.LoadedCharacter.PropertyChanged += (sender, e) => UpdateAttributeTestBoni();
+            Views.Container.FinishedLoading += (sender, e) => 
+            {
+                UpdateAttributeTestBoni();
+                ApplySkillBoni();
+            };
         }
+
+        public void OnNavigatedTo()
+        {
+            foreach(var model in AttributeTestModels)
+            {
+                model.ExternalBoni = new ObservableCollection<int>();
+                model.ExternalDiceBoni = new ObservableCollection<Dice>();
+            }
+            
+            ApplySkillBoni();
+            UpdateAttributeTestBoni();
+        }
+
+        public void OnNavigatedFrom() { }
 
         private void AttributeTestsViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -68,7 +97,7 @@ namespace PnP_Organizer.ViewModels
 
         private bool AttributeTestModelsView_Filter(object obj)
         {
-            AttributeTestModel attributeTest = (AttributeTestModel)obj;
+            var attributeTest = (AttributeTestModel)obj;
 
             AttributeType? attributeType = null;
             if (SelectedAttributeFilter?.Tag != null && Enum.TryParse(typeof(AttributeType), (string)SelectedAttributeFilter.Tag, out object? parsedAttributeType))
@@ -79,7 +108,7 @@ namespace PnP_Organizer.ViewModels
 
         private void UpdateAttributeTestBoni()
         {
-            foreach(AttributeTestModel attributeTest in AttributeTestModels)
+            foreach(var attributeTest in AttributeTestModels)
             {
                 CharacterAttributes attributes = FileIO.LoadedCharacter.Attributes;
                 int attributeValue = attributeTest.AttributeType switch
@@ -94,7 +123,47 @@ namespace PnP_Organizer.ViewModels
                 };
 
                 attributeTest.BaseBonus = Utils.GetAttributeBonus(attributeValue);
+
+                if (attributeTest.Name == Resources.AttributeTests_Persuade)
+                    attributeTest.PearlBonus = (int)Math.Ceiling(FileIO.LoadedCharacter.Pearls.Fire * 0.5);
+                else if (attributeTest.Name == Resources.AttributeTests_Athletic)
+                    attributeTest.PearlBonus = FileIO.LoadedCharacter.Pearls.Earth;
+
                 attributeTest.UpdateBonusSum();
+                attributeTest.UpdateTotalBonus();
+            }
+        }
+
+        private void ApplySkillBoni()
+        {
+            var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
+            var attributeTestModifiers = skillsViewModel.SkillModels!
+                .Where(skillModel => skillModel.Skill.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive) // Filter out skills inactive skills and those without stat modifiers
+                .SelectMany(skillModel => skillModel.Skill.StatModifiers!, (skillModel, statModifier) =>    // Select all stat modifiers which are AttributeTestStatModifiers
+                {
+                    if (statModifier is AttributeTestStatModifier)
+                        return statModifier;
+                    return null;
+                })
+                .Where(statModifier => statModifier != null) // Filter out null values
+                .Cast<AttributeTestStatModifier>();
+
+
+            foreach (var modifier in attributeTestModifiers)
+            {
+                if (modifier != null)
+                {
+                    var attributeTestModel = AttributeTestModels.Where(aTM => aTM.Name == modifier.AttributeTestName)
+                        .Cast<AttributeTestModel>().First();
+
+                    if (attributeTestModel != null)
+                    {
+                        if (modifier.Bonus != 0)
+                            attributeTestModel.ExternalBoni.Add(modifier.Bonus);
+                        if (modifier.Dice.MaxValue > 1)
+                            attributeTestModel.ExternalDiceBoni.Add(modifier.Dice);
+                    }
+                }
             }
         }
     }
