@@ -92,7 +92,7 @@
                                    HorizontalAlignment="Center"
                                    Height="250"
                                    Width="200"
-                                   Stretch="UniformToFill"
+                                   Stretch="Uniform"
                                    Source="{Binding ViewModel.CharacterImage}"/>
                         </ui:Button>
                     </Border>
