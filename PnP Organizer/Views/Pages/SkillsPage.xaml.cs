@@ -23,28 +23,6 @@ namespace PnP_Organizer.Views.Pages
             InitializeComponent();
         }
 
-        // TODO SPButton_Click move logic to ViewModel
-        private async void SPButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            await Dispatcher.InvokeAsync(() =>
-            {
-                WpfUiButton button = (WpfUiButton)sender;
-                SkillModel dataSkillModel = ViewModel.SkillModels![Core.Character.Skills.Instance.GetSkillIndexFromName(((SkillModel)button.DataContext).Name)];
-                SkillModel visualSkillModel = (SkillModel)button.DataContext;
-                switch (button.Tag)
-                {
-                    case "spIncrease":
-                        dataSkillModel.SkillPoints += dataSkillModel.SkillPoints < dataSkillModel.MaxSkillPoints ? 1 : 0;
-                        break;
-                    case "spDecrease":
-                        dataSkillModel.SkillPoints -= dataSkillModel.SkillPoints > 0 ? 1 : 0;
-                        break;
-                    default:
-                        break;
-                }
-                visualSkillModel.SkillPoints = dataSkillModel.SkillPoints;
-            });
-        }
 
         // TODO FilterButton_Click move logic to ViewModel
         private async void FilterTreeButton_Click(object sender, RoutedEventArgs e)
