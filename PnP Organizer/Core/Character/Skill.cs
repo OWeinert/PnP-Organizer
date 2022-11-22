@@ -12,6 +12,8 @@ namespace PnP_Organizer.Core.Character
         public int SkillPoints { get; set; }
         public int MaxSkillPoints { get; set; }
 
+        public bool IsRepeatable { get; set; }
+
         public StatModifier[]? StatModifiers { get; private set; }
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace PnP_Organizer.Core.Character
             StatModifiers = statModifiers;
             SkillPoints = 0;
 
-            DependendSkillNames = dependendSkillNames != null ? dependendSkillNames : Array.Empty<string>();
+            DependendSkillNames = dependendSkillNames ?? Array.Empty<string>();
         }
 
         /// <summary>
@@ -37,5 +39,11 @@ namespace PnP_Organizer.Core.Character
         /// </summary>
         /// <returns></returns>
         public bool IsActive() => SkillPoints == MaxSkillPoints;
+
+        public Skill SetRepeatable(bool repeatable = true)
+        {
+            IsRepeatable = repeatable;
+            return this;
+        }
     }
 }
