@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace PnP_Organizer.Core.Character
 {
-    public struct Skill
+    public class Skill
     {
         public string Name { get; set; }
         public string Description { get; set; }
