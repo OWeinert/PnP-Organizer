@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using System.Collections.Generic;
@@ -14,7 +15,11 @@ namespace PnP_Organizer.Models
     public partial class SkillModel : ObservableObject
     {
         private Skill _skill;
-        public Skill Skill { get => _skill; }
+        public Skill Skill
+        { 
+            get => _skill;
+            protected set => _skill = value;
+        }
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -72,6 +77,8 @@ namespace PnP_Organizer.Models
             PropertyChanged += OnSkillPropertyChanged;
         }
 
+        public void RaisePropertyChanged(string propertyName) => OnPropertyChanged(propertyName);
+
         private void OnSkillPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName is nameof(IsSkillable))
@@ -92,6 +99,19 @@ namespace PnP_Organizer.Models
             }
         }
 
+        [RelayCommand]
+        private void IncreaseSkillPoints() {
+            if(SkillPoints < MaxSkillPoints)
+                SkillPoints++;
+        }
+
+        [RelayCommand]
+        private void DecreaseSkillPoints()
+        {
+            if (SkillPoints > 0)
+                SkillPoints--;
+        }
+
         private void UpdateVisuals()
         {
             IsActive = _skill.IsActive();
@@ -104,6 +124,6 @@ namespace PnP_Organizer.Models
             SkillableOverlayVisibility = IsSkillable ? Visibility.Hidden : Visibility.Visible;
         }
 
-        public void RaisePropertyChanged(string propertyName) => OnPropertyChanged(propertyName);
+        
     }
 }
