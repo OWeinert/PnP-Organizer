@@ -1353,4 +1353,82 @@ Kosten: 3 Ausdauer</value>
   <data name="Tooltip_CopyToClipboard" xml:space="preserve">
     <value>In Zwischenablage kopieren</value>
   </data>
+  <data name="Skills_SkillElementalProfessionGreen" xml:space="preserve">
+    <value>Grüne Elementarprofession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionGreenDescr" xml:space="preserve">
+    <value>Keine Probe für eine grüne Elementarfähigkeit nötig, Energiekosten -2</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionRed" xml:space="preserve">
+    <value>Rote Elementarprofession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionRedDescr" xml:space="preserve">
+    <value>Keine Probe für eine rote Elementarfähigkeit nötig, Energiekosten -2</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionYellow" xml:space="preserve">
+    <value>Gelbe Elementarprofession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionYellowDescr" xml:space="preserve">
+    <value>Keine Probe für eine gelbe Elementarfähigkeit nötig, Energiekosten -2</value>
+  </data>
+  <data name="Skills_SkillEnergy3" xml:space="preserve">
+    <value>Energie +3</value>
+  </data>
+  <data name="Skills_SkillEnergy3Descr" xml:space="preserve">
+    <value>Erhöht Energie um 3</value>
+  </data>
+  <data name="Skills_SkillEnergy6" xml:space="preserve">
+    <value>Energie +6</value>
+  </data>
+  <data name="Skills_SkillEnergy6Descr" xml:space="preserve">
+    <value>Erhöht Energie um 6</value>
+  </data>
+  <data name="Skills_SkillFourthElemental" xml:space="preserve">
+    <value>Viertes Element</value>
+  </data>
+  <data name="Skills_SkillFourthElementalDescr" xml:space="preserve">
+    <value>Ermöglicht es, eine vierte Elementarrichtung zu erlangen</value>
+  </data>
+  <data name="Skills_SkillHP" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="Skills_SkillHPDescr" xml:space="preserve">
+    <value>Erhöht die maximalen Lebenspunkte um 6</value>
+  </data>
+  <data name="Skills_SkillNextElemental" xml:space="preserve">
+    <value>Nächster Elementar</value>
+  </data>
+  <data name="Skills_SkillNextElementalDescr" xml:space="preserve">
+    <value>Bonus auf den nächsten Zähmungsversuch eines Elementars</value>
+  </data>
+  <data name="Skills_SkillNextLevel" xml:space="preserve">
+    <value>Next Level</value>
+  </data>
+  <data name="Skills_SkillNextLevelDescr" xml:space="preserve">
+    <value>Ermöglicht es eine Elementarfähigkeit über dem eigenen Können zu wirken</value>
+  </data>
+  <data name="Skills_SkillProfession" xml:space="preserve">
+    <value>Profession</value>
+  </data>
+  <data name="Skills_SkillProfessionDescr" xml:space="preserve">
+    <value>Ermöglicht das Hinzufügen einer weiteren Attributprofession</value>
+  </data>
+  <data name="Skills_SkillStamina2" xml:space="preserve">
+    <value>Ausdauer +2</value>
+  </data>
+  <data name="Skills_SkillStamina2Descr" xml:space="preserve">
+    <value>Erhöht Ausdauer um 2</value>
+  </data>
+  <data name="Skills_SkillStamina4" xml:space="preserve">
+    <value>Ausdauer +4</value>
+  </data>
+  <data name="Skills_SkillStamina4Descr" xml:space="preserve">
+    <value>Erhöht Ausdauer um 4</value>
+  </data>
+  <data name="Skills_SkillStats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="Skills_SkillStatsDescr" xml:space="preserve">
+    <value>Erhöht einen wählbaren Stat um 1</value>
+  </data>
 </root>

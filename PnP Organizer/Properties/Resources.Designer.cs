@@ -1940,6 +1940,60 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Green Elemental Profession.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionGreen {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No need for a Roll on a Green Elemental Ability, Energy Cost -2.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionGreenDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionGreenDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red Elemental Profession.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionRed {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionRed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No need for a Roll on a Red Elemental Ability, Energy Cost -2.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionRedDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionRedDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow Elemental Profession.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionYellow {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionYellow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No need for a Roll on a Yellow Elemental Ability, Energy Cost -2.
+        /// </summary>
+        public static string Skills_SkillElementalProfessionYellowDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillElementalProfessionYellowDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encouragement.
         /// </summary>
         public static string Skills_SkillEncouragement {
@@ -1954,6 +2008,42 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillEncouragementDescr {
             get {
                 return ResourceManager.GetString("Skills_SkillEncouragementDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy +3.
+        /// </summary>
+        public static string Skills_SkillEnergy3 {
+            get {
+                return ResourceManager.GetString("Skills_SkillEnergy3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases maximum Energy by 3.
+        /// </summary>
+        public static string Skills_SkillEnergy3Descr {
+            get {
+                return ResourceManager.GetString("Skills_SkillEnergy3Descr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Energy +6.
+        /// </summary>
+        public static string Skills_SkillEnergy6 {
+            get {
+                return ResourceManager.GetString("Skills_SkillEnergy6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increasesmaximum  Energy by 6.
+        /// </summary>
+        public static string Skills_SkillEnergy6Descr {
+            get {
+                return ResourceManager.GetString("Skills_SkillEnergy6Descr", resourceCulture);
             }
         }
         
@@ -2066,6 +2156,24 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillFlirtingDescr {
             get {
                 return ResourceManager.GetString("Skills_SkillFlirtingDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourth Elemental.
+        /// </summary>
+        public static string Skills_SkillFourthElemental {
+            get {
+                return ResourceManager.GetString("Skills_SkillFourthElemental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grants the Ability to have 4 different Elemental Branches.
+        /// </summary>
+        public static string Skills_SkillFourthElementalDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillFourthElementalDescr", resourceCulture);
             }
         }
         
@@ -2251,6 +2359,24 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillHijackerRangedDescr {
             get {
                 return ResourceManager.GetString("Skills_SkillHijackerRangedDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HP.
+        /// </summary>
+        public static string Skills_SkillHP {
+            get {
+                return ResourceManager.GetString("Skills_SkillHP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases maximum Health by 6.
+        /// </summary>
+        public static string Skills_SkillHPDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillHPDescr", resourceCulture);
             }
         }
         
@@ -2650,6 +2776,42 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next Elemental.
+        /// </summary>
+        public static string Skills_SkillNextElemental {
+            get {
+                return ResourceManager.GetString("Skills_SkillNextElemental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bonus on the next Try to tame an Elemental.
+        /// </summary>
+        public static string Skills_SkillNextElementalDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillNextElementalDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Level.
+        /// </summary>
+        public static string Skills_SkillNextLevel {
+            get {
+                return ResourceManager.GetString("Skills_SkillNextLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grants the Ability to cast a Elemental Ability of a higher Level.
+        /// </summary>
+        public static string Skills_SkillNextLevelDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillNextLevelDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nimble.
         /// </summary>
         public static string Skills_SkillNimble {
@@ -2872,6 +3034,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profession.
+        /// </summary>
+        public static string Skills_SkillProfession {
+            get {
+                return ResourceManager.GetString("Skills_SkillProfession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Professional Slingshot Marksman.
         /// </summary>
         public static string Skills_SkillProfessionalSlingshotMarksman {
@@ -2886,6 +3057,15 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillProfessionalSlingshotMarksmanDescr {
             get {
                 return ResourceManager.GetString("Skills_SkillProfessionalSlingshotMarksmanDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add another Profession to your Attribute Test Professions.
+        /// </summary>
+        public static string Skills_SkillProfessionDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillProfessionDescr", resourceCulture);
             }
         }
         
@@ -3348,6 +3528,60 @@ namespace PnP_Organizer.Properties {
         public static string Skills_SkillSomethingWithShieldDescr {
             get {
                 return ResourceManager.GetString("Skills_SkillSomethingWithShieldDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stamina +2.
+        /// </summary>
+        public static string Skills_SkillStamina2 {
+            get {
+                return ResourceManager.GetString("Skills_SkillStamina2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases maximum Stamina by 2.
+        /// </summary>
+        public static string Skills_SkillStamina2Descr {
+            get {
+                return ResourceManager.GetString("Skills_SkillStamina2Descr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stamina +4.
+        /// </summary>
+        public static string Skills_SkillStamina4 {
+            get {
+                return ResourceManager.GetString("Skills_SkillStamina4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases maximum Stamina by 4.
+        /// </summary>
+        public static string Skills_SkillStamina4Descr {
+            get {
+                return ResourceManager.GetString("Skills_SkillStamina4Descr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stats.
+        /// </summary>
+        public static string Skills_SkillStats {
+            get {
+                return ResourceManager.GetString("Skills_SkillStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases a chosen Stat by 1.
+        /// </summary>
+        public static string Skills_SkillStatsDescr {
+            get {
+                return ResourceManager.GetString("Skills_SkillStatsDescr", resourceCulture);
             }
         }
         
