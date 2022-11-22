@@ -56,6 +56,20 @@ namespace PnP_Organizer.Core.Character
         public readonly Skill LastBreath;
         public readonly Skill FutureMarket;
         public readonly Skill Avenger;
+
+        public readonly Skill HP;
+        public readonly Skill Profession;
+        public readonly Skill Stamina2;
+        public readonly Skill Stamina4;
+        public readonly Skill Stats;
+        public readonly Skill Energy3;
+        public readonly Skill Energy6;
+        public readonly Skill NextLevel;
+        public readonly Skill NextElemental;
+        public readonly Skill ElementalProfessionGreen;
+        public readonly Skill ElementalProfessionYellow;
+        public readonly Skill ElementalProfessionRed;
+        public readonly Skill FourthElemental;
         #endregion Character
 
         #region Melee
@@ -261,6 +275,22 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillFutureMarketDescr, null, new string[] { Perseverence.Name });
             Avenger = CreateAndAddSkill(Resources.Skills_SkillAvenger, SkillCategory.Character, 2,
                 Resources.Skills_SkillAvengerDescr, null, new string[] { Momentum.Name });
+
+            // Repeatable Skills
+            AddSkill(HP = new Skill(Resources.Skills_SkillHP, SkillCategory.Character, 3, Resources.Skills_SkillHPDescr, null).SetRepeatable());
+            AddSkill(Profession = new Skill(Resources.Skills_SkillProfession, SkillCategory.Character, 3, Resources.Skills_SkillProfessionDescr, null).SetRepeatable());
+            AddSkill(Stamina2 = new Skill(Resources.Skills_SkillStamina2, SkillCategory.Character, 3, Resources.Skills_SkillStamina2Descr, null).SetRepeatable());
+            AddSkill(Stamina4 = new Skill(Resources.Skills_SkillStamina4, SkillCategory.Character, 5, Resources.Skills_SkillStamina4Descr, null).SetRepeatable());
+            AddSkill(Stats = new Skill(Resources.Skills_SkillStats, SkillCategory.Character, 5, Resources.Skills_SkillStatsDescr, null).SetRepeatable());
+            AddSkill(Energy3 = new Skill(Resources.Skills_SkillEnergy3, SkillCategory.Character, 3, Resources.Skills_SkillEnergy3Descr, null).SetRepeatable());
+            AddSkill(Energy6 = new Skill(Resources.Skills_SkillEnergy6, SkillCategory.Character, 5, Resources.Skills_SkillEnergy6Descr, null).SetRepeatable());
+            AddSkill(NextLevel = new Skill(Resources.Skills_SkillNextLevel, SkillCategory.Character, 4, Resources.Skills_SkillNextLevelDescr, null).SetRepeatable());
+            AddSkill(NextElemental = new Skill(Resources.Skills_SkillNextElemental, SkillCategory.Character, 5, Resources.Skills_SkillNextElementalDescr, null).SetRepeatable());
+            AddSkill(ElementalProfessionGreen = new Skill(Resources.Skills_SkillElementalProfessionGreen, SkillCategory.Character, 1, Resources.Skills_SkillElementalProfessionGreenDescr, null).SetRepeatable());
+            AddSkill(ElementalProfessionYellow = new Skill(Resources.Skills_SkillElementalProfessionYellow, SkillCategory.Character, 3, Resources.Skills_SkillElementalProfessionYellowDescr, null).SetRepeatable());
+            AddSkill(ElementalProfessionRed = new Skill(Resources.Skills_SkillElementalProfessionRed, SkillCategory.Character, 5, Resources.Skills_SkillElementalProfessionRedDescr).SetRepeatable());
+            AddSkill(FourthElemental = new Skill(Resources.Skills_SkillFourthElemental, SkillCategory.Character, 6, Resources.Skills_SkillFourthElementalDescr, null).SetRepeatable());
+
             #endregion Character
 
             #region Melee
@@ -323,13 +353,13 @@ namespace PnP_Organizer.Core.Character
             FullDamage = CreateAndAddSkill(Resources.Skills_SkillFullDamage, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillFullDamageDescr, null, new string[] { SecondHand.Name });
             ShieldBash = CreateAndAddSkill(Resources.Skills_SkillShieldBash, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillShieldBashDescr, null, new string[] { ShieldBash.Name });
+                Resources.Skills_SkillShieldBashDescr, null, new string[] { Shield.Name });
             Parade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillParadeDescr, null, new string[] { Parade.Name });
+                Resources.Skills_SkillParadeDescr, null, new string[] { DefensiveFighting.Name });
             ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2,
                 Resources.Skills_SkillThereAndAwayDescr, null, new string[] { Nimble.Name });
             RecklessAttack = CreateAndAddSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillRecklessAttackDescr, null, new string[] { RecklessAttack.Name });
+                Resources.Skills_SkillRecklessAttackDescr, null, new string[] { AggressiveCombat.Name });
             DuplexFerrum = CreateAndAddSkill(Resources.Skills_SkillDuplexFerrum, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillDuplexFerrumDescr, null, new string[] { FullDamage.Name });
             SomethingWithShield = CreateAndAddSkill(Resources.Skills_SkillSomethingWithShield, SkillCategory.Melee, 2, 
