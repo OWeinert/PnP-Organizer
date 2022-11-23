@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 
@@ -13,8 +15,12 @@ namespace PnP_Organizer.Models
     /// </summary>
     public partial class SkillModel : ObservableObject
     {
-        private Skill _skill;
-        public Skill Skill { get => _skill; }
+        private Skill? _skill;
+        public Skill? Skill
+        { 
+            get => _skill;
+            protected set => _skill = value;
+        }
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -46,7 +52,7 @@ namespace PnP_Organizer.Models
 
         public SkillModel(Skill skill)
         {
-            _skill = skill;
+            Skill = skill;
             Name = skill.Name;
             Description = skill.Description;
             SkillCategory = skill.SkillCategory;
@@ -72,6 +78,10 @@ namespace PnP_Organizer.Models
             PropertyChanged += OnSkillPropertyChanged;
         }
 
+        public void RaisePropertyChanged(string propertyName) => OnPropertyChanged(propertyName);
+
+        protected virtual void UpdateIsActive() => IsActive = Skill!.IsActive();
+
         private void OnSkillPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName is nameof(IsSkillable))
@@ -82,19 +92,32 @@ namespace PnP_Organizer.Models
                 
             if (e.PropertyName is not nameof(IsActive) or nameof(ActiveOverlayVisibility))
             {
-                _skill.Name = Name;
-                _skill.Description = Description;
-                _skill.SkillCategory = SkillCategory;
-                _skill.SkillPoints = SkillPoints;
+                Skill!.Name = Name;
+                Skill.Description = Description;
+                Skill.SkillCategory = SkillCategory;
+                Skill.SkillPoints = SkillPoints;
 
                 UpdateVisuals();
                 FileIO.IsCharacterSaved = false;
             }
         }
 
+        [RelayCommand]
+        private void IncreaseSkillPoints() {
+            if(SkillPoints < MaxSkillPoints)
+                SkillPoints++;
+        }
+
+        [RelayCommand]
+        private void DecreaseSkillPoints()
+        {
+            if (SkillPoints > 0)
+                SkillPoints--;
+        }
+
         private void UpdateVisuals()
         {
-            IsActive = _skill.IsActive();
+            UpdateIsActive();
             UpdateOverlay();
         }
 
@@ -104,6 +127,6 @@ namespace PnP_Organizer.Models
             SkillableOverlayVisibility = IsSkillable ? Visibility.Hidden : Visibility.Visible;
         }
 
-        public void RaisePropertyChanged(string propertyName) => OnPropertyChanged(propertyName);
+        
     }
 }

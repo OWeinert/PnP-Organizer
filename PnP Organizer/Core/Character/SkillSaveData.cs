@@ -6,7 +6,10 @@
     /// </summary>
     public struct SkillSaveData
     {
-        public int Index { get; set; }
-        public int SkillPoints { get; set; }
+        public int Index { get; set; } = 0;
+        public int SkillPoints { get; set; } = 0;
+        public int? Repetition { get; set; } = null;
+
+        public SkillSaveData() { }
     }
 }

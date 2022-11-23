@@ -83,11 +83,15 @@ namespace PnP_Organizer.ViewModels
             SkillModels.CollectionChanged += SkillModels_CollectionChanged;
             foreach (Skill skill in Skills.Instance.SkillsList)
             {
-                SkillModels.Add(new SkillModel(skill));
+                SkillModel skillModel;
+                if (skill.IsRepeatable)
+                    skillModel = new RepeatableSkillModel(skill);
+                else
+                    skillModel = new SkillModel(skill);
+
+                SkillModels.Add(skillModel);
             }
             SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
-
-            //CreateSkillModelHierarchy();
 
             Logger.Log($"{SkillModels.Count} SkillModels for {Skills.Instance.SkillsList.Count} Skills initialized");
         }
@@ -108,27 +112,52 @@ namespace PnP_Organizer.ViewModels
 
         private async void SkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            SkillModel? senderSkillModel = (SkillModel?)sender;
+            var senderSkillModel = (SkillModel?)sender;
             if (senderSkillModel != null && e.PropertyName is nameof(senderSkillModel.SkillPoints))
             {
                 await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill.DependendSkillNames.Contains(senderSkillModel.Skill.Name));
-                    foreach (SkillModel skillModel in dependendSkillModels)
+                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkillNames.Contains(senderSkillModel.Skill!.Name));
+                    foreach (var skillModel in dependendSkillModels)
                     {
                         await CheckSkillModelSkillability(skillModel);
                     }
-                    UsedSkillPoints = SkillModels!.Sum(sM => sM.SkillPoints);
+
+                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkillName == senderSkillModel.Skill!.Name);
+                    if (forcedDependendSkillModel != default)
+                        await CheckSkillModelSkillability(forcedDependendSkillModel);
+
+                    UsedSkillPoints = SkillModels!.Sum(sM =>
+                    {
+                        if(sM is RepeatableSkillModel rSM)
+                        {
+                            return rSM.TotalSkillPoints;
+                        }
+                        return sM.SkillPoints;
+                    });
                 });
             }
         }
 
+        // TODO simplify
         private async Task CheckSkillModelSkillability(SkillModel skillModel)
         {
-            List<string> dependedActiveSkills = SkillModels!
-                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill.DependendSkillNames.Contains(dependendSkill.Name))
-                .ToList().ConvertAll(skillModel => skillModel.Name);
-            skillModel.IsSkillable = (dependedActiveSkills.Any() || !skillModel.Skill.DependendSkillNames.Any()) && skillModel.Skill.IsSkillable();
+            if(!skillModel.Skill!.DependendSkillNames.Any() && string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName)) // if this is true, there's no need to check further
+            {
+                skillModel.IsSkillable = true;
+                return;
+            }
+            var dependedActiveSkills = SkillModels! // Get a list of active skills which the given skill depends on
+                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkillNames.Contains(dependendSkill.Name));
+
+            if (!string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName))
+            {
+                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Name == skillModel.Skill!.ForcedDependendSkillName);  // get the skill which the given skill is forced to depend on
+                skillModel.IsSkillable = dependedActiveSkills.Any() && forcedDependendSkill!.IsActive;
+            }
+            else
+                skillModel.IsSkillable = dependedActiveSkills.Any();
+            
             await Task.CompletedTask;
         }
 
@@ -166,22 +195,6 @@ namespace PnP_Organizer.ViewModels
             return false;
         }
 
-        /*
-        private void CreateSkillModelHierarchy()
-        {
-            foreach(SkillModel skillModel in SkillModels!)
-            {
-                SkillModel?[] children = SkillModels.SelectMany(skillModel => skillModel.Skill.DependendSkillNames, (skillModel, dependendSkillName) =>
-                {
-                    if (skillModel.Name == dependendSkillName)
-                        return skillModel;
-                    return null;
-                }).ToArray();
-                skillModel.Children?.AddRange(children.Where(skillModel => skillModel != null)!);
-            }
-        }
-        */
-
         public void SaveCharacterSkills()
         {
             if (_isInitialized)
@@ -196,6 +209,8 @@ namespace PnP_Organizer.ViewModels
                         Index = i,
                         SkillPoints = SkillModels[i]!.SkillPoints
                     };
+                    if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
+                        skillSaveData.Repetition = repeatableSkillModel.Repetition;
                     skills.Add(skillSaveData);
                 }
                 FileIO.LoadedCharacter.Skills = skills;
@@ -219,11 +234,19 @@ namespace PnP_Organizer.ViewModels
                 {
                     Skill skill = Skills.Instance.SkillsList[skillSaveData.Index];
                     skill.SkillPoints = skillSaveData.SkillPoints;
-                    SkillModels?.Add(new SkillModel(skill));
+
+                    SkillModel skillModel ;
+                    if (skill.IsRepeatable)
+                    {
+                        skillModel = new RepeatableSkillModel(skill);
+                        ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
+                    }
+                    else
+                        skillModel = new SkillModel(skill);
+
+                    SkillModels?.Add(skillModel);
                 }
                 SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
-
-                //CreateSkillModelHierarchy();
 
                 Logger.Log("Skills loaded successfully!");
             }

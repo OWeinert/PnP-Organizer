@@ -1,18 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.IO;
 using PnP_Organizer.Logging;
+using PnP_Organizer.Models;
+using PnP_Organizer.Views.Pages;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
+using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.ViewModels
 {
-    public partial class OverviewViewModel : ObservableObject
+    public partial class OverviewViewModel : ObservableObject, INavigationAware
     {
         [ObservableProperty]
         private string _characterName = string.Empty;
@@ -71,9 +78,12 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _maxHealth = 0;
         [ObservableProperty]
-        private int _totalMaxHealth = 0;
-        [ObservableProperty]
         private int _maxHealthBonus = 0;
+        [ObservableProperty]
+        private int _maxHealthModifierBonus = 0;
+        [ObservableProperty]
+        private int _totalMaxHealth = 0;
+        
 
         [ObservableProperty]
         private int _currentEnergy = 0;
@@ -81,6 +91,8 @@ namespace PnP_Organizer.ViewModels
         private int _maxEnergy = 0;
         [ObservableProperty]
         private int _maxEnergyBonus = 0;
+        [ObservableProperty]
+        private int _maxEnergyModifierBonus = 0;
         [ObservableProperty]
         private int _totalMaxEnergy = 0;
 
@@ -91,6 +103,8 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _maxStaminaBonus = 0;
         [ObservableProperty]
+        private int _maxStaminaModifierBonus = 0;
+        [ObservableProperty]
         private int _totalMaxStamina = 0;
 
         [ObservableProperty]
@@ -98,14 +112,26 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private int _initiativeBonus = 0;
         [ObservableProperty]
+        private int _initiativeModifierBonus = 0;
+        [ObservableProperty]
         private int _totalInitiative = 0;
+
+        private readonly IPageService _pageService;
 
         private bool _isLoading = false;
 
-        public OverviewViewModel()
+        public OverviewViewModel(IPageService pageService)
         {
+            _pageService = pageService;
             PropertyChanged += OnOverviewPropertyChanged;
         }
+
+        public void OnNavigatedTo()
+        {
+            ApplySkillBoni();
+        }
+
+        public void OnNavigatedFrom() { }
 
         private void OnOverviewPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -115,7 +141,7 @@ namespace PnP_Organizer.ViewModels
                 || e.PropertyName!.Contains("Pearls"))
             {
                 UpdateAttributeBonus(overviewProperty);
-                UpdateCharacterStats();
+                CalculateCharacterStats();
             }
             if(e.PropertyName is nameof(CharacterImage) && CharacterImage?.UriSource != null)
                 _characterImageFileExt = Path.GetExtension(CharacterImage.UriSource.AbsolutePath);
@@ -134,32 +160,17 @@ namespace PnP_Organizer.ViewModels
 
             if (e.PropertyName == nameof(MaxStamina) && CurrentStamina > MaxStamina)
                 CurrentStamina = MaxStamina;
-
-            if((e.PropertyName.Contains("Max") || e.PropertyName.Contains(nameof(Initiative))) 
+            
+            if((e.PropertyName.Contains("Max") || e.PropertyName.Contains("Modifier") || e.PropertyName.Contains(nameof(Initiative))) 
                 && !e.PropertyName.Contains("Total"))
             {
-                TotalMaxHealth = MaxHealth + MaxHealthBonus;
-                TotalMaxEnergy = MaxEnergy + MaxEnergyBonus;
-                TotalMaxStamina = MaxStamina + MaxStaminaBonus;
-                TotalInitiative = Initiative + InitiativeBonus;
+                TotalMaxHealth = MaxHealth + MaxHealthBonus + MaxHealthModifierBonus;
+                TotalMaxEnergy = MaxEnergy + MaxEnergyBonus + MaxEnergyModifierBonus;
+                TotalMaxStamina = MaxStamina + MaxStaminaBonus + MaxStaminaModifierBonus;
+                TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
             FileIO.IsCharacterSaved = false;
-        }
-
-        private void UpdateAttributeBonus(PropertyInfo attributeProperty)
-        {
-            PropertyInfo? attributeBonusProperty = GetType().GetProperty($"{attributeProperty.Name}Bonus");
-            if (attributeBonusProperty != null)
-                attributeBonusProperty.SetValue(this, Utils.GetAttributeBonus((int)attributeProperty.GetValue(this)!));
-        }
-
-        private void UpdateCharacterStats()
-        {
-            MaxHealth = Strength + Constitution;
-            MaxEnergy = (int)Math.Round((Constitution + Charisma + Intelligence) / 3.0);
-            MaxStamina = 15 + ConstitutionBonus + DexterityBonus;
-            Initiative = Constitution + Dexterity + AirPearls;
         }
 
         #region Stats Save / Load
@@ -274,6 +285,20 @@ namespace PnP_Organizer.ViewModels
         }
         #endregion Stats Save / Load
 
+        private void UpdateAttributeBonus(PropertyInfo attributeProperty)
+        {
+            PropertyInfo? attributeBonusProperty = GetType().GetProperty($"{attributeProperty.Name}Bonus");
+            attributeBonusProperty?.SetValue(this, Utils.GetAttributeBonus((int)attributeProperty.GetValue(this)!));
+        }
+
+        private void CalculateCharacterStats()
+        {
+            MaxHealth = Strength + Constitution;
+            MaxEnergy = (int)Math.Round((Constitution + Charisma + Intelligence) / 3.0);
+            MaxStamina = 15 + ConstitutionBonus + DexterityBonus;
+            Initiative = Constitution + Dexterity + AirPearls;
+        }
+
         private static int GetCharacterAgeFromString(string ageString)
         {
             if (!int.TryParse(ageString, out int characterAge))
@@ -287,6 +312,40 @@ namespace PnP_Organizer.ViewModels
                 return -1.0f;
             characterHeight = MathF.Round(characterHeight, 2);
             return characterHeight;
+        }
+
+        private void ApplySkillBoni()
+        {
+            var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
+            var validSkillModels = skillsViewModel.SkillModels!
+                .Where(skillModel => skillModel.Skill!.StatModifiers != null
+                && skillModel.Skill.StatModifiers.Any(statModifier => statModifier is OverviewStatModifier))
+                .Where(skillModel =>
+                {
+                    if (skillModel is RepeatableSkillModel rSM && (rSM.Repetition > 0 || rSM.SkillPoints > 0))
+                        return true;
+                    return skillModel.IsActive;
+                }); // Filter out non-valid SkillModels
+
+            // Reset Modifier Boni
+            MaxHealthModifierBonus = 0;
+            MaxEnergyModifierBonus = 0;
+            MaxStaminaModifierBonus = 0;
+            InitiativeModifierBonus = 0;
+
+            foreach(var skillModel in validSkillModels)
+            {
+                var overviewStatModifiers = skillModel!.Skill!.StatModifiers!
+                    .Where(statModifier => statModifier is OverviewStatModifier)
+                    .Cast<OverviewStatModifier>();
+                foreach (OverviewStatModifier overviewStatModifier in overviewStatModifiers)
+                {
+                    int multiplier = 1;
+                    if (skillModel is RepeatableSkillModel rSM)
+                        multiplier = rSM.Repetition;
+                    overviewStatModifier.StatPropertyInfo.SetValue(this, (int)overviewStatModifier.StatPropertyInfo.GetValue(this)! + overviewStatModifier.Bonus * multiplier);
+                }
+            }
         }
     }
 }

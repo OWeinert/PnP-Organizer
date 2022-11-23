@@ -723,11 +723,41 @@ Cost: 1 Stamina</value>
   <data name="Skills_Skilled" xml:space="preserve">
     <value>Skilled</value>
   </data>
+  <data name="Skills_SkillElementalProfessionGreen" xml:space="preserve">
+    <value>Green Elemental Profession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionGreenDescr" xml:space="preserve">
+    <value>No need for a Roll on a Green Elemental Ability, Energy Cost -2</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionRed" xml:space="preserve">
+    <value>Red Elemental Profession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionRedDescr" xml:space="preserve">
+    <value>No need for a Roll on a Red Elemental Ability, Energy Cost -2</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionYellow" xml:space="preserve">
+    <value>Yellow Elemental Profession</value>
+  </data>
+  <data name="Skills_SkillElementalProfessionYellowDescr" xml:space="preserve">
+    <value>No need for a Roll on a Yellow Elemental Ability, Energy Cost -2</value>
+  </data>
   <data name="Skills_SkillEncouragement" xml:space="preserve">
     <value>Encouragement</value>
   </data>
   <data name="Skills_SkillEncouragementDescr" xml:space="preserve">
     <value>Every Player Character in the Range of 4 Fields is granted +2 Stamina at the Beginning of a Fight.</value>
+  </data>
+  <data name="Skills_SkillEnergy3" xml:space="preserve">
+    <value>Energy +3</value>
+  </data>
+  <data name="Skills_SkillEnergy3Descr" xml:space="preserve">
+    <value>Increases maximum Energy by 3</value>
+  </data>
+  <data name="Skills_SkillEnergy6" xml:space="preserve">
+    <value>Energy +6</value>
+  </data>
+  <data name="Skills_SkillEnergy6Descr" xml:space="preserve">
+    <value>Increasesmaximum  Energy by 6</value>
   </data>
   <data name="Skills_SkillEnergyBoost" xml:space="preserve">
     <value>Energy Boost</value>
@@ -768,6 +798,12 @@ Cost: 2 Stamina</value>
   <data name="Skills_SkillFlirtingDescr" xml:space="preserve">
     <value>+1D4 on Attribute Tests related to the flirt attempt
 (e.g. Performance, etc.)</value>
+  </data>
+  <data name="Skills_SkillFourthElemental" xml:space="preserve">
+    <value>Fourth Elemental</value>
+  </data>
+  <data name="Skills_SkillFourthElementalDescr" xml:space="preserve">
+    <value>Grants the Ability to have 4 different Elemental Branches</value>
   </data>
   <data name="Skills_SkillFullDamage" xml:space="preserve">
     <value>Full Damage</value>
@@ -833,6 +869,12 @@ Cost: 3 Stamina</value>
   <data name="Skills_SkillHijackerRangedDescr" xml:space="preserve">
     <value>Grants the Ability to Hijack a Horse ridden by another Person.
 Cost: 3 Stamina</value>
+  </data>
+  <data name="Skills_SkillHP" xml:space="preserve">
+    <value>HP</value>
+  </data>
+  <data name="Skills_SkillHPDescr" xml:space="preserve">
+    <value>Increases maximum Health by 6</value>
   </data>
   <data name="Skills_SkillHuntersMark" xml:space="preserve">
     <value>Hunter's Mark</value>
@@ -977,6 +1019,18 @@ The Base Damage Bonus of your Weapon will be ignored for the Damage Roll.</value
   <data name="Skills_SkillNatureStudyDescr" xml:space="preserve">
     <value>+1D4 on Attribute Test "Nature".</value>
   </data>
+  <data name="Skills_SkillNextElemental" xml:space="preserve">
+    <value>Next Elemental</value>
+  </data>
+  <data name="Skills_SkillNextElementalDescr" xml:space="preserve">
+    <value>Bonus on the next Try to tame an Elemental</value>
+  </data>
+  <data name="Skills_SkillNextLevel" xml:space="preserve">
+    <value>Next Level</value>
+  </data>
+  <data name="Skills_SkillNextLevelDescr" xml:space="preserve">
+    <value>Grants the Ability to cast a Elemental Ability of a higher Level</value>
+  </data>
   <data name="Skills_SkillNimble" xml:space="preserve">
     <value>Nimble</value>
   </data>
@@ -1055,11 +1109,17 @@ and Research of Poisons (e.g. Nature, Sleight of Hand, etc.)</value>
     <value>-4 on the Hit Throw, Enemy's Armor is halfed this Round. Throwing Weapons only.
 Cost: 1 Stamina</value>
   </data>
+  <data name="Skills_SkillProfession" xml:space="preserve">
+    <value>Profession</value>
+  </data>
   <data name="Skills_SkillProfessionalSlingshotMarksman" xml:space="preserve">
     <value>Professional Slingshot Marksman</value>
   </data>
   <data name="Skills_SkillProfessionalSlingshotMarksmanDescr" xml:space="preserve">
     <value>+2 on Hit Throws and 1D6+2 Damage when using a Slingshot.</value>
+  </data>
+  <data name="Skills_SkillProfessionDescr" xml:space="preserve">
+    <value>Add another Profession to your Attribute Test Professions</value>
   </data>
   <data name="Skills_SkillQuickAim" xml:space="preserve">
     <value>Quick Aim</value>
@@ -1222,6 +1282,24 @@ Cost: 1 Stamina</value>
   <data name="Skills_SkillSomethingWithShieldDescr" xml:space="preserve">
     <value>Hit aside the Enemy's Weapon and Attack. Enemy has -5 on Parade.
 Cost: 3 Stamina</value>
+  </data>
+  <data name="Skills_SkillStamina2" xml:space="preserve">
+    <value>Stamina +2</value>
+  </data>
+  <data name="Skills_SkillStamina2Descr" xml:space="preserve">
+    <value>Increases maximum Stamina by 2</value>
+  </data>
+  <data name="Skills_SkillStamina4" xml:space="preserve">
+    <value>Stamina +4</value>
+  </data>
+  <data name="Skills_SkillStamina4Descr" xml:space="preserve">
+    <value>Increases maximum Stamina by 4</value>
+  </data>
+  <data name="Skills_SkillStats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="Skills_SkillStatsDescr" xml:space="preserve">
+    <value>Increases a chosen Stat by 1</value>
   </data>
   <data name="Skills_SkillStrongArrows" xml:space="preserve">
     <value>Strong Arrows</value>
