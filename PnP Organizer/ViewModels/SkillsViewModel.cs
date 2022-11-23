@@ -117,11 +117,15 @@ namespace PnP_Organizer.ViewModels
             {
                 await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill.DependendSkillNames.Contains(senderSkillModel.Skill.Name));
+                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkillNames.Contains(senderSkillModel.Skill!.Name));
                     foreach (var skillModel in dependendSkillModels)
                     {
                         await CheckSkillModelSkillability(skillModel);
                     }
+
+                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkillName == senderSkillModel.Skill!.Name);
+                    if (forcedDependendSkillModel != default)
+                        await CheckSkillModelSkillability(forcedDependendSkillModel);
 
                     UsedSkillPoints = SkillModels!.Sum(sM =>
                     {
@@ -135,12 +139,25 @@ namespace PnP_Organizer.ViewModels
             }
         }
 
+        // TODO simplify
         private async Task CheckSkillModelSkillability(SkillModel skillModel)
         {
-            List<string> dependedActiveSkills = SkillModels!
-                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill.DependendSkillNames.Contains(dependendSkill.Name))
-                .ToList().ConvertAll(skillModel => skillModel.Name);
-            skillModel.IsSkillable = dependedActiveSkills.Any() || !skillModel.Skill.DependendSkillNames.Any();
+            if(!skillModel.Skill!.DependendSkillNames.Any() && string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName)) // if this is true, there's no need to check further
+            {
+                skillModel.IsSkillable = true;
+                return;
+            }
+            var dependedActiveSkills = SkillModels! // Get a list of active skills which the given skill depends on
+                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkillNames.Contains(dependendSkill.Name));
+
+            if (!string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName))
+            {
+                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Name == skillModel.Skill!.ForcedDependendSkillName);  // get the skill which the given skill is forced to depend on
+                skillModel.IsSkillable = dependedActiveSkills.Any() && forcedDependendSkill!.IsActive;
+            }
+            else
+                skillModel.IsSkillable = dependedActiveSkills.Any();
+            
             await Task.CompletedTask;
         }
 
