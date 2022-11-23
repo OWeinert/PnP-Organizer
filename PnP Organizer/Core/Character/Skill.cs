@@ -17,10 +17,16 @@ namespace PnP_Organizer.Core.Character
         public StatModifier[]? StatModifiers { get; private set; }
 
         /// <summary>
-        /// Names of skills which need to be skilled in order to unlock this skill.
+        /// Names of skills of which at least one has to be skilled in order to unlock this skill.
         /// </summary>
         // HACK Direct Skill references would be better, but maybe won't work with the SkillModel
         public string[] DependendSkillNames { get; private set; }
+
+        /// <summary>
+        /// A name of a skill which has to be skilled in order to unlock this skill.
+        /// This skill AND one of the other dependend skills have to be skilled.
+        /// </summary>
+        public string ForcedDependendSkillName { get; private set; } = string.Empty;
 
         public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, StatModifier[]? statModifiers = null, string[]? dependendSkillNames = null)
         {
@@ -43,6 +49,12 @@ namespace PnP_Organizer.Core.Character
         public Skill SetRepeatable(bool repeatable = true)
         {
             IsRepeatable = repeatable;
+            return this;
+        }
+
+        public Skill AddForcedDependency(string forcedDependendSkillName)
+        {
+            ForcedDependendSkillName = forcedDependendSkillName;
             return this;
         }
     }
