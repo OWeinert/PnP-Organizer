@@ -128,7 +128,7 @@
                                      ItemTemplateSelector="{StaticResource SkillModelTemplateSelector}"
                                      VirtualizingPanel.CacheLengthUnit="Page"
                                      ScrollViewer.CanContentScroll="True"
-                                     Margin="-64,10,8,0">
+                                     Margin="-32,10,8,0">
             <ui:VirtualizingItemsControl.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
