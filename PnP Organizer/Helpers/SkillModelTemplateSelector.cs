@@ -11,8 +11,6 @@ namespace PnP_Organizer.Helpers
         {
             FrameworkElement element = (FrameworkElement)container;
 
-            Debug.WriteLine(item.GetType());
-
             if (item is RepeatableSkillModel) 
                 return (DataTemplate)element.FindResource("RepeatableSkillModelTemplate");
             return (DataTemplate)element.FindResource("SkillModelTemplate");
