@@ -20,6 +20,8 @@ namespace PnP_Organizer.Models
             PropertyChanged += RepeatableSkillModel_PropertyChanged;
         }
 
+        protected override void UpdateIsActive() => IsActive = Skill!.IsActive() || (Skill!.IsRepeatable && (SkillPoints > 0 || Repetition > 0));
+
         private void RepeatableSkillModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if(e.PropertyName is nameof(SkillPoints) or nameof(Repetition))
