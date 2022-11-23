@@ -228,7 +228,8 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillTeacherDescr, null,
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
             Plunge = CreateAndAddSkill(Resources.Skills_SkillPlunge, SkillCategory.Character, 2, 
-                Resources.Skills_SkillPlungeDescr, null,
+                Resources.Skills_SkillPlungeDescr, 
+                new StatModifier[] { new CalculatorModifierStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, 8) },
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
             HardToKill = CreateAndAddSkill(Resources.Skills_SkillHardToKill, SkillCategory.Character, 2, 
                 Resources.Skills_SkillHardToKillDescr, null,
@@ -277,24 +278,24 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillAvengerDescr, null, new string[] { Momentum.Name });
 
             // Repeatable Skills
-            AddSkill(HP = new Skill(Resources.Skills_SkillHP, SkillCategory.Character, 3, Resources.Skills_SkillHPDescr, 
+            HP = AddSkill(new Skill(Resources.Skills_SkillHP, SkillCategory.Character, 3, Resources.Skills_SkillHPDescr, 
                 new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxHealthModifierBonus), 6) }).SetRepeatable());
-            AddSkill(Profession = new Skill(Resources.Skills_SkillProfession, SkillCategory.Character, 3, Resources.Skills_SkillProfessionDescr, null).SetRepeatable());
-            AddSkill(Stamina2 = new Skill(Resources.Skills_SkillStamina2, SkillCategory.Character, 3, Resources.Skills_SkillStamina2Descr,
+            Profession = AddSkill(new Skill(Resources.Skills_SkillProfession, SkillCategory.Character, 3, Resources.Skills_SkillProfessionDescr, null).SetRepeatable());
+            Stamina2 = AddSkill(new Skill(Resources.Skills_SkillStamina2, SkillCategory.Character, 3, Resources.Skills_SkillStamina2Descr,
                 new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 2) }).SetRepeatable());
-            AddSkill(Stamina4 = new Skill(Resources.Skills_SkillStamina4, SkillCategory.Character, 5, Resources.Skills_SkillStamina4Descr,
+            Stamina4 = AddSkill(Stamina4 = new Skill(Resources.Skills_SkillStamina4, SkillCategory.Character, 5, Resources.Skills_SkillStamina4Descr,
                 new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 4) }).SetRepeatable());
-            AddSkill(Stats = new Skill(Resources.Skills_SkillStats, SkillCategory.Character, 5, Resources.Skills_SkillStatsDescr, null).SetRepeatable());
-            AddSkill(Energy3 = new Skill(Resources.Skills_SkillEnergy3, SkillCategory.Character, 3, Resources.Skills_SkillEnergy3Descr,
+            Stats = (new Skill(Resources.Skills_SkillStats, SkillCategory.Character, 5, Resources.Skills_SkillStatsDescr, null).SetRepeatable());
+            Energy3 = (new Skill(Resources.Skills_SkillEnergy3, SkillCategory.Character, 3, Resources.Skills_SkillEnergy3Descr,
                 new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 3) }).SetRepeatable());
-            AddSkill(Energy6 = new Skill(Resources.Skills_SkillEnergy6, SkillCategory.Character, 5, Resources.Skills_SkillEnergy6Descr,
+            Energy6 = AddSkill(new Skill(Resources.Skills_SkillEnergy6, SkillCategory.Character, 5, Resources.Skills_SkillEnergy6Descr,
                 new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 6) }).SetRepeatable());
-            AddSkill(NextLevel = new Skill(Resources.Skills_SkillNextLevel, SkillCategory.Character, 4, Resources.Skills_SkillNextLevelDescr, null).SetRepeatable());
-            AddSkill(NextElemental = new Skill(Resources.Skills_SkillNextElemental, SkillCategory.Character, 5, Resources.Skills_SkillNextElementalDescr, null).SetRepeatable());
-            AddSkill(ElementalProfessionGreen = new Skill(Resources.Skills_SkillElementalProfessionGreen, SkillCategory.Character, 1, Resources.Skills_SkillElementalProfessionGreenDescr, null).SetRepeatable());
-            AddSkill(ElementalProfessionYellow = new Skill(Resources.Skills_SkillElementalProfessionYellow, SkillCategory.Character, 3, Resources.Skills_SkillElementalProfessionYellowDescr, null).SetRepeatable());
-            AddSkill(ElementalProfessionRed = new Skill(Resources.Skills_SkillElementalProfessionRed, SkillCategory.Character, 5, Resources.Skills_SkillElementalProfessionRedDescr).SetRepeatable());
-            AddSkill(FourthElemental = new Skill(Resources.Skills_SkillFourthElemental, SkillCategory.Character, 6, Resources.Skills_SkillFourthElementalDescr, null).SetRepeatable());
+            NextLevel = AddSkill(new Skill(Resources.Skills_SkillNextLevel, SkillCategory.Character, 4, Resources.Skills_SkillNextLevelDescr, null).SetRepeatable());
+            NextElemental = AddSkill(new Skill(Resources.Skills_SkillNextElemental, SkillCategory.Character, 5, Resources.Skills_SkillNextElementalDescr, null).SetRepeatable());
+            ElementalProfessionGreen = AddSkill(new Skill(Resources.Skills_SkillElementalProfessionGreen, SkillCategory.Character, 1, Resources.Skills_SkillElementalProfessionGreenDescr, null).SetRepeatable());
+            ElementalProfessionYellow = AddSkill(new Skill(Resources.Skills_SkillElementalProfessionYellow, SkillCategory.Character, 3, Resources.Skills_SkillElementalProfessionYellowDescr, null).SetRepeatable());
+            ElementalProfessionRed = AddSkill(new Skill(Resources.Skills_SkillElementalProfessionRed, SkillCategory.Character, 5, Resources.Skills_SkillElementalProfessionRedDescr).SetRepeatable());
+            FourthElemental = AddSkill(new Skill(Resources.Skills_SkillFourthElemental, SkillCategory.Character, 6, Resources.Skills_SkillFourthElementalDescr, null).SetRepeatable());
 
             #endregion Character
 
