@@ -202,7 +202,7 @@
                               Value="{Binding ViewModel.CurrentHealth, Mode=TwoWay}"
                               Text="{Binding ViewModel.CurrentHealth, Mode=TwoWay}"
                               Min="-100"
-                              Max="{Binding ViewModel.MaxHealth}"/>
+                              Max="{Binding ViewModel.TotalMaxHealth}"/>
                 <Label Grid.Row="0"
                        Grid.Column="1"
                        Content="/"
@@ -230,7 +230,7 @@
                               Value="{Binding ViewModel.CurrentEnergy, Mode=TwoWay}"
                               Text="{Binding ViewModel.CurrentEnergy, Mode=TwoWay}"
                               Min="0"
-                              Max="{Binding ViewModel.MaxEnergy}"/>
+                              Max="{Binding ViewModel.TotalMaxEnergy}"/>
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Content="/"
@@ -259,7 +259,7 @@
                               Value="{Binding ViewModel.CurrentStamina, Mode=TwoWay}"
                               Text="{Binding ViewModel.CurrentStamina, Mode=TwoWay}"
                               Min="0"
-                              Max="{Binding ViewModel.MaxStamina}"/>
+                              Max="{Binding ViewModel.TotalMaxStamina}"/>
                 <Label Grid.Row="2"
                        Grid.Column="1"
                        Content="/"

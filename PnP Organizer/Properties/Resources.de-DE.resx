@@ -668,7 +668,7 @@ Erschwernis hängt von der Schwierigkeit des Schusses ab.</value>
     <value>+2 auf Parade- und Ausweichwürfe, -2 auf Trefferwürfe.</value>
   </data>
   <data name="Skills_SkillDefensiveStance" xml:space="preserve">
-    <value>Defensive Haltung</value>
+    <value>Verteidigungshaltung</value>
   </data>
   <data name="Skills_SkillDefensiveStanceDescr" xml:space="preserve">
     <value>Rüstung ist verdoppelt, +1D6+2 auf Paradewürfe, jedoch können keine Angriffe getätigt werden.</value>
@@ -1255,7 +1255,7 @@ Kosten: 3 Ausdauer</value>
     <value>+1D4 auf "Fingerfertigkeit"-Proben bei Taschendiebstahl.</value>
   </data>
   <data name="Skills_SkillThereAndAway" xml:space="preserve">
-    <value>Hier und Weg</value>
+    <value>Hin und Weg</value>
   </data>
   <data name="Skills_SkillThereAndAwayDescr" xml:space="preserve">
     <value>+1/2 Nebenaktion bei einem Waffengewicht &lt; 2.</value>
