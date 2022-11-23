@@ -277,13 +277,18 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillAvengerDescr, null, new string[] { Momentum.Name });
 
             // Repeatable Skills
-            AddSkill(HP = new Skill(Resources.Skills_SkillHP, SkillCategory.Character, 3, Resources.Skills_SkillHPDescr, null).SetRepeatable());
+            AddSkill(HP = new Skill(Resources.Skills_SkillHP, SkillCategory.Character, 3, Resources.Skills_SkillHPDescr, 
+                new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxHealthModifierBonus), 6) }).SetRepeatable());
             AddSkill(Profession = new Skill(Resources.Skills_SkillProfession, SkillCategory.Character, 3, Resources.Skills_SkillProfessionDescr, null).SetRepeatable());
-            AddSkill(Stamina2 = new Skill(Resources.Skills_SkillStamina2, SkillCategory.Character, 3, Resources.Skills_SkillStamina2Descr, null).SetRepeatable());
-            AddSkill(Stamina4 = new Skill(Resources.Skills_SkillStamina4, SkillCategory.Character, 5, Resources.Skills_SkillStamina4Descr, null).SetRepeatable());
+            AddSkill(Stamina2 = new Skill(Resources.Skills_SkillStamina2, SkillCategory.Character, 3, Resources.Skills_SkillStamina2Descr,
+                new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 2) }).SetRepeatable());
+            AddSkill(Stamina4 = new Skill(Resources.Skills_SkillStamina4, SkillCategory.Character, 5, Resources.Skills_SkillStamina4Descr,
+                new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 4) }).SetRepeatable());
             AddSkill(Stats = new Skill(Resources.Skills_SkillStats, SkillCategory.Character, 5, Resources.Skills_SkillStatsDescr, null).SetRepeatable());
-            AddSkill(Energy3 = new Skill(Resources.Skills_SkillEnergy3, SkillCategory.Character, 3, Resources.Skills_SkillEnergy3Descr, null).SetRepeatable());
-            AddSkill(Energy6 = new Skill(Resources.Skills_SkillEnergy6, SkillCategory.Character, 5, Resources.Skills_SkillEnergy6Descr, null).SetRepeatable());
+            AddSkill(Energy3 = new Skill(Resources.Skills_SkillEnergy3, SkillCategory.Character, 3, Resources.Skills_SkillEnergy3Descr,
+                new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 3) }).SetRepeatable());
+            AddSkill(Energy6 = new Skill(Resources.Skills_SkillEnergy6, SkillCategory.Character, 5, Resources.Skills_SkillEnergy6Descr,
+                new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 6) }).SetRepeatable());
             AddSkill(NextLevel = new Skill(Resources.Skills_SkillNextLevel, SkillCategory.Character, 4, Resources.Skills_SkillNextLevelDescr, null).SetRepeatable());
             AddSkill(NextElemental = new Skill(Resources.Skills_SkillNextElemental, SkillCategory.Character, 5, Resources.Skills_SkillNextElementalDescr, null).SetRepeatable());
             AddSkill(ElementalProfessionGreen = new Skill(Resources.Skills_SkillElementalProfessionGreen, SkillCategory.Character, 1, Resources.Skills_SkillElementalProfessionGreenDescr, null).SetRepeatable());
@@ -328,7 +333,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillOneHandedFightingDescr, 
                 new StatModifier[]
                 {
-                    new OverviewStatModifier(nameof(OverviewViewModel.Initiative), 1),
+                    new OverviewStatModifier(nameof(OverviewViewModel.InitiativeModifierBonus), 1),
                     new CalculatorModifierStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, 1),
                     new CalculatorModifierStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 1),
                 },
@@ -343,7 +348,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillDefensiveFightingDescr, null,
                 new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             Nimble = CreateAndAddSkill(Resources.Skills_SkillNimble, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillNimbleDescr, null,
+                Resources.Skills_SkillNimbleDescr, new StatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.InitiativeModifierBonus), 2) },
                 new string[] { AimedAttackMelee.Name, ArmorBreaker.Name, Assassinate.Name, WeaponsAndArmor.Name, JumpAttack.Name, Taunt.Name });
             AggressiveCombat = CreateAndAddSkill(Resources.Skills_SkillAgressiveFighting, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillAgressiveFightingDescr, null,
