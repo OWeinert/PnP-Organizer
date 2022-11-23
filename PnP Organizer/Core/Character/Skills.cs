@@ -321,8 +321,9 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillTauntDescr, null, new string[] { RunOver.Name });
             ArmorBreaker = CreateAndAddSkill(Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillArmorBreakerDescr, null, new string[] { AimedAttackMelee.Name });
-            Assassinate = CreateAndAddSkill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillAssassinateDescr, null, new string[] { AimedAttackMelee.Name, Sneaking.Name });
+            Assassinate = AddSkill(new Skill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, 
+                Resources.Skills_SkillAssassinateDescr, null, new string[] { AimedAttackMelee.Name })
+                .AddForcedDependency(Sneaking.Name));
             JumpAttack = CreateAndAddSkill(Resources.Skills_SkillJumpAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillJumpAttackDescr, 
                 new StatModifier[] { new CalculatorModifierStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D6, 2) },
