@@ -149,6 +149,7 @@
                                         <ui:TextBox Grid.Row="1"
                                                     x:Name="DescriptionTextBox"
                                                     VerticalAlignment="Stretch"
+                                                    TextAlignment="Left"
                                                     MaxLines="10"
                                                     AcceptsTab="True"
                                                     AcceptsReturn="True"
