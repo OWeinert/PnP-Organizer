@@ -63,7 +63,8 @@
                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                          ItemsSource="{Binding ViewModel.ItemsView, Mode=TwoWay}"
                                          VirtualizingPanel.CacheLengthUnit="Item"
-                                         PreviewMouseMove="InventoryItemsControl_PreviewMouseMove">
+                                         PreviewMouseMove="InventoryItemsControl_PreviewMouseMove"
+                                         ScrollViewer.CanContentScroll="False">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:InventoryItemModel}">
                         <Border Width="248"
