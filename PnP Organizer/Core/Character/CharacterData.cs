@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PnP_Organizer.Core.Character.Inventory;
 using System;
 using System.Collections.Generic;
 
