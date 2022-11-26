@@ -4,9 +4,12 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Serialization;
 
 namespace PnP_Organizer.Core.Character.Inventory
 {
+    [XmlInclude(typeof(InventoryWeapon))]
+    [XmlInclude(typeof(InventoryArmor))]
     public class InventoryItem
     {
         public string Name { get; set; }
