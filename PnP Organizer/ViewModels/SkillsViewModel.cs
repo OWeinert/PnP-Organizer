@@ -234,6 +234,16 @@ namespace PnP_Organizer.ViewModels
                     FileIO.LoadedCharacter.InitSkillSaveData();
 
                 SkillModels?.Clear();
+                foreach (Skill skill in Skills.Instance.SkillsList)
+                {
+                    SkillModel skillModel;
+                    if (skill.IsRepeatable)
+                        skillModel = new RepeatableSkillModel(skill);
+                    else
+                        skillModel = new SkillModel(skill);
+
+                    SkillModels!.Add(skillModel);
+                }
 
                 foreach (SkillSaveData skillSaveData in FileIO.LoadedCharacter.Skills!)
                 {
@@ -249,8 +259,13 @@ namespace PnP_Organizer.ViewModels
                     else
                         skillModel = new SkillModel(skill);
 
-                    SkillModels?.Add(skillModel);
+                    SkillModels![skillSaveData.Index] = skillModel;
                 }
+                foreach(SkillModel skillModel in SkillModels!)
+                {
+                    _ = CheckSkillModelSkillability(skillModel);
+                }
+
                 SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
 
                 Logger.Log("Skills loaded successfully!");
