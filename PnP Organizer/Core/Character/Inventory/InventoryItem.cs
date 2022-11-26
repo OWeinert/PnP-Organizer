@@ -3,16 +3,26 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
-namespace PnP_Organizer.Core.Character
+namespace PnP_Organizer.Core.Character.Inventory
 {
-    public struct InventoryItem
+    public class InventoryItem
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public byte[]? ItemImage { get; set; }
         public string ItemImageFileExt { get; set; }
         public int Color { get; set; }
+
+        public InventoryItem(string name, string description)
+        {
+            Name = name;
+            Description = description;
+            ItemImage = Array.Empty<byte>();
+            ItemImageFileExt = string.Empty;
+            Color = Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color);
+        }
 
         public InventoryItem(InventoryItemModel inventoryItemModel)
         {
@@ -23,13 +33,12 @@ namespace PnP_Organizer.Core.Character
             Description = inventoryItemModel.Description;
         }
 
-        public InventoryItem()
+        public InventoryItem() : this(string.Empty, string.Empty) { }
+
+        public void SetItemImage(BitmapImage image)
         {
-            Color = Utils.GetColorValue((Color)((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color);
-            ItemImage = Array.Empty<byte>();
-            ItemImageFileExt = string.Empty;
-            Name = string.Empty;
-            Description = string.Empty;
+            ItemImage = Utils.BitmapImageToBytes(image);
+            ItemImageFileExt = Path.GetExtension(image.UriSource.AbsolutePath);
         }
     }
 }

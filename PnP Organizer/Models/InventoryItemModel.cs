@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core;
-using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using System.ComponentModel;
 using System.IO;
@@ -38,7 +38,7 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private SolidColorBrush? foreground;
 
-        private bool _isInitialized = false;
+        protected bool IsInitialized = false;
 
         public InventoryItemModel() : this(new InventoryItem()) { }
 
@@ -47,7 +47,7 @@ namespace PnP_Organizer.Models
             PropertyChanged += OnItemPropertyChanged;
             InventoryItem = inventoryItem;
 
-            Name = _inventoryItem.Name;
+            Name = _inventoryItem!.Name;
             Description = _inventoryItem.Description;
             if(_inventoryItem.ItemImage != null)
                 ItemImage = Utils.BitmapImageFromBytes(_inventoryItem.ItemImage);
@@ -55,12 +55,12 @@ namespace PnP_Organizer.Models
             Brush = new SolidColorBrush(Utils.GetColorFromValue(_inventoryItem.Color));
             Foreground = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
 
-            _isInitialized = true;
+            IsInitialized = true;
         }
 
         private void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_isInitialized)
+            if (IsInitialized)
             {
                 if(ItemImage?.UriSource != null)
                     _itemImageFileExt = Path.GetExtension(ItemImage.UriSource.AbsolutePath);
