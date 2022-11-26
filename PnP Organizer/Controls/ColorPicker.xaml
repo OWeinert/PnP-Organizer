@@ -16,9 +16,10 @@
         <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
     </UserControl.Resources>
     <Grid>
-
         <ToggleButton x:Name="ColorPickerButton"
                       Padding="0"
+                      Width="18"
+                      Height="18"
                       Foreground="{Binding Foreground}"
                       BorderThickness="0"
                       ToolTip="Select Color"
