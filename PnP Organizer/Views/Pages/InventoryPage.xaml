@@ -10,6 +10,8 @@
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
     xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
     xmlns:controls="clr-namespace:PnP_Organizer.Controls"
+    xmlns:vm="clr-namespace:PnP_Organizer.ViewModels"
+    xmlns:m="clr-namespace:PnP_Organizer.Models"
     Title="InventoryPage"
     d:DataContext="{d:DesignInstance local:InventoryPage,
                                      IsDesignTimeCreatable=False}"
@@ -19,7 +21,12 @@
 
     <ui:UiPage.Resources>
         <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+        <helpers:InventoryItemModelTemplateSelector x:Key="InventoryItemModelTemplateSelector"/>
+        <helpers:BooleanAttackModeConverter x:Key="BooleanAttackModeConverter"/>
+        <helpers:StringToIntConverter x:Key="StringToIntConverter"/>
+        <helpers:StringToFloatConverter x:Key="StringToFloatConverter"/>
     </ui:UiPage.Resources>
+    
     
     <Grid Margin="24,0,0,24">
         <Grid.ColumnDefinitions>
@@ -40,18 +47,58 @@
                     IconPlacement="Right"
                     Margin="0,-62,0,0"/>
 
-        <ui:Button Grid.Column="0"
-                   x:Name="AddItemButton"
-                   VerticalAlignment="Top"
-                   Width="48"
-                   Height="48"
-                   ToolTip="{x:Static p:Resources.Inventory_TooltipAddItem}"
-                   Margin="0,8"
-                   Click="AddItemButton_Click">
-            <Viewbox MaxHeight="28" MaxWidth="28">
-                <ui:SymbolIcon Symbol="BackpackAdd24"/>
-            </Viewbox>
-        </ui:Button>
+        <StackPanel Grid.Column="0">
+            <ToggleButton  x:Name="AddItemButton"
+                           VerticalAlignment="Top"
+                           Width="48"
+                           Height="48"
+                           ToolTip="{x:Static p:Resources.Inventory_TooltipAddItem}"
+                           IsHitTestVisible="{Binding IsOpen, ElementName=AddItemPopup, Converter={StaticResource BooleanInvertConverter}}"
+                           Margin="0,8">
+                <Viewbox MaxHeight="28" MaxWidth="28">
+                    <ui:SymbolIcon Symbol="BackpackAdd24"/>
+                </Viewbox>
+            </ToggleButton>
+            <Popup x:Name="AddItemPopup"
+                   Placement="Right"
+                   IsOpen="{Binding Path=IsChecked, ElementName=AddItemButton}"
+                   AllowsTransparency="True"
+                   VerticalOffset="8"
+                   HorizontalOffset="-1"
+                   StaysOpen="False"
+                   Closed="AddItemPopup_Closed">
+                <Border Width="154"
+                        Background="{DynamicResource PalettePrimaryBrush}"
+                        BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <StackPanel>
+                        <ComboBox x:Name="ItemTypeSelector"
+                                  ItemsSource="{Binding ViewModel.ItemTypes}"
+                                  Margin="8"
+                                  SelectedIndex="0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:InventoryItemType}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:SymbolIcon Symbol="{Binding Symbol}"/>
+                                        <TextBlock Text="{Binding Name}"
+                                                   Margin="4,0,0,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        
+                        <Button HorizontalAlignment="Stretch"
+                                Height="36"
+                                Content="Create"
+                                Margin="8,0,8,8"
+                                Command="{Binding ViewModel.AddItemCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=ItemTypeSelector}"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
+        
         <Border Grid.Column="1"
                 Margin="24,-13,0,-22"
                 HorizontalAlignment="Stretch"
@@ -62,11 +109,797 @@
                                          MaxWidth="800"
                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                          ItemsSource="{Binding ViewModel.ItemsView, Mode=TwoWay}"
+                                         ItemTemplateSelector="{StaticResource InventoryItemModelTemplateSelector}"
                                          VirtualizingPanel.CacheLengthUnit="Item"
                                          PreviewMouseMove="InventoryItemsControl_PreviewMouseMove"
                                          ScrollViewer.CanContentScroll="False">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:InventoryItemModel}">
+                <ui:VirtualizingItemsControl.Resources>
+                    
+                    <!-- InventoryItemModelTemplate -->
+                    <DataTemplate x:Key="InventoryItemModelTemplate"
+                                  DataType="{x:Type m:InventoryItemModel}">
+                        <Border Width="250"
+                                Height="160"
+                                Margin="6"
+                                Padding="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{Binding Brush, Mode=OneWay}"
+                                CornerRadius="8"
+                                AllowDrop="True"
+                                PreviewMouseLeftButtonDown="InventoryItem_PreviewMouseLeftButtonDown"
+                                Drop="InventoryItem_Drop">
+
+                            <Border.Effect>
+                                <DropShadowEffect Opacity="0.25" Direction="-90" BlurRadius="2" ShadowDepth="2"/>
+                            </Border.Effect>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Border HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Width="64"
+                                        Height="64"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                        Margin="8,8,0,0">
+                                    <Grid>
+                                        <Viewbox Width="28">
+                                            <ui:SymbolIcon Symbol="Question28"
+                                                           Foreground="{Binding Foreground}"/>
+                                        </Viewbox>
+                                        <Image HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Stretch"
+                                               Stretch="UniformToFill"
+                                               Source="{Binding ItemImage}"
+                                               IsHitTestVisible="False"/>
+                                    </Grid>
+                                </Border>
+
+                                <Grid Width="146"
+                                      Height="Auto"
+                                      Margin="1,0,0,0">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Name/Description Input Fields -->
+                                    <Border Grid.Row="0"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="0,9,0,0">
+                                        <TextBlock x:Name="NameTextBlock"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Height="30"
+                                                   Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Foreground="{Binding Foreground}"
+                                                   AllowDrop="True"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Padding="0"
+                                                   Margin="4,4,0,-4"
+                                                   ToolTip="{Binding Name}"
+                                                   ToolTipService.InitialShowDelay="100"/>
+                                    </Border>
+
+                                    <Border Grid.Row="1"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="0,2,0,0">
+                                        <TextBlock x:Name="DescriptionTextBlock"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Height="110"
+                                                   Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Foreground="{Binding Foreground}"
+                                                   AllowDrop="True"
+                                                   TextWrapping="Wrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Padding="0"
+                                                   Margin="4,4,0,-2"
+                                                   ToolTip="{Binding Description}"
+                                                   ToolTipService.InitialShowDelay="100"/>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Toolbar -->
+                                <Grid Margin="4,9,0,8">
+
+                                    <ToggleButton x:Name="EditButton"
+                                                  VerticalAlignment="Top"
+                                                  HorizontalAlignment="Right"
+                                                  Width="18"
+                                                  Height="18"
+                                                  Padding="0"
+                                                  IsHitTestVisible="{Binding IsOpen, ElementName=EditPopup, Converter={StaticResource BooleanInvertConverter}}">
+                                        <Viewbox>
+                                            <ui:SymbolIcon Symbol="Settings16"
+                                                           Foreground="{Binding Foreground}"/>
+                                        </Viewbox>
+                                    </ToggleButton>
+
+                                    <Popup x:Name="EditPopup"
+                                           Placement="Left"
+                                           IsOpen="{Binding Path=IsChecked, ElementName=EditButton}"
+                                           AllowsTransparency="True"
+                                           StaysOpen="False"
+                                           HorizontalOffset="1"
+                                           VerticalOffset="-9">
+                                        <Border Width="254"
+                                                MinHeight="90"
+                                                Background="{DynamicResource PalettePrimaryBrush}"
+                                                BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="6">
+                                            <StackPanel Orientation="Horizontal">
+
+                                                <!-- Image Input Field -->
+                                                <Grid Margin="9,8,0,8">
+                                                    <Border x:Name="AccentBorder"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="0,0,0,1"
+                                                            CornerRadius="4">
+                                                        <Border.BorderBrush>
+                                                            <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                                                        </Border.BorderBrush>
+                                                    </Border>
+
+                                                    <Border HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="1"
+                                                            CornerRadius="4"
+                                                            BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+                                                        <Grid>
+                                                            <ui:Button x:Name="ItemImageButton"
+                                                                       Width="72"
+                                                                       Height="72"
+                                                                       Icon="Add24"
+                                                                       ToolTip="{x:Static p:Resources.Tooltip_AddImage}"
+                                                                       Click="ItemImageButton_Click"/>
+                                                            <Image HorizontalAlignment="Stretch"
+                                                                   VerticalAlignment="Stretch"
+                                                                   Stretch="UniformToFill"
+                                                                   Source="{Binding ItemImage}"
+                                                                   IsHitTestVisible="False"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                                <Grid Width="132"
+                                                      Height="Auto"
+                                                      Margin="6,0,0,8">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <ui:TextBox Grid.Row="0"
+                                                                x:Name="NameTextBox"
+                                                                VerticalAlignment="Top"
+                                                                MaxLines="1"
+                                                                AcceptsTab="True"
+                                                                PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderName}"
+                                                                Text="{Binding Name}"
+                                                                AllowDrop="True"
+                                                                Margin="0,8,0,0"/>
+                                                    <ui:DynamicScrollViewer Grid.Row="1"
+                                                                            IsScrollingHorizontally="False"
+                                                                            CanContentScroll="True"
+                                                                            VerticalScrollBarVisibility="Hidden">
+                                                        <ui:TextBox x:Name="DescriptionTextBox"
+                                                                    VerticalAlignment="Stretch"
+                                                                    TextAlignment="Left"
+                                                                    MaxLines="10"
+                                                                    AcceptsTab="True"
+                                                                    AcceptsReturn="True"
+                                                                    TextWrapping="Wrap"
+                                                                    PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderDescription}"
+                                                                    Text="{Binding Description}"
+                                                                    AllowDrop="True"
+                                                                    Margin="0,5,0,0"
+                                                                    ScrollViewer.CanContentScroll="True"
+                                                                    ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                                                    </ui:DynamicScrollViewer>
+                                                </Grid>
+                                                <!-- Name/Description Input Fields -->
+                                                
+
+
+                                                <!-- Toolbar -->
+                                                <Grid Margin="4,0,1,2">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="ui:Button" BasedOn="{StaticResource {x:Type ui:Button}}">
+                                                            <Setter Property="Width" Value="18"/>
+                                                            <Setter Property="Height" Value="18"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                            <Setter Property="VerticalAlignment" Value="Top"/>
+                                                            <Setter Property="BorderThickness" Value="0"/>
+                                                            <Setter Property="Padding" Value="0"/>
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <StackPanel>
+                                                        <ui:Button x:Name="DeleteButton"
+                                                                   Margin="0,8,0,0"
+                                                                   Icon="Delete16"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipDeleteItem}"
+                                                                   Click="DeleteButton_Click"/>
+                                                        <ui:Button x:Name="ClearButton"
+                                                                   Margin="0,4,0,0"
+                                                                   Icon="Eraser20"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipClearItem}"
+                                                                   Click="ClearButton_Click"/>
+
+                                                    </StackPanel>
+                                                    <controls:ColorPicker VerticalAlignment="Bottom"
+                                                                          Margin="0,6"
+                                                                          SelectedBrushChanged="ColorPicker_SelectedBrushChanged"
+                                                                          ToolTip="{x:Static p:Resources.Inventory_TooltipChangeColor}">
+                                                        <controls:ColorPicker.ButtonContent>
+                                                            <ui:SymbolIcon Symbol="PaintBrush16"/>
+                                                        </controls:ColorPicker.ButtonContent>
+                                                    </controls:ColorPicker>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                                
+                                    </Popup>
+
+                                    <Viewbox Width="18"
+                                             VerticalAlignment="Bottom"
+                                             HorizontalAlignment="Right"
+                                             ToolTip="Item"
+                                             ToolTipService.InitialShowDelay="400">
+                                        <ui:SymbolIcon Symbol="SurfaceEarbuds20"
+                                                       Foreground="{Binding Foreground}"/>
+                                    </Viewbox>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                    <!-- InventoryWeaponModelTemplate -->
+                    <DataTemplate x:Key="InventoryWeaponModelTemplate"
+                                  DataType="{x:Type m:InventoryWeaponModel}">
+                        <Border Width="250"
+                                Height="160"
+                                Margin="6"
+                                Padding="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{Binding Brush, Mode=OneWay}"
+                                CornerRadius="8"
+                                AllowDrop="True"
+                                PreviewMouseLeftButtonDown="InventoryItem_PreviewMouseLeftButtonDown"
+                                Drop="InventoryItem_Drop">
+
+                            <Border.Effect>
+                                <DropShadowEffect Opacity="0.25" Direction="-90" BlurRadius="2" ShadowDepth="2"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0"
+                                            Orientation="Horizontal">
+
+                                    <Border HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Width="64"
+                                            Height="64"
+                                            BorderThickness="1"
+                                            CornerRadius="4"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            Margin="8,8,0,0">
+                                        <Grid>
+                                            <Viewbox Width="28">
+                                                <ui:SymbolIcon Symbol="Question28"
+                                                               Foreground="{Binding Foreground}"/>
+                                            </Viewbox>
+                                            <Image HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch"
+                                                   Stretch="UniformToFill"
+                                                   Source="{Binding ItemImage}"
+                                                   IsHitTestVisible="False"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Width="146"
+                                          Height="Auto"
+                                          Margin="1,0,0,0">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Name/Description Fields -->
+                                        <Border Grid.Row="0"
+                                                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                                CornerRadius="4"
+                                                Margin="0,9,0,0">
+                                            <TextBlock x:Name="NameTextBlock"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="16"
+                                                       Height="30"
+                                                       Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Foreground="{Binding Foreground}"
+                                                       AllowDrop="True"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Padding="0"
+                                                       Margin="4,4,0,-4"
+                                                       ToolTip="{Binding Name}"
+                                                       ToolTipService.InitialShowDelay="100"/>
+                                        </Border>
+
+                                        <Border Grid.Row="1"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="0,2,0,0">
+                                            <TextBlock x:Name="DescriptionTextBlock"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Height="30"
+                                                   Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Foreground="{Binding Foreground}"
+                                                   AllowDrop="True"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Padding="0"
+                                                   Margin="4,4,0,-4"
+                                                   ToolTip="{Binding Description}"
+                                                   ToolTipService.InitialShowDelay="100"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!-- Weapon Stats -->
+                                <Grid Grid.Row="1"
+                                      Margin="0,4,0,0">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0"
+                                          HorizontalAlignment="Left"
+                                          Margin="10,0,5,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <Label Content="Type: "
+                                               HorizontalAlignment="Right"/>
+                                            <Label Content="Damage: "
+                                               HorizontalAlignment="Right"/>
+                                            <Label Content="Armorpen: "
+                                               HorizontalAlignment="Right"/>
+                                            <Label Content="Hit Bonus: "
+                                               HorizontalAlignment="Right"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <Label Content="{Binding AttackMode}"
+                                                   FontWeight="SemiBold"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="{Binding DiceRollCount}"
+                                                       FontWeight="SemiBold"/>
+                                                <Label Content="D"
+                                                       FontWeight="SemiBold"
+                                                       Margin="2,0,0,0"/>
+                                                <Label Content="{Binding BaseDamageDice.MaxValue}"
+                                                       FontWeight="SemiBold"/>
+                                                <Label Content="+"
+                                                       FontWeight="SemiBold"
+                                                       Margin="2,0"/>
+                                                <Label Content="{Binding BaseDamageBonus}"
+                                                       FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                            <Label Content="{Binding Armorpen}"
+                                                   FontWeight="SemiBold"/>
+                                            <Label Content="{Binding HitBonus}"
+                                                   FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2"
+                                          HorizontalAlignment="Right"
+                                          Margin="5,0,30,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <Label Content="Weight: "
+                                                   HorizontalAlignment="Right"/>
+                                            <Label Content="Dual-Wield: "
+                                                   HorizontalAlignment="Right"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <Label Content="{Binding Weight}"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                            <Viewbox Width="14">
+                                                <ui:SymbolIcon Symbol="{Binding TrueFalseSymbol}"
+                                                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+                                            </Viewbox>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                                <ToggleButton x:Name="EditButton" 
+                                              VerticalAlignment="Top"
+                                              HorizontalAlignment="Right"
+                                              Width="18"
+                                              Height="18"
+                                              Padding="0"
+                                              Margin="0,9,8,0"
+                                              IsHitTestVisible="{Binding IsOpen, ElementName=EditPopup, Converter={StaticResource BooleanInvertConverter}}">
+                                    <Viewbox>
+                                        <ui:SymbolIcon Symbol="Settings16"
+                                                           Foreground="{Binding Foreground}"/>
+                                    </Viewbox>
+                                </ToggleButton>
+
+                                <Viewbox Grid.Row="1"
+                                         Width="18"
+                                         VerticalAlignment="Bottom"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,8,6"
+                                         ToolTip="Item"
+                                         ToolTipService.InitialShowDelay="400">
+                                    <ui:SymbolIcon Symbol="Gavel20"
+                                                   Foreground="{Binding Foreground}"/>
+                                </Viewbox>
+
+                                <Popup x:Name="EditPopup"
+                                       Placement="Left"
+                                       PlacementTarget="{Binding ElementName=EditButton}"
+                                       IsOpen="{Binding Path=IsChecked, ElementName=EditButton}"
+                                       AllowsTransparency="True"
+                                       StaysOpen="False"
+                                       HorizontalOffset="1"
+                                       VerticalOffset="-9">
+                                    <Border Width="254"
+                                                MinHeight="90"
+                                                Background="{DynamicResource PalettePrimaryBrush}"
+                                                BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="6">
+                                        <Grid>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            
+                                            <StackPanel Grid.Row="0"
+                                                        Orientation="Horizontal">
+
+                                                <!-- Image Input Field -->
+                                                <Grid Margin="9,8,0,8">
+                                                    <Border x:Name="AccentBorder"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="0,0,0,1"
+                                                            CornerRadius="4">
+                                                        <Border.BorderBrush>
+                                                            <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                                                        </Border.BorderBrush>
+                                                    </Border>
+
+                                                    <Border HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="1"
+                                                            CornerRadius="4"
+                                                            BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+                                                        <Grid>
+                                                            <ui:Button x:Name="ItemImageButton"
+                                                                       Width="72"
+                                                                       Height="72"
+                                                                       Icon="Add24"
+                                                                       ToolTip="{x:Static p:Resources.Tooltip_AddImage}"
+                                                                       Click="ItemImageButton_Click"/>
+                                                            <Image HorizontalAlignment="Stretch"
+                                                                   VerticalAlignment="Stretch"
+                                                                   Stretch="UniformToFill"
+                                                                   Source="{Binding ItemImage}"
+                                                                   IsHitTestVisible="False"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+
+                                                <Grid Width="132"
+                                                      Height="Auto"
+                                                      Margin="6,0,0,8">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <ui:TextBox Grid.Row="0"
+                                                                x:Name="NameTextBox"
+                                                                VerticalAlignment="Top"
+                                                                MaxLines="1"
+                                                                AcceptsTab="True"
+                                                                PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderName}"
+                                                                Text="{Binding Name}"
+                                                                AllowDrop="True"
+                                                                Margin="0,8,0,0"/>
+                                                    <ui:DynamicScrollViewer Grid.Row="1"
+                                                                            IsScrollingHorizontally="False"
+                                                                            CanContentScroll="True"
+                                                                            VerticalScrollBarVisibility="Hidden"
+                                                                        MaxHeight="58">
+                                                        <ui:TextBox x:Name="DescriptionTextBox"
+                                                                    VerticalAlignment="Stretch"
+                                                                    TextAlignment="Left"
+                                                                    MaxLines="10"
+                                                                    AcceptsTab="True"
+                                                                    AcceptsReturn="True"
+                                                                    TextWrapping="Wrap"
+                                                                    PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderDescription}"
+                                                                    Text="{Binding Description}"
+                                                                    AllowDrop="True"
+                                                                    Margin="0,5,0,0"
+                                                                    ScrollViewer.CanContentScroll="True"
+                                                                    ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                                                    </ui:DynamicScrollViewer>
+
+
+                                                </Grid>
+
+                                                <!-- Toolbar -->
+                                                <Grid Margin="4,0,1,2">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="ui:Button" BasedOn="{StaticResource {x:Type ui:Button}}">
+                                                            <Setter Property="Width" Value="18"/>
+                                                            <Setter Property="Height" Value="18"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                            <Setter Property="VerticalAlignment" Value="Top"/>
+                                                            <Setter Property="BorderThickness" Value="0"/>
+                                                            <Setter Property="Padding" Value="0"/>
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <StackPanel>
+                                                        <ui:Button x:Name="DeleteButton"
+                                                                   Margin="0,8,0,0"
+                                                                   Icon="Delete16"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipDeleteItem}"
+                                                                   Click="DeleteButton_Click"/>
+                                                        <ui:Button x:Name="ClearButton"
+                                                                   Margin="0,4,0,0"
+                                                                   Icon="Eraser20"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipClearItem}"
+                                                                   Click="ClearButton_Click"/>
+
+                                                    </StackPanel>
+                                                    <controls:ColorPicker VerticalAlignment="Bottom"
+                                                                          Margin="0,6"
+                                                                          SelectedBrushChanged="ColorPicker_SelectedBrushChanged"
+                                                                          ToolTip="{x:Static p:Resources.Inventory_TooltipChangeColor}">
+                                                        <controls:ColorPicker.ButtonContent>
+                                                            <ui:SymbolIcon Symbol="PaintBrush16"/>
+                                                        </controls:ColorPicker.ButtonContent>
+                                                    </controls:ColorPicker>
+                                                </Grid>
+                                            </StackPanel>
+
+                                            <Grid Grid.Row="1"
+                                                  Margin="9,0,9,9">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                
+                                                <Grid.Resources>
+                                                    <Style TargetType="ui:NumberBox"
+                                                               BasedOn="{StaticResource {x:Type ui:NumberBox}}">
+                                                        <Setter Property="ClearButtonEnabled" Value="False"/>
+                                                        <Setter Property="SpinButtonsEnabled" Value="False"/>
+                                                    </Style>
+                                                </Grid.Resources>
+
+                                                <StackPanel Grid.Row="0" 
+                                                            Orientation="Horizontal"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="0,0,8,0">
+                                                    <Label Content="Melee"
+                                                           FontSize="14"
+                                                           FontWeight="SemiBold"/>
+                                                    <ui:ToggleSwitch Margin="8,0"
+                                                                     IsChecked="{Binding AttackMode, Converter={StaticResource BooleanAttackModeConverter}, Mode=TwoWay}"/>
+                                                    <Label Content="Ranged"
+                                                           FontSize="14"
+                                                           FontWeight="SemiBold"/>
+                                                </StackPanel>
+
+                                                <Label Grid.Row="1"
+                                                       Content="Damage: "
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       Margin="1,8"/>
+
+                                                <StackPanel Grid.Row="1"
+                                                            Orientation="Horizontal"
+                                                            Margin="0,32,0,0">
+                                                    <ui:NumberBox x:Name="RollCountNumBox"
+                                                                  ClearButtonEnabled="False"
+                                                                  FontSize="16"
+                                                                  BorderThickness="0"
+                                                                  IntegersOnly="True"
+                                                                  Value="{Binding DiceRollCount, Mode=TwoWay}"
+                                                                  Text="{Binding DiceRollCount, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                                                  DecimalPlaces="1"
+                                                                  Step="1"
+                                                                  Min="1"
+                                                                  Max="100"
+                                                                  Width="54"
+                                                                  SpinButtonsEnabled="False"
+                                                                  MouseWheel="NumBox_MouseWheel"/>
+                                                    <Label Content="D"
+                                                           FontSize="16"
+                                                           VerticalAlignment="Center"
+                                                           Margin="4,0,4,-4"
+                                                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                                    <Grid>
+                                                        <Border x:Name="DamageAccentBorder"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"
+                                                                BorderThickness="0,0,0,1"
+                                                                CornerRadius="4">
+                                                            <Border.BorderBrush>
+                                                                <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                                                            </Border.BorderBrush>
+                                                        </Border>
+
+                                                        <ComboBox ItemsSource="{Binding Dices, Mode=TwoWay}"
+                                                                  DisplayMemberPath="Name"
+                                                                  FontSize="16"
+                                                                  BorderThickness="0"
+                                                                  SelectedIndex="3"
+                                                                  SelectedItem="{Binding BaseDamageDice}"/>
+                                                    </Grid>
+                                                    <Label Content="+"
+                                                           FontSize="16"
+                                                           VerticalAlignment="Center"
+                                                           Margin="4,0,4,-4"
+                                                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                                    <ui:NumberBox x:Name="RollDamageBonusNumBox"
+                                                                  ClearButtonEnabled="False"
+                                                                  FontSize="16"
+                                                                  BorderThickness="0"
+                                                                  Value="{Binding BaseDamageBonus, Mode=TwoWay}"
+                                                                  Text="{Binding BaseDamageBonus, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                                                  IntegersOnly="True"
+                                                                  Step="1"
+                                                                  Min="0"
+                                                                  Max="100"
+                                                                  Width="54"
+                                                                  SpinButtonsEnabled="False"
+                                                                  MouseWheel="NumBox_MouseWheel"/>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="2">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <StackPanel>
+                                                            <Label Grid.Row="1"
+                                                                   Content="Armorpen: "
+                                                                   FontSize="14"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="1,8"/>
+                                                            <ui:NumberBox x:Name="ArmorpenNumBox"
+                                                                          HorizontalAlignment="Left"
+                                                                          MinWidth="45"
+                                                                          ClearButtonEnabled="False"
+                                                                          FontSize="16"
+                                                                          BorderThickness="0"
+                                                                          Value="{Binding Armorpen, Mode=TwoWay}"
+                                                                          Text="{Binding Armorpen, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                                                          IntegersOnly="True"
+                                                                          Step="1"
+                                                                          Min="0"
+                                                                          Max="100"
+                                                                          SpinButtonsEnabled="False"
+                                                                          MouseWheel="NumBox_MouseWheel"/>
+                                                        </StackPanel>
+
+                                                        <StackPanel Margin="16,1,0,0">
+                                                            <Label Grid.Row="1"
+                                                                   Content="Hit Bonus: "
+                                                                   FontSize="14"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="1,8"/>
+                                                            <ui:NumberBox x:Name="HitBonusNumBox"
+                                                                          HorizontalAlignment="Left"
+                                                                          MinWidth="45"
+                                                                          ClearButtonEnabled="False"
+                                                                          FontSize="16"
+                                                                          BorderThickness="0"
+                                                                          Value="{Binding HitBonus, Mode=TwoWay}"
+                                                                          Text="{Binding HitBonus, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                                                          IntegersOnly="True"
+                                                                          Step="1"
+                                                                          Min="0"
+                                                                          Max="100"
+                                                                          SpinButtonsEnabled="False"
+                                                                          MouseWheel="NumBox_MouseWheel"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <StackPanel>
+                                                            <Label Grid.Row="1"
+                                                                   Content="Weight: "
+                                                                   FontSize="14"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="1,8"/>
+                                                            <ui:NumberBox x:Name="WeightNumBox"
+                                                                          HorizontalAlignment="Left"
+                                                                          ClearButtonEnabled="False"
+                                                                          FontSize="16"
+                                                                          BorderThickness="0"
+                                                                          Value="{Binding Weight, Mode=TwoWay}"
+                                                                          Text="{Binding Weight, Mode=TwoWay, Converter={StaticResource StringToFloatConverter}}"
+                                                                          DecimalPlaces="1"
+                                                                          Step="0.5"
+                                                                          Min="0"
+                                                                          Max="100"
+                                                                          SpinButtonsEnabled="False"
+                                                                          MouseWheel="NumBox_MouseWheel"/>
+                                                        </StackPanel>
+                                                        
+                                                        <StackPanel Margin="34,0,0,0">
+                                                            <Label Grid.Row="1"
+                                                                   Content="Dual-Wield: "
+                                                                   FontSize="14"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="1,8"/>
+                                                            <ui:ToggleSwitch Margin="0,8,0,0"
+                                                                             IsChecked="{Binding IsTwoHanded, Mode=TwoWay}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <Grid Grid.Row="2">
+                                                    
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                    <!-- InventoryArmorModelTemplate -->
+                    <DataTemplate x:Key="InventoryArmorModelTemplate"
+                                  DataType="{x:Type m:InventoryItemModel}">
                         <Border Width="248"
                                 Height="90"
                                 Margin="6"
@@ -97,31 +930,21 @@
                                         </Border.BorderBrush>
                                     </Border>
 
+
                                     <Border HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
                                                 BorderThickness="1"
                                                 CornerRadius="4"
-                                                BorderBrush="{DynamicResource ControlElevationBorderBrush}">
-                                        <Grid Width="72"
-                                                  Height="72"
-                                                  HorizontalAlignment="Left"
-                                                  VerticalAlignment="Top">
-                                            <ui:Button x:Name="ItemImageButton"
-                                                           HorizontalAlignment="Stretch"
-                                                           VerticalAlignment="Stretch"
-                                                           Icon="Add24"
-                                                           ToolTip="{x:Static p:Resources.Tooltip_AddImage}"
-                                                           IconForeground="{Binding Foreground}"
-                                                           Foreground="{Binding Foreground}"
-                                                           Click="ItemImageButton_Click"/>
-                                            <Image HorizontalAlignment="Stretch"
-                                                       VerticalAlignment="Stretch"
-                                                       Stretch="UniformToFill"
-                                                       Source="{Binding ItemImage}"
-                                                       IsHitTestVisible="False"/>
-                                        </Grid>
+                                                BorderBrush="{DynamicResource ControlFillColorDefaultBrush}">
+                                        <Image HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Stretch="UniformToFill"
+                               Source="{Binding ItemImage}"
+                               IsHitTestVisible="False"/>
                                     </Border>
                                 </Grid>
+
+
 
                                 <!-- Name/Description Input Fields -->
                                 <ui:DynamicScrollViewer IsScrollingHorizontally="False"
@@ -161,7 +984,7 @@
                                                     Margin="0,5,0,0"/>
                                     </Grid>
                                 </ui:DynamicScrollViewer>
-                                
+
 
                                 <!-- Toolbar -->
                                 <Grid Margin="4,0,1,2">
@@ -203,7 +1026,7 @@
                             </StackPanel>
                         </Border>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ui:VirtualizingItemsControl.Resources>
             </ui:VirtualizingItemsControl>
         </Border>
     </Grid>
