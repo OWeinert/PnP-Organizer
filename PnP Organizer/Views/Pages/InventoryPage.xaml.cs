@@ -40,14 +40,6 @@ namespace PnP_Organizer.Views.Pages
             _dialogControl = dialogService.GetDialogControl();
         }
 
-        #region Page Button Event Handlers
-        // TODO AddItemButton_Click: move logic to ViewModel
-        private void AddItemButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ViewModel.Items?.Add(new InventoryItemModel());
-        }
-        #endregion Page Button Event Handlers
-
         #region InventoryItem Button Event Handlers
         // TODO ItemImageButton_Click: move logic to Model
         private void ItemImageButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -90,7 +82,7 @@ namespace PnP_Organizer.Views.Pages
         // TODO OpenClearItemDialog: move logic to Model
         private async void OpenClearItemDialog(InventoryItemModel inventoryItem)
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "clearItem";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonClear;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
@@ -100,12 +92,14 @@ namespace PnP_Organizer.Views.Pages
             {
                 if(((string)dialog.Tag) == "clearItem")
                 {
-                    int index = ViewModel.Items!.IndexOf(inventoryItem);
-                    InventoryItemModel newInventoryItem = new()
-                    {
-                        Brush = inventoryItem.Brush
-                    };
-                    ViewModel.Items[index] = newInventoryItem;
+                    var index = ViewModel.Items!.IndexOf(inventoryItem);
+
+                    if (index < 0 || index > ViewModel.Items.Count - 1)
+                        return;
+
+                    var newInventoryItem = Activator.CreateInstance(inventoryItem.GetType());
+
+                    ViewModel.Items[index] = (InventoryItemModel)newInventoryItem!;
                     dialog.Hide();
                 }
             };
@@ -116,7 +110,7 @@ namespace PnP_Organizer.Views.Pages
         // TODO OpenDeleteItemDialog: move logic to Model
         private async void OpenDeleteItemDialog(InventoryItemModel inventoryItem)
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "deleteItem";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonDelete;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
@@ -145,7 +139,6 @@ namespace PnP_Organizer.Views.Pages
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
-                System.Diagnostics.Debug.WriteLine(e.OriginalSource);
                 var lbi = FindVisualParent<Border>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                     DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
@@ -163,6 +156,9 @@ namespace PnP_Organizer.Views.Pages
                 int sourceIndex = InventoryItemsControl.Items.IndexOf(source);
                 int targetIndex = InventoryItemsControl.Items.IndexOf(target);
 
+                if (sourceIndex == targetIndex)
+                    return;
+
                 Move(source, sourceIndex, targetIndex);
                 ViewModel.ItemsView?.Refresh();
             }
@@ -170,6 +166,12 @@ namespace PnP_Organizer.Views.Pages
 
         private void Move(InventoryItemModel source, int sourceIndex, int targetIndex)
         {
+            if(sourceIndex < 0 || sourceIndex > ViewModel.Items!.Count - 1
+                || targetIndex < 0 || targetIndex > ViewModel.Items.Count - 1)
+            {
+                return;
+            }
+                
             if (sourceIndex < targetIndex)
             {
                 ViewModel.Items?.Insert(targetIndex + 1, source);
@@ -208,7 +210,7 @@ namespace PnP_Organizer.Views.Pages
             InventoryItemModel itemModel = (InventoryItemModel)colorPicker.DataContext;
             itemModel.Brush = e.SelectedBrush;
 
-            if (colorPicker.SelectedBrushName is "Red" or "Pink" or "Purple" or "DeepPurple" or "Indigo" or "DeepOrange" or "Brown" or "BlueGrey" or "Default")
+            if (colorPicker.SelectedBrushName is "Red" or "Pink" or "Purple" or "DeepPurple" or "Indigo" or "DeepOrange" or "Brown" or "BlueGrey" or "Primary")
                 itemModel.Foreground = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
             else 
                 itemModel.Foreground = (SolidColorBrush)Application.Current.Resources["TextFillColorInverseBrush"];
@@ -216,5 +218,18 @@ namespace PnP_Organizer.Views.Pages
         }
 
         #endregion Color Picker
+
+        //TODO NumBox_MouseWheel move to static function 2/2
+        private void NumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            NumberBox numBox = (NumberBox)sender;
+
+            if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
+                return;
+
+            numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
+        }
+
+        private void AddItemPopup_Closed(object sender, EventArgs e) => ItemTypeSelector.SelectedIndex = 0;
     }
 }
