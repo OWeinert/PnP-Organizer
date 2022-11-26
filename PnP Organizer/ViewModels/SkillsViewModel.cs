@@ -205,7 +205,7 @@ namespace PnP_Organizer.ViewModels
                 for(int i = 0; i < SkillModels!.Count; i++)
                 {
                     if (SkillModels[i].SkillPoints > 0 ||
-                        (SkillModels[i] is RepeatableSkillModel && ((RepeatableSkillModel)SkillModels[i]).Repetition > 0))
+                        (SkillModels[i] is RepeatableSkillModel model && model.Repetition > 0))
                     {
                         SkillSaveData skillSaveData = new()
                         {
