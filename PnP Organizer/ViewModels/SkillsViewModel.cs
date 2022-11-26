@@ -204,14 +204,19 @@ namespace PnP_Organizer.ViewModels
                 List<SkillSaveData> skills = new();
                 for(int i = 0; i < SkillModels!.Count; i++)
                 {
-                    SkillSaveData skillSaveData = new()
+                    if (SkillModels[i].SkillPoints > 0 ||
+                        (SkillModels[i] is RepeatableSkillModel && ((RepeatableSkillModel)SkillModels[i]).Repetition > 0))
                     {
-                        Index = i,
-                        SkillPoints = SkillModels[i]!.SkillPoints
-                    };
-                    if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
-                        skillSaveData.Repetition = repeatableSkillModel.Repetition;
-                    skills.Add(skillSaveData);
+                        SkillSaveData skillSaveData = new()
+                        {
+                            Index = i,
+                            SkillPoints = SkillModels[i]!.SkillPoints
+                        };
+                        if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
+                            skillSaveData.Repetition = repeatableSkillModel.Repetition;
+
+                        skills.Add(skillSaveData);
+                    }
                 }
                 FileIO.LoadedCharacter.Skills = skills;
 
