@@ -1,5 +1,4 @@
 ﻿using PnP_Organizer.Models;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 

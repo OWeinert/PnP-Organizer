@@ -2,7 +2,6 @@
 using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Properties;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;

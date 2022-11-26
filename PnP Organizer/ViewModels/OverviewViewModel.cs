@@ -8,7 +8,6 @@ using PnP_Organizer.Models;
 using PnP_Organizer.Views.Pages;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;

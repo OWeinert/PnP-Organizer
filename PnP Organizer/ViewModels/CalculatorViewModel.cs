@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Calculators;
 using PnP_Organizer.Core.Calculators;
-using PnP_Organizer.Core.Character;
-using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
-using PnP_Organizer.Views.Pages;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

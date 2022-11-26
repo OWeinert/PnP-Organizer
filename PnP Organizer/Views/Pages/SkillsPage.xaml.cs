@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Models;
 using System.Windows;
 using Wpf.Ui.Common.Interfaces;
-using WpfUiButton = Wpf.Ui.Controls.Button;
 
 namespace PnP_Organizer.Views.Pages
 {
