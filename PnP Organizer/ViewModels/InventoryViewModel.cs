@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Core.Character;
+using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
@@ -7,24 +7,31 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Data;
+using Wpf.Ui.Common;
 
 namespace PnP_Organizer.ViewModels
 {
-    // TODO InventoryViewModel: Implement Searchable Items
     public partial class InventoryViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
+        private readonly List<InventoryItemType> _itemTypes = new()
+        {
+            new InventoryItemType("Item", SymbolRegular.SurfaceEarbuds24),
+            new InventoryItemType("Weapon", SymbolRegular.Gavel24),
+            new InventoryItemType("Armor", SymbolRegular.Shield24)
+        };
+        public List<InventoryItemType> ItemTypes { get => _itemTypes; }
 
         [ObservableProperty]
         private ICollectionView? _itemsView;
-
         [ObservableProperty]
         private ObservableCollection<InventoryItemModel>? _items;
-
         [ObservableProperty]
         private string _searchBarText = string.Empty;
+
+        private bool _isInitialized = false;
 
         public InventoryViewModel()
         {
@@ -78,30 +85,65 @@ namespace PnP_Organizer.ViewModels
             }
         }
 
+        [RelayCommand]
+        private void AddItem(object selectedItemType)
+        {
+            var itemType = (InventoryItemType)selectedItemType;
+            InventoryItemModel? item = itemType.Name switch
+            {
+                "Weapon" => new InventoryWeaponModel(),
+                "Armor" => new InventoryArmorModel(),
+                _ => new InventoryItemModel(),
+            };
+            Items!.Add(item);
+        }
+
         public void SaveCharacterInventory()
         {
             if(_isInitialized)
             {
                 FileIO.IsCharacterSaved = false;
-                List<InventoryItem> inventory = Items!.ToList().ConvertAll(itemModel => itemModel.InventoryItem);
+                var inventory = Items!.ToList().ConvertAll(itemModel => itemModel.InventoryItem);
                 FileIO.LoadedCharacter.Inventory = inventory;
             }           
         }
 
         public void LoadCharacterInventory()
         {
-            if(FileIO.LoadedCharacter.Inventory.Count > 0)
-                Items?.Clear(); // Clear inventory first if the character has saved items to remove
-                                // the default empty item
-            ObservableCollection<InventoryItemModel> itemModels = new();
-            foreach(InventoryItem item in FileIO.LoadedCharacter.Inventory!)
+            var itemModels = new ObservableCollection<InventoryItemModel>();
+            foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
-                itemModels.Add(new InventoryItemModel(item));
+                foreach (var property in item.GetType().GetProperties())
+                {
+                    Debug.WriteLine($"{property.Name}: {property.GetValue(item)}");
+                }
+
+                InventoryItemModel? model;
+                if (item is InventoryWeapon)
+                    model = new InventoryWeaponModel((InventoryWeapon)item);
+                else if (item is InventoryArmor)
+                    model = new InventoryArmorModel((InventoryArmor)item);
+                else
+                    model = new InventoryItemModel(item);
+
+                itemModels.Add(model);
             }
             Items = itemModels;
 
             ItemsView = CollectionViewSource.GetDefaultView(Items);
             ItemsView.Filter += ItemsView_Filter;
+        }
+    }
+
+    public struct InventoryItemType
+    {
+        public string Name { get; set; }
+        public SymbolRegular Symbol { get; set; }
+
+        public InventoryItemType(string name, SymbolRegular symbol)
+        {
+            Name = name;
+            Symbol = symbol;
         }
     }
 }
