@@ -5,7 +5,6 @@ using PnP_Organizer.Properties;
 using PnP_Organizer.ViewModels;
 using System;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core.Metadata.Edm;
 
 namespace PnP_Organizer.Core.Character
 {

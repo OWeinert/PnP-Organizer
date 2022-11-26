@@ -1,6 +1,5 @@
 ﻿using PnP_Organizer.Core.Character.StatModifiers;
 using System;
-using System.Drawing;
 
 namespace PnP_Organizer.Core.Character
 {
