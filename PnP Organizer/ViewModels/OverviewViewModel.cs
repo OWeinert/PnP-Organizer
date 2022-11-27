@@ -158,6 +158,15 @@ namespace PnP_Organizer.ViewModels
                 TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
+            if (e.PropertyName == nameof(TotalMaxHealth) && CurrentHealth > TotalMaxHealth)
+                CurrentHealth = TotalMaxHealth;
+
+            if (e.PropertyName == nameof(TotalMaxEnergy) && CurrentEnergy > TotalMaxEnergy)
+                CurrentEnergy = TotalMaxEnergy;
+
+            if (e.PropertyName == nameof(TotalMaxStamina) && CurrentStamina > TotalMaxStamina)
+                CurrentStamina = TotalMaxStamina;
+            
             FileIO.IsCharacterSaved = false;
         }
 
