@@ -145,13 +145,11 @@ namespace PnP_Organizer.ViewModels
             }
             if(e.PropertyName is nameof(CharacterImage) && CharacterImage?.UriSource != null)
                 _characterImageFileExt = Path.GetExtension(CharacterImage.UriSource.AbsolutePath);
-
             if (!_isLoading)
             {
                 SaveCharacterPearls();
                 SaveCharacterAttributes();
             }
-
             if ((e.PropertyName.Contains("Max") || e.PropertyName.Contains("Modifier") || e.PropertyName.Contains(nameof(Initiative)))
                 && !e.PropertyName.Contains("Total"))
             {
@@ -161,15 +159,8 @@ namespace PnP_Organizer.ViewModels
                 TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
-            if (e.PropertyName == nameof(TotalMaxHealth) && CurrentHealth > TotalMaxHealth)
-                CurrentHealth = TotalMaxHealth;
-
-            if (e.PropertyName == nameof(TotalMaxEnergy) && CurrentEnergy > TotalMaxEnergy)
-                CurrentEnergy = TotalMaxEnergy;
-
-            if (e.PropertyName == nameof(TotalMaxStamina) && CurrentStamina > TotalMaxStamina)
-                CurrentStamina = TotalMaxStamina;
             
+
             FileIO.IsCharacterSaved = false;
         }
 
@@ -215,19 +206,20 @@ namespace PnP_Organizer.ViewModels
             CharacterImage = Utils.BitmapImageFromBytes(FileIO.LoadedCharacter.CharacterImage);
             _characterImageFileExt = FileIO.LoadedCharacter.CharacterImageFileExt;
 
-            CurrentHealth = FileIO.LoadedCharacter.CurrentHealth;
-            CurrentEnergy = FileIO.LoadedCharacter.CurrentEnergy;
-            CurrentStamina = FileIO.LoadedCharacter.CurrentStamina;
-
             MaxHealthBonus = FileIO.LoadedCharacter.MaxHealthBonus;
             MaxEnergyBonus = FileIO.LoadedCharacter.MaxEnergyBonus;
             MaxStaminaBonus = FileIO.LoadedCharacter.MaxStaminaBonus;
             InitiativeBonus = FileIO.LoadedCharacter.InitiativeBonus;
 
+            CurrentHealth = FileIO.LoadedCharacter.CurrentHealth;
+            CurrentEnergy = FileIO.LoadedCharacter.CurrentEnergy;
+            CurrentStamina = FileIO.LoadedCharacter.CurrentStamina;
+
             LoadCharacterAttributes();
             LoadCharacterPearls();
 
             _isLoading = false;
+
             Logger.Log("Character Stats loaded successfully!");
         }
 
