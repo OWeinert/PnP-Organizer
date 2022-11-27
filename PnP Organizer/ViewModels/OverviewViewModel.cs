@@ -159,8 +159,6 @@ namespace PnP_Organizer.ViewModels
                 TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
-            
-
             FileIO.IsCharacterSaved = false;
         }
 
@@ -211,12 +209,12 @@ namespace PnP_Organizer.ViewModels
             MaxStaminaBonus = FileIO.LoadedCharacter.MaxStaminaBonus;
             InitiativeBonus = FileIO.LoadedCharacter.InitiativeBonus;
 
+            LoadCharacterAttributes();
+            LoadCharacterPearls();
+
             CurrentHealth = FileIO.LoadedCharacter.CurrentHealth;
             CurrentEnergy = FileIO.LoadedCharacter.CurrentEnergy;
             CurrentStamina = FileIO.LoadedCharacter.CurrentStamina;
-
-            LoadCharacterAttributes();
-            LoadCharacterPearls();
 
             _isLoading = false;
 
