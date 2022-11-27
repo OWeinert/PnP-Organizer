@@ -158,15 +158,8 @@ namespace PnP_Organizer.ViewModels
                 TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
-            if (e.PropertyName == nameof(TotalMaxHealth) && CurrentHealth > TotalMaxHealth)
-                CurrentHealth = TotalMaxHealth;
-
-            if (e.PropertyName == nameof(TotalMaxEnergy) && CurrentEnergy > TotalMaxEnergy)
-                CurrentEnergy = TotalMaxEnergy;
-
-            if (e.PropertyName == nameof(TotalMaxStamina) && CurrentStamina > TotalMaxStamina)
-                CurrentStamina = TotalMaxStamina;
             
+
             FileIO.IsCharacterSaved = false;
         }
 
@@ -216,6 +209,10 @@ namespace PnP_Organizer.ViewModels
             MaxEnergyBonus = FileIO.LoadedCharacter.MaxEnergyBonus;
             MaxStaminaBonus = FileIO.LoadedCharacter.MaxStaminaBonus;
             InitiativeBonus = FileIO.LoadedCharacter.InitiativeBonus;
+
+            CurrentHealth = FileIO.LoadedCharacter.CurrentHealth;
+            CurrentEnergy = FileIO.LoadedCharacter.CurrentEnergy;
+            CurrentStamina = FileIO.LoadedCharacter.CurrentStamina;
 
             LoadCharacterAttributes();
             LoadCharacterPearls();
