@@ -152,16 +152,7 @@ namespace PnP_Organizer.ViewModels
                 SaveCharacterAttributes();
             }
 
-            if (e.PropertyName == nameof(MaxHealth) && CurrentHealth > MaxHealth)
-                CurrentHealth = MaxHealth;
-
-            if (e.PropertyName == nameof(MaxEnergy) && CurrentEnergy > MaxEnergy)
-                CurrentEnergy = MaxEnergy;
-
-            if (e.PropertyName == nameof(MaxStamina) && CurrentStamina > MaxStamina)
-                CurrentStamina = MaxStamina;
-            
-            if((e.PropertyName.Contains("Max") || e.PropertyName.Contains("Modifier") || e.PropertyName.Contains(nameof(Initiative))) 
+            if ((e.PropertyName.Contains("Max") || e.PropertyName.Contains("Modifier") || e.PropertyName.Contains(nameof(Initiative)))
                 && !e.PropertyName.Contains("Total"))
             {
                 TotalMaxHealth = MaxHealth + MaxHealthBonus + MaxHealthModifierBonus;
@@ -170,6 +161,15 @@ namespace PnP_Organizer.ViewModels
                 TotalInitiative = Initiative + InitiativeBonus + InitiativeModifierBonus;
             }
 
+            if (e.PropertyName == nameof(TotalMaxHealth) && CurrentHealth > TotalMaxHealth)
+                CurrentHealth = TotalMaxHealth;
+
+            if (e.PropertyName == nameof(TotalMaxEnergy) && CurrentEnergy > TotalMaxEnergy)
+                CurrentEnergy = TotalMaxEnergy;
+
+            if (e.PropertyName == nameof(TotalMaxStamina) && CurrentStamina > TotalMaxStamina)
+                CurrentStamina = TotalMaxStamina;
+            
             FileIO.IsCharacterSaved = false;
         }
 
