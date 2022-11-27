@@ -239,19 +239,16 @@ namespace PnP_Organizer.ViewModels
 
                 foreach (SkillSaveData skillSaveData in FileIO.LoadedCharacter.Skills!)
                 {
-                    Skill skill = Skills.Instance.SkillsList[skillSaveData.Index];
+                    var skill = Skills.Instance.SkillsList[skillSaveData.Index];
                     skill.SkillPoints = skillSaveData.SkillPoints;
 
-                    SkillModel skillModel ;
-                    if (skill.IsRepeatable)
-                    {
-                        skillModel = new RepeatableSkillModel(skill);
-                        ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
-                    }
-                    else
-                        skillModel = new SkillModel(skill);
+                    var skillModel = SkillModels![skillSaveData.Index];
 
-                    SkillModels![skillSaveData.Index] = skillModel;
+                    skillModel.SkillPoints = skillSaveData.SkillPoints;
+                    if (skill.IsRepeatable)
+                        ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
+
+                    //SkillModels![skillSaveData.Index] = skillModel;
                 }
                 foreach(SkillModel skillModel in SkillModels!)
                 {
