@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -127,14 +126,7 @@ namespace PnP_Organizer.ViewModels
                     if (forcedDependendSkillModel != default)
                         await CheckSkillModelSkillability(forcedDependendSkillModel);
 
-                    UsedSkillPoints = SkillModels!.Sum(sM =>
-                    {
-                        if(sM is RepeatableSkillModel rSM)
-                        {
-                            return rSM.TotalSkillPoints;
-                        }
-                        return sM.SkillPoints;
-                    });
+                    CalculateUsedSkillPoints();
                 });
             }
         }
@@ -268,8 +260,22 @@ namespace PnP_Organizer.ViewModels
 
                 SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
 
+                CalculateUsedSkillPoints();
+
                 Logger.Log("Skills loaded successfully!");
             }
+        }
+
+        private void CalculateUsedSkillPoints()
+        {
+            UsedSkillPoints = SkillModels!.Sum(sM =>
+            {
+                if (sM is RepeatableSkillModel rSM)
+                {
+                    return rSM.TotalSkillPoints;
+                }
+                return sM.SkillPoints;
+            });
         }
     }
 
