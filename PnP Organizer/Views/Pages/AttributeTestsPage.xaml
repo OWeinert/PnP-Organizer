@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
+    xmlns:char="clr-namespace:PnP_Organizer.Core.Character"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance local:AttributeTestsPage,
                                      IsDesignTimeCreatable=False}"
@@ -113,10 +114,10 @@
                                     <Separator Grid.Column="3"/>
 
                                     <Viewbox Grid.Column="4"
-                                             Margin="4,0,0,0"
+                                             Margin="4,0,-6,0"
                                              HorizontalAlignment="Right"
-                                             Width="40"
-                                             MaxHeight="22">
+                                             Width="42"
+                                             Height="22">
                                         <Label Content="{Binding TotalBonus}"
                                                FontWeight="SemiBold"
                                                HorizontalContentAlignment="Right">
@@ -192,25 +193,25 @@
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"
                                           FontSize="12"
-                                          ItemsSource="{Binding ViewModel.AttributeTestModels}"
+                                          ItemsSource="{Binding Source={x:Static char:AttributeTests.Models}}"
                                           SelectedItem="{Binding SelectedAttributeTest, Mode=TwoWay}"
                                           DisplayMemberPath="Name"
                                               Margin="0,1,8,0"/>
 
-                                    <ui:NumberBox Text="{Binding Bonus, Mode=TwoWay}"
-                                              Value="{Binding Bonus, Mode=TwoWay}"
-                                              MinWidth="44"
-                                              MaxWidth="44"
-                                              FontSize="13"
-                                              HorizontalAlignment="Right"
-                                              VerticalAlignment="Center"
-                                              IntegersOnly="True"
-                                              SpinButtonsEnabled="False"
-                                              ClearButtonEnabled="False"
-                                              Min="-99"
-                                              Max="99"
-                                              MouseWheel="NumberBox_MouseWheel"
-                                              IsEnabled="{Binding IsAttributeTestSelected}"/>
+                                    <ui:NumberBox Text="{Binding Bonus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  Value="{Binding Bonus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  MinWidth="44"
+                                                  MaxWidth="44"
+                                                  FontSize="13"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  IntegersOnly="True"
+                                                  SpinButtonsEnabled="False"
+                                                  ClearButtonEnabled="False"
+                                                  Min="-99"
+                                                  Max="99"
+                                                  MouseWheel="NumberBox_MouseWheel"
+                                                  IsEnabled="{Binding IsAttributeTestSelected}"/>
                                 </StackPanel>
 
                                 <ui:Button HorizontalAlignment="Right"
