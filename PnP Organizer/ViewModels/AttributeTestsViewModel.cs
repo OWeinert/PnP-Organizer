@@ -167,6 +167,7 @@ namespace PnP_Organizer.ViewModels
             {
                 attributeTest.UpdateBonusSum();
                 attributeTest.UpdateTotalBonus();
+                attributeTest.UpdateToolTip();
             }
         }
 
