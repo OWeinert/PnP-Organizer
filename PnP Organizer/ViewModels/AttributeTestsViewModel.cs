@@ -8,6 +8,7 @@ using PnP_Organizer.Models;
 using PnP_Organizer.Properties;
 using PnP_Organizer.Views.Pages;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -31,25 +32,7 @@ namespace PnP_Organizer.ViewModels
         private ComboBoxItem? _selectedAttributeFilter;
 
         [ObservableProperty]
-        private ObservableCollection<AttributeTestModel> _attributeTestModels = new()
-        {
-             new(Resources.AttributeTests_Acrobatic, AttributeType.Dexterity),
-             new(Resources.AttributeTests_Athletic, AttributeType.Strength),
-             new(Resources.AttributeTests_Insight, AttributeType.Wisdom),
-             new(Resources.AttributeTests_Intimidate, AttributeType.Charisma),
-             new(Resources.AttributeTests_SleightOfHand, AttributeType.Dexterity),
-             new(Resources.AttributeTests_History, AttributeType.Intelligence),
-             new(Resources.AttributeTests_Physique, AttributeType.Constitution),
-             new(Resources.AttributeTests_FirstAid, AttributeType.Wisdom),
-             new(Resources.AttributeTests_Nature, AttributeType.Intelligence),
-             new(Resources.AttributeTests_Performance, AttributeType.Charisma),
-             new(Resources.AttributeTests_SneakHide, AttributeType.Dexterity),
-             new(Resources.AttributeTests_Bluff, AttributeType.Charisma),
-             new(Resources.AttributeTests_HandleAnimals, AttributeType.Wisdom),
-             new(Resources.AttributeTests_Inspect, AttributeType.Intelligence),
-             new(Resources.AttributeTests_Persuade, AttributeType.Charisma),
-             new(Resources.AttributeTests_Perceive, AttributeType.Wisdom)
-        };
+        private ObservableCollection<AttributeTestModel> _attributeTestModels = new(AttributeTests.Models);
 
         private IPageService _pageService;
 
@@ -63,6 +46,8 @@ namespace PnP_Organizer.ViewModels
 
             ProfessionsModels = new ObservableCollection<IModelCollectionItem>();
             ProfessionsModels.Add(new AddProfessionModel(ProfessionsModels, this));
+
+            ProfessionsModels!.CollectionChanged += ProfessionsModels_CollectionChanged;
 
             AttributeTestModelsView = CollectionViewSource.GetDefaultView(AttributeTestModels);
 
@@ -82,12 +67,48 @@ namespace PnP_Organizer.ViewModels
                 model.ExternalBoni = new ObservableCollection<int>();
                 model.ExternalDiceBoni = new ObservableCollection<Dice>();
             }
-            
+
+            ApplyProfessionBoni();
+
             ApplySkillBoni();
             UpdateAttributeTestBoni();
         }
 
         public void OnNavigatedFrom() { }
+
+        public void SaveProfessions()
+        {
+            FileIO.LoadedCharacter.Professions = new List<ProfessionSaveData>();
+            foreach(var modelCollectionItem in ProfessionsModels!)
+            {
+                if(modelCollectionItem is ProfessionModel professionModel)
+                {
+                    var professionSaveData = new ProfessionSaveData()
+                    {
+                        AttributeTestIndex = AttributeTests.Models.IndexOf(professionModel.SelectedAttributeTest!),
+                        Bonus = professionModel.Bonus
+                    };
+                    FileIO.LoadedCharacter.Professions.Add(professionSaveData);
+                }
+            }
+        }
+
+        public void LoadProfessions()
+        {
+            ProfessionsModels!.Clear();
+            ProfessionsModels.Add(new AddProfessionModel(ProfessionsModels, this));
+
+            foreach (var professionSaveData in FileIO.LoadedCharacter.Professions)
+            {
+                var professionModel = new ProfessionModel(ProfessionsModels!, this)
+                {
+                    SelectedAttributeTest = AttributeTestModels[professionSaveData.AttributeTestIndex],
+                    Bonus = professionSaveData.Bonus
+                };
+                ProfessionsModels!.Insert(ProfessionsModels.Count - 1, professionModel);
+            }
+            ApplyProfessionBoni();
+        }
 
         private void AttributeTestsViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -104,6 +125,49 @@ namespace PnP_Organizer.ViewModels
                 attributeType = (AttributeType?)parsedAttributeType;
 
             return (attributeType != null && attributeTest.AttributeType == attributeType) || attributeType == null;
+        }
+
+        private void ProfessionsModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                if (e.NewItems![0] is ProfessionModel professionModel)
+                {
+                    professionModel.PropertyChanged += ProfessionModel_PropertyChanged;
+                    ApplyProfessionBoni();
+                }
+            }
+        }
+
+        private void ProfessionModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            ApplyProfessionBoni();
+        }
+
+        private void ApplyProfessionBoni()
+        {
+            foreach (var attributeTest in AttributeTestModels)
+            {
+                attributeTest.ProfessionBoni = new ObservableCollection<int>();
+            }
+
+            var professions = ProfessionsModels!.Where(modelCollectionItem => modelCollectionItem is ProfessionModel)
+                .Cast<ProfessionModel>();
+
+            foreach (var professionModel in professions)
+            {
+                if(professionModel.IsAttributeTestSelected)
+                {
+                    var attributeTest = AttributeTestModels.Where(model => model.Name == professionModel.SelectedAttributeTest!.Name).First();
+                    attributeTest.ProfessionBoni.Add(professionModel.Bonus);
+                }
+            }
+            
+            foreach(var attributeTest in AttributeTestModels)
+            {
+                attributeTest.UpdateBonusSum();
+                attributeTest.UpdateTotalBonus();
+            }
         }
 
         private void UpdateAttributeTestBoni()
