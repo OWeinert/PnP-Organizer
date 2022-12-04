@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -169,14 +168,16 @@ namespace PnP_Organizer.ViewModels
                 attributeTest.UpdateTotalBonus();
                 attributeTest.UpdateToolTip();
             }
+
+            FileIO.IsCharacterSaved = false;
         }
 
         private void UpdateAttributeTestBoni()
         {
             foreach(var attributeTest in AttributeTestModels)
             {
-                CharacterAttributes attributes = FileIO.LoadedCharacter.Attributes;
-                int attributeValue = attributeTest.AttributeType switch
+                var attributes = FileIO.LoadedCharacter.Attributes;
+                var attributeValue = attributeTest.AttributeType switch
                 {
                     AttributeType.Strength => attributes.Strength,
                     AttributeType.Constitution => attributes.Constitution,
