@@ -124,7 +124,7 @@ namespace PnP_Organizer.Models
                 
                 foreach(var diceBonus in ExternalDiceBoni)
                 {
-                    sb.Append($" + 1D{diceBonus.Name} ");
+                    sb.Append($"+ 1D{diceBonus.Name} ");
                 }
 
                 if (ExternalDiceBoni.Any())
