@@ -1,12 +1,16 @@
 ﻿using Microsoft.Win32;
+using Octokit;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.IO;
 using PnP_Organizer.IO;
+using PnP_Organizer.Logging;
 using PnP_Organizer.ViewModels;
 using PnP_Organizer.Views.Pages;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,6 +41,8 @@ namespace PnP_Organizer.Views
             ViewModel = viewModel;
             DataContext = this;
 
+            Loaded += Container_Loaded;
+
             InitializeComponent();
             SetPageService(pageService);
 
@@ -52,6 +58,11 @@ namespace PnP_Organizer.Views
                 ShowOpenLastCharacterDialog();
             else
                 CreateAndLoadCharacter(showSnackbar: false);
+        }
+
+        private async void Container_Loaded(object sender, RoutedEventArgs e)
+        {
+            await CheckVersion();
         }
 
         #region INavigationWindow methods
@@ -84,7 +95,7 @@ namespace PnP_Organizer.Views
             if(!FileIO.IsCharacterSaved)
                 await ShowUnsavedCharacterDialog();
 
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
         #endregion
 
@@ -99,6 +110,54 @@ namespace PnP_Organizer.Views
         #region MenuItem Events
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e) => Navigate(typeof(SettingsPage));
         #endregion
+
+        #region UpdateCheck
+        private async Task CheckVersion()
+        {
+            var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
+            var latestRelease = (await github.Repository.Release.GetAll(563509297))[0];
+            var latestVersion = new Version(latestRelease.TagName);
+            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            Logger.Log($"Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)");
+
+            if(latestVersion > currentVersion)
+            {
+                Logger.Log($"{latestVersion} > {currentVersion} => update available!");
+                await ShowUpdateDialog(latestRelease);
+            }
+            else
+            {
+                Logger.Log($"{latestVersion} = {currentVersion} => up-to-date!");
+                await Task.CompletedTask;
+            }
+        }
+
+        private async Task ShowUpdateDialog(Release latestRelease)
+        {
+            Dialog dialog = (Dialog)_dialogControl;
+            dialog.Tag = "update";
+            dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonUpdate;
+            dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
+            dialog.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Info;
+            dialog.ButtonLeftClick += (sender, e) =>
+            {
+                if (((string)dialog.Tag) == "update")
+                {
+                    var ps = new ProcessStartInfo($"https://github.com/Piggo41/PnP-Organizer/releases/tag/{latestRelease.TagName}")
+                    {
+                        UseShellExecute = true,
+                        Verb = "open"
+                    };
+                    Process.Start(ps);
+                    dialog.Hide();
+                }
+            };
+
+            await dialog.ShowAndWaitAsync(Properties.Resources.Dialog_UpdateTitle, Properties.Resources.Dialog_UpdateMessage);
+        }
+
+        #endregion UpdateCheck
 
         // TODO CharacterData Save/Load Dialogs maybe move to ViewModel
         #region CharacterData Save/Load Dialogs
