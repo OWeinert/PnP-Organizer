@@ -87,7 +87,7 @@ namespace PnP_Organizer.Models
         public void UpdateTotalBonus()
         {
             var sb = new StringBuilder();
-            if(BonusSum > 0 || !ExternalDiceBoni.Any() || !ProfessionBoni.Any())
+            if(BonusSum > 0 || !ExternalDiceBoni.Any())
                 sb.Append($"{BonusSum} ");
 
             var sameDiceBoni = ExternalDiceBoni.GroupBy(dice => dice.Name);
