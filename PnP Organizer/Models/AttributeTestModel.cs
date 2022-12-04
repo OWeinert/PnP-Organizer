@@ -29,6 +29,8 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private ObservableCollection<Dice> _externalDiceBoni = new();
         [ObservableProperty]
+        private ObservableCollection<int> _professionBoni = new();
+        [ObservableProperty]
         private int _bonusSum = 0;
         [ObservableProperty]
         private string _totalBonus = string.Empty;
@@ -79,12 +81,12 @@ namespace PnP_Organizer.Models
             };
         }
 
-        public void UpdateBonusSum() => BonusSum = BaseBonus + PearlBonus + ExternalBoni.Sum();
+        public void UpdateBonusSum() => BonusSum = BaseBonus + PearlBonus + ExternalBoni.Sum() + ProfessionBoni.Sum();
 
         public void UpdateTotalBonus()
         {
             var sb = new StringBuilder();
-            if(BonusSum > 0 || !ExternalDiceBoni.Any())
+            if(BonusSum > 0 || !ExternalDiceBoni.Any() || !ProfessionBoni.Any())
                 sb.Append($"{BonusSum} ");
             foreach (var externalDiceBonus in ExternalDiceBoni)
             {
@@ -106,6 +108,10 @@ namespace PnP_Organizer.Models
                 var sb = new StringBuilder();
                 sb.Append($"{BaseBonus} ");
                 AppendExtraBonus(ref sb, PearlBonus);
+                foreach(int professionBonus in ProfessionBoni)
+                {
+                    AppendExtraBonus(ref sb, professionBonus);
+                }
                 foreach (int externalBonus in ExternalBoni)
                 {
                     AppendExtraBonus(ref sb, externalBonus);
@@ -133,6 +139,6 @@ namespace PnP_Organizer.Models
             }
         }
 
-        private bool GetHasToolTip() => PearlBonus != 0 || ExternalBoni.Any(bonus => bonus != 0) || ExternalDiceBoni.Any();
+        private bool GetHasToolTip() => PearlBonus != 0 || ExternalBoni.Any(bonus => bonus != 0) || ExternalDiceBoni.Any() || ProfessionBoni.Any(bonus => bonus != 0);
     }
 }
