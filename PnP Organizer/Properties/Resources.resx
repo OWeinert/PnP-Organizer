@@ -309,6 +309,9 @@
   <data name="Dialog_ButtonSaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
+  <data name="Dialog_ButtonUpdate" xml:space="preserve">
+    <value>Download Update</value>
+  </data>
   <data name="Dialog_ButtonYes" xml:space="preserve">
     <value>Yes</value>
   </data>
@@ -353,6 +356,12 @@
   </data>
   <data name="Dialog_UnsavedCharacterOpenMessage" xml:space="preserve">
     <value>You have unsaved changes. Do you want to save before loading a different Character?</value>
+  </data>
+  <data name="Dialog_UpdateMessage" xml:space="preserve">
+    <value>There is a newer version available. Do you want to download it?</value>
+  </data>
+  <data name="Dialog_UpdateTitle" xml:space="preserve">
+    <value>Update Available</value>
   </data>
   <data name="Inventory_PlaceholderDescription" xml:space="preserve">
     <value>Description</value>

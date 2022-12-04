@@ -637,6 +637,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download Update.
+        /// </summary>
+        public static string Dialog_ButtonUpdate {
+            get {
+                return ResourceManager.GetString("Dialog_ButtonUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Dialog_ButtonYes {
@@ -768,6 +777,24 @@ namespace PnP_Organizer.Properties {
         public static string Dialog_UnsavedCharacterOpenMessage {
             get {
                 return ResourceManager.GetString("Dialog_UnsavedCharacterOpenMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a newer version available. Do you want to download it?.
+        /// </summary>
+        public static string Dialog_UpdateMessage {
+            get {
+                return ResourceManager.GetString("Dialog_UpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available.
+        /// </summary>
+        public static string Dialog_UpdateTitle {
+            get {
+                return ResourceManager.GetString("Dialog_UpdateTitle", resourceCulture);
             }
         }
         
