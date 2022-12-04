@@ -134,9 +134,9 @@ namespace PnP_Organizer.ViewModels
                 if (e.NewItems![0] is ProfessionModel professionModel)
                 {
                     professionModel.PropertyChanged += ProfessionModel_PropertyChanged;
-                    ApplyProfessionBoni();
                 }
             }
+            ApplyProfessionBoni();
         }
 
         private void ProfessionModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
