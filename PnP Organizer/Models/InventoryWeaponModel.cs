@@ -2,6 +2,8 @@
 using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character.Inventory;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Media;
 using Wpf.Ui.Common;
 
 namespace PnP_Organizer.Models
@@ -50,6 +52,8 @@ namespace PnP_Organizer.Models
             Weight = inventoryWeapon.Weight;
             IsTwoHanded = inventoryWeapon.IsTwoHanded;
 
+            Brush = (SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"];
+
             PropertyChanged += InventoryWeaponModel_PropertyChanged;
 
             IsInitialized = true;
@@ -58,12 +62,7 @@ namespace PnP_Organizer.Models
         private void InventoryWeaponModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var inventoryWeapon = (InventoryWeapon)InventoryItem;
-            if (e.PropertyName == nameof(IsTwoHanded))
-            {
-                TrueFalseSymbol = IsTwoHanded ? SymbolRegular.Checkmark12 : SymbolRegular.Dismiss12;
-            }
-
-            if(e.PropertyName is not nameof(TrueFalseSymbol) and not nameof(Dices))
+            if (e.PropertyName is not nameof(TrueFalseSymbol) and not nameof(Dices))
             {
                 inventoryWeapon.AttackMode = AttackMode;
                 inventoryWeapon.DiceRollCount = DiceRollCount;
@@ -73,6 +72,8 @@ namespace PnP_Organizer.Models
                 inventoryWeapon.HitBonus = HitBonus;
                 inventoryWeapon.Weight = Weight;
                 inventoryWeapon.IsTwoHanded = IsTwoHanded;
+
+                TrueFalseSymbol = IsTwoHanded ? SymbolRegular.Checkmark12 : SymbolRegular.Dismiss12;
             }
         }
     }
