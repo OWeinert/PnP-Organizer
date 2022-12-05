@@ -150,7 +150,10 @@ namespace PnP_Organizer.Views.Pages
         {
             if (sender is Border itemBorder)
             {
-                var source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
+                InventoryItemModel source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
+                source ??= (InventoryWeaponModel)e.Data.GetData(typeof(InventoryWeaponModel));    // If source is null at this point, try getting data for an InventoryWeaponModel
+                source ??= (InventoryArmorModel)e.Data.GetData(typeof(InventoryArmorModel));  // If source is still null, try getting data for an InventoryArmorModel
+
                 var target = (InventoryItemModel)itemBorder.DataContext;
 
                 int sourceIndex = InventoryItemsControl.Items.IndexOf(source);
@@ -231,5 +234,7 @@ namespace PnP_Organizer.Views.Pages
         }
 
         private void AddItemPopup_Closed(object sender, EventArgs e) => ItemTypeSelector.SelectedIndex = 0;
+
+        private void AddItemButton_Click(object sender, RoutedEventArgs e) => AddItemPopup.IsOpen = false;
     }
 }
