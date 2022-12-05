@@ -1,4 +1,5 @@
 ﻿using PnP_Organizer.Core.Calculators;
+using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.IO;
 using PnP_Organizer.Properties;
