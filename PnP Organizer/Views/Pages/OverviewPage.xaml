@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:PnP_Organizer.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
     xmlns:c="clr-namespace:PnP_Organizer.Controls"
     Title="OverviewPage"
@@ -44,8 +44,8 @@
             <Setter Property="ToolTip" Value="{x:Static p:Resources.Tooltip_CopyToClipboard}"/>
         </Style>
 
-        <helpers:AttributeBonusColorConverter x:Key="AttributeBonusColorConverter"/>
-        <helpers:PearlsColorConverter x:Key="PearlsColorConverter"/>
+        <conv:AttributeBonusColorConverter x:Key="AttributeBonusColorConverter"/>
+        <conv:PearlsColorConverter x:Key="PearlsColorConverter"/>
     </ui:UiPage.Resources>
 
     <VirtualizingStackPanel Margin="17,-4,17,0">

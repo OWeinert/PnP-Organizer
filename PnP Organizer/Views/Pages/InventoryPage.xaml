@@ -8,7 +8,7 @@
     xmlns:models="clr-namespace:PnP_Organizer.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
-    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
     xmlns:controls="clr-namespace:PnP_Organizer.Controls"
     xmlns:vm="clr-namespace:PnP_Organizer.ViewModels"
     xmlns:m="clr-namespace:PnP_Organizer.Models"

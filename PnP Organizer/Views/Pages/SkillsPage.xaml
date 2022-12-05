@@ -8,7 +8,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:models="clr-namespace:PnP_Organizer.Models"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
-    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:sel="clr-namespace:PnP_Organizer.Helpers.Selectors"
     Title="SkillsPage"
     d:DataContext="{d:DesignInstance local:SkillsPage,
                                      IsDesignTimeCreatable=False}"
@@ -19,7 +19,7 @@
 
 
     <ui:UiPage.Resources>
-        <helpers:SkillModelTemplateSelector x:Key="SkillModelTemplateSelector"/>
+        <sel:SkillModelTemplateSelector x:Key="SkillModelTemplateSelector"/>
     </ui:UiPage.Resources>
     
     
