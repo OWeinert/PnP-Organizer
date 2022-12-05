@@ -1,4 +1,4 @@
-﻿namespace PnP_Organizer.Core.Character
+﻿namespace PnP_Organizer.Core.Character.SkillSystem
 {
     public enum ApplianceMode
     {

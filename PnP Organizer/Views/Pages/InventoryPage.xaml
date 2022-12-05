@@ -8,7 +8,7 @@
     xmlns:models="clr-namespace:PnP_Organizer.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
-    xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+    xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
     xmlns:controls="clr-namespace:PnP_Organizer.Controls"
     Title="InventoryPage"
     d:DataContext="{d:DesignInstance local:InventoryPage,
@@ -18,7 +18,7 @@
     mc:Ignorable="d">
 
     <ui:UiPage.Resources>
-        <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+        <conv:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
     </ui:UiPage.Resources>
     
     <Grid Margin="24,0,0,24">

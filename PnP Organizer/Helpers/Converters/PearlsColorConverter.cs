@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Converters
 {
     /// <summary>
     /// Returns a SolidColorBrush depending on the given pearl count.
@@ -17,11 +17,11 @@ namespace PnP_Organizer.Helpers
                 throw new ArgumentNullException(nameof(value));
 
             double dValue = System.Convert.ToDouble(value);
-            if(dValue >= 1)
+            if (dValue >= 1)
             {
-                if(dValue >= 4)
+                if (dValue >= 4)
                 {
-                    if(dValue >= 7)
+                    if (dValue >= 7)
                     {
                         return (Brush)Application.Current.FindResource("PaletteRedBrush");
                     }
@@ -29,7 +29,7 @@ namespace PnP_Organizer.Helpers
                 }
                 return (Brush)Application.Current.FindResource("PaletteGreenBrush");
             }
-            
+
             return new SolidColorBrush((Color)Application.Current.FindResource("TextFillColorPrimary"));
         }
 

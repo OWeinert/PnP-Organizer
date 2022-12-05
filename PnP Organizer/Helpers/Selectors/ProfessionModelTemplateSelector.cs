@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Selectors
 {
     public class ProfessionModelTemplateSelector : DataTemplateSelector
     {
