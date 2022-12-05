@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Converters
 {
     /// <summary>
     /// Returns a SolidColorBrush depending on the value of the given Attribute Test Bonus.
@@ -22,7 +22,7 @@ namespace PnP_Organizer.Helpers
 
             if (bonusSum + minDiceSum < 0)
                 return (Brush)Application.Current.FindResource("PaletteRedBrush");
-            else if (bonusSum > 0 || (minDiceSum > 0 && bonusSum + minDiceSum >= 0))
+            else if (bonusSum > 0 || minDiceSum > 0 && bonusSum + minDiceSum >= 0)
                 return (Brush)Application.Current.FindResource("PaletteGreenBrush");
 
             return (Brush)Application.Current.FindResource("TextFillColorTertiaryBrush");

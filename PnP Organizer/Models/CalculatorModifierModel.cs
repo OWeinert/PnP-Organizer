@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core.Calculators;
-using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.IO;
 using System;
 using System.Collections.Generic;
