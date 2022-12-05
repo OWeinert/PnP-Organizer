@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Converters
 {
     /// <summary>
     /// Returns a SolidColorBrush depending on the value of the given AttributeBonus.

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Converters
 {
     public class HorizontalLineConverter : IValueConverter
     {
@@ -17,17 +17,17 @@ namespace PnP_Organizer.Helpers
             {
                 // Either left most or single item
                 if (index == 0)
-                    return (int)0;
+                    return 0;
                 else
-                    return (int)1;
+                    return 1;
             }
             else // assume "right"
             {
                 // Either right most or single item
                 if (index == ic.Items.Count - 1)
-                    return (int)0;
+                    return 0;
                 else
-                    return (int)1;
+                    return 1;
             }
         }
 

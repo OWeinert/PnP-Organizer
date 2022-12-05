@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Converters
 {
     /// <summary>
     /// Inverts the value of the given boolean

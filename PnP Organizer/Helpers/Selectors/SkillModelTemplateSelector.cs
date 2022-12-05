@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PnP_Organizer.Helpers
+namespace PnP_Organizer.Helpers.Selectors
 {
     public class SkillModelTemplateSelector : DataTemplateSelector
     {
@@ -10,7 +10,7 @@ namespace PnP_Organizer.Helpers
         {
             FrameworkElement element = (FrameworkElement)container;
 
-            if (item is RepeatableSkillModel) 
+            if (item is RepeatableSkillModel)
                 return (DataTemplate)element.FindResource("RepeatableSkillModelTemplate");
             return (DataTemplate)element.FindResource("SkillModelTemplate");
         }

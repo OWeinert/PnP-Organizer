@@ -1,4 +1,6 @@
 ﻿using PnP_Organizer.Core.Calculators;
+using PnP_Organizer.Core.Character.SkillSystem;
+using System;
 
 namespace PnP_Organizer.Core.Character.StatModifiers
 {
