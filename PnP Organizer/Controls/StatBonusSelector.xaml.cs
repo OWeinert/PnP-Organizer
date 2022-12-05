@@ -1,4 +1,5 @@
 ﻿using PnP_Organizer.Controls.Events;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Controls;
@@ -32,16 +33,6 @@ namespace PnP_Organizer.Controls
         public StatBonusSelector()
         {
             InitializeComponent();
-        }
-
-        private void NumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            NumberBox numBox = (NumberBox)sender;
-
-            if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
-                return;
-
-            BonusValue = e.Delta > 0 ? (int)(numBox.Value + numBox.Step) : (int)(numBox.Value - numBox.Step);
         }
     }
 }
