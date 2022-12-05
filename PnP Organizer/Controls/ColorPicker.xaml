@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:PnP_Organizer.Controls"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:models="clr-namespace:PnP_Organizer.Models"
-             xmlns:helpers="clr-namespace:PnP_Organizer.Helpers"
+             xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="18" d:DesignWidth="18"
              d:DataContext="{d:DesignInstance local:ColorPicker,
                                               IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+        <conv:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
     </UserControl.Resources>
     <Grid>
         <ToggleButton x:Name="ColorPickerButton"
