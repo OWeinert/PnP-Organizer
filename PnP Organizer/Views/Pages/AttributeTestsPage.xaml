@@ -186,7 +186,7 @@
                         <ui:Card Margin="6"
                                  MinWidth="240"
                                  Height="Auto"
-                                 Padding="16,8,16,8">
+                                 Padding="8,8,16,8">
                             <Grid>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox MaxWidth="140"
@@ -227,6 +227,5 @@
                 </ui:VirtualizingItemsControl.Resources>
             </ui:VirtualizingItemsControl>
         </Grid>
-
     </Grid>
 </ui:UiPage>
