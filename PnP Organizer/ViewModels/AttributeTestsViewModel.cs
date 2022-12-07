@@ -33,7 +33,7 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private ObservableCollection<AttributeTestModel> _attributeTestModels = new(AttributeTests.Models);
 
-        private IPageService _pageService;
+        private readonly IPageService _pageService;
 
         public AttributeTestsViewModel(IPageService pageService)
         {
@@ -122,7 +122,7 @@ namespace PnP_Organizer.ViewModels
             var attributeTest = (AttributeTestModel)obj;
 
             AttributeType? attributeType = null;
-            if (SelectedAttributeFilter?.Tag != null && Enum.TryParse(typeof(AttributeType), (string)SelectedAttributeFilter.Tag, out object? parsedAttributeType))
+            if (SelectedAttributeFilter?.Tag != null && Enum.TryParse(typeof(AttributeType), (string)SelectedAttributeFilter.Tag, out var parsedAttributeType))
                 attributeType = (AttributeType?)parsedAttributeType;
 
             return (attributeType != null && attributeTest.AttributeType == attributeType) || attributeType == null;
@@ -274,19 +274,19 @@ namespace PnP_Organizer.ViewModels
             var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
 
             var skillModels = skillsViewModel.SkillModels!
-                .Where(skillModel => skillModel.Skill.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
+                .Where(skillModel => skillModel.Skill.StatModifiers! != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
 
             // Clear Skills from Professions/Skills list
             var attributeTestSkillModels = ProfessionModels!.Where(model => model is AttributeTestSkillModel).ToList();
             var count = attributeTestSkillModels.Count;
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 ProfessionModels!.Remove(attributeTestSkillModels[i]);
             }
 
             // Add Toggleable Skills to Professions/Skills list
             var toggleableSkills = skillModels
-                .Where(skillModel => skillModel.Skill.StatModifiers.Any(statModifier => statModifier is AttributeTestStatModifier aTStatMod && aTStatMod.Toggleable));
+                .Where(skillModel => skillModel.Skill!.StatModifiers!.Any(statModifier => statModifier is AttributeTestStatModifier aTStatMod && aTStatMod.Toggleable));
 
             foreach (var skillModel in toggleableSkills)
             {
@@ -295,7 +295,7 @@ namespace PnP_Organizer.ViewModels
 
                 var attributeTestSkillModel = new AttributeTestSkillModel(skillModel.Skill!, ProfessionModels!);
 
-                ProfessionModels.Insert(insertionIndex, attributeTestSkillModel);
+                ProfessionModels?.Insert(insertionIndex, attributeTestSkillModel);
             }
         }
 
