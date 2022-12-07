@@ -150,27 +150,23 @@ namespace PnP_Organizer.ViewModels
             {
                 var aTSkillModel = (AttributeTestSkillModel)sender!;
 
-                // Clear and re-apply all SkillBoni of affected Attribute Tests
-                var affectedAttributeTestNames = aTSkillModel.StatModifiers.ToList().ConvertAll(statModifier => statModifier.AttributeTestName);
-                var affectedAttributeTests = AttributeTestModels.Where(attributeTest => affectedAttributeTestNames.Contains(attributeTest.Name));
-                foreach (var attributeTest in affectedAttributeTests)
+                foreach (var statModifier in aTSkillModel.StatModifiers)
                 {
-                    attributeTest.ExternalBoni.Clear();
-                    attributeTest.ExternalDiceBoni.Clear();
-                }
-                ApplySkillBoni(affectedAttributeTestNames.ToArray());
+                    var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
 
-                if (aTSkillModel.IsActive)
-                {
-                    foreach (var statModifier in aTSkillModel.StatModifiers)
+                    if (aTSkillModel.IsActive)
                     {
-
-                        var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
-
                         if (statModifier.Bonus != 0)
                             attributeTest.ExternalBoni.Add(statModifier.Bonus);
                         if (statModifier.Dice.MaxValue > 1)
                             attributeTest.ExternalDiceBoni.Add(statModifier.Dice);
+                    }
+                    else
+                    {
+                        if (statModifier.Bonus != 0)
+                            attributeTest.ExternalBoni.Remove(statModifier.Bonus);
+                        if (statModifier.Dice.MaxValue > 1)
+                            attributeTest.ExternalDiceBoni.Remove(statModifier.Dice);
                     }
                 }
                 UpdateAttributeTestVisuals();
