@@ -223,7 +223,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Professions.
+        ///   Looks up a localized string similar to Professions / Skills.
         /// </summary>
         public static string AttributeTests_TitleProfessions {
             get {
