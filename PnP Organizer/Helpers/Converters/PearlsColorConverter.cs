@@ -16,7 +16,7 @@ namespace PnP_Organizer.Helpers.Converters
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            double dValue = System.Convert.ToDouble(value);
+            var dValue = System.Convert.ToDouble(value);
             if (dValue >= 1)
             {
                 if (dValue >= 4)

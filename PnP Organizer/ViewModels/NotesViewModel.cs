@@ -58,7 +58,7 @@ namespace PnP_Organizer.ViewModels
             };
 
             ObservableCollection<ColorModel> colorsCollection = new();
-            foreach(string colorKey in _colorResources)
+            foreach(var colorKey in _colorResources)
             {
                 colorsCollection.Add(new ColorModel(colorKey));
             }

@@ -29,16 +29,16 @@ namespace PnP_Organizer.Views.Pages
         // TODO CalculatorModifierCard_Click: move logic to Model
         private void CalculatorModifierCard_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            CardControl modifierCard = (CardControl)sender;
-            Grid cardGrid = (Grid)modifierCard.Content;
-            ToggleSwitch toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
+            var modifierCard = (CardControl)sender;
+            var cardGrid = (Grid)modifierCard.Content;
+            var toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
             toggleSwitch.IsChecked = !toggleSwitch.IsChecked;
         }
 
         //TODO NumBox_MouseWheel move to static function 2/2
         private void NumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            NumberBox numBox = (NumberBox)sender;
+            var numBox = (NumberBox)sender;
 
             if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
                 return;
@@ -54,8 +54,8 @@ namespace PnP_Organizer.Views.Pages
 
         private async void CopyResultButton_Click(object sender, RoutedEventArgs e)
         {
-            Wpf.Ui.Controls.Button button = (Wpf.Ui.Controls.Button)sender;
-            string resultText = button.Tag switch
+            var button = (Wpf.Ui.Controls.Button)sender;
+            var resultText = button.Tag switch
             {
                 "hit" => HitTextBox.Text,
                 "armor" => ArmorTextBox.Text,
@@ -66,7 +66,7 @@ namespace PnP_Organizer.Views.Pages
             Clipboard.SetText(resultText);
 
             
-            int snackbarTimeout = _snackbarService.Timeout;
+            var snackbarTimeout = _snackbarService.Timeout;
             _snackbarService.Timeout = 1000; // Temporarily set the Snackbar timeout to 1s
 
             _ = await _snackbarService.ShowAsync(Properties.Resources.Snackbar_CopyToClipboard, "", Wpf.Ui.Common.SymbolRegular.Clipboard32);

@@ -134,7 +134,7 @@ namespace PnP_Organizer.ViewModels
 
         private void OnOverviewPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            PropertyInfo overviewProperty = GetType().GetProperty(e.PropertyName!)!;
+            var overviewProperty = GetType().GetProperty(e.PropertyName!)!;
             if (e.PropertyName is nameof(Strength) or nameof(Constitution) or nameof(Dexterity) 
                 or nameof(Wisdom) or nameof(Intelligence) or nameof(Charisma)
                 || e.PropertyName!.Contains("Pearls"))
@@ -253,7 +253,7 @@ namespace PnP_Organizer.ViewModels
 
         private void LoadCharacterAttributes()
         {
-            CharacterAttributes attributes = FileIO.LoadedCharacter.Attributes;
+            var attributes = FileIO.LoadedCharacter.Attributes;
             Strength = attributes.Strength;
             Constitution = attributes.Constitution;
             Dexterity = attributes.Dexterity;
@@ -264,7 +264,7 @@ namespace PnP_Organizer.ViewModels
 
         private void LoadCharacterPearls()
         {
-            CharacterPearls pearls = FileIO.LoadedCharacter.Pearls;
+            var pearls = FileIO.LoadedCharacter.Pearls;
             EarthPearls = pearls.Earth;
             FirePearls = pearls.Fire;
             AirPearls = pearls.Air;
@@ -276,7 +276,7 @@ namespace PnP_Organizer.ViewModels
 
         private void UpdateAttributeBonus(PropertyInfo attributeProperty)
         {
-            PropertyInfo? attributeBonusProperty = GetType().GetProperty($"{attributeProperty.Name}Bonus");
+            var attributeBonusProperty = GetType().GetProperty($"{attributeProperty.Name}Bonus");
             attributeBonusProperty?.SetValue(this, Utils.GetAttributeBonus((int)attributeProperty.GetValue(this)!));
         }
 
@@ -290,14 +290,14 @@ namespace PnP_Organizer.ViewModels
 
         private static int GetCharacterAgeFromString(string ageString)
         {
-            if (!int.TryParse(ageString, out int characterAge))
+            if (!int.TryParse(ageString, out var characterAge))
                 return -1;
             return characterAge;
         }
 
         private static float GetCharacterHeightFromString(string heightString)
         {
-            if (!float.TryParse(heightString, NumberStyles.Any, CultureInfo.InvariantCulture, out float characterHeight))
+            if (!float.TryParse(heightString, NumberStyles.Any, CultureInfo.InvariantCulture, out var characterHeight))
                 return -1.0f;
             characterHeight = MathF.Round(characterHeight, 2);
             return characterHeight;
@@ -327,9 +327,9 @@ namespace PnP_Organizer.ViewModels
                 var overviewStatModifiers = skillModel!.Skill!.StatModifiers!
                     .Where(statModifier => statModifier is OverviewStatModifier)
                     .Cast<OverviewStatModifier>();
-                foreach (OverviewStatModifier overviewStatModifier in overviewStatModifiers)
+                foreach (var overviewStatModifier in overviewStatModifiers)
                 {
-                    int multiplier = 1;
+                    var multiplier = 1;
                     if (skillModel is RepeatableSkillModel rSM)
                         multiplier = rSM.Repetition;
                     overviewStatModifier.StatPropertyInfo.SetValue(this, (int)overviewStatModifier.StatPropertyInfo.GetValue(this)! + overviewStatModifier.Bonus * multiplier);

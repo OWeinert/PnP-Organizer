@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.ViewModels;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Wpf.Ui.Controls;
 
 namespace PnP_Organizer.Models
 {

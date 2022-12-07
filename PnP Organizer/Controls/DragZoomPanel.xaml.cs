@@ -43,10 +43,10 @@ namespace PnP_Organizer.Controls
         {
             if (_lastDragPoint.HasValue)
             {
-                Point posNow = e.GetPosition(_scrollViewer);
+                var posNow = e.GetPosition(_scrollViewer);
 
-                double dX = posNow.X - _lastDragPoint.Value.X;
-                double dY = posNow.Y - _lastDragPoint.Value.Y;
+                var dX = posNow.X - _lastDragPoint.Value.X;
+                var dY = posNow.Y - _lastDragPoint.Value.Y;
 
                 _lastDragPoint = posNow;
 
@@ -103,7 +103,7 @@ namespace PnP_Organizer.Controls
                     if (_lastCenterPositionOnTarget.HasValue)
                     {
                         var centerOfViewport = new Point(_scrollViewer!.ViewportWidth / 2, _scrollViewer.ViewportHeight / 2);
-                        Point centerOfTargetNow = _scrollViewer.TranslatePoint(centerOfViewport, _grid);
+                        var centerOfTargetNow = _scrollViewer.TranslatePoint(centerOfViewport, _grid);
 
                         targetBefore = _lastCenterPositionOnTarget;
                         targetNow = centerOfTargetNow;
@@ -119,14 +119,14 @@ namespace PnP_Organizer.Controls
 
                 if (targetBefore.HasValue)
                 {
-                    double dXInTargetPixels = targetNow!.Value.X - targetBefore.Value.X;
-                    double dYInTargetPixels = targetNow.Value.Y - targetBefore.Value.Y;
+                    var dXInTargetPixels = targetNow!.Value.X - targetBefore.Value.X;
+                    var dYInTargetPixels = targetNow.Value.Y - targetBefore.Value.Y;
 
-                    double multiplicatorX = e.ExtentWidth / _grid!.Width;
-                    double multiplicatorY = e.ExtentHeight / _grid.Height;
+                    var multiplicatorX = e.ExtentWidth / _grid!.Width;
+                    var multiplicatorY = e.ExtentHeight / _grid.Height;
 
-                    double newOffsetX = _scrollViewer!.HorizontalOffset - dXInTargetPixels * multiplicatorX;
-                    double newOffsetY = _scrollViewer.VerticalOffset - dYInTargetPixels * multiplicatorY;
+                    var newOffsetX = _scrollViewer!.HorizontalOffset - dXInTargetPixels * multiplicatorX;
+                    var newOffsetY = _scrollViewer.VerticalOffset - dYInTargetPixels * multiplicatorY;
 
                     if (double.IsNaN(newOffsetX) || double.IsNaN(newOffsetY))
                     {

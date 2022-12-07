@@ -135,7 +135,7 @@ namespace PnP_Organizer.Views
 
         private async Task ShowUpdateDialog(Release latestRelease)
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "update";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonUpdate;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
@@ -183,7 +183,7 @@ namespace PnP_Organizer.Views
             };
             if (saveCharacterDialog.ShowDialog() == true)
             {
-                using FileStream fs = (FileStream)saveCharacterDialog.OpenFile();
+                using var fs = (FileStream)saveCharacterDialog.OpenFile();
                 FileIO.SaveCharacter(fs);
                 ShowSaveCharSnackbar();
             }
@@ -191,7 +191,7 @@ namespace PnP_Organizer.Views
 
         private async Task ShowUnsavedCharacterDialog()
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "unsavedChar";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonSaveChanges;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonDiscardChanges;
@@ -212,7 +212,7 @@ namespace PnP_Organizer.Views
         {
             if (!FileIO.IsCharacterSaved)
             {
-                Dialog dialog = (Dialog)_dialogControl;
+                var dialog = (Dialog)_dialogControl;
                 dialog.Tag = "openChar_save";
                 dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonYes;
                 dialog.ButtonRightName = Properties.Resources.Dialog_ButtonNo;
@@ -237,7 +237,7 @@ namespace PnP_Organizer.Views
             };
             if (loadCharacterDialog.ShowDialog() == true)
             {
-                using FileStream fs = (FileStream)loadCharacterDialog.OpenFile();
+                using var fs = (FileStream)loadCharacterDialog.OpenFile();
                 FileIO.LoadCharacter(fs);
                 PostLoadCharacter();
             }
@@ -247,7 +247,7 @@ namespace PnP_Organizer.Views
         {
             if (Properties.Settings.Default.LastLoadedCharacter != string.Empty)
             {
-                Dialog dialog = (Dialog)_dialogControl;
+                var dialog = (Dialog)_dialogControl;
                 dialog.Tag = "openLastChar";
                 dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonYes;
                 dialog.ButtonRightName = Properties.Resources.Dialog_ButtonNo;
@@ -271,7 +271,7 @@ namespace PnP_Organizer.Views
         {
             if (!FileIO.IsCharacterSaved)
             {
-                Dialog dialog = (Dialog)_dialogControl;
+                var dialog = (Dialog)_dialogControl;
                 dialog.Tag = "newChar";
                 dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonYes;
                 dialog.ButtonRightName = Properties.Resources.Dialog_ButtonNo;
