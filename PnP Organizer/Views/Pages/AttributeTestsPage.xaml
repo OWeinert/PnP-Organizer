@@ -9,6 +9,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
     xmlns:char="clr-namespace:PnP_Organizer.Core.Character"
+    xmlns:m="clr-namespace:PnP_Organizer.Models"
     Title="SettingsPage"
     d:DataContext="{d:DesignInstance local:AttributeTestsPage,
                                      IsDesignTimeCreatable=False}"
@@ -151,20 +152,20 @@
             <ui:VirtualizingItemsControl Grid.Column="2"
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Top"
-                                         ItemsSource="{Binding ViewModel.ProfessionsModels}"
+                                         ItemsSource="{Binding ViewModel.ProfessionModels}"
                                          ItemTemplateSelector="{StaticResource ProfessionModelTemplateSelector}"
-                                         Margin="0,54,0,0"
+                                         Margin="0,54,0,32"
                                          ScrollViewer.CanContentScroll="True"
                                          ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ui:VirtualizingItemsControl.Resources>
                     <DataTemplate x:Key="AddProfessionModelTemplate"
-                      DataType="AddProfessionModel">
+                      DataType="{x:Type m:AddProfessionModel}">
                         <Border MinWidth="241"
                                 Height="52"
                                 BorderBrush="{DynamicResource ControlFillColorDefaultBrush}"
                                 BorderThickness="2"
                                 CornerRadius="4"
-                                Margin="6">
+                                Margin="6,3,6,3">
                             <ui:Button HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
                                        Appearance="Transparent"
@@ -181,11 +182,12 @@
                         </Border>
                     </DataTemplate>
                     <DataTemplate x:Key="ProfessionModelTemplate"
-                      DataType="ProfessionModel">
-                        <ui:Card Margin="6"
+                      DataType="{x:Type m:ProfessionModel}">
+                        <ui:Card Margin="6,3,6,3"
                                  MinWidth="240"
-                                 Height="Auto"
-                                 Padding="8,8,16,8">
+                                 Height="52"
+                                 Padding="8,8,16,8"
+                                 Background="{DynamicResource ControlFillColorTertiaryBrush}">
                             <Grid>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox MaxWidth="140"
@@ -220,6 +222,35 @@
                                            Padding="0"
                                            Margin="0,0,-12,-4"
                                            Command="{Binding DeleteCommand}"/>
+                            </Grid>
+                        </ui:Card>
+                    </DataTemplate>
+                    <DataTemplate x:Key="AttributeTestSkillModelTemplate"
+                                  DataType="{x:Type m:AttributeTestSkillModel}">
+                        <ui:Card Margin="6,3,6,3"
+                                 MinWidth="240"
+                                 Height="52"
+                                 Padding="8,13,16,13"
+                                 Background="{DynamicResource ControlFillColorSecondaryBrush}">
+                            <Grid>
+                                <Viewbox MaxWidth="180"
+                                         Height="24"
+                                         HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding Skill.Name}"/>
+                                </Viewbox>
+
+                                <ui:ToggleSwitch IsChecked="{Binding IsActive}"
+                                                 HorizontalAlignment="Right"
+                                                 Margin="0,0,16,0"/>
+
+                                <Viewbox Width="16"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,-12,-26">
+                                    <ui:SymbolIcon Symbol="Info16"
+                                                   ToolTip="{Binding Skill.Description}"
+                                                   ToolTipService.InitialShowDelay="0">
+                                    </ui:SymbolIcon>
+                                </Viewbox>
                             </Grid>
                         </ui:Card>
                     </DataTemplate>
