@@ -105,6 +105,11 @@ namespace PnP_Organizer.ViewModels
                 ProfessionModels!.Insert(ProfessionModels.Count - 1, professionModel);
             }
             ApplyProfessionBoni();
+
+            ApplySkillBoni();
+            AddToggleableSkills();
+
+            UpdateAttributeTestBoni();
         }
 
         private void ApplyAllBoni()
@@ -148,6 +153,39 @@ namespace PnP_Organizer.ViewModels
                 }
             }
             ApplyProfessionBoni();
+        }
+
+        private void AttributeTestSkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName is nameof(AttributeTestSkillModel.IsActive))
+            {
+                var aTSkillModel = (AttributeTestSkillModel)sender!;
+
+                // Clear and re-apply all SkillBoni of affected Attribute Tests
+                var affectedAttributeTestNames = aTSkillModel.StatModifiers.ToList().ConvertAll(statModifier => statModifier.AttributeTestName);
+                var affectedAttributeTests = AttributeTestModels.Where(attributeTest => affectedAttributeTestNames.Contains(attributeTest.Name));
+                foreach (var attributeTest in affectedAttributeTests)
+                {
+                    attributeTest.ExternalBoni.Clear();
+                    attributeTest.ExternalDiceBoni.Clear();
+                }
+                ApplySkillBoni(affectedAttributeTestNames.ToArray());
+
+                if (aTSkillModel.IsActive)
+                {
+                    foreach (var statModifier in aTSkillModel.StatModifiers)
+                    {
+
+                        var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
+
+                        if (statModifier.Bonus != 0)
+                            attributeTest.ExternalBoni.Add(statModifier.Bonus);
+                        if (statModifier.Dice.MaxValue > 1)
+                            attributeTest.ExternalDiceBoni.Add(statModifier.Dice);
+                    }
+                }
+                UpdateAttributeTestVisuals();
+            }
         }
 
         private void AttributeTestSkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
