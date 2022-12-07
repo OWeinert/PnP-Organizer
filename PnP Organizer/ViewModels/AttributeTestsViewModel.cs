@@ -183,8 +183,7 @@ namespace PnP_Organizer.ViewModels
             foreach (var attributeTest in AttributeTestModels)
                 attributeTest.ProfessionBoni.Clear();
 
-            var professions = ProfessionModels!.Where(modelCollectionItem => modelCollectionItem is ProfessionModel)
-                .Cast<ProfessionModel>();
+            var professions = ProfessionModels!.Where(modelCollectionItem => modelCollectionItem is ProfessionModel).Cast<ProfessionModel>();
 
             foreach (var professionModel in professions)
             {
@@ -270,7 +269,7 @@ namespace PnP_Organizer.ViewModels
             var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
 
             var skillModels = skillsViewModel.SkillModels!
-                .Where(skillModel => skillModel.Skill.StatModifiers! != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
+                .Where(skillModel => skillModel.Skill!.StatModifiers! != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
 
             // Clear Skills from Professions/Skills list
             var attributeTestSkillModels = ProfessionModels!.Where(model => model is AttributeTestSkillModel).ToList();
