@@ -86,7 +86,7 @@ namespace PnP_Organizer.ViewModels
         {
             CalculatorModifiers = new();
 
-            foreach (CalculatorModifierModel modifier in StaticModifierModels.Modifiers)
+            foreach (var modifier in StaticModifierModels.Modifiers)
             {
                 if(modifier is ConditionalCalculatorModifierModel conditionalModifier)
                 {
@@ -120,10 +120,10 @@ namespace PnP_Organizer.ViewModels
         // TODO CalculateValues(): Implement calculation for hit, armor and dodge/parry
         public void CalculateValues()
         {
-            List<CalculatorModifierModel> activeModifiers = CalculatorModifiers!.Where(modifier => modifier.IsActive && modifier.ApplianceMode != null).ToList();
-            int baseDamageRoll = DamageCalculator.RollBaseDamage(RollCount, SelectedDice);
-            int fullDamageRoll = (baseDamageRoll + RollDamageBonus) * BaseDamageMult;
-            int endDamage = DamageCalculator.CalculateDamage(fullDamageRoll, activeModifiers);
+            var activeModifiers = CalculatorModifiers!.Where(modifier => modifier.IsActive && modifier.ApplianceMode != null).ToList();
+            var baseDamageRoll = DamageCalculator.RollBaseDamage(RollCount, SelectedDice);
+            var fullDamageRoll = (baseDamageRoll + RollDamageBonus) * BaseDamageMult;
+            var endDamage = DamageCalculator.CalculateDamage(fullDamageRoll, activeModifiers);
             CalculatedDamage = endDamage * EndDamageMult;
 
             CalculatedHit = 0;
@@ -134,7 +134,7 @@ namespace PnP_Organizer.ViewModels
 
             if (Properties.Settings.Default.LogCalculations)
             {
-                string noActiveModifiers = activeModifiers.Count > 0 ? string.Empty : "none";
+                var noActiveModifiers = activeModifiers.Count > 0 ? string.Empty : "none";
 
                 StringBuilder sb = new();
                 sb.AppendLine("Damage Calculation:");
@@ -156,7 +156,7 @@ namespace PnP_Organizer.ViewModels
                 sb.Append($"Active Modifiers: {noActiveModifiers}");
                 if(activeModifiers.Count > 0)
                 {
-                    foreach (CalculatorModifierModel modifier in activeModifiers)
+                    foreach (var modifier in activeModifiers)
                     {
                         sb.AppendLine($"    {modifier.Name}");
                     }

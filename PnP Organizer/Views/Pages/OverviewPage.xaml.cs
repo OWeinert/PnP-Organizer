@@ -44,7 +44,7 @@ namespace PnP_Organizer.Views.Pages
             };
             if (openImageDialog.ShowDialog() == true)
             {
-                using FileStream fs = (FileStream)openImageDialog.OpenFile();
+                using var fs = (FileStream)openImageDialog.OpenFile();
                 BitmapImage image = new(new Uri(fs.Name, UriKind.Absolute));
                 ViewModel.CharacterImage = image;
             }
@@ -57,14 +57,14 @@ namespace PnP_Organizer.Views.Pages
         /// <param name="e"></param>
         private void NumTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            string input = ((TextBox)sender).Text + e.Text;
+            var input = ((TextBox)sender).Text + e.Text;
             e.Handled = !Regex.IsMatch(input, @"^\d*(\.|\,){1}\d*$");
         }
 
         //TODO NumBox_MouseWheel move to static function 1/2
         private void AttributeNumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            NumberBox numBox = (NumberBox)sender;
+            var numBox = (NumberBox)sender;
 
             if(numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
                 return;

@@ -77,7 +77,7 @@ namespace PnP_Organizer.Core
         public static void SerializeAndWriteToXml<T>(T obj, FileStream fs)
         {
             XmlSerializer serializer = new(typeof(T));
-            using XmlWriter writer = XmlWriter.Create(fs, _xmlWriterSettings);
+            using var writer = XmlWriter.Create(fs, _xmlWriterSettings);
             serializer.Serialize(writer, obj);
             writer.Close();
         }
@@ -90,8 +90,8 @@ namespace PnP_Organizer.Core
         public static T ReadAndDeserializeFromXml<T>(FileStream fs)
         {
             XmlSerializer serializer = new(typeof(T));
-            using XmlReader reader = XmlReader.Create(fs);
-            T obj = (T)serializer.Deserialize(reader)!;
+            using var reader = XmlReader.Create(fs);
+            var obj = (T)serializer.Deserialize(reader)!;
             return obj;
         }
         #endregion XML
@@ -103,7 +103,7 @@ namespace PnP_Organizer.Core
         /// <returns></returns>
         public static int GetColorValue(Color color)
         {
-            int colorCodeWithAlpha = BitConverter.ToInt32(new byte[] { color.B, color.G, color.R, color.A }, 0);
+            var colorCodeWithAlpha = BitConverter.ToInt32(new byte[] { color.B, color.G, color.R, color.A }, 0);
             return colorCodeWithAlpha;
         }
 
@@ -113,7 +113,7 @@ namespace PnP_Organizer.Core
         /// <returns></returns>
         public static Color GetColorFromValue(int value)
         {
-            Color color = (Color)ColorConverter.ConvertFromString(string.Format("#{0:X6}", value));
+            var color = (Color)ColorConverter.ConvertFromString(string.Format("#{0:X6}", value));
             return color;
         }
         #endregion Color

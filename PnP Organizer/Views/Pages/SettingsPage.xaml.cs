@@ -21,8 +21,8 @@ namespace PnP_Organizer.Views.Pages
 
         private void NumberBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            NumberBox numBox = (NumberBox)sender;
-            double value = numBox.Value;
+            var numBox = (NumberBox)sender;
+            var value = numBox.Value;
 
             if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
                 return;

@@ -14,11 +14,11 @@ namespace PnP_Organizer.Helpers.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int bonusSum = (int)values[0];
-            string totalBonus = (string)values[1];
+            var bonusSum = (int)values[0];
+            var totalBonus = (string)values[1];
 
             var regex = new Regex("D");
-            int minDiceSum = regex.Matches(totalBonus).Count;
+            var minDiceSum = regex.Matches(totalBonus).Count;
 
             if (bonusSum + minDiceSum < 0)
                 return (Brush)Application.Current.FindResource("PaletteRedBrush");

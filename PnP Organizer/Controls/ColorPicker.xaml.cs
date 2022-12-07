@@ -93,7 +93,7 @@ namespace PnP_Organizer.Controls
         {
             InitializeComponent();
             ObservableCollection<ColorModel> colorCollection = new();
-            foreach (string colorKey in _paletteResources)
+            foreach (var colorKey in _paletteResources)
             {
                 colorCollection.Add(new ColorModel(colorKey));
             }
@@ -102,8 +102,8 @@ namespace PnP_Organizer.Controls
 
         private void ColorPickerButton_Click(object sender, RoutedEventArgs e)
         {
-            Wpf.Ui.Controls.Button button = (Wpf.Ui.Controls.Button)sender;
-            ColorModel colorModel = (ColorModel)button.DataContext; 
+            var button = (Wpf.Ui.Controls.Button)sender;
+            var colorModel = (ColorModel)button.DataContext; 
             SelectedBrushName = colorModel.Name;
             SelectedBrush = (SolidColorBrush)colorModel.Brush;
         }

@@ -112,11 +112,11 @@ namespace PnP_Organizer.Models
                 sb.Append($"{BaseBonus} ");
                 AppendExtraBonus(ref sb, PearlBonus);
 
-                foreach(int professionBonus in ProfessionBoni)
+                foreach(var professionBonus in ProfessionBoni)
                 {
                     AppendExtraBonus(ref sb, professionBonus);
                 }
-                foreach (int externalBonus in ExternalBoni)
+                foreach (var externalBonus in ExternalBoni)
                 {
                     AppendExtraBonus(ref sb, externalBonus);
                 }
@@ -128,7 +128,7 @@ namespace PnP_Organizer.Models
 
                 if (ExternalDiceBoni.Any())
                 {
-                    int maxBonus = BonusSum + ExternalDiceBoni.Sum(dice => dice.MaxValue);
+                    var maxBonus = BonusSum + ExternalDiceBoni.Sum(dice => dice.MaxValue);
                     sb.Append($"= {BonusSum + ExternalDiceBoni.Count} <-> {maxBonus}");
                 }
                 else
@@ -143,7 +143,7 @@ namespace PnP_Organizer.Models
         {
             if (bonus != 0)
             {
-                char plusMinus = bonus > 0 ? '+' : '-';
+                var plusMinus = bonus > 0 ? '+' : '-';
                 sb.Append($"{plusMinus} {Math.Abs(bonus)} ");
             }
         }

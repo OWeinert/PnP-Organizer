@@ -1,8 +1,6 @@
 ﻿using PnP_Organizer.Controls.Events;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Wpf.Ui.Controls;
 
 namespace PnP_Organizer.Controls
 {
