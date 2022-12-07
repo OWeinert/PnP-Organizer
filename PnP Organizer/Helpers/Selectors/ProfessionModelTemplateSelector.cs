@@ -12,6 +12,8 @@ namespace PnP_Organizer.Helpers.Selectors
 
             if (item is AddProfessionModel)
                 return (DataTemplate)element.FindResource("AddProfessionModelTemplate");
+            if (item is AttributeTestSkillModel)
+                return (DataTemplate)element.FindResource("AttributeTestSkillModelTemplate");
             return (DataTemplate)element.FindResource("ProfessionModelTemplate");
         }
     }
