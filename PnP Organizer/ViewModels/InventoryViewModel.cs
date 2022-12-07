@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Core.Character;
-using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -62,7 +59,7 @@ namespace PnP_Organizer.ViewModels
 
         private bool ItemsView_Filter(object obj)
         {
-            InventoryItemModel item = (InventoryItemModel)obj;
+            var item = (InventoryItemModel)obj;
             return string.IsNullOrWhiteSpace(SearchBarText) || item.Name.Contains(SearchBarText) || item.Description.Contains(SearchBarText);
         }
 
@@ -83,7 +80,7 @@ namespace PnP_Organizer.ViewModels
             if(_isInitialized)
             {
                 FileIO.IsCharacterSaved = false;
-                List<InventoryItem> inventory = Items!.ToList().ConvertAll(itemModel => itemModel.InventoryItem);
+                var inventory = Items!.ToList().ConvertAll(itemModel => itemModel.InventoryItem);
                 FileIO.LoadedCharacter.Inventory = inventory;
             }           
         }
@@ -94,7 +91,7 @@ namespace PnP_Organizer.ViewModels
                 Items?.Clear(); // Clear inventory first if the character has saved items to remove
                                 // the default empty item
             ObservableCollection<InventoryItemModel> itemModels = new();
-            foreach(InventoryItem item in FileIO.LoadedCharacter.Inventory!)
+            foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
                 itemModels.Add(new InventoryItemModel(item));
             }

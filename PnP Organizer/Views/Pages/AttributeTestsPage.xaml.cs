@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Wpf.Ui.Common.Interfaces;
+﻿using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 
 namespace PnP_Organizer.Views.Pages

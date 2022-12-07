@@ -4,7 +4,6 @@ using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 

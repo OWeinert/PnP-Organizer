@@ -1,5 +1,4 @@
 ﻿using PnP_Organizer.IO;
-using PnP_Organizer.ViewModels;
 using PnP_Organizer.Views.Pages;
 using Wpf.Ui.Mvvm.Contracts;
 

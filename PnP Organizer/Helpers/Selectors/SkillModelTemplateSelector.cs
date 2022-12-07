@@ -1,5 +1,4 @@
 ﻿using PnP_Organizer.Models;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,7 +8,7 @@ namespace PnP_Organizer.Helpers.Selectors
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            FrameworkElement element = (FrameworkElement)container;
+            var element = (FrameworkElement)container;
 
             if (item is RepeatableSkillModel)
                 return (DataTemplate)element.FindResource("RepeatableSkillModelTemplate");

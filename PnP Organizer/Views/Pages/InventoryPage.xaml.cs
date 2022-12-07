@@ -52,8 +52,8 @@ namespace PnP_Organizer.Views.Pages
         // TODO ItemImageButton_Click: move logic to Model
         private void ItemImageButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            WpfUiButton button = (WpfUiButton)sender;
-            InventoryItemModel inventoryItem = (InventoryItemModel)button!.DataContext;
+            var button = (WpfUiButton)sender;
+            var inventoryItem = (InventoryItemModel)button!.DataContext;
 
             OpenFileDialog openImageDialog = new()
             {
@@ -63,7 +63,7 @@ namespace PnP_Organizer.Views.Pages
             };
             if (openImageDialog.ShowDialog() == true)
             {
-                using FileStream fs = (FileStream)openImageDialog.OpenFile();
+                using var fs = (FileStream)openImageDialog.OpenFile();
                 BitmapImage image = new(new Uri(fs.Name, UriKind.Absolute));
                 inventoryItem.ItemImage = image;
             }
@@ -72,16 +72,16 @@ namespace PnP_Organizer.Views.Pages
         // TODO ClearButton_Click: move logic to Model
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            WpfUiButton button = (WpfUiButton)sender;
-            InventoryItemModel inventoryItem = (InventoryItemModel)button!.DataContext;
+            var button = (WpfUiButton)sender;
+            var inventoryItem = (InventoryItemModel)button!.DataContext;
             OpenClearItemDialog(inventoryItem);
         }
 
         // TODO DeleteButton_Click: move logic to Model
         private void DeleteButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            WpfUiButton button = (WpfUiButton)sender;
-            InventoryItemModel inventoryItem = (InventoryItemModel)button!.DataContext;
+            var button = (WpfUiButton)sender;
+            var inventoryItem = (InventoryItemModel)button!.DataContext;
             OpenDeleteItemDialog(inventoryItem);
         }
         #endregion InventoryItem Button Event Handlers
@@ -90,7 +90,7 @@ namespace PnP_Organizer.Views.Pages
         // TODO OpenClearItemDialog: move logic to Model
         private async void OpenClearItemDialog(InventoryItemModel inventoryItem)
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "clearItem";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonClear;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
@@ -100,7 +100,7 @@ namespace PnP_Organizer.Views.Pages
             {
                 if(((string)dialog.Tag) == "clearItem")
                 {
-                    int index = ViewModel.Items!.IndexOf(inventoryItem);
+                    var index = ViewModel.Items!.IndexOf(inventoryItem);
                     InventoryItemModel newInventoryItem = new()
                     {
                         Brush = inventoryItem.Brush
@@ -116,7 +116,7 @@ namespace PnP_Organizer.Views.Pages
         // TODO OpenDeleteItemDialog: move logic to Model
         private async void OpenDeleteItemDialog(InventoryItemModel inventoryItem)
         {
-            Dialog dialog = (Dialog)_dialogControl;
+            var dialog = (Dialog)_dialogControl;
             dialog.Tag = "deleteItem";
             dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonDelete;
             dialog.ButtonRightName = Properties.Resources.Dialog_ButtonCancel;
@@ -139,8 +139,8 @@ namespace PnP_Organizer.Views.Pages
         #region InventoryItem Drag Drop Control
         private void InventoryItemsControl_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            Point point = e.GetPosition(null);
-            Vector diff = _dragStartPoint - point;
+            var point = e.GetPosition(null);
+            var diff = _dragStartPoint - point;
             if (e.LeftButton == MouseButtonState.Pressed &&
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
@@ -160,8 +160,8 @@ namespace PnP_Organizer.Views.Pages
                 var source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
                 var target = (InventoryItemModel)itemBorder.DataContext;
 
-                int sourceIndex = InventoryItemsControl.Items.IndexOf(source);
-                int targetIndex = InventoryItemsControl.Items.IndexOf(target);
+                var sourceIndex = InventoryItemsControl.Items.IndexOf(source);
+                var targetIndex = InventoryItemsControl.Items.IndexOf(target);
 
                 Move(source, sourceIndex, targetIndex);
                 ViewModel.ItemsView?.Refresh();
@@ -177,7 +177,7 @@ namespace PnP_Organizer.Views.Pages
             }
             else
             {
-                int removeIndex = sourceIndex + 1;
+                var removeIndex = sourceIndex + 1;
                 if (ViewModel.Items?.Count + 1 > removeIndex)
                 {
                     ViewModel.Items?.Insert(targetIndex, source);
@@ -204,8 +204,8 @@ namespace PnP_Organizer.Views.Pages
         #region Color Picker
         private void ColorPicker_SelectedBrushChanged(object sender, Controls.Events.SelectedBrushChangedEventArgs e)
         {
-            ColorPicker colorPicker = (ColorPicker)sender;
-            InventoryItemModel itemModel = (InventoryItemModel)colorPicker.DataContext;
+            var colorPicker = (ColorPicker)sender;
+            var itemModel = (InventoryItemModel)colorPicker.DataContext;
             itemModel.Brush = e.SelectedBrush;
 
             if (colorPicker.SelectedBrushName is "Red" or "Pink" or "Purple" or "DeepPurple" or "Indigo" or "DeepOrange" or "Brown" or "BlueGrey" or "Default")

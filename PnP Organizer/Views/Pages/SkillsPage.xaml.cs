@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Models;
 using System.Windows;
 using Wpf.Ui.Common.Interfaces;
-using WpfUiButton = Wpf.Ui.Controls.Button;
 
 namespace PnP_Organizer.Views.Pages
 {
@@ -29,7 +27,7 @@ namespace PnP_Organizer.Views.Pages
         {
             await Dispatcher.InvokeAsync(() =>
             {
-                int selectedFilterIndex = ViewModel.SelectedTreeFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
+                var selectedFilterIndex = ViewModel.SelectedTreeFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
                 selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
                 if (selectedFilterIndex >= ViewModel.TreeFilters!.Count)
                     selectedFilterIndex = 0;
@@ -41,7 +39,7 @@ namespace PnP_Organizer.Views.Pages
         {
             await Dispatcher.InvokeAsync(() =>
             {
-                int selectedFilterIndex = ViewModel.SelectedSkillableFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
+                var selectedFilterIndex = ViewModel.SelectedSkillableFilterIndex; // Don't modify Property directly to avoid invokating PropertyChanged event
                 selectedFilterIndex++;  // PropertyChanged event invokation would result in an IndexOutOfBoundsException here
                 if (selectedFilterIndex >= ViewModel.SkillableFilters!.Count)
                     selectedFilterIndex = 0;

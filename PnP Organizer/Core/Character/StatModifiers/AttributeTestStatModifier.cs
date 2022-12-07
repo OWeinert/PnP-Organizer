@@ -1,5 +1,4 @@
 ﻿using PnP_Organizer.Core.Calculators;
-using System;
 
 namespace PnP_Organizer.Core.Character.StatModifiers
 {
