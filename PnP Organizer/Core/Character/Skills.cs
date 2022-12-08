@@ -182,7 +182,8 @@ namespace PnP_Organizer.Core.Character
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_SneakHide, Dice.D4) });
             Intimidate = CreateAndAddSkill(Resources.Skills_SkillIntimidate, SkillCategory.Character, 2, Resources.Skills_SkillIntimidateDescr, 
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Intimidate, Dice.D4) });
-            Flirting = CreateAndAddSkill(Resources.Skills_SkillFlirting, SkillCategory.Character, 2, Resources.Skills_SkillFlirtingDescr, null);
+            Flirting = CreateAndAddSkill(Resources.Skills_SkillFlirting, SkillCategory.Character, 2, Resources.Skills_SkillFlirtingDescr, 
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Performance, 0, true) }); // Dummy StatModifier to show the skill on the AttributeTestsPage
             NatureStudy = CreateAndAddSkill(Resources.Skills_SkillNatureStudy, SkillCategory.Character, 2, Resources.Skills_SkillNatureStudyDescr,
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Nature, Dice.D4) });
             VirtuallyInvisible = CreateAndAddSkill(Resources.Skills_SkillVirtuallyInvisible, SkillCategory.Character, 2,
@@ -307,7 +308,8 @@ namespace PnP_Organizer.Core.Character
                     new CalculatorModifierStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D6, 2.0),
                     new CalculatorModifierStatModifier(CalculatorValueType.Damage, ApplianceMode.EndValue, 0.5, CalculatorBonusType.Multiplicative)
                 });
-            Smithing = CreateAndAddSkill(Resources.Skills_SkillSmithing, SkillCategory.Melee, 1, Resources.Skills_SkillSmithingDescr, null);
+            Smithing = CreateAndAddSkill(Resources.Skills_SkillSmithing, SkillCategory.Melee, 1, Resources.Skills_SkillSmithingDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Performance, 0, true) }); // Dummy StatModifier to show the skill on the AttributeTestsPage
             RunOver = CreateAndAddSkill(Resources.Skills_SkillRunOver, SkillCategory.Melee, 2, Resources.Skills_SkillRunOverDescr, 
                 new StatModifier[] { new CalculatorModifierStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D4, 2) });
             AimedAttackMelee = CreateAndAddSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2,
