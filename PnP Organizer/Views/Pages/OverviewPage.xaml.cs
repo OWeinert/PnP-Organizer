@@ -21,14 +21,10 @@ namespace PnP_Organizer.Views.Pages
             get;
         }
 
-        private ISnackbarControl _snackbarControl;
-
-        public OverviewPage(ViewModels.OverviewViewModel viewModel, ISnackbarService snackbarService)
+        public OverviewPage(ViewModels.OverviewViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();
-
-            _snackbarControl = snackbarService.GetSnackbarControl();
         }
 
         // TODO CharacterImageBtn_Click: move logic to ViewModel
