@@ -6,7 +6,7 @@ using PnP_Organizer.Properties;
 using PnP_Organizer.ViewModels;
 using System;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core.Metadata.Edm;
+using System.Linq;
 
 namespace PnP_Organizer.Core.Character
 {
@@ -192,11 +192,17 @@ namespace PnP_Organizer.Core.Character
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_SneakHide, 1) }, 
                 new string[] { Sneaking.Name });
             Theft = CreateAndAddSkill(Resources.Skills_SkillTheft, SkillCategory.Character, 2, 
-                Resources.Skills_SkillTheftDescr, null, new string[] { Sneaking.Name });
+                Resources.Skills_SkillTheftDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_SleightOfHand, Dice.D4, 0, true) },
+                new string[] { Sneaking.Name });
             Lockpicking = CreateAndAddSkill(Resources.Skills_SkillLockpicking, SkillCategory.Character, 1, 
-                Resources.Skills_SkillLockpickingDescr, null, new string[] { Sneaking.Name });
+                Resources.Skills_SkillLockpickingDescr, 
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_SleightOfHand, Dice.D4, 0, true) }, 
+                new string[] { Sneaking.Name });
             Counterfeiting = CreateAndAddSkill(Resources.Skills_SkillCounterfeiting, SkillCategory.Character, 1, 
-                Resources.Skills_SkillCounterfeitingDescr, null, new string[] { Sneaking.Name });
+                Resources.Skills_SkillCounterfeitingDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_SleightOfHand, Dice.D4, 0, true) }, 
+                new string[] { Sneaking.Name });
             KnowledgeOfPeople = CreateAndAddSkill(Resources.Skills_SkillKnowledgeOfPeople, SkillCategory.Character, 2, 
                 Resources.Skills_SkillKnowledgeOfPeopleDescr, 
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Insight, 1) }, 
@@ -206,17 +212,29 @@ namespace PnP_Organizer.Core.Character
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Performance, Dice.D4, 2) },
                 new string[] { KnowledgeOfPeople.Name });
             Tracking = CreateAndAddSkill(Resources.Skills_SkillTracking, SkillCategory.Character, 1, 
-                Resources.Skills_SkillTrackingDescr, null, new string[] { NatureStudy.Name });
+                Resources.Skills_SkillTrackingDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Nature, Dice.D4, 0, true) }, 
+                new string[] { NatureStudy.Name });
             PoisonKnowledge = CreateAndAddSkill(Resources.Skills_SkillPoisonKnowledge, SkillCategory.Character, 2, 
-                Resources.Skills_SkillPoisonKnowledgeDescr, null, new string[] { NatureStudy.Name });
+                Resources.Skills_SkillPoisonKnowledgeDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Nature, Dice.D4, 0, true) },
+                new string[] { NatureStudy.Name });
             Gambling = CreateAndAddSkill(Resources.Skills_SkillGambling, SkillCategory.Character, 1, 
-                Resources.Skills_SkillGamblingDescr, null, new string[] { Theft.Name, Lockpicking.Name, Counterfeiting.Name });
+                Resources.Skills_SkillGamblingDescr,
+                new StatModifier[] 
+                { 
+                    new AttributeTestStatModifier(Resources.AttributeTests_SleightOfHand, Dice.D4, 0, true),
+                    new AttributeTestStatModifier(Resources.AttributeTests_Performance, Dice.D4, 0, true)
+                }, 
+                new string[] { Theft.Name, Lockpicking.Name, Counterfeiting.Name });
             SkilledLier = CreateAndAddSkill(Resources.Skills_SkillSkilledLier, SkillCategory.Character, 2, 
                 Resources.Skills_SkillSkilledLierDescr, 
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Bluff, 1) },
                 new string[] { Theft.Name, Lockpicking.Name, Counterfeiting.Name });
             LieDetector = CreateAndAddSkill(Resources.Skills_SkillLieDetector, SkillCategory.Character, 2, 
-                Resources.Skills_SkillLieDetectorDescr, null, new string[] { SkilledLier.Name, KnowledgeOfPeople.Name });
+                Resources.Skills_SkillLieDetectorDescr,
+                new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Insight, Dice.D4, 0, true) }, 
+                new string[] { SkilledLier.Name, KnowledgeOfPeople.Name });
             SkilledSpeaker = CreateAndAddSkill(Resources.Skills_SkillSkilledSpeaker, SkillCategory.Character, 3, 
                 Resources.Skills_SkillSkilledSpeakerDescr,
                 new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Persuade, Dice.D4, 1) }, 
@@ -224,7 +242,12 @@ namespace PnP_Organizer.Core.Character
 
             // Checkpoint 1
             Climbing = CreateAndAddSkill(Resources.Skills_SkillClimbing, SkillCategory.Character, 2, 
-                Resources.Skills_SkillClimbingDescr, null,
+                Resources.Skills_SkillClimbingDescr, 
+                new StatModifier[] 
+                {
+                    new AttributeTestStatModifier(Resources.AttributeTests_Athletic, Dice.D4, 0, true),
+                    new AttributeTestStatModifier(Resources.AttributeTests_Acrobatic, Dice.D4, 0, true)
+                },
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
             Teacher = CreateAndAddSkill(Resources.Skills_SkillTeacher, SkillCategory.Character, 2, 
                 Resources.Skills_SkillTeacherDescr, null,
@@ -248,7 +271,8 @@ namespace PnP_Organizer.Core.Character
             Etiquette = CreateAndAddSkill(Resources.Skills_SkillEtiquette, SkillCategory.Character, 2, 
                 Resources.Skills_SkillEtiquetteDescr, null, new string[] { Sympathic.Name });
             Trading = CreateAndAddSkill(Resources.Skills_SkillTrading, SkillCategory.Character, 2, 
-                Resources.Skills_SkillTradingDescr, null, new string[] { Sympathic.Name });
+                Resources.Skills_SkillTradingDescr, new StatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Persuade, Dice.D4, 0, true) },
+                new string[] { Sympathic.Name });
 
             // Checkpoint 2
             Perseverence = CreateAndAddSkill(Resources.Skills_SkillPerseverence, SkillCategory.Character, 2, 
@@ -631,8 +655,8 @@ namespace PnP_Organizer.Core.Character
 
         public int GetSkillIndexFromName(string name)
         {
-            int l = 0;
-            int r = SkillsList.Count - 1;
+            var l = 0;
+            var r = SkillsList.Count - 1;
             while(l <= r)
             {
                 if (SkillsList[l].Name == name)
@@ -644,6 +668,8 @@ namespace PnP_Organizer.Core.Character
             }
             return -1;
         }
+
+        public Skill? GetSkillFromStatModifier(StatModifier statModifier) => SkillsList.FirstOrDefault(skill => skill.StatModifiers!.Contains(statModifier));
 
         private Skill CreateAndAddSkill(string name, SkillCategory skillCategory, int maxSkillPoints, 
             string description, StatModifier[]? skillModifiers = null, string[]? skillDependencies = null) 
