@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.StatModifiers;
 using System.Collections.ObjectModel;
@@ -22,5 +23,7 @@ namespace PnP_Organizer.Models
             StatModifiers = skill.StatModifiers!.Where(statModifier => statModifier is AttributeTestStatModifier).Cast<AttributeTestStatModifier>().ToArray();
             ParentCollection = parentCollection;
         }
+
+        public void ToggleActive() => IsActive = !IsActive;
     }
 }
