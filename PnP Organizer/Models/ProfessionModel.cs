@@ -2,10 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.ViewModels;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Wpf.Ui.Controls;
 
 namespace PnP_Organizer.Models
 {
-    [INotifyPropertyChanged]
+    [ObservableObject]
     public partial class ProfessionModel : IModelCollectionItem
     {
         public AttributeTestsViewModel ViewModel
@@ -17,7 +19,6 @@ namespace PnP_Organizer.Models
         {
             get;
         }
-
 
         [ObservableProperty]
         private bool _isAttributeTestSelected;
@@ -45,5 +46,6 @@ namespace PnP_Organizer.Models
         {
             ParentCollection.Remove(this);
         }
+
     }
 }

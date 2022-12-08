@@ -126,14 +126,7 @@ namespace PnP_Organizer.ViewModels
                     if (forcedDependendSkillModel != default)
                         await CheckSkillModelSkillability(forcedDependendSkillModel);
 
-                    UsedSkillPoints = SkillModels!.Sum(sM =>
-                    {
-                        if(sM is RepeatableSkillModel rSM)
-                        {
-                            return rSM.TotalSkillPoints;
-                        }
-                        return sM.SkillPoints;
-                    });
+                    CalculateUsedSkillPoints();
                 });
             }
         }
@@ -203,14 +196,19 @@ namespace PnP_Organizer.ViewModels
                 List<SkillSaveData> skills = new();
                 for(int i = 0; i < SkillModels!.Count; i++)
                 {
-                    SkillSaveData skillSaveData = new()
+                    if (SkillModels[i].SkillPoints > 0 ||
+                        (SkillModels[i] is RepeatableSkillModel model && model.Repetition > 0))
                     {
-                        Index = i,
-                        SkillPoints = SkillModels[i]!.SkillPoints
-                    };
-                    if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
-                        skillSaveData.Repetition = repeatableSkillModel.Repetition;
-                    skills.Add(skillSaveData);
+                        SkillSaveData skillSaveData = new()
+                        {
+                            Index = i,
+                            SkillPoints = SkillModels[i]!.SkillPoints
+                        };
+                        if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
+                            skillSaveData.Repetition = repeatableSkillModel.Repetition;
+
+                        skills.Add(skillSaveData);
+                    }
                 }
                 FileIO.LoadedCharacter.Skills = skills;
 
@@ -228,27 +226,53 @@ namespace PnP_Organizer.ViewModels
                     FileIO.LoadedCharacter.InitSkillSaveData();
 
                 SkillModels?.Clear();
-
-                foreach (SkillSaveData skillSaveData in FileIO.LoadedCharacter.Skills!)
+                foreach (Skill skill in Skills.Instance.SkillsList)
                 {
-                    Skill skill = Skills.Instance.SkillsList[skillSaveData.Index];
-                    skill.SkillPoints = skillSaveData.SkillPoints;
-
-                    SkillModel skillModel ;
+                    SkillModel skillModel;
                     if (skill.IsRepeatable)
-                    {
                         skillModel = new RepeatableSkillModel(skill);
-                        ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
-                    }
                     else
                         skillModel = new SkillModel(skill);
 
-                    SkillModels?.Add(skillModel);
+                    SkillModels!.Add(skillModel);
                 }
+
+                foreach (SkillSaveData skillSaveData in FileIO.LoadedCharacter.Skills!)
+                {
+                    var skill = Skills.Instance.SkillsList[skillSaveData.Index];
+                    skill.SkillPoints = skillSaveData.SkillPoints;
+
+                    var skillModel = SkillModels![skillSaveData.Index];
+
+                    skillModel.SkillPoints = skillSaveData.SkillPoints;
+                    if (skill.IsRepeatable)
+                        ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
+
+                    //SkillModels![skillSaveData.Index] = skillModel;
+                }
+                foreach(SkillModel skillModel in SkillModels!)
+                {
+                    _ = CheckSkillModelSkillability(skillModel);
+                }
+
                 SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
+
+                CalculateUsedSkillPoints();
 
                 Logger.Log("Skills loaded successfully!");
             }
+        }
+
+        private void CalculateUsedSkillPoints()
+        {
+            UsedSkillPoints = SkillModels!.Sum(sM =>
+            {
+                if (sM is RepeatableSkillModel rSM)
+                {
+                    return rSM.TotalSkillPoints;
+                }
+                return sM.SkillPoints;
+            });
         }
     }
 

@@ -13,17 +13,21 @@ namespace PnP_Organizer.Core.IO
     {
         public static void LoadCharacterToViewModels(IPageService pageService)
         {
-            SkillsViewModel? skillsViewModel = pageService.GetPage<SkillsPage>()?.ViewModel;
+            var skillsViewModel = pageService.GetPage<SkillsPage>()?.ViewModel;
             skillsViewModel?.LoadCharacterSkills();
 
-            InventoryViewModel? inventoryViewModel = pageService.GetPage<InventoryPage>()?.ViewModel;
+            var inventoryViewModel = pageService.GetPage<InventoryPage>()?.ViewModel;
             inventoryViewModel?.LoadCharacterInventory();
 
-            OverviewPage? overviewPage = pageService.GetPage<OverviewPage>();
-            OverviewViewModel? overviewViewModel = overviewPage?.ViewModel;
+            var overviewPage = pageService.GetPage<OverviewPage>();
+            var overviewViewModel = overviewPage?.ViewModel;
             overviewViewModel?.LoadCharacterStats();
 
-            NotesPage? notesPage = pageService.GetPage<NotesPage>();
+            var attributeTestsPage = pageService.GetPage<AttributeTestsPage>();
+            var attributeTestsViewModel = attributeTestsPage?.ViewModel;
+            attributeTestsViewModel?.LoadProfessions();
+
+            var notesPage = pageService.GetPage<NotesPage>();
             notesPage?.LoadNotesDocumentFromCharacter();
 
             FileIO.IsCharacterSaved = true;
@@ -31,16 +35,20 @@ namespace PnP_Organizer.Core.IO
 
         public static void LoadCharacterFromViewModels(IPageService pageService)
         {
-            SkillsViewModel? skillsViewModel = pageService.GetPage<SkillsPage>()?.ViewModel;
+            var skillsViewModel = pageService.GetPage<SkillsPage>()?.ViewModel;
             skillsViewModel?.SaveCharacterSkills();
 
-            InventoryViewModel? inventoryViewModel = pageService.GetPage<InventoryPage>()?.ViewModel;
+            var inventoryViewModel = pageService.GetPage<InventoryPage>()?.ViewModel;
             inventoryViewModel?.SaveCharacterInventory();
 
-            OverviewViewModel? overviewViewModel = pageService.GetPage<OverviewPage>()?.ViewModel;
+            var overviewViewModel = pageService.GetPage<OverviewPage>()?.ViewModel;
             overviewViewModel?.SaveCharacterStats();
 
-            NotesPage? notesPage = pageService.GetPage<NotesPage>();
+            var attributeTestsPage = pageService.GetPage<AttributeTestsPage>();
+            var attributeTestsViewModel = attributeTestsPage?.ViewModel;
+            attributeTestsViewModel?.SaveProfessions();
+
+            var notesPage = pageService.GetPage<NotesPage>();
             notesPage?.SaveNotesDocumentToCharacter();
         }
     }

@@ -1431,4 +1431,13 @@ Kosten: 3 Ausdauer</value>
   <data name="Skills_SkillStatsDescr" xml:space="preserve">
     <value>Erhöht einen wählbaren Stat um 1</value>
   </data>
+  <data name="Dialog_ButtonUpdate" xml:space="preserve">
+    <value>Update Herunterladen</value>
+  </data>
+  <data name="Dialog_UpdateMessage" xml:space="preserve">
+    <value>Es ist eine neuere Version vorhanden. Wollen sie diese herunterladen?</value>
+  </data>
+  <data name="Dialog_UpdateTitle" xml:space="preserve">
+    <value>Update verfügbar</value>
+  </data>
 </root>

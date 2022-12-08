@@ -30,12 +30,16 @@ namespace PnP_Organizer.Core.Character
 
         public List<SkillSaveData> Skills { get; set; }
         public List<InventoryItem> Inventory { get; set; }
+
+        public List<ProfessionSaveData> Professions { get; set; }
+
         public byte[] Notes { get; set; } = Array.Empty<byte>();
 
         public CharacterData()
         {
             Skills = new List<SkillSaveData>();
-            Inventory = new List<InventoryItem>() { };
+            Inventory = new List<InventoryItem>();
+            Professions = new List<ProfessionSaveData>();
         }
 
         public void InitSkillSaveData()
