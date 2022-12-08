@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.StatModifiers;
 using System.Collections.ObjectModel;
