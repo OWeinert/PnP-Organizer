@@ -28,6 +28,8 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private ObservableCollection<Dice> _externalDiceBoni = new();
         [ObservableProperty]
+        private ObservableCollection<int> _professionBoni = new();
+        [ObservableProperty]
         private int _bonusSum = 0;
         [ObservableProperty]
         private string _totalBonus = string.Empty;
@@ -76,23 +78,27 @@ namespace PnP_Organizer.Models
                 UpdateTotalBonus();
                 UpdateToolTip();
             };
+
         }
 
-        public void UpdateBonusSum() => BonusSum = BaseBonus + PearlBonus + ExternalBoni.Sum();
+        public void UpdateBonusSum() => BonusSum = BaseBonus + PearlBonus + ExternalBoni.Sum() + ProfessionBoni.Sum();
 
         public void UpdateTotalBonus()
         {
             var sb = new StringBuilder();
             if(BonusSum > 0 || !ExternalDiceBoni.Any())
                 sb.Append($"{BonusSum} ");
-            foreach (var externalDiceBonus in ExternalDiceBoni)
+
+            var sameDiceBoni = ExternalDiceBoni.GroupBy(dice => dice.Name);
+            foreach (var diceGroup in sameDiceBoni)
             {
-                sb.Append($"+ 1D{externalDiceBonus.Name}");
+                sb.Append($"+ {diceGroup.Count()}D{diceGroup.First().Name} ");
             }
-            TotalBonus= sb.ToString();
+
+            TotalBonus = sb.ToString();
         }
 
-        private void UpdateToolTip()
+        public void UpdateToolTip()
         {
             HasToolTip = GetHasToolTip();
             ToolTip = GetToolTip();
@@ -105,18 +111,28 @@ namespace PnP_Organizer.Models
                 var sb = new StringBuilder();
                 sb.Append($"{BaseBonus} ");
                 AppendExtraBonus(ref sb, PearlBonus);
+
+                foreach(int professionBonus in ProfessionBoni)
+                {
+                    AppendExtraBonus(ref sb, professionBonus);
+                }
                 foreach (int externalBonus in ExternalBoni)
                 {
                     AppendExtraBonus(ref sb, externalBonus);
                 }
-                foreach(Dice externalDiceBonus in ExternalDiceBoni)
+                
+                foreach(var diceBonus in ExternalDiceBoni)
                 {
-                    sb.Append($"+ 1D{externalDiceBonus.Name} ");
+                    sb.Append($"+ 1D{diceBonus.Name} ");
                 }
 
-                int maxBonus = BonusSum + ExternalDiceBoni.Sum(dice => dice.MaxValue);
-                string plusMinus = maxBonus > 0 ? "+" : string.Empty;
-                sb.Append($"= {BonusSum + ExternalDiceBoni.Count} <-> {plusMinus}{maxBonus}");
+                if (ExternalDiceBoni.Any())
+                {
+                    int maxBonus = BonusSum + ExternalDiceBoni.Sum(dice => dice.MaxValue);
+                    sb.Append($"= {BonusSum + ExternalDiceBoni.Count} <-> {maxBonus}");
+                }
+                else
+                    sb.Append($"= {BonusSum}");
 
                 return sb.ToString();
             }
@@ -127,11 +143,11 @@ namespace PnP_Organizer.Models
         {
             if (bonus != 0)
             {
-                string plusMinus = bonus > 0 ? "+" : string.Empty;
-                sb.Append($"{plusMinus} {bonus} ");
+                char plusMinus = bonus > 0 ? '+' : '-';
+                sb.Append($"{plusMinus} {Math.Abs(bonus)} ");
             }
         }
 
-        private bool GetHasToolTip() => PearlBonus != 0 || ExternalBoni.Any(bonus => bonus != 0) || ExternalDiceBoni.Any();
+        private bool GetHasToolTip() => PearlBonus != 0 || ExternalBoni.Any(bonus => bonus != 0) || ExternalDiceBoni.Any() || ProfessionBoni.Any(bonus => bonus != 0);
     }
 }

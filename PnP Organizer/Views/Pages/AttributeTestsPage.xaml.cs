@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Common.Interfaces;
+﻿using System.Diagnostics;
+using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 
 namespace PnP_Organizer.Views.Pages
@@ -21,17 +22,13 @@ namespace PnP_Organizer.Views.Pages
 
         private void NumberBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            NumberBox numBox = (NumberBox)sender;
-            double value = numBox.Value;
+            var numBox = (NumberBox)sender;
 
             if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
                 return;
 
-            value = e.Delta > 0 ? value + numBox.Step : value - numBox.Step;
-
-            // Setting the NumberBox Value does not update the number in the UI, updating the Text updates both UI number and the Value
-            numBox.Text = $"{value}";
-            e.Handled = true;
+            numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
+            numBox.Text = numBox.Value.ToString();
         }
     }
 }
