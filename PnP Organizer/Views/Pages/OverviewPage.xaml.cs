@@ -58,7 +58,7 @@ namespace PnP_Organizer.Views.Pages
         private void NumTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             var input = ((TextBox)sender).Text + e.Text;
-            e.Handled = !Regex.IsMatch(input, @"^\d*(\.|\,){1}\d*$");
+            e.Handled = !Regex.IsMatch(input, @"^\d*(\.|\,)?\d*$");
         }
 
         //TODO NumBox_MouseWheel move to static function 1/2
