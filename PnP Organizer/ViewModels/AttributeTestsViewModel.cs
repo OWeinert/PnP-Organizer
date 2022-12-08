@@ -50,6 +50,8 @@ namespace PnP_Organizer.ViewModels
 
             ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
 
+            ProfessionsModels!.CollectionChanged += ProfessionsModels_CollectionChanged;
+
             AttributeTestModelsView = CollectionViewSource.GetDefaultView(AttributeTestModels);
 
             AttributeTestModelsView.Filter += AttributeTestModelsView_Filter;
