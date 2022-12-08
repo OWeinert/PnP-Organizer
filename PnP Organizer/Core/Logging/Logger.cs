@@ -41,9 +41,9 @@ namespace PnP_Organizer.Logging
         public static void LogException(Exception e, bool silent = false, string message = "")
         {
             StackTrace? stackTrace = new(e, true);
-            LogLevel logLevel = silent ? LogLevel.WARN : LogLevel.ERR;
-            string silentPrefix = silent ? "Silently caught" : "Caught";
-            string customMessage = message != "" ? $"{message}\n" : "";
+            var logLevel = silent ? LogLevel.WARN : LogLevel.ERR;
+            var silentPrefix = silent ? "Silently caught" : "Caught";
+            var customMessage = message != "" ? $"{message}\n" : "";
             WriteLogMessage(logLevel,
                 $"{customMessage}" +
                 $"{silentPrefix} Exception:\n" +
@@ -56,11 +56,11 @@ namespace PnP_Organizer.Logging
         {
             if (s_logEnabled)
             {
-                string? messageStr = message?.ToString();
+                var messageStr = message?.ToString();
                 stackTrace ??= new(true);
-                StackFrame? stackFrame = stackTrace?.GetFrame(stackFrameLevel);
-                string? fileName = Path.GetFileName(stackFrame?.GetFileName());
-                string logOutput = $"[{DateTime.Now:HH:mm:ss}] [{fileName}/{logLevel}]: {messageStr}";
+                var stackFrame = stackTrace?.GetFrame(stackFrameLevel);
+                var fileName = Path.GetFileName(stackFrame?.GetFileName());
+                var logOutput = $"[{DateTime.Now:HH:mm:ss}] [{fileName}/{logLevel}]: {messageStr}";
                 System.Diagnostics.Debug.WriteLine(logOutput);
                 WriteToLogFile($"{logOutput}\n");
             }
@@ -78,7 +78,7 @@ namespace PnP_Organizer.Logging
             if (!Directory.Exists(s_logDirectoryPath))
                 Directory.CreateDirectory(s_logDirectoryPath);
             s_logFilePath = $"{s_logDirectoryPath}\\log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
-            using FileStream fs = File.Create(s_logFilePath);
+            using var fs = File.Create(s_logFilePath);
             fs.Close();
         }
 

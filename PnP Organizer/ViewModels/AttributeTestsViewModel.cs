@@ -25,7 +25,7 @@ namespace PnP_Organizer.ViewModels
         private ICollectionView? _attributeTestModelsView;
 
         [ObservableProperty]
-        private ObservableCollection<IModelCollectionItem>? _professionsModels;
+        private ObservableCollection<IModelCollectionItem>? _professionModels;
 
         [ObservableProperty]
         private ComboBoxItem? _selectedAttributeFilter;
@@ -33,7 +33,7 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private ObservableCollection<AttributeTestModel> _attributeTestModels = new(AttributeTests.Models);
 
-        private IPageService _pageService;
+        private readonly IPageService _pageService;
 
         public AttributeTestsViewModel(IPageService pageService)
         {
@@ -43,20 +43,16 @@ namespace PnP_Organizer.ViewModels
 
             UpdateAttributeTestBoni();
 
-            ProfessionsModels = new ObservableCollection<IModelCollectionItem>();
-            ProfessionsModels.Add(new AddProfessionModel(ProfessionsModels, this));
+            ProfessionModels = new ObservableCollection<IModelCollectionItem>();
+            ProfessionModels.Add(new AddProfessionModel(ProfessionModels, this));
 
-            ProfessionsModels!.CollectionChanged += ProfessionsModels_CollectionChanged;
+            ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
 
             AttributeTestModelsView = CollectionViewSource.GetDefaultView(AttributeTestModels);
 
             AttributeTestModelsView.Filter += AttributeTestModelsView_Filter;
 
-            Views.Container.FinishedLoading += (sender, e) => 
-            {
-                UpdateAttributeTestBoni();
-                ApplySkillBoni();
-            };
+            Views.Container.FinishedLoading += (sender, e) => ApplyAllBoni();
         }
 
         public void OnNavigatedTo()
@@ -66,11 +62,7 @@ namespace PnP_Organizer.ViewModels
                 model.ExternalBoni = new ObservableCollection<int>();
                 model.ExternalDiceBoni = new ObservableCollection<Dice>();
             }
-
-            ApplyProfessionBoni();
-
-            ApplySkillBoni();
-            UpdateAttributeTestBoni();
+            ApplyAllBoni();
         }
 
         public void OnNavigatedFrom() { }
@@ -78,7 +70,7 @@ namespace PnP_Organizer.ViewModels
         public void SaveProfessions()
         {
             FileIO.LoadedCharacter.Professions = new List<ProfessionSaveData>();
-            foreach(var modelCollectionItem in ProfessionsModels!)
+            foreach(var modelCollectionItem in ProfessionModels!)
             {
                 if(modelCollectionItem is ProfessionModel professionModel)
                 {
@@ -94,19 +86,29 @@ namespace PnP_Organizer.ViewModels
 
         public void LoadProfessions()
         {
-            ProfessionsModels!.Clear();
-            ProfessionsModels.Add(new AddProfessionModel(ProfessionsModels, this));
+            ProfessionModels!.Clear();
+            ProfessionModels.Add(new AddProfessionModel(ProfessionModels, this));
 
             foreach (var professionSaveData in FileIO.LoadedCharacter.Professions)
             {
-                var professionModel = new ProfessionModel(ProfessionsModels!, this)
+                var professionModel = new ProfessionModel(ProfessionModels!, this)
                 {
                     SelectedAttributeTest = AttributeTestModels[professionSaveData.AttributeTestIndex],
                     Bonus = professionSaveData.Bonus
                 };
-                ProfessionsModels!.Insert(ProfessionsModels.Count - 1, professionModel);
+                ProfessionModels!.Insert(ProfessionModels.Count - 1, professionModel);
             }
             ApplyProfessionBoni();
+        }
+
+        private void ApplyAllBoni()
+        {
+            ApplyProfessionBoni();
+
+            ApplySkillBoni();
+            AddToggleableSkills();
+
+            UpdateAttributeTestBoni();
         }
 
         private void AttributeTestsViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -120,13 +122,13 @@ namespace PnP_Organizer.ViewModels
             var attributeTest = (AttributeTestModel)obj;
 
             AttributeType? attributeType = null;
-            if (SelectedAttributeFilter?.Tag != null && Enum.TryParse(typeof(AttributeType), (string)SelectedAttributeFilter.Tag, out object? parsedAttributeType))
+            if (SelectedAttributeFilter?.Tag != null && Enum.TryParse(typeof(AttributeType), (string)SelectedAttributeFilter.Tag, out var parsedAttributeType))
                 attributeType = (AttributeType?)parsedAttributeType;
 
             return (attributeType != null && attributeTest.AttributeType == attributeType) || attributeType == null;
         }
 
-        private void ProfessionsModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void ProfessionModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
@@ -134,8 +136,41 @@ namespace PnP_Organizer.ViewModels
                 {
                     professionModel.PropertyChanged += ProfessionModel_PropertyChanged;
                 }
+                else if (e.NewItems![0] is AttributeTestSkillModel aTSkillModel)
+                {
+                    aTSkillModel.PropertyChanged += AttributeTestSkillModel_PropertyChanged;
+                }
             }
             ApplyProfessionBoni();
+        }
+
+        private void AttributeTestSkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName is nameof(AttributeTestSkillModel.IsActive))
+            {
+                var aTSkillModel = (AttributeTestSkillModel)sender!;
+
+                foreach (var statModifier in aTSkillModel.StatModifiers)
+                {
+                    var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
+
+                    if (aTSkillModel.IsActive)
+                    {
+                        if (statModifier.Bonus != 0)
+                            attributeTest.ExternalBoni.Add(statModifier.Bonus);
+                        if (statModifier.Dice.MaxValue > 1)
+                            attributeTest.ExternalDiceBoni.Add(statModifier.Dice);
+                    }
+                    else
+                    {
+                        if (statModifier.Bonus != 0)
+                            attributeTest.ExternalBoni.Remove(statModifier.Bonus);
+                        if (statModifier.Dice.MaxValue > 1)
+                            attributeTest.ExternalDiceBoni.Remove(statModifier.Dice);
+                    }
+                }
+                UpdateAttributeTestVisuals();
+            }
         }
 
         private void ProfessionModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -146,12 +181,9 @@ namespace PnP_Organizer.ViewModels
         private void ApplyProfessionBoni()
         {
             foreach (var attributeTest in AttributeTestModels)
-            {
-                attributeTest.ProfessionBoni = new ObservableCollection<int>();
-            }
+                attributeTest.ProfessionBoni.Clear();
 
-            var professions = ProfessionsModels!.Where(modelCollectionItem => modelCollectionItem is ProfessionModel)
-                .Cast<ProfessionModel>();
+            var professions = ProfessionModels!.Where(modelCollectionItem => modelCollectionItem is ProfessionModel).Cast<ProfessionModel>();
 
             foreach (var professionModel in professions)
             {
@@ -161,13 +193,8 @@ namespace PnP_Organizer.ViewModels
                     attributeTest.ProfessionBoni.Add(professionModel.Bonus);
                 }
             }
-            
-            foreach(var attributeTest in AttributeTestModels)
-            {
-                attributeTest.UpdateBonusSum();
-                attributeTest.UpdateTotalBonus();
-                attributeTest.UpdateToolTip();
-            }
+
+            UpdateAttributeTestVisuals();
 
             FileIO.IsCharacterSaved = false;
         }
@@ -197,23 +224,27 @@ namespace PnP_Organizer.ViewModels
 
                 attributeTest.UpdateBonusSum();
                 attributeTest.UpdateTotalBonus();
+                attributeTest.UpdateToolTip();
             }
         }
 
-        private void ApplySkillBoni()
+        private void ApplySkillBoni(string[]? attributeTestFilter = null)
         {
             var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
-            var attributeTestModifiers = skillsViewModel.SkillModels!
-                .Where(skillModel => skillModel.Skill.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive) // Filter out skills inactive skills and those without stat modifiers
+
+            var skillModels = skillsViewModel.SkillModels!
+                .Where(skillModel => skillModel.Skill.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
+
+            var attributeTestModifiers = skillModels
                 .SelectMany(skillModel => skillModel.Skill.StatModifiers!, (skillModel, statModifier) =>    // Select all stat modifiers which are AttributeTestStatModifiers
                 {
-                    if (statModifier is AttributeTestStatModifier)
-                        return statModifier;
+                    if (statModifier is AttributeTestStatModifier attributeTestStatModifier && !attributeTestStatModifier.Toggleable
+                    && (attributeTestFilter == null || attributeTestFilter.Contains(attributeTestStatModifier.AttributeTestName)))
+                        return attributeTestStatModifier;
                     return null;
                 })
                 .Where(statModifier => statModifier != null) // Filter out null values
                 .Cast<AttributeTestStatModifier>();
-
 
             foreach (var modifier in attributeTestModifiers)
             {
@@ -230,6 +261,46 @@ namespace PnP_Organizer.ViewModels
                             attributeTestModel.ExternalDiceBoni.Add(modifier.Dice);
                     }
                 }
+            }
+        }
+
+        private void AddToggleableSkills()
+        {
+            var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
+
+            var skillModels = skillsViewModel.SkillModels!
+                .Where(skillModel => skillModel.Skill!.StatModifiers! != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
+
+            // Clear Skills from Professions/Skills list
+            var attributeTestSkillModels = ProfessionModels!.Where(model => model is AttributeTestSkillModel).ToList();
+            var count = attributeTestSkillModels.Count;
+            for (var i = 0; i < count; i++)
+            {
+                ProfessionModels!.Remove(attributeTestSkillModels[i]);
+            }
+
+            // Add Toggleable Skills to Professions/Skills list
+            var toggleableSkills = skillModels
+                .Where(skillModel => skillModel.Skill!.StatModifiers!.Any(statModifier => statModifier is AttributeTestStatModifier aTStatMod && aTStatMod.Toggleable));
+
+            foreach (var skillModel in toggleableSkills)
+            {
+                var professions = ProfessionModels!.Where(model => model is ProfessionModel).Cast<ProfessionModel>();
+                var insertionIndex = ProfessionModels!.Any(model => model is ProfessionModel) ? ProfessionModels!.IndexOf(professions.First()) : 0;
+
+                var attributeTestSkillModel = new AttributeTestSkillModel(skillModel.Skill!, ProfessionModels!);
+
+                ProfessionModels?.Insert(insertionIndex, attributeTestSkillModel);
+            }
+        }
+
+        private void UpdateAttributeTestVisuals()
+        {
+            foreach (var attributeTest in AttributeTestModels)
+            {
+                attributeTest.UpdateBonusSum();
+                attributeTest.UpdateTotalBonus();
+                attributeTest.UpdateToolTip();
             }
         }
     }

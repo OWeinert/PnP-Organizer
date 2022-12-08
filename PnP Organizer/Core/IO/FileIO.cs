@@ -88,13 +88,13 @@ namespace PnP_Organizer.IO
 
         public static void SaveLastLoadedCharacter()
         {
-            using FileStream fs = File.OpenWrite(Properties.Settings.Default.LastLoadedCharacter);
+            using var fs = File.OpenWrite(Properties.Settings.Default.LastLoadedCharacter);
             SaveCharacter(fs);
         }
 
         public static void LoadLastCharacter()
         {
-            using FileStream fs = File.OpenRead(Properties.Settings.Default.LastLoadedCharacter);
+            using var fs = File.OpenRead(Properties.Settings.Default.LastLoadedCharacter);
             LoadCharacter(fs);
         }
         public static void CreateNewCharacter()
@@ -146,7 +146,7 @@ namespace PnP_Organizer.IO
             {
                 Logger.Log("Setting localization to OS language...");
 
-                string localization = CultureInfo.CurrentCulture.NativeName;
+                var localization = CultureInfo.CurrentCulture.NativeName;
                 if (!Language.Languages.Any(language => language.Key == localization))
                     Properties.Settings.Default.Localization = "en-US";
                 else

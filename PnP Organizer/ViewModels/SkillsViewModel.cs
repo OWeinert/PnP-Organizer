@@ -80,7 +80,7 @@ namespace PnP_Organizer.ViewModels
         {
             SkillModels = new ObservableCollection<SkillModel>();
             SkillModels.CollectionChanged += SkillModels_CollectionChanged;
-            foreach (Skill skill in Skills.Instance.SkillsList)
+            foreach (var skill in Skills.Instance.SkillsList)
             {
                 SkillModel skillModel;
                 if (skill.IsRepeatable)
@@ -165,13 +165,13 @@ namespace PnP_Organizer.ViewModels
 
         private bool SkillModelsView_Filter(object item)
         {
-            SkillModel skill = (SkillModel)item;
+            var skill = (SkillModel)item;
 
             // Filter by SearchBox text
             if((skill.Name.Contains(SearchBoxText) || string.IsNullOrEmpty(SearchBoxText)))
             {
                 // Filter by Skillability
-                bool skillability = SelectedSkillableFilter.SkillableType switch
+                var skillability = SelectedSkillableFilter.SkillableType switch
                 {
                     SkillableType.Skilled => skill.IsActive,
                     SkillableType.Skillable => !skill.IsActive && skill.IsSkillable,
@@ -194,7 +194,7 @@ namespace PnP_Organizer.ViewModels
                 Logger.Log("Saving Skills...");
 
                 List<SkillSaveData> skills = new();
-                for(int i = 0; i < SkillModels!.Count; i++)
+                for(var i = 0; i < SkillModels!.Count; i++)
                 {
                     if (SkillModels[i].SkillPoints > 0 ||
                         (SkillModels[i] is RepeatableSkillModel model && model.Repetition > 0))
@@ -226,7 +226,7 @@ namespace PnP_Organizer.ViewModels
                     FileIO.LoadedCharacter.InitSkillSaveData();
 
                 SkillModels?.Clear();
-                foreach (Skill skill in Skills.Instance.SkillsList)
+                foreach (var skill in Skills.Instance.SkillsList)
                 {
                     SkillModel skillModel;
                     if (skill.IsRepeatable)
@@ -237,7 +237,7 @@ namespace PnP_Organizer.ViewModels
                     SkillModels!.Add(skillModel);
                 }
 
-                foreach (SkillSaveData skillSaveData in FileIO.LoadedCharacter.Skills!)
+                foreach (var skillSaveData in FileIO.LoadedCharacter.Skills!)
                 {
                     var skill = Skills.Instance.SkillsList[skillSaveData.Index];
                     skill.SkillPoints = skillSaveData.SkillPoints;
@@ -250,7 +250,7 @@ namespace PnP_Organizer.ViewModels
 
                     //SkillModels![skillSaveData.Index] = skillModel;
                 }
-                foreach(SkillModel skillModel in SkillModels!)
+                foreach(var skillModel in SkillModels!)
                 {
                     _ = CheckSkillModelSkillability(skillModel);
                 }

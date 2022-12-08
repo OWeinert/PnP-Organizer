@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using PnP_Organizer.Models;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 
@@ -29,6 +29,13 @@ namespace PnP_Organizer.Views.Pages
 
             numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
             numBox.Text = numBox.Value.ToString();
+        }
+
+        private void SkillCard_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var card = (Card)sender;
+            var attributeTestSkillModel = (AttributeTestSkillModel)card.DataContext;
+            attributeTestSkillModel.ToggleActive();
         }
     }
 }

@@ -172,7 +172,7 @@
     <value>Schleichen / Verbergen</value>
   </data>
   <data name="AttributeTests_TitleProfessions" xml:space="preserve">
-    <value>Professionen</value>
+    <value>Professionen / Skills</value>
   </data>
   <data name="AttributeTests_TitleTests" xml:space="preserve">
     <value>Tests</value>
@@ -645,7 +645,7 @@ Kosten: 1 Ausdauer</value>
     <value>Fälschen</value>
   </data>
   <data name="Skills_SkillCounterfeitingDescr" xml:space="preserve">
-    <value>+1D4+2 auf "Fingerfertigkeit"-Proben bei dem Versuch Etwas zu fälschen.</value>
+    <value>+1D4+2 auf "Fingerfertigkeit"-Proben bei dem Versuch etwas zu fälschen.</value>
   </data>
   <data name="Skills_SkillCripplingBlow" xml:space="preserve">
     <value>Verkrüppelnder Schlag</value>
@@ -762,8 +762,7 @@ Kosten: 2 Ausdauer</value>
     <value>Flirten</value>
   </data>
   <data name="Skills_SkillFlirtingDescr" xml:space="preserve">
-    <value>+1D4 auf Attributproben für einen Flirtversuch 
-(z.B. Performance)</value>
+    <value>+1D4 auf den Charisma-Wurf bei dem Versuch zu flirten.</value>
   </data>
   <data name="Skills_SkillFullDamage" xml:space="preserve">
     <value>Ganzer Schaden</value>
@@ -783,7 +782,7 @@ Kosten: 2 Ausdauer</value>
   <data name="Skills_SkillGamblingDescr" xml:space="preserve">
     <value>Ermöglicht es bei Glückspielen zu betrügen.
 +1D4 auf Attributproben für den Betrugsversuch
-(z.B. Fingerfertigkeit)</value>
+(Fingerfertigkeit und Performance)</value>
   </data>
   <data name="Skills_SkillHardToKill" xml:space="preserve">
     <value>Schwer zu töten</value>
@@ -1033,7 +1032,7 @@ Kosten: 3 Ausdauer</value>
     <value>Gifte</value>
   </data>
   <data name="Skills_SkillPoisonKnowledgeDescr" xml:space="preserve">
-    <value>+1D4+1 auf Attributproben bei der Untersuchung oder dem Herstellen von Giften (z.B. Natur)</value>
+    <value>+1D4+1 auf die "Natur"-Probe bei der Untersuchung oder dem Herstellen von Giften</value>
   </data>
   <data name="Skills_SkillPreciseThrow" xml:space="preserve">
     <value>Präziser Wurf</value>
@@ -1190,8 +1189,7 @@ Bei einem weiteren Schlag wird er zerstört.</value>
     <value>Schmieden</value>
   </data>
   <data name="Skills_SkillSmithingDescr" xml:space="preserve">
-    <value>+1D6+6 auf Attributproben beim Schmieden
-( z.B. Fingerfertigkeit)</value>
+    <value>+1D6+6 auf die "Geschicklichkeit"-Probe beim Schmieden.</value>
   </data>
   <data name="Skills_SkillSneaking" xml:space="preserve">
     <value>Schleichen</value>
@@ -1264,15 +1262,13 @@ Kosten: 3 Ausdauer</value>
     <value>Fährtenlesen</value>
   </data>
   <data name="Skills_SkillTrackingDescr" xml:space="preserve">
-    <value>+1D4 auf Attributproben beim Fährtenlesen
-( z.B. Natur, Untersuchen)</value>
+    <value>+1D4 auf "Natur"-Proben beim Spurenlesen.</value>
   </data>
   <data name="Skills_SkillTrading" xml:space="preserve">
     <value>Handel</value>
   </data>
   <data name="Skills_SkillTradingDescr" xml:space="preserve">
-    <value>+1D4+1 auf Attributproben beim Handel
-( z.B. Überzeugen)</value>
+    <value>+1D4+1 auf "Überzeugen"-Proben beim Handel.</value>
   </data>
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>

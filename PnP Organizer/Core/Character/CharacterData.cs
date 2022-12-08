@@ -44,7 +44,7 @@ namespace PnP_Organizer.Core.Character
 
         public void InitSkillSaveData()
         {
-            for (int i = 0; i < Character.Skills.Instance.SkillsList.Count; i++)
+            for (var i = 0; i < Character.Skills.Instance.SkillsList.Count; i++)
             {
                 Skills.Add(new SkillSaveData()
                 {

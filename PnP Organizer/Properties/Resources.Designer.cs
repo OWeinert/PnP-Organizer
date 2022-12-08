@@ -223,7 +223,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Professions.
+        ///   Looks up a localized string similar to Professions / Skills.
         /// </summary>
         public static string AttributeTests_TitleProfessions {
             get {
@@ -1706,7 +1706,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to +1 on Attribute Tests related to climbing.
-        ///(e.g. Athletics, Acrobatics).
+        ///(Athletics and Acrobatics).
         /// </summary>
         public static string Skills_SkillClimbingDescr {
             get {
@@ -2177,8 +2177,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D4 on Attribute Tests related to the flirt attempt
-        ///(e.g. Performance, etc.).
+        ///   Looks up a localized string similar to +1D4 on the Charisma throw when trying to flirt..
         /// </summary>
         public static string Skills_SkillFlirtingDescr {
             get {
@@ -2252,7 +2251,7 @@ namespace PnP_Organizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ability to cheat in Gambling Games.
         ///+1D4 on Attribute Tests related to the cheating.
-        ///(e.g. Performance, Sleight of Hand, etc.).
+        ///(Performance and Sleight of Hand).
         /// </summary>
         public static string Skills_SkillGamblingDescr {
             get {
@@ -2571,8 +2570,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D6+2 on Attribute Test &quot;Insight&quot;
-        ///when trying to identify a Lie..
+        ///   Looks up a localized string similar to +1D6+2 on the Insight throw when trying to identify a Lie..
         /// </summary>
         public static string Skills_SkillLieDetectorDescr {
             get {
@@ -3032,8 +3030,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D4+1 on Attribute Tests related to the Creation
-        ///and Research of Poisons (e.g. Nature, Sleight of Hand, etc.).
+        ///   Looks up a localized string similar to +1D4+1 on the Nature throw when creating or identifying a Poison..
         /// </summary>
         public static string Skills_SkillPoisonKnowledgeDescr {
             get {
@@ -3513,7 +3510,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D6+6 on Attribute Tests related to Smithing..
+        ///   Looks up a localized string similar to +1D6+6 on the Dexterity throw when trying to smith..
         /// </summary>
         public static string Skills_SkillSmithingDescr {
             get {
@@ -3787,8 +3784,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D4 on Attribute Tests related to the tracking attempt
-        ///(e.g. Nature, Inspect, etc.).
+        ///   Looks up a localized string similar to +1D4 on the Nature throw while tracking..
         /// </summary>
         public static string Skills_SkillTrackingDescr {
             get {
@@ -3806,8 +3802,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D4+1 on Attribute Tests related to trading
-        ///(e.g. Persuade).
+        ///   Looks up a localized string similar to +1D4+1 on the Persuade throw when trading..
         /// </summary>
         public static string Skills_SkillTradingDescr {
             get {

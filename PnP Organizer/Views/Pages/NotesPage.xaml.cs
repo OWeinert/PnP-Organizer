@@ -89,9 +89,9 @@ namespace PnP_Organizer.Views.Pages
             if (saveDialog.ShowDialog() == true)
             {
                 TextRange docContent = new(RootTextBox.Document.ContentStart, RootTextBox.Document.ContentEnd);
-                string fileExtension = Path.GetExtension(saveDialog.FileName);
+                var fileExtension = Path.GetExtension(saveDialog.FileName);
 
-                string dataFormat = string.Empty;
+                var dataFormat = string.Empty;
                 switch(fileExtension) {
                     case ".rtf":
                         dataFormat = DataFormats.Rtf;
@@ -105,7 +105,7 @@ namespace PnP_Organizer.Views.Pages
 
                 if (dataFormat != string.Empty && docContent.CanSave(dataFormat))
                 {
-                    using FileStream fs = (FileStream)saveDialog.OpenFile();
+                    using var fs = (FileStream)saveDialog.OpenFile();
                     docContent.Save(fs, dataFormat);
                 }
             }

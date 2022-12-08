@@ -16,20 +16,20 @@ namespace PnP_Organizer.Calculators
             {
                 float damage = baseDamage * baseMultiplier;
 
-                List<CalculatorModifierModel> baseModifiers = modifiers.Where(modifier => modifier.ApplianceMode == ApplianceMode.BaseValue).ToList();
-                foreach(CalculatorModifierModel baseModifier in baseModifiers)
+                var baseModifiers = modifiers.Where(modifier => modifier.ApplianceMode == ApplianceMode.BaseValue).ToList();
+                foreach(var baseModifier in baseModifiers)
                 {
                     baseModifier.ApplyModifier(ref damage);
                 }
 
-                List<CalculatorModifierModel> endModifiers = modifiers.Where(modifier => modifier.ApplianceMode == ApplianceMode.EndValue).ToList();
-                foreach (CalculatorModifierModel endModifier in endModifiers)
+                var endModifiers = modifiers.Where(modifier => modifier.ApplianceMode == ApplianceMode.EndValue).ToList();
+                foreach (var endModifier in endModifiers)
                 {
                     endModifier.ApplyModifier(ref damage);
                 }
 
                 damage *= endMultiplier;
-                int roundedDamage = (int)Math.Round(damage);
+                var roundedDamage = (int)Math.Round(damage);
                 return roundedDamage;
             }
             catch (Exception e)
@@ -45,8 +45,8 @@ namespace PnP_Organizer.Calculators
                 return 1;
 
             Random random = new();
-            int result = 0;
-            for(int i = 0; i < rollCount; i++)
+            var result = 0;
+            for(var i = 0; i < rollCount; i++)
             {
                 result += random.Next(1, dice.MaxValue + 1);
             }
