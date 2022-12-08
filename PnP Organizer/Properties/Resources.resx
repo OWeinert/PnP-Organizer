@@ -640,7 +640,7 @@ Cost: 1 Stamina</value>
   </data>
   <data name="Skills_SkillClimbingDescr" xml:space="preserve">
     <value>+1 on Attribute Tests related to climbing.
-(e.g. Athletics, Acrobatics)</value>
+(Athletics and Acrobatics)</value>
   </data>
   <data name="Skills_SkillCombo" xml:space="preserve">
     <value>Combo</value>
@@ -805,8 +805,7 @@ Cost: 2 Stamina</value>
     <value>Flirting</value>
   </data>
   <data name="Skills_SkillFlirtingDescr" xml:space="preserve">
-    <value>+1D4 on Attribute Tests related to the flirt attempt
-(e.g. Performance, etc.)</value>
+    <value>+1D4 on the Charisma throw when trying to flirt.</value>
   </data>
   <data name="Skills_SkillFourthElemental" xml:space="preserve">
     <value>Fourth Elemental</value>
@@ -832,7 +831,7 @@ Cost: 2 Stamina</value>
   <data name="Skills_SkillGamblingDescr" xml:space="preserve">
     <value>Ability to cheat in Gambling Games.
 +1D4 on Attribute Tests related to the cheating.
-(e.g. Performance, Sleight of Hand, etc.)</value>
+(Performance and Sleight of Hand)</value>
   </data>
   <data name="Skills_SkillHardToKill" xml:space="preserve">
     <value>Hard to Kill</value>
@@ -947,8 +946,7 @@ Cost: 8 Energy</value>
     <value>Lie Detector</value>
   </data>
   <data name="Skills_SkillLieDetectorDescr" xml:space="preserve">
-    <value>+1D6+2 on Attribute Test "Insight"
-when trying to identify a Lie.</value>
+    <value>+1D6+2 on the Insight throw when trying to identify a Lie.</value>
   </data>
   <data name="Skills_SkillLightBlow" xml:space="preserve">
     <value>Light Blow</value>
@@ -1108,8 +1106,7 @@ Cost: 3 Stamina</value>
     <value>Poison Knowledge</value>
   </data>
   <data name="Skills_SkillPoisonKnowledgeDescr" xml:space="preserve">
-    <value>+1D4+1 on Attribute Tests related to the Creation
-and Research of Poisons (e.g. Nature, Sleight of Hand, etc.)</value>
+    <value>+1D4+1 on the Nature throw when creating or identifying a Poison.</value>
   </data>
   <data name="Skills_SkillPreciseThrow" xml:space="preserve">
     <value>Precise Throw</value>
@@ -1277,7 +1274,7 @@ Cost: 1 Stamina</value>
     <value>Smithing</value>
   </data>
   <data name="Skills_SkillSmithingDescr" xml:space="preserve">
-    <value>+1D6+6 on Attribute Tests related to Smithing.</value>
+    <value>+1D6+6 on the Dexterity throw when trying to smith.</value>
   </data>
   <data name="Skills_SkillSneaking" xml:space="preserve">
     <value>Sneaking</value>
@@ -1371,15 +1368,13 @@ Cost: 1 Stamina</value>
     <value>Tracking</value>
   </data>
   <data name="Skills_SkillTrackingDescr" xml:space="preserve">
-    <value>+1D4 on Attribute Tests related to the tracking attempt
-(e.g. Nature, Inspect, etc.)</value>
+    <value>+1D4 on the Nature throw while tracking.</value>
   </data>
   <data name="Skills_SkillTrading" xml:space="preserve">
     <value>Trading</value>
   </data>
   <data name="Skills_SkillTradingDescr" xml:space="preserve">
-    <value>+1D4+1 on Attribute Tests related to trading
-(e.g. Persuade)</value>
+    <value>+1D4+1 on the Persuade throw when trading.</value>
   </data>
   <data name="Skills_SkillTree" xml:space="preserve">
     <value>Skill Tree</value>
