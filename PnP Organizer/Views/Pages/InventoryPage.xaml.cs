@@ -139,7 +139,7 @@ namespace PnP_Organizer.Views.Pages
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
-                var lbi = FindVisualParent<Border>(((DependencyObject)e.OriginalSource));
+                var lbi = Utils.FindVisualParent<Border>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                     DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
             }
@@ -189,19 +189,6 @@ namespace PnP_Organizer.Views.Pages
                     ViewModel.Items?.RemoveAt(removeIndex);
                 }
             }
-        }
-
-        private T? FindVisualParent<T>(DependencyObject child)
-            where T : DependencyObject
-        {
-            if (child is T t)
-                return t;
-            var parentObject = VisualTreeHelper.GetParent(child);
-            if (parentObject == null)
-                return null;
-            if (parentObject is T parent)
-                return parent;
-            return FindVisualParent<T>(parentObject);
         }
 
         #endregion InventoryItem Drag Drop Control
