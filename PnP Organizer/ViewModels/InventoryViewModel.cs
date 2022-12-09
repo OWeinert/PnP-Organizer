@@ -16,14 +16,6 @@ namespace PnP_Organizer.ViewModels
 {
     public partial class InventoryViewModel : ObservableObject
     {
-        private readonly List<InventoryItemType> _itemTypes = new()
-        {
-            new InventoryItemType("Item", SymbolRegular.SurfaceEarbuds24),
-            new InventoryItemType("Weapon", SymbolRegular.Gavel24),
-            new InventoryItemType("Armor", SymbolRegular.Shield24)
-        };
-        public List<InventoryItemType> ItemTypes { get => _itemTypes; }
-
         [ObservableProperty]
         private ICollectionView? _itemsView;
         [ObservableProperty]
@@ -86,17 +78,13 @@ namespace PnP_Organizer.ViewModels
         }
 
         [RelayCommand]
-        private void AddItem(object selectedItemType)
-        {
-            var itemType = (InventoryItemType)selectedItemType;
-            var item = itemType.Name switch
-            {
-                "Weapon" => new InventoryWeaponModel(),
-                "Armor" => new InventoryArmorModel(),
-                _ => new InventoryItemModel(),
-            };
-            Items!.Add(item);
-        }
+        private void AddItem() => Items!.Add(new InventoryItemModel());
+
+        [RelayCommand]
+        private void AddWeapon() => Items!.Add(new InventoryWeaponModel());
+
+        [RelayCommand]
+        private void AddArmor() => Items!.Add(new InventoryArmorModel());
 
         public void SaveCharacterInventory()
         {
@@ -132,18 +120,6 @@ namespace PnP_Organizer.ViewModels
 
             ItemsView = CollectionViewSource.GetDefaultView(Items);
             ItemsView.Filter += ItemsView_Filter;
-        }
-    }
-
-    public struct InventoryItemType
-    {
-        public string Name { get; set; }
-        public SymbolRegular Symbol { get; set; }
-
-        public InventoryItemType(string name, SymbolRegular symbol)
-        {
-            Name = name;
-            Symbol = symbol;
         }
     }
 }
