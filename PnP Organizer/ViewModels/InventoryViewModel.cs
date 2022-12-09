@@ -1,27 +1,28 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Data;
+using Wpf.Ui.Common;
 
 namespace PnP_Organizer.ViewModels
 {
-    // TODO InventoryViewModel: Implement Searchable Items
     public partial class InventoryViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
-
         [ObservableProperty]
         private ICollectionView? _itemsView;
-
         [ObservableProperty]
         private ObservableCollection<InventoryItemModel>? _items;
-
         [ObservableProperty]
         private string _searchBarText = string.Empty;
+
+        private bool _isInitialized = false;
 
         public InventoryViewModel()
         {
@@ -75,6 +76,15 @@ namespace PnP_Organizer.ViewModels
             }
         }
 
+        [RelayCommand]
+        private void AddItem() => Items!.Add(new InventoryItemModel());
+
+        [RelayCommand]
+        private void AddWeapon() => Items!.Add(new InventoryWeaponModel());
+
+        [RelayCommand]
+        private void AddArmor() => Items!.Add(new InventoryArmorModel());
+
         public void SaveCharacterInventory()
         {
             if(_isInitialized)
@@ -87,13 +97,27 @@ namespace PnP_Organizer.ViewModels
 
         public void LoadCharacterInventory()
         {
+            var itemModels = new ObservableCollection<InventoryItemModel>();
             if(FileIO.LoadedCharacter.Inventory.Count > 0)
                 Items?.Clear(); // Clear inventory first if the character has saved items to remove
                                 // the default empty item
             ObservableCollection<InventoryItemModel> itemModels = new();
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
-                itemModels.Add(new InventoryItemModel(item));
+                foreach (var property in item.GetType().GetProperties())
+                {
+                    Debug.WriteLine($"{property.Name}: {property.GetValue(item)}");
+                }
+
+                InventoryItemModel? model;
+                if (item is InventoryWeapon)
+                    model = new InventoryWeaponModel((InventoryWeapon)item);
+                else if (item is InventoryArmor)
+                    model = new InventoryArmorModel((InventoryArmor)item);
+                else
+                    model = new InventoryItemModel(item);
+
+                itemModels.Add(model);
             }
             Items = itemModels;
 

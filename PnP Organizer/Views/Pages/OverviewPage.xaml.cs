@@ -6,8 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Controls.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.Views.Pages
 {

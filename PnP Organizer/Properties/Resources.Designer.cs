@@ -799,6 +799,95 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Armor.
+        /// </summary>
+        public static string Inventory_Armor {
+            get {
+                return ResourceManager.GetString("Inventory_Armor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Armorpen.
+        /// </summary>
+        public static string Inventory_Armorpen {
+            get {
+                return ResourceManager.GetString("Inventory_Armorpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Armor: .
+        /// </summary>
+        public static string Inventory_ArmorWColon {
+            get {
+                return ResourceManager.GetString("Inventory_ArmorWColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Damage.
+        /// </summary>
+        public static string Inventory_Damage {
+            get {
+                return ResourceManager.GetString("Inventory_Damage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hit Bonus.
+        /// </summary>
+        public static string Inventory_HitBonus {
+            get {
+                return ResourceManager.GetString("Inventory_HitBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item.
+        /// </summary>
+        public static string Inventory_Item {
+            get {
+                return ResourceManager.GetString("Inventory_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loudness.
+        /// </summary>
+        public static string Inventory_Loudness {
+            get {
+                return ResourceManager.GetString("Inventory_Loudness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Melee.
+        /// </summary>
+        public static string Inventory_Melee {
+            get {
+                return ResourceManager.GetString("Inventory_Melee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parry Bonus.
+        /// </summary>
+        public static string Inventory_ParryBonus {
+            get {
+                return ResourceManager.GetString("Inventory_ParryBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parry Bonus: .
+        /// </summary>
+        public static string Inventory_ParryBonusWColon {
+            get {
+                return ResourceManager.GetString("Inventory_ParryBonusWColon", resourceCulture);
+            }
+        }
+        
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Inventory_PlaceholderDescription {
@@ -817,6 +906,24 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Put-On-Time.
+        /// </summary>
+        public static string Inventory_PutOnTime {
+            get {
+                return ResourceManager.GetString("Inventory_PutOnTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranged.
+        /// </summary>
+        public static string Inventory_Ranged {
+            get {
+                return ResourceManager.GetString("Inventory_Ranged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Item....
         /// </summary>
         public static string Inventory_SearchItemPlaceholder {
@@ -826,11 +933,38 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shield.
+        /// </summary>
+        public static string Inventory_Shield {
+            get {
+                return ResourceManager.GetString("Inventory_Shield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Armor.
+        /// </summary>
+        public static string Inventory_TooltipAddArmor {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddArmor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Item.
         /// </summary>
         public static string Inventory_TooltipAddItem {
             get {
                 return ResourceManager.GetString("Inventory_TooltipAddItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Weapon.
+        /// </summary>
+        public static string Inventory_TooltipAddWeapon {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddWeapon", resourceCulture);
             }
         }
         
@@ -858,6 +992,42 @@ namespace PnP_Organizer.Properties {
         public static string Inventory_TooltipDeleteItem {
             get {
                 return ResourceManager.GetString("Inventory_TooltipDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dual-Wield.
+        /// </summary>
+        public static string Inventory_TwoHanded {
+            get {
+                return ResourceManager.GetString("Inventory_TwoHanded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weapon.
+        /// </summary>
+        public static string Inventory_Weapon {
+            get {
+                return ResourceManager.GetString("Inventory_Weapon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Inventory_WeaponType {
+            get {
+                return ResourceManager.GetString("Inventory_WeaponType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        public static string Inventory_Weight {
+            get {
+                return ResourceManager.GetString("Inventory_Weight", resourceCulture);
             }
         }
         
