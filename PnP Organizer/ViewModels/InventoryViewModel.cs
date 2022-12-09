@@ -101,7 +101,6 @@ namespace PnP_Organizer.ViewModels
             if(FileIO.LoadedCharacter.Inventory.Count > 0)
                 Items?.Clear(); // Clear inventory first if the character has saved items to remove
                                 // the default empty item
-            ObservableCollection<InventoryItemModel> itemModels = new();
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
                 foreach (var property in item.GetType().GetProperties())
