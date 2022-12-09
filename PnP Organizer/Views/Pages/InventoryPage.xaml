@@ -312,8 +312,6 @@
                                                     </ui:DynamicScrollViewer>
                                                 </Grid>
                                                 <!-- Name/Description Input Fields -->
-                                                
-
 
                                                 <!-- Toolbar -->
                                                 <Grid Margin="4,0,1,2">
@@ -568,6 +566,7 @@
                                                    Foreground="{Binding Foreground}"/>
                                 </Viewbox>
 
+                                <!-- Edit Popup -->
                                 <Popup x:Name="EditPopup"
                                        Placement="Left"
                                        PlacementTarget="{Binding ElementName=EditButton}"
@@ -578,7 +577,7 @@
                                        VerticalOffset="-9">
                                     <Border Width="254"
                                                 MinHeight="90"
-                                                Background="{DynamicResource PalettePrimaryBrush}"
+                                                Background="{DynamicResource PaletteIndigoBrush}"
                                                 BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
                                                 BorderThickness="1"
                                                 CornerRadius="6">
@@ -996,7 +995,7 @@
                                     </Grid>
                                 </StackPanel>
 
-                                <!-- Weapon Stats -->
+                                <!-- Armor Stats -->
                                 <Grid Grid.Row="1"
                                       Margin="0,4,0,0">
 
@@ -1085,7 +1084,8 @@
                                     <ui:SymbolIcon Symbol="Shield20"
                                                    Foreground="{Binding Foreground}"/>
                                 </Viewbox>
-
+                                
+                                <!-- Edit Popup -->
                                 <Popup x:Name="EditPopup"
                                        Placement="Left"
                                        PlacementTarget="{Binding ElementName=EditButton}"
@@ -1096,7 +1096,7 @@
                                        VerticalOffset="-9">
                                     <Border Width="254"
                                                 MinHeight="90"
-                                                Background="{DynamicResource PalettePrimaryBrush}"
+                                                Background="{DynamicResource PaletteBrownBrush}"
                                                 BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
                                                 BorderThickness="1"
                                                 CornerRadius="6">
@@ -1278,8 +1278,8 @@
                                                                           BorderThickness="0"
                                                                           Value="{Binding Loudness, Mode=TwoWay}"
                                                                           Text="{Binding Loudness, Mode=TwoWay, Converter={StaticResource StringToFloatConverter}}"
-                                                                          IntegersOnly="True"
-                                                                          Step="1"
+                                                                          DecimalPlaces="1"
+                                                                          Step="0.5"
                                                                           Min="0"
                                                                           Max="100"
                                                                           SpinButtonsEnabled="False"
