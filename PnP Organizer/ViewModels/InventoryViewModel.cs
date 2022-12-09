@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -99,6 +98,10 @@ namespace PnP_Organizer.ViewModels
         public void LoadCharacterInventory()
         {
             var itemModels = new ObservableCollection<InventoryItemModel>();
+            if(FileIO.LoadedCharacter.Inventory.Count > 0)
+                Items?.Clear(); // Clear inventory first if the character has saved items to remove
+                                // the default empty item
+            ObservableCollection<InventoryItemModel> itemModels = new();
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
                 foreach (var property in item.GetType().GetProperties())

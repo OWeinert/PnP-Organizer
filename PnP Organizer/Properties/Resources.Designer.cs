@@ -888,7 +888,6 @@ namespace PnP_Organizer.Properties {
             }
         }
         
-        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Inventory_PlaceholderDescription {

@@ -94,7 +94,6 @@ namespace PnP_Organizer.Views.Pages
                 if(((string)dialog.Tag) == "clearItem")
                 {
                     var index = ViewModel.Items!.IndexOf(inventoryItem);
-
                     if (index < 0 || index > ViewModel.Items.Count - 1)
                         return;
 
@@ -159,7 +158,6 @@ namespace PnP_Organizer.Views.Pages
 
                 var sourceIndex = InventoryItemsControl.Items.IndexOf(source);
                 var targetIndex = InventoryItemsControl.Items.IndexOf(target);
-
                 if (sourceIndex == targetIndex)
                     return;
 
