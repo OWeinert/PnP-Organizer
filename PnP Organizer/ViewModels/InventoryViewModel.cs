@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;

@@ -9,6 +9,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
     xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
+    xmlns:sel="clr-namespace:PnP_Organizer.Helpers.Selectors"
     xmlns:controls="clr-namespace:PnP_Organizer.Controls"
     xmlns:vm="clr-namespace:PnP_Organizer.ViewModels"
     xmlns:m="clr-namespace:PnP_Organizer.Models"
@@ -20,11 +21,11 @@
     mc:Ignorable="d">
 
     <ui:UiPage.Resources>
-        <helpers:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
-        <helpers:InventoryItemModelTemplateSelector x:Key="InventoryItemModelTemplateSelector"/>
-        <helpers:BooleanAttackModeConverter x:Key="BooleanAttackModeConverter"/>
-        <helpers:StringToIntConverter x:Key="StringToIntConverter"/>
-        <helpers:StringToFloatConverter x:Key="StringToFloatConverter"/>
+        <conv:BooleanInvertConverter x:Key="BooleanInvertConverter"/>
+        <sel:InventoryItemModelTemplateSelector x:Key="InventoryItemModelTemplateSelector"/>
+        <conv:BooleanAttackModeConverter x:Key="BooleanAttackModeConverter"/>
+        <conv:StringToIntConverter x:Key="StringToIntConverter"/>
+        <conv:StringToFloatConverter x:Key="StringToFloatConverter"/>
     </ui:UiPage.Resources>
     
     

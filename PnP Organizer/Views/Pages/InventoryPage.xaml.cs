@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using PnP_Organizer.Controls;
+using PnP_Organizer.Core;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using System;
@@ -150,7 +151,7 @@ namespace PnP_Organizer.Views.Pages
         {
             if (sender is Border itemBorder)
             {
-                InventoryItemModel source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
+                var source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
                 source ??= (InventoryWeaponModel)e.Data.GetData(typeof(InventoryWeaponModel));    // If source is null at this point, try getting data for an InventoryWeaponModel
                 source ??= (InventoryArmorModel)e.Data.GetData(typeof(InventoryArmorModel));  // If source is still null, try getting data for an InventoryArmorModel
 
@@ -212,7 +213,7 @@ namespace PnP_Organizer.Views.Pages
         //TODO NumBox_MouseWheel move to static function 2/2
         private void NumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            NumberBox numBox = (NumberBox)sender;
+            var numBox = (NumberBox)sender;
 
             if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
                 return;
