@@ -10,7 +10,6 @@ namespace PnP_Organizer.Helpers.Converters
     /// </summary>
     public class BooleanAttackModeConverter : IValueConverter
     {
-        public BooleanAttackModeConverter() { }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
