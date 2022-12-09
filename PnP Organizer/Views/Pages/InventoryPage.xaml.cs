@@ -220,9 +220,5 @@ namespace PnP_Organizer.Views.Pages
 
             numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
         }
-
-        private void AddItemPopup_Closed(object sender, EventArgs e) => ItemTypeSelector.SelectedIndex = 0;
-
-        private void AddItemButton_Click(object sender, RoutedEventArgs e) => AddItemPopup.IsOpen = false;
     }
 }
