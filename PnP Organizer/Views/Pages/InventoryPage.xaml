@@ -231,8 +231,8 @@
                                            StaysOpen="False"
                                            HorizontalOffset="1"
                                            VerticalOffset="-9">
-                                        <Border Width="254"
-                                                MinHeight="90"
+                                        <Border Width="250"
+                                                MinHeight="160"
                                                 Background="{DynamicResource PalettePrimaryBrush}"
                                                 BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
                                                 BorderThickness="1"
@@ -312,7 +312,6 @@
                                                                     ScrollViewer.VerticalScrollBarVisibility="Visible"/>
                                                     </ui:DynamicScrollViewer>
                                                 </Grid>
-                                                <!-- Name/Description Input Fields -->
 
                                                 <!-- Toolbar -->
                                                 <Grid Margin="4,0,1,2">
@@ -576,7 +575,7 @@
                                        StaysOpen="False"
                                        HorizontalOffset="1"
                                        VerticalOffset="-9">
-                                    <Border Width="254"
+                                    <Border Width="250"
                                                 MinHeight="90"
                                                 Background="{DynamicResource PaletteIndigoBrush}"
                                                 BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
@@ -1095,7 +1094,7 @@
                                        StaysOpen="False"
                                        HorizontalOffset="1"
                                        VerticalOffset="-9">
-                                    <Border Width="254"
+                                    <Border Width="250"
                                                 MinHeight="90"
                                                 Background="{DynamicResource PaletteBrownBrush}"
                                                 BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
