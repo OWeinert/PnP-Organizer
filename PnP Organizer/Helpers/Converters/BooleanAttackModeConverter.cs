@@ -15,20 +15,17 @@ namespace PnP_Organizer.Helpers.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not AttackMode)
-                throw new ArgumentException();
+                throw new ArgumentException("", nameof(value));
 
-            var aValue = (AttackMode)value;
-            return aValue == AttackMode.Ranged;
+            return (AttackMode)value == AttackMode.Ranged;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not bool)
-                throw new ArgumentException();
+                throw new ArgumentException("", nameof(value));
 
-            var bValue = (bool)value;
-            return bValue ? AttackMode.Ranged : AttackMode.Melee;
-            
+            return (bool)value ? AttackMode.Ranged : AttackMode.Melee;
         }
     }
 }
