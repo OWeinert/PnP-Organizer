@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Core.Calculators;
 using PnP_Organizer.Core.Character.Inventory;
 using System.Windows;
 using System.Windows.Media;
