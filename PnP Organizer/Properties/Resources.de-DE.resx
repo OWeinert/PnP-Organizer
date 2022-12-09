@@ -1487,4 +1487,10 @@ Kosten: 3 Ausdauer</value>
   <data name="Inventory_ParryBonusWColon" xml:space="preserve">
     <value>Paradebonus: </value>
   </data>
+  <data name="Inventory_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Inventory_Weapon" xml:space="preserve">
+    <value>Waffe</value>
+  </data>
 </root>
