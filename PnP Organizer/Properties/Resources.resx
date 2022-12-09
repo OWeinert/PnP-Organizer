@@ -378,6 +378,9 @@
   <data name="Inventory_HitBonus" xml:space="preserve">
     <value>Hit Bonus</value>
   </data>
+  <data name="Inventory_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
   <data name="Inventory_Loudness" xml:space="preserve">
     <value>Loudness</value>
   </data>
@@ -428,6 +431,9 @@
   </data>
   <data name="Inventory_TwoHanded" xml:space="preserve">
     <value>Dual-Wield</value>
+  </data>
+  <data name="Inventory_Weapon" xml:space="preserve">
+    <value>Weapon</value>
   </data>
   <data name="Inventory_WeaponType" xml:space="preserve">
     <value>Type</value>

@@ -363,7 +363,7 @@
                                     <Viewbox Width="18"
                                              VerticalAlignment="Bottom"
                                              HorizontalAlignment="Right"
-                                             ToolTip="Item"
+                                             ToolTip="{x:Static p:Resources.Inventory_Item}"
                                              ToolTipService.InitialShowDelay="400">
                                         <ui:SymbolIcon Symbol="SurfaceEarbuds20"
                                                        Foreground="{Binding Foreground}"/>
@@ -570,7 +570,7 @@
                                          VerticalAlignment="Bottom"
                                          HorizontalAlignment="Right"
                                          Margin="0,0,8,6"
-                                         ToolTip="Item"
+                                         ToolTip="{x:Static p:Resources.Inventory_Weapon}"
                                          ToolTipService.InitialShowDelay="400">
                                     <ui:SymbolIcon Symbol="Gavel20"
                                                    Foreground="{Binding Foreground}"/>
@@ -1092,7 +1092,7 @@
                                          VerticalAlignment="Bottom"
                                          HorizontalAlignment="Right"
                                          Margin="0,0,8,6"
-                                         ToolTip="Item"
+                                         ToolTip="{x:Static p:Resources.Inventory_Armor}"
                                          ToolTipService.InitialShowDelay="400">
                                     <ui:SymbolIcon Symbol="Shield20"
                                                    Foreground="{Binding Foreground}"/>

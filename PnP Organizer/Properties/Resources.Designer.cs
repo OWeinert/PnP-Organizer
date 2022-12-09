@@ -844,6 +844,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item.
+        /// </summary>
+        public static string Inventory_Item {
+            get {
+                return ResourceManager.GetString("Inventory_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loudness.
         /// </summary>
         public static string Inventory_Loudness {
@@ -993,6 +1002,15 @@ namespace PnP_Organizer.Properties {
         public static string Inventory_TwoHanded {
             get {
                 return ResourceManager.GetString("Inventory_TwoHanded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weapon.
+        /// </summary>
+        public static string Inventory_Weapon {
+            get {
+                return ResourceManager.GetString("Inventory_Weapon", resourceCulture);
             }
         }
         
