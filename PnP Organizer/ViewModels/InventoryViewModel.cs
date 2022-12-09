@@ -89,7 +89,7 @@ namespace PnP_Organizer.ViewModels
         private void AddItem(object selectedItemType)
         {
             var itemType = (InventoryItemType)selectedItemType;
-            InventoryItemModel? item = itemType.Name switch
+            var item = itemType.Name switch
             {
                 "Weapon" => new InventoryWeaponModel(),
                 "Armor" => new InventoryArmorModel(),
