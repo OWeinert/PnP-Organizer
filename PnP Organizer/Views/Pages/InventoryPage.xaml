@@ -48,56 +48,60 @@
                     Margin="0,-62,0,0"/>
 
         <StackPanel Grid.Column="0">
-            <ToggleButton  x:Name="AddItemButton"
-                           VerticalAlignment="Top"
-                           Width="48"
-                           Height="48"
-                           ToolTip="{x:Static p:Resources.Inventory_TooltipAddItem}"
-                           IsHitTestVisible="{Binding IsOpen, ElementName=AddItemPopup, Converter={StaticResource BooleanInvertConverter}}"
-                           Margin="0,8">
-                <Viewbox MaxHeight="28" MaxWidth="28">
-                    <ui:SymbolIcon Symbol="BackpackAdd24"/>
-                </Viewbox>
-            </ToggleButton>
-            <Popup x:Name="AddItemPopup"
-                   Placement="Right"
-                   IsOpen="{Binding Path=IsChecked, ElementName=AddItemButton}"
-                   AllowsTransparency="True"
-                   VerticalOffset="8"
-                   HorizontalOffset="-1"
-                   StaysOpen="False"
-                   Closed="AddItemPopup_Closed">
-                <Border Width="154"
-                        Background="{DynamicResource PalettePrimaryBrush}"
-                        BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
-                        BorderThickness="1"
-                        CornerRadius="6">
-                    <StackPanel>
-                        <ComboBox x:Name="ItemTypeSelector"
-                                  ItemsSource="{Binding ViewModel.ItemTypes}"
-                                  Margin="8"
-                                  SelectedIndex="0">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type vm:InventoryItemType}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:SymbolIcon Symbol="{Binding Symbol}"/>
-                                        <TextBlock Text="{Binding Name}"
-                                                   Margin="4,0,0,0"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        
-                        <Button HorizontalAlignment="Stretch"
-                                Height="36"
-                                Content="Create"
-                                Margin="8,0,8,8"
-                                Command="{Binding ViewModel.AddItemCommand}"
-                                CommandParameter="{Binding SelectedItem, ElementName=ItemTypeSelector}"
-                                Click="AddItemButton_Click"/>
-                    </StackPanel>
-                </Border>
-            </Popup>
+            <Button  x:Name="AddItemButton"
+                     VerticalAlignment="Top"
+                     Width="48"
+                     Height="48"
+                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddItem}"
+                     Margin="0,8"
+                     Padding="0"
+                     Command="{Binding ViewModel.AddItemCommand}">
+                <Grid>
+                    <Viewbox Width="26">
+                        <ui:SymbolIcon Symbol="SurfaceEarbuds24"/>
+                    </Viewbox>
+                    <Viewbox Width="16"
+                             Margin="0,0,-24,-24">
+                        <ui:SymbolIcon Symbol="AddCircle16" Filled="True"/>
+                    </Viewbox>
+                </Grid>
+            </Button>
+            <Button  x:Name="AddWeaponButton"
+                     VerticalAlignment="Top"
+                     Width="48"
+                     Height="48"
+                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddWeapon}"
+                     Margin="0,8"
+                     Padding="0"
+                     Command="{Binding ViewModel.AddWeaponCommand}">
+                <Grid>
+                    <Viewbox Width="26">
+                        <ui:SymbolIcon Symbol="Gavel24"/>
+                    </Viewbox>
+                    <Viewbox Width="16"
+                             Margin="0,0,-24,-24">
+                        <ui:SymbolIcon Symbol="AddCircle16" Filled="True"/>
+                    </Viewbox>
+                </Grid>
+            </Button>
+            <Button  x:Name="AddArmorButton"
+                     VerticalAlignment="Top"
+                     Width="48"
+                     Height="48"
+                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddArmor}"
+                     Margin="0,8"
+                     Padding="0"
+                     Command="{Binding ViewModel.AddArmorCommand}">
+                <Grid>
+                    <Viewbox Width="26">
+                        <ui:SymbolIcon Symbol="Shield24"/>
+                    </Viewbox>
+                    <Viewbox Width="16"
+                             Margin="0,0,-24,-24">
+                        <ui:SymbolIcon Symbol="AddCircle16" Filled="True"/>
+                    </Viewbox>
+                </Grid>
+            </Button>
         </StackPanel>
         
         <Border Grid.Column="1"
