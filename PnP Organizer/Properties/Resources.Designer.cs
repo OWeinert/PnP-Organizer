@@ -826,11 +826,29 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Armor.
+        /// </summary>
+        public static string Inventory_TooltipAddArmor {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddArmor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Item.
         /// </summary>
         public static string Inventory_TooltipAddItem {
             get {
                 return ResourceManager.GetString("Inventory_TooltipAddItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Weapon.
+        /// </summary>
+        public static string Inventory_TooltipAddWeapon {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddWeapon", resourceCulture);
             }
         }
         

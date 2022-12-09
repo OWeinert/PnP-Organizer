@@ -1436,4 +1436,10 @@ Kosten: 3 Ausdauer</value>
   <data name="Dialog_UpdateTitle" xml:space="preserve">
     <value>Update verfügbar</value>
   </data>
+  <data name="Inventory_TooltipAddArmor" xml:space="preserve">
+    <value>Rüstung hinzufügen</value>
+  </data>
+  <data name="Inventory_TooltipAddWeapon" xml:space="preserve">
+    <value>Waffe hinzufügen</value>
+  </data>
 </root>

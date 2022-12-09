@@ -372,8 +372,14 @@
   <data name="Inventory_SearchItemPlaceholder" xml:space="preserve">
     <value>Search Item...</value>
   </data>
+  <data name="Inventory_TooltipAddArmor" xml:space="preserve">
+    <value>Add Armor</value>
+  </data>
   <data name="Inventory_TooltipAddItem" xml:space="preserve">
     <value>Add Item</value>
+  </data>
+  <data name="Inventory_TooltipAddWeapon" xml:space="preserve">
+    <value>Add Weapon</value>
   </data>
   <data name="Inventory_TooltipChangeColor" xml:space="preserve">
     <value>Change Color</value>
