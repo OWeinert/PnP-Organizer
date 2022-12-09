@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -168,7 +169,7 @@ namespace PnP_Organizer.ViewModels
             var skill = (SkillModel)item;
 
             // Filter by SearchBox text
-            if((skill.Name.Contains(SearchBoxText) || string.IsNullOrEmpty(SearchBoxText)))
+            if((skill.Name.Contains(SearchBoxText, StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(SearchBoxText)))
             {
                 // Filter by Skillability
                 var skillability = SelectedSkillableFilter.SkillableType switch

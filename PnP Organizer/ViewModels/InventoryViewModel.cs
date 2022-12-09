@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -61,7 +62,7 @@ namespace PnP_Organizer.ViewModels
         private bool ItemsView_Filter(object obj)
         {
             var item = (InventoryItemModel)obj;
-            return string.IsNullOrWhiteSpace(SearchBarText) || item.Name.Contains(SearchBarText) || item.Description.Contains(SearchBarText);
+            return string.IsNullOrWhiteSpace(SearchBarText) || item.Name.Contains(SearchBarText, StringComparison.OrdinalIgnoreCase) || item.Description.Contains(SearchBarText, StringComparison.OrdinalIgnoreCase);
         }
 
         private void OnInventoryChanged(object? sender, NotifyCollectionChangedEventArgs e)
