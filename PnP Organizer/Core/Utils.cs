@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
@@ -115,5 +117,21 @@ namespace PnP_Organizer.Core
             return color;
         }
         #endregion Color
+
+        #region Controls
+        public static T? FindVisualParent<T>(DependencyObject child)
+            where T : DependencyObject
+        {
+            if (child is T t)
+                return t;
+            var parentObject = VisualTreeHelper.GetParent(child);
+            if (parentObject == null)
+                return null;
+            if (parentObject is T parent)
+                return parent;
+            return FindVisualParent<T>(parentObject);
+        }
+
+        #endregion Controls
     }
 }
