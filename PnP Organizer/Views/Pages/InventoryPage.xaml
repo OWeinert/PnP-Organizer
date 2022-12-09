@@ -25,6 +25,7 @@
         <conv:BooleanAttackModeConverter x:Key="BooleanAttackModeConverter"/>
         <conv:StringToIntConverter x:Key="StringToIntConverter"/>
         <conv:StringToFloatConverter x:Key="StringToFloatConverter"/>
+        <conv:NullToVisibilityConverter x:Key="ObjectNotNullConverter"/>
     </ui:UiPage.Resources>
     
     
@@ -152,7 +153,8 @@
                                     <Grid>
                                         <Viewbox Width="28">
                                             <ui:SymbolIcon Symbol="Question28"
-                                                           Foreground="{Binding Foreground}"/>
+                                                           Foreground="{Binding Foreground}"
+                                                           Visibility="{Binding ItemImage, Converter={StaticResource ObjectNotNullConverter}}"/>
                                         </Viewbox>
                                         <Image HorizontalAlignment="Stretch"
                                                VerticalAlignment="Stretch"
@@ -406,7 +408,8 @@
                                         <Grid>
                                             <Viewbox Width="28">
                                                 <ui:SymbolIcon Symbol="Question28"
-                                                               Foreground="{Binding Foreground}"/>
+                                                               Foreground="{Binding Foreground}"
+                                                               Visibility="{Binding ItemImage, Converter={StaticResource ObjectNotNullConverter}}"/>
                                             </Viewbox>
                                             <Image HorizontalAlignment="Stretch"
                                                    VerticalAlignment="Stretch"
@@ -940,7 +943,8 @@
                                         <Grid>
                                             <Viewbox Width="28">
                                                 <ui:SymbolIcon Symbol="Question28"
-                                                               Foreground="{Binding Foreground}"/>
+                                                               Foreground="{Binding Foreground}"
+                                                               Visibility="{Binding ItemImage, Converter={StaticResource ObjectNotNullConverter}}"/>
                                             </Viewbox>
                                             <Image HorizontalAlignment="Stretch"
                                                    VerticalAlignment="Stretch"
