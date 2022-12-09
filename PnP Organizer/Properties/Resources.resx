@@ -363,14 +363,50 @@
   <data name="Dialog_UpdateTitle" xml:space="preserve">
     <value>Update Available</value>
   </data>
+  <data name="Inventory_Armor" xml:space="preserve">
+    <value>Armor</value>
+  </data>
+  <data name="Inventory_Armorpen" xml:space="preserve">
+    <value>Armorpen</value>
+  </data>
+  <data name="Inventory_ArmorWColon" xml:space="preserve">
+    <value>Armor: </value>
+  </data>
+  <data name="Inventory_Damage" xml:space="preserve">
+    <value>Damage</value>
+  </data>
+  <data name="Inventory_HitBonus" xml:space="preserve">
+    <value>Hit Bonus</value>
+  </data>
+  <data name="Inventory_Loudness" xml:space="preserve">
+    <value>Loudness</value>
+  </data>
+  <data name="Inventory_Melee" xml:space="preserve">
+    <value>Melee</value>
+  </data>
+  <data name="Inventory_ParryBonus" xml:space="preserve">
+    <value>Parry Bonus</value>
+  </data>
+  <data name="Inventory_ParryBonusWColon" xml:space="preserve">
+    <value>Parry Bonus: </value>
+  </data>
   <data name="Inventory_PlaceholderDescription" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Inventory_PlaceholderName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Inventory_PutOnTime" xml:space="preserve">
+    <value>Put-On-Time</value>
+  </data>
+  <data name="Inventory_Ranged" xml:space="preserve">
+    <value>Ranged</value>
+  </data>
   <data name="Inventory_SearchItemPlaceholder" xml:space="preserve">
     <value>Search Item...</value>
+  </data>
+  <data name="Inventory_Shield" xml:space="preserve">
+    <value>Shield</value>
   </data>
   <data name="Inventory_TooltipAddArmor" xml:space="preserve">
     <value>Add Armor</value>
@@ -389,6 +425,15 @@
   </data>
   <data name="Inventory_TooltipDeleteItem" xml:space="preserve">
     <value>Delete Item</value>
+  </data>
+  <data name="Inventory_TwoHanded" xml:space="preserve">
+    <value>Dual-Wield</value>
+  </data>
+  <data name="Inventory_WeaponType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Inventory_Weight" xml:space="preserve">
+    <value>Weight</value>
   </data>
   <data name="Overview_Age" xml:space="preserve">
     <value>Age</value>

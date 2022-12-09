@@ -1442,4 +1442,49 @@ Kosten: 3 Ausdauer</value>
   <data name="Inventory_TooltipAddWeapon" xml:space="preserve">
     <value>Waffe hinzufügen</value>
   </data>
+  <data name="Inventory_ParryBonus" xml:space="preserve">
+    <value>Paradebonus</value>
+  </data>
+  <data name="Inventory_Armor" xml:space="preserve">
+    <value>Rüstung</value>
+  </data>
+  <data name="Inventory_Armorpen" xml:space="preserve">
+    <value>Armorpen</value>
+  </data>
+  <data name="Inventory_Damage" xml:space="preserve">
+    <value>Schaden</value>
+  </data>
+  <data name="Inventory_HitBonus" xml:space="preserve">
+    <value>Trf.-Bonus</value>
+  </data>
+  <data name="Inventory_Loudness" xml:space="preserve">
+    <value>Lautstärke</value>
+  </data>
+  <data name="Inventory_Melee" xml:space="preserve">
+    <value>Nahkpf.</value>
+  </data>
+  <data name="Inventory_PutOnTime" xml:space="preserve">
+    <value>Ankleidezeit</value>
+  </data>
+  <data name="Inventory_Ranged" xml:space="preserve">
+    <value>Fernkpf.</value>
+  </data>
+  <data name="Inventory_TwoHanded" xml:space="preserve">
+    <value>Zweihändig</value>
+  </data>
+  <data name="Inventory_Weight" xml:space="preserve">
+    <value>Gewicht</value>
+  </data>
+  <data name="Inventory_Shield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="Inventory_WeaponType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Inventory_ArmorWColon" xml:space="preserve">
+    <value>Rüstung: </value>
+  </data>
+  <data name="Inventory_ParryBonusWColon" xml:space="preserve">
+    <value>Paradebonus: </value>
+  </data>
 </root>

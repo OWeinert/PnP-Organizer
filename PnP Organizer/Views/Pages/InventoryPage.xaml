@@ -488,18 +488,18 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="Type: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_WeaponType}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
-                                            <Label Content="Damage: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Damage}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
-                                            <Label Content="Armorpen: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Armorpen}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
-                                            <Label Content="Hit Bonus: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_HitBonus}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1">
-                                            <Label Content="{Binding AttackMode}"
+                                            <Label Content="{Binding AttackMode, Converter={StaticResource AttackModeLocalizationConverter}}"
                                                    FontWeight="SemiBold"/>
                                             <StackPanel Orientation="Horizontal">
                                                 <Label Content="{Binding DiceRollCount}"
@@ -531,9 +531,9 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="Weight: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Weight}, Converter={StaticResource StringAddColonConverter}}"
                                                    HorizontalAlignment="Right"/>
-                                            <Label Content="Dual-Wield: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_TwoHanded}, Converter={StaticResource StringAddColonConverter}}"
                                                    HorizontalAlignment="Right"/>
                                         </StackPanel>
 
@@ -740,21 +740,21 @@
                                                             Orientation="Horizontal"
                                                             HorizontalAlignment="Left"
                                                             Margin="0,0,8,0">
-                                                    <Label Content="Melee"
+                                                    <Label Content="{x:Static p:Resources.Inventory_Melee}"
                                                            FontSize="14"
                                                            FontWeight="SemiBold"/>
                                                     <ui:ToggleSwitch Margin="8,0"
                                                                      IsChecked="{Binding AttackMode, Converter={StaticResource BooleanAttackModeConverter}, Mode=TwoWay}"/>
-                                                    <Label Content="Ranged"
+                                                    <Label Content="{x:Static p:Resources.Inventory_Ranged}"
                                                            FontSize="14"
                                                            FontWeight="SemiBold"/>
                                                 </StackPanel>
 
                                                 <Label Grid.Row="1"
-                                                       Content="Damage: "
+                                                       Content="{x:Static p:Resources.Inventory_Damage}"
                                                        FontSize="14"
                                                        FontWeight="SemiBold"
-                                                       Margin="1,8"/>
+                                                       Margin="1,8,1,4"/>
 
                                                 <StackPanel Grid.Row="1"
                                                             Orientation="Horizontal"
@@ -820,10 +820,10 @@
                                                     <StackPanel Orientation="Horizontal">
                                                         <StackPanel>
                                                             <Label Grid.Row="1"
-                                                                   Content="Armorpen: "
+                                                                   Content="{x:Static p:Resources.Inventory_Armorpen}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
-                                                                   Margin="1,8"/>
+                                                                   Margin="1,8,1,4"/>
                                                             <ui:NumberBox x:Name="ArmorpenNumBox"
                                                                           HorizontalAlignment="Left"
                                                                           MinWidth="45"
@@ -842,10 +842,10 @@
 
                                                         <StackPanel Margin="16,1,0,0">
                                                             <Label Grid.Row="1"
-                                                                   Content="Hit Bonus: "
+                                                                   Content="{x:Static p:Resources.Inventory_HitBonus}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
-                                                                   Margin="1,8"/>
+                                                                   Margin="1,8,1,4"/>
                                                             <ui:NumberBox x:Name="HitBonusNumBox"
                                                                           HorizontalAlignment="Left"
                                                                           MinWidth="45"
@@ -866,10 +866,10 @@
                                                     <StackPanel Orientation="Horizontal">
                                                         <StackPanel>
                                                             <Label Grid.Row="1"
-                                                                   Content="Weight: "
+                                                                   Content="{x:Static p:Resources.Inventory_Weight}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
-                                                                   Margin="1,8"/>
+                                                                   Margin="1,8,1,4"/>
                                                             <ui:NumberBox x:Name="WeightNumBox"
                                                                           HorizontalAlignment="Left"
                                                                           ClearButtonEnabled="False"
@@ -887,10 +887,10 @@
 
                                                         <StackPanel Margin="34,0,0,0">
                                                             <Label Grid.Row="1"
-                                                                   Content="Dual-Wield: "
+                                                                   Content="{x:Static p:Resources.Inventory_TwoHanded}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
-                                                                   Margin="1,8"/>
+                                                                   Margin="1,8,1,4"/>
                                                             <ui:ToggleSwitch Margin="0,8,0,0"
                                                                              IsChecked="{Binding IsTwoHanded, Mode=TwoWay}"/>
                                                         </StackPanel>
@@ -1023,11 +1023,12 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="Armor: "
+                                            <Label Content="{Binding IsShield, Converter={StaticResource IsShieldToLocalizationConverter}}"
+                                               HorizontalAlignment="Right">
+                                            </Label>
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Loudness}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
-                                            <Label Content="Loudness: "
-                                               HorizontalAlignment="Right"/>
-                                            <Label Content="Put-On Time: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_PutOnTime}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
                                         </StackPanel>
 
@@ -1051,9 +1052,9 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="Weight: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Weight}, Converter={StaticResource StringAddColonConverter}}"
                                                    HorizontalAlignment="Right"/>
-                                            <Label Content="Shield: "
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Shield}, Converter={StaticResource StringAddColonConverter}}"
                                                    HorizontalAlignment="Right"/>
                                         </StackPanel>
 
@@ -1258,7 +1259,7 @@
                                                 <StackPanel Grid.Row="0">
                                                     <StackPanel Orientation="Horizontal">
                                                         <StackPanel>
-                                                            <Label Content="Armor: "
+                                                            <Label Content="{Binding IsShield, Converter={StaticResource IsShieldToLocalizationConverter}}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
@@ -1276,7 +1277,7 @@
                                                                           Max="100"
                                                                           SpinButtonsEnabled="False"
                                                                           MouseWheel="NumBox_MouseWheel"/>
-                                                            <Label Content="Loudness: "
+                                                            <Label Content="{x:Static p:Resources.Inventory_Loudness}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
@@ -1297,7 +1298,7 @@
                                                         </StackPanel>
 
                                                         <StackPanel Margin="16,1,0,0">
-                                                            <Label Content="Put-On Time: "
+                                                            <Label Content="{x:Static p:Resources.Inventory_PutOnTime}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
@@ -1315,7 +1316,7 @@
                                                                           SpinButtonsEnabled="False"
                                                                           MouseWheel="NumBox_MouseWheel"/>
 
-                                                            <Label Content="Weight: "
+                                                            <Label Content="{x:Static p:Resources.Inventory_Weight}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
@@ -1336,7 +1337,7 @@
                                                     </StackPanel>
 
                                                     <StackPanel>
-                                                        <Label Content="Shield: "
+                                                        <Label Content="{x:Static p:Resources.Inventory_Shield}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
