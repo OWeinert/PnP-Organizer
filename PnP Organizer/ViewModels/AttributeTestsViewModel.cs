@@ -52,7 +52,7 @@ namespace PnP_Organizer.ViewModels
 
             ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
 
-            ProfessionsModels!.CollectionChanged += ProfessionsModels_CollectionChanged;
+            ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
 
             AttributeTestModelsView = CollectionViewSource.GetDefaultView(AttributeTestModels);
 
@@ -153,35 +153,6 @@ namespace PnP_Organizer.ViewModels
                 }
             }
             ApplyProfessionBoni();
-        }
-
-        private void AttributeTestSkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if(e.PropertyName is nameof(AttributeTestSkillModel.IsActive))
-            {
-                var aTSkillModel = (AttributeTestSkillModel)sender!;
-
-                foreach (var statModifier in aTSkillModel.StatModifiers)
-                {
-                    var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
-
-                    if (aTSkillModel.IsActive)
-                    {
-                        if (statModifier.Bonus != 0)
-                            attributeTest.ExternalBoni.Add(statModifier.Bonus);
-                        if (statModifier.Dice.MaxValue > 1)
-                            attributeTest.ExternalDiceBoni.Add(statModifier.Dice);
-                    }
-                    else
-                    {
-                        if (statModifier.Bonus != 0)
-                            attributeTest.ExternalBoni.Remove(statModifier.Bonus);
-                        if (statModifier.Dice.MaxValue > 1)
-                            attributeTest.ExternalDiceBoni.Remove(statModifier.Dice);
-                    }
-                }
-                UpdateAttributeTestVisuals();
-            }
         }
 
         private void AttributeTestSkillModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
