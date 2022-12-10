@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace PnP_Organizer.ViewModels
 {
@@ -41,6 +42,8 @@ namespace PnP_Organizer.ViewModels
         private int _usedSkillPoints = 0;
 
         private bool _isInitialized = false;
+
+        private DispatcherTimer? _searchBoxTimer;
 
         public SkillsViewModel()
         {
@@ -72,7 +75,16 @@ namespace PnP_Organizer.ViewModels
             
             InitializeSkillModels();
 
-            SkillModelsView!.Filter += SkillModelsView_Filter;
+            SkillModelsView!.Filter += (item) =>
+            {
+                return SkillModelsView_Filter(item).Result;
+            };
+
+            _searchBoxTimer = new DispatcherTimer()
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, 100)
+            };
+            _searchBoxTimer.Tick += SearchBoxTimer_Tick;
 
             _isInitialized = true;
         }
@@ -156,15 +168,19 @@ namespace PnP_Organizer.ViewModels
 
         private void SelectedFiltersChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName is nameof(SelectedTreeFilterIndex) or nameof(SelectedSkillableFilterIndex) or nameof(SearchBoxText))
+            if(e.PropertyName is nameof(SelectedTreeFilterIndex) or nameof(SelectedSkillableFilterIndex))
             {
                 SelectedTreeFilter = TreeFilters![SelectedTreeFilterIndex];
                 SelectedSkillableFilter = SkillableFilters![SelectedSkillableFilterIndex];
-                SkillModelsView?.Refresh();
+                Application.Current.Dispatcher.Invoke(() => SkillModelsView?.Refresh());
+            }
+            if(e.PropertyName == nameof(SearchBoxText))
+            {
+                _searchBoxTimer?.Start();
             }
         }
 
-        private bool SkillModelsView_Filter(object item)
+        private async Task<bool> SkillModelsView_Filter(object item)
         {
             var skill = (SkillModel)item;
 
@@ -180,12 +196,20 @@ namespace PnP_Organizer.ViewModels
                     _ => true
                 };
 
+                await Task.Delay(0);
+
                 if (SelectedTreeFilterIndex == 0)
                     return skillability;
                 // additionaly Filter by SkillCategory
                 return skill.SkillCategory == SelectedTreeFilter.SkillCategory && skillability;
             }
             return false;
+        }
+
+        private void SearchBoxTimer_Tick(object? sender, EventArgs e)
+        {
+            _searchBoxTimer?.Dispatcher.Invoke(() => SkillModelsView?.Refresh());
+            _searchBoxTimer?.Stop();
         }
 
         public void SaveCharacterSkills()
@@ -226,16 +250,11 @@ namespace PnP_Organizer.ViewModels
                 if (FileIO.LoadedCharacter.Skills.Count == 0)
                     FileIO.LoadedCharacter.InitSkillSaveData();
 
-                SkillModels?.Clear();
-                foreach (var skill in Skills.Instance.SkillsList)
+                foreach (var skillModel in SkillModels!)
                 {
-                    SkillModel skillModel;
-                    if (skill.IsRepeatable)
-                        skillModel = new RepeatableSkillModel(skill);
-                    else
-                        skillModel = new SkillModel(skill);
-
-                    SkillModels!.Add(skillModel);
+                    skillModel.SkillPoints = 0;
+                    if (skillModel.Skill!.IsRepeatable)
+                        ((RepeatableSkillModel)skillModel).Repetition = 0;
                 }
 
                 foreach (var skillSaveData in FileIO.LoadedCharacter.Skills!)
