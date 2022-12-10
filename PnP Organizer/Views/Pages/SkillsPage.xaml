@@ -9,7 +9,6 @@
     xmlns:models="clr-namespace:PnP_Organizer.Models"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
     xmlns:sel="clr-namespace:PnP_Organizer.Helpers.Selectors"
-    xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
     Title="SkillsPage"
     d:DataContext="{d:DesignInstance local:SkillsPage,
                                      IsDesignTimeCreatable=False}"
@@ -21,7 +20,6 @@
 
     <ui:UiPage.Resources>
         <sel:SkillModelTemplateSelector x:Key="SkillModelTemplateSelector"/>
-        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </ui:UiPage.Resources>
     
     
