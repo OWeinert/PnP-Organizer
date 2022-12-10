@@ -110,10 +110,10 @@ namespace PnP_Organizer.ViewModels
                 }
 
                 InventoryItemModel? model;
-                if (item is InventoryWeapon)
-                    model = new InventoryWeaponModel((InventoryWeapon)item);
-                else if (item is InventoryArmor)
-                    model = new InventoryArmorModel((InventoryArmor)item);
+                if (item is InventoryWeapon weapon)
+                    model = new InventoryWeaponModel(weapon);
+                else if (item is InventoryArmor armor)
+                    model = new InventoryArmorModel(armor);
                 else
                     model = new InventoryItemModel(item);
 
