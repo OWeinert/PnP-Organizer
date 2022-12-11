@@ -1,4 +1,4 @@
-﻿using PnP_Organizer.Core.BattleAssistant
+﻿using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Properties;
 using System;
 using System.Globalization;

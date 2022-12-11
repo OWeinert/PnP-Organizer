@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Core.BattleAssistant
+using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.IO;
 using System;

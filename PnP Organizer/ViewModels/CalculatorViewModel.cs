@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.BattleAssistant;
-using PnP_Organizer.Core.BattleAssistant
+using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using System.Collections.Generic;
@@ -118,6 +117,7 @@ namespace PnP_Organizer.ViewModels
         }
 
         // TODO CalculateValues(): Implement calculation for hit, armor and dodge/parry
+        /*
         public void CalculateValues()
         {
             var activeModifiers = CalculatorModifiers!.Where(modifier => modifier.IsActive && modifier.ApplianceMode != null).ToList();
@@ -165,5 +165,6 @@ namespace PnP_Organizer.ViewModels
                 Logger.Log(sb);
             }
         }
+        */
     }
 }
