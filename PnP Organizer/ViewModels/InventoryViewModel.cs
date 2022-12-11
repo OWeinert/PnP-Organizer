@@ -86,6 +86,9 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         private void AddArmor() => Items!.Add(new InventoryArmorModel());
 
+        [RelayCommand]
+        private void AddShield() => Items!.Add(new InventoryShieldModel());
+
         public void SaveCharacterInventory()
         {
             if(_isInitialized)
@@ -111,7 +114,9 @@ namespace PnP_Organizer.ViewModels
                     model = new InventoryWeaponModel(weapon);
                 else if (item is InventoryArmor armor)
                     model = new InventoryArmorModel(armor);
-                else
+                else if (item is InventoryShield shield)
+                    model = new InventoryShieldModel(shield);
+                else 
                     model = new InventoryItemModel(item);
 
                 itemModels.Add(model);
