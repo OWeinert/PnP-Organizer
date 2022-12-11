@@ -961,6 +961,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Shield.
+        /// </summary>
+        public static string Inventory_TooltipAddShield {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddShield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Weapon.
         /// </summary>
         public static string Inventory_TooltipAddWeapon {

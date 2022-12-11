@@ -1493,4 +1493,7 @@ Kosten: 3 Ausdauer</value>
   <data name="Inventory_Weapon" xml:space="preserve">
     <value>Waffe</value>
   </data>
+  <data name="Inventory_TooltipAddShield" xml:space="preserve">
+    <value>Schild hinzufügen</value>
+  </data>
 </root>

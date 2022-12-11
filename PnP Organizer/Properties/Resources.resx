@@ -417,6 +417,9 @@
   <data name="Inventory_TooltipAddItem" xml:space="preserve">
     <value>Add Item</value>
   </data>
+  <data name="Inventory_TooltipAddShield" xml:space="preserve">
+    <value>Add Shield</value>
+  </data>
   <data name="Inventory_TooltipAddWeapon" xml:space="preserve">
     <value>Add Weapon</value>
   </data>
