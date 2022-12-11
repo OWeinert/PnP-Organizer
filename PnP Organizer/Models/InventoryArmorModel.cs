@@ -16,8 +16,6 @@ namespace PnP_Organizer.Models
         private float _weight = 1.0f;
         [ObservableProperty]
         private float _loudness = 0.0f;
-        [ObservableProperty]
-        private bool _isShield = false;
 
         [ObservableProperty]
         private SymbolRegular _trueFalseSymbol = SymbolRegular.Dismiss12;
@@ -32,7 +30,6 @@ namespace PnP_Organizer.Models
             PutOnTime = inventoryArmor.PutOnTime;
             Weight = inventoryArmor.Weight;
             Loudness = inventoryArmor.Loudness;
-            IsShield = inventoryArmor.IsShield;
 
             Brush = (SolidColorBrush)Application.Current.Resources["PaletteBrownBrush"];
 
@@ -51,7 +48,6 @@ namespace PnP_Organizer.Models
                 inventoryArmor.PutOnTime = PutOnTime;
                 inventoryArmor.Weight = Weight;
                 inventoryArmor.Loudness = Loudness;
-                inventoryArmor.IsShield = IsShield;
 
                 TrueFalseSymbol = IsShield ? SymbolRegular.Checkmark12 : SymbolRegular.Dismiss12;
             }
