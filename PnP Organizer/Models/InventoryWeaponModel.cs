@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Core.Calculators;
+using PnP_Organizer.Core.BattleAssistant
 using PnP_Organizer.Core.Character.Inventory;
 using System.Collections.Generic;
 using System.Windows;

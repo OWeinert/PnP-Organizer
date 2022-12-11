@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PnP_Organizer.Core.Calculators
+namespace PnP_Organizer.Core.BattleAssistant
 {
     [Flags]
     public enum AttackMode

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PnP_Organizer.Calculators;
-using PnP_Organizer.Core.Calculators;
+using PnP_Organizer.BattleAssistant;
+using PnP_Organizer.Core.BattleAssistant
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using System.Collections.Generic;

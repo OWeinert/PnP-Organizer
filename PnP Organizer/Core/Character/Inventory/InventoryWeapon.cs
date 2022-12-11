@@ -1,4 +1,4 @@
-﻿using PnP_Organizer.Core.Calculators;
+﻿using PnP_Organizer.Core.BattleAssistant
 using PnP_Organizer.Models;
 
 namespace PnP_Organizer.Core.Character.Inventory

@@ -1,4 +1,4 @@
-﻿using PnP_Organizer.Core.Calculators;
+﻿using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PnP_Organizer.Calculators
+namespace PnP_Organizer.BattleAssistant
 {
     internal class DamageCalculator
     {
