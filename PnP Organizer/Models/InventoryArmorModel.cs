@@ -17,9 +17,6 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private float _loudness = 0.0f;
 
-        [ObservableProperty]
-        private SymbolRegular _trueFalseSymbol = SymbolRegular.Dismiss12;
-
         public InventoryArmorModel() : this (new InventoryArmor()) { }
 
         public InventoryArmorModel(InventoryArmor inventoryArmor) : base(inventoryArmor)
@@ -41,17 +38,10 @@ namespace PnP_Organizer.Models
         private void InventoryArmorModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var inventoryArmor = (InventoryArmor)InventoryItem;
-
-            if (e.PropertyName is not nameof(TrueFalseSymbol))
-            {
-                inventoryArmor.Armor = Armor;
-                inventoryArmor.PutOnTime = PutOnTime;
-                inventoryArmor.Weight = Weight;
-                inventoryArmor.Loudness = Loudness;
-
-                TrueFalseSymbol = IsShield ? SymbolRegular.Checkmark12 : SymbolRegular.Dismiss12;
-            }
-
+            inventoryArmor.Armor = Armor;
+            inventoryArmor.PutOnTime = PutOnTime;
+            inventoryArmor.Weight = Weight;
+            inventoryArmor.Loudness = Loudness;
         }
     }
 }
