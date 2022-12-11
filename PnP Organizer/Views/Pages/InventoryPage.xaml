@@ -98,6 +98,24 @@
                      Command="{Binding ViewModel.AddArmorCommand}">
                 <Grid>
                     <Viewbox Width="26">
+                        <ui:SymbolIcon Symbol="PersonCircle24"/>
+                    </Viewbox>
+                    <Viewbox Width="16"
+                             Margin="0,0,-24,-24">
+                        <ui:SymbolIcon Symbol="AddCircle16" Filled="True"/>
+                    </Viewbox>
+                </Grid>
+            </Button>
+            <Button  x:Name="AddShieldButton"
+                     VerticalAlignment="Top"
+                     Width="48"
+                     Height="48"
+                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddArmor}"
+                     Margin="0,8"
+                     Padding="0"
+                     Command="{Binding ViewModel.AddShieldCommand}">
+                <Grid>
+                    <Viewbox Width="26">
                         <ui:SymbolIcon Symbol="Shield24"/>
                     </Viewbox>
                     <Viewbox Width="16"
@@ -1024,12 +1042,9 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0">
-                                            <Label Content="{Binding IsShield, Converter={StaticResource IsShieldToLocalizationConverter}}"
-                                               HorizontalAlignment="Right">
-                                            </Label>
-                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Loudness}, Converter={StaticResource StringAddColonConverter}}"
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Armor}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
-                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_PutOnTime}, Converter={StaticResource StringAddColonConverter}}"
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Loudness}, Converter={StaticResource StringAddColonConverter}}"
                                                HorizontalAlignment="Right"/>
                                         </StackPanel>
 
@@ -1038,9 +1053,7 @@
                                                    FontWeight="SemiBold"/>
                                             <TextBlock Text="{Binding Loudness, StringFormat='{}{0:#,0.0}'}"
                                                    FontWeight="SemiBold"/>
-                                            <TextBlock Text="{Binding PutOnTime, StringFormat='{}{0:#,0.0}'}"
-                                                   FontWeight="SemiBold"
-                                                       Margin="0,4"/>
+                                            
                                         </StackPanel>
                                     </Grid>
 
@@ -1055,8 +1068,8 @@
                                         <StackPanel Grid.Column="0">
                                             <Label Content="{Binding Source={x:Static p:Resources.Inventory_Weight}, Converter={StaticResource StringAddColonConverter}}"
                                                    HorizontalAlignment="Right"/>
-                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_Shield}, Converter={StaticResource StringAddColonConverter}}"
-                                                   HorizontalAlignment="Right"/>
+                                            <Label Content="{Binding Source={x:Static p:Resources.Inventory_PutOnTime}, Converter={StaticResource StringAddColonConverter}}"
+                                               HorizontalAlignment="Right"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1">
@@ -1064,11 +1077,9 @@
                                                    HorizontalAlignment="Center"
                                                    FontWeight="SemiBold"
                                                        Margin="0,0,0,4"/>
-                                            <Viewbox Width="14">
-                                                <ui:SymbolIcon Symbol="{Binding TrueFalseSymbol}"
-                                                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                                                               Filled="True"/>
-                                            </Viewbox>
+                                            <TextBlock Text="{Binding PutOnTime, StringFormat='{}{0:#,0.0}'}"
+                                                   FontWeight="SemiBold"
+                                                       Margin="0,0,0,4"/>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
@@ -1094,7 +1105,7 @@
                                          Margin="0,0,8,6"
                                          ToolTip="{x:Static p:Resources.Inventory_Armor}"
                                          ToolTipService.InitialShowDelay="400">
-                                    <ui:SymbolIcon Symbol="Shield20"
+                                    <ui:SymbolIcon Symbol="PersonCircle20"
                                                    Foreground="{Binding Foreground}"/>
                                 </Viewbox>
                                 
@@ -1345,6 +1356,406 @@
                                                                    Margin="1,8"/>
                                                         <ui:ToggleSwitch IsChecked="{Binding IsShield, Mode=TwoWay}"/>
                                                     </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                    
+                    <!-- InventoryShieldModelTemplate -->
+                    <DataTemplate x:Key="InventoryShieldModelTemplate"
+                                  DataType="{x:Type m:InventoryShieldModel}">
+                        <Border Width="250"
+                                Height="160"
+                                Margin="6"
+                                Padding="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{Binding Brush, Mode=OneWay}"
+                                CornerRadius="8"
+                                AllowDrop="True"
+                                PreviewMouseLeftButtonDown="InventoryItem_PreviewMouseLeftButtonDown"
+                                Drop="InventoryItem_Drop">
+
+                            <Border.Effect>
+                                <DropShadowEffect Opacity="0.25" Direction="-90" BlurRadius="2" ShadowDepth="2"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0"
+                                            Orientation="Horizontal">
+
+                                    <Border HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Width="64"
+                                            Height="64"
+                                            BorderThickness="1"
+                                            CornerRadius="4"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            Margin="8,8,0,0">
+                                        <Grid>
+                                            <Viewbox Width="28">
+                                                <ui:SymbolIcon Symbol="Question28"
+                                                               Foreground="{Binding Foreground}"
+                                                               Visibility="{Binding ItemImage, Converter={StaticResource ObjectNotNullConverter}}"/>
+                                            </Viewbox>
+                                            <Image HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch"
+                                                   Stretch="UniformToFill"
+                                                   Source="{Binding ItemImage}"
+                                                   IsHitTestVisible="False"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Width="146"
+                                          Height="Auto"
+                                          Margin="1,0,0,0">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Name/Description Fields -->
+                                        <Border Grid.Row="0"
+                                                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                                CornerRadius="4"
+                                                Margin="0,9,0,0">
+                                            <TextBlock x:Name="NameTextBlock"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="16"
+                                                       Height="30"
+                                                       Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Foreground="{Binding Foreground}"
+                                                       AllowDrop="True"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Padding="0"
+                                                       Margin="4,4,0,-4"
+                                                       ToolTip="{Binding Name}"
+                                                       ToolTipService.InitialShowDelay="100"/>
+                                        </Border>
+
+                                        <Border Grid.Row="1"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="0,2,0,0">
+                                            <TextBlock x:Name="DescriptionTextBlock"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Height="30"
+                                                   Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Foreground="{Binding Foreground}"
+                                                   AllowDrop="True"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Padding="0"
+                                                   Margin="4,4,0,-4"
+                                                   ToolTip="{Binding Description}"
+                                                   ToolTipService.InitialShowDelay="100"/>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!-- Shield Stats -->
+                                <Grid Grid.Row="1"
+                                      Margin="12,4,0,0">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <Label Content="{Binding Source={x:Static p:Resources.Inventory_ParryBonus}, Converter={StaticResource StringAddColonConverter}}"
+                                               HorizontalAlignment="Right"/>
+                                        <Label Content="{Binding Source={x:Static p:Resources.Inventory_Weight}, Converter={StaticResource StringAddColonConverter}}"
+                                               HorizontalAlignment="Right"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="1D"
+                                                       FontWeight="SemiBold"
+                                                       Margin="2,0,0,0"/>
+                                            <Label Content="{Binding ParadeDiceBonus.MaxValue}"
+                                                       FontWeight="SemiBold"/>
+                                            <Label Content="+"
+                                                       FontWeight="SemiBold"
+                                                       Margin="2,0"/>
+                                            <Label Content="{Binding ParadeBonus}"
+                                                       FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Weight, StringFormat='{}{0:#,0.0}'}"
+                                                   HorizontalAlignment="Left"
+                                                   FontWeight="SemiBold"
+                                                       Margin="2,0,0,4"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <ToggleButton x:Name="EditButton" 
+                                              VerticalAlignment="Top"
+                                              HorizontalAlignment="Right"
+                                              Width="18"
+                                              Height="18"
+                                              Padding="0"
+                                              Margin="0,9,8,0"
+                                              IsHitTestVisible="{Binding IsOpen, ElementName=EditPopup, Converter={StaticResource BooleanInvertConverter}}">
+                                    <Viewbox>
+                                        <ui:SymbolIcon Symbol="Settings16"
+                                                           Foreground="{Binding Foreground}"/>
+                                    </Viewbox>
+                                </ToggleButton>
+
+                                <Viewbox Grid.Row="1"
+                                         Width="18"
+                                         VerticalAlignment="Bottom"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,8,6"
+                                         ToolTip="{x:Static p:Resources.Inventory_Weapon}"
+                                         ToolTipService.InitialShowDelay="400">
+                                    <ui:SymbolIcon Symbol="Shield20"
+                                                   Foreground="{Binding Foreground}"/>
+                                </Viewbox>
+
+                                <!-- Edit Popup -->
+                                <Popup x:Name="EditPopup"
+                                       Placement="Left"
+                                       PlacementTarget="{Binding ElementName=EditButton}"
+                                       IsOpen="{Binding Path=IsChecked, ElementName=EditButton}"
+                                       AllowsTransparency="True"
+                                       StaysOpen="False"
+                                       HorizontalOffset="1"
+                                       VerticalOffset="-9">
+                                    <Border Width="250"
+                                                MinHeight="90"
+                                                Background="{DynamicResource PaletteDeepPurpleBrush}"
+                                                BorderBrush="{DynamicResource SystemAccentColorSecondaryBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="6">
+                                        <Grid>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel Grid.Row="0"
+                                                        Orientation="Horizontal">
+
+                                                <!-- Image Input Field -->
+                                                <Grid Margin="9,8,0,8">
+                                                    <Border x:Name="AccentBorder"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="0,0,0,1"
+                                                            CornerRadius="4">
+                                                        <Border.BorderBrush>
+                                                            <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                                                        </Border.BorderBrush>
+                                                    </Border>
+
+                                                    <Border HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Width="72"
+                                                            Height="72"
+                                                            BorderThickness="1"
+                                                            CornerRadius="4"
+                                                            BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+                                                        <Grid>
+                                                            <ui:Button x:Name="ItemImageButton"
+                                                                       Width="72"
+                                                                       Height="72"
+                                                                       Icon="Add24"
+                                                                       ToolTip="{x:Static p:Resources.Tooltip_AddImage}"
+                                                                       Click="ItemImageButton_Click"/>
+                                                            <Image HorizontalAlignment="Stretch"
+                                                                   VerticalAlignment="Stretch"
+                                                                   Stretch="UniformToFill"
+                                                                   Source="{Binding ItemImage}"
+                                                                   IsHitTestVisible="False"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+
+                                                <Grid Width="132"
+                                                      Height="Auto"
+                                                      Margin="6,0,0,8">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <ui:TextBox Grid.Row="0"
+                                                                x:Name="NameTextBox"
+                                                                VerticalAlignment="Top"
+                                                                MaxLines="1"
+                                                                AcceptsTab="True"
+                                                                PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderName}"
+                                                                Text="{Binding Name}"
+                                                                AllowDrop="True"
+                                                                Margin="0,8,0,0"/>
+                                                    <ui:DynamicScrollViewer Grid.Row="1"
+                                                                            IsScrollingHorizontally="False"
+                                                                            CanContentScroll="True"
+                                                                            VerticalScrollBarVisibility="Hidden"
+                                                                        MaxHeight="58">
+                                                        <ui:TextBox x:Name="DescriptionTextBox"
+                                                                    VerticalAlignment="Stretch"
+                                                                    TextAlignment="Left"
+                                                                    MaxLines="10"
+                                                                    AcceptsTab="True"
+                                                                    AcceptsReturn="True"
+                                                                    TextWrapping="Wrap"
+                                                                    PlaceholderText="{x:Static p:Resources.Inventory_PlaceholderDescription}"
+                                                                    Text="{Binding Description}"
+                                                                    AllowDrop="True"
+                                                                    Margin="0,5,0,0"
+                                                                    ScrollViewer.CanContentScroll="True"
+                                                                    ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                                                    </ui:DynamicScrollViewer>
+
+
+                                                </Grid>
+
+                                                <!-- Toolbar -->
+                                                <Grid Margin="4,0,1,2">
+                                                    <Grid.Resources>
+                                                        <Style TargetType="ui:Button" BasedOn="{StaticResource {x:Type ui:Button}}">
+                                                            <Setter Property="Width" Value="18"/>
+                                                            <Setter Property="Height" Value="18"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                            <Setter Property="VerticalAlignment" Value="Top"/>
+                                                            <Setter Property="BorderThickness" Value="0"/>
+                                                            <Setter Property="Padding" Value="0"/>
+                                                        </Style>
+                                                    </Grid.Resources>
+                                                    <StackPanel>
+                                                        <ui:Button x:Name="DeleteButton"
+                                                                   Margin="0,8,0,0"
+                                                                   Icon="Delete16"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipDeleteItem}"
+                                                                   Click="DeleteButton_Click"/>
+                                                        <ui:Button x:Name="ClearButton"
+                                                                   Margin="0,4,0,0"
+                                                                   Icon="Eraser20"
+                                                                   ToolTip="{x:Static p:Resources.Inventory_TooltipClearItem}"
+                                                                   Click="ClearButton_Click"/>
+
+                                                    </StackPanel>
+                                                    <controls:ColorPicker VerticalAlignment="Bottom"
+                                                                          Margin="0,6"
+                                                                          SelectedBrushChanged="ColorPicker_SelectedBrushChanged"
+                                                                          ToolTip="{x:Static p:Resources.Inventory_TooltipChangeColor}">
+                                                        <controls:ColorPicker.ButtonContent>
+                                                            <ui:SymbolIcon Symbol="PaintBrush16"/>
+                                                        </controls:ColorPicker.ButtonContent>
+                                                    </controls:ColorPicker>
+                                                </Grid>
+                                            </StackPanel>
+
+                                            <Grid Grid.Row="1"
+                                                  Margin="9,0,9,9">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Grid.Resources>
+                                                    <Style TargetType="ui:NumberBox"
+                                                               BasedOn="{StaticResource {x:Type ui:NumberBox}}">
+                                                        <Setter Property="ClearButtonEnabled" Value="False"/>
+                                                        <Setter Property="SpinButtonsEnabled" Value="False"/>
+                                                    </Style>
+                                                </Grid.Resources>
+
+                                                <Label Grid.Row="1"
+                                                       Content="{x:Static p:Resources.Inventory_ParryBonus}"
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       Margin="1,8,1,4"/>
+
+                                                <StackPanel Grid.Row="1"
+                                                            Orientation="Horizontal"
+                                                            Margin="0,32,0,0">
+                                                    <Label Content="1D"
+                                                           FontSize="16"
+                                                           VerticalAlignment="Center"
+                                                           Margin="4,0,4,-4"
+                                                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                                    <Grid>
+                                                        <Border x:Name="ParryBonusAccentBorder"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Stretch"
+                                                                BorderThickness="0,0,0,1"
+                                                                CornerRadius="4">
+                                                            <Border.BorderBrush>
+                                                                <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
+                                                            </Border.BorderBrush>
+                                                        </Border>
+
+                                                        <ComboBox ItemsSource="{Binding Dices, Mode=TwoWay}"
+                                                                  DisplayMemberPath="Name"
+                                                                  FontSize="16"
+                                                                  BorderThickness="0"
+                                                                  SelectedIndex="3"
+                                                                  SelectedItem="{Binding ParadeDiceBonus}"/>
+                                                    </Grid>
+                                                    <Label Content="+"
+                                                           FontSize="16"
+                                                           VerticalAlignment="Center"
+                                                           Margin="4,0,4,-4"
+                                                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                                    <ui:NumberBox x:Name="RollDamageBonusNumBox"
+                                                                  ClearButtonEnabled="False"
+                                                                  FontSize="16"
+                                                                  BorderThickness="0"
+                                                                  Value="{Binding ParadeBonus, Mode=TwoWay}"
+                                                                  Text="{Binding ParadeBonus, Mode=TwoWay, Converter={StaticResource StringToIntConverter}}"
+                                                                  IntegersOnly="True"
+                                                                  Step="1"
+                                                                  Min="0"
+                                                                  Max="100"
+                                                                  Width="54"
+                                                                  SpinButtonsEnabled="False"
+                                                                  MouseWheel="NumBox_MouseWheel"/>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="2">
+                                                    <Label Grid.Row="1"
+                                                                   Content="{x:Static p:Resources.Inventory_Weight}"
+                                                                   FontSize="14"
+                                                                   FontWeight="SemiBold"
+                                                                   Margin="1,8,1,4"/>
+                                                    <ui:NumberBox x:Name="WeightNumBox"
+                                                                          HorizontalAlignment="Left"
+                                                                          ClearButtonEnabled="False"
+                                                                          FontSize="16"
+                                                                          BorderThickness="0"
+                                                                          Value="{Binding Weight, Mode=TwoWay}"
+                                                                          Text="{Binding Weight, Mode=TwoWay, Converter={StaticResource StringToFloatConverter}}"
+                                                                          DecimalPlaces="1"
+                                                                          Step="0.5"
+                                                                          Min="0"
+                                                                          Max="100"
+                                                                          SpinButtonsEnabled="False"
+                                                                          MouseWheel="NumBox_MouseWheel"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Grid>
