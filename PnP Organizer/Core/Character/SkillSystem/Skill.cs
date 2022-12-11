@@ -10,10 +10,18 @@ namespace PnP_Organizer.Core.Character
         public SkillCategory SkillCategory { get; set; }
         public int SkillPoints { get; set; }
         public int MaxSkillPoints { get; set; }
+        public int EnergyCost { get; set; }
+        public int StaminaCost { get; set; }
 
         public bool IsRepeatable { get; set; }
 
-        public StatModifier[]? StatModifiers { get; private set; }
+        public int UsesLeft { get; set; }
+        /// <summary>
+        /// -1 = infinite uses
+        /// </summary>
+        public int UsesPerBattle { get; set; }
+
+        public IStatModifier[]? StatModifiers { get; private set; }
 
         /// <summary>
         /// Names of skills of which at least one has to be skilled in order to unlock this skill.
@@ -27,7 +35,8 @@ namespace PnP_Organizer.Core.Character
         /// </summary>
         public string ForcedDependendSkillName { get; private set; } = string.Empty;
 
-        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, StatModifier[]? statModifiers = null, string[]? dependendSkillNames = null)
+        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, IStatModifier[]? statModifiers = null,
+            string[]? dependendSkillNames = null, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1)
         {
             Name = name;
             SkillCategory = skillCategory;
@@ -35,6 +44,11 @@ namespace PnP_Organizer.Core.Character
             MaxSkillPoints = maxSkillPoints;
             StatModifiers = statModifiers;
             SkillPoints = 0;
+
+            EnergyCost = energyCost;
+            StaminaCost = staminaCost;
+
+            UsesLeft = UsesPerBattle = usesPerBattle;
 
             DependendSkillNames = dependendSkillNames ?? Array.Empty<string>();
         }
