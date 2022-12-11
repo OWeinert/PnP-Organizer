@@ -2,7 +2,7 @@
 
 namespace PnP_Organizer.Core.Character.StatModifiers
 {
-    public class AttributeTestStatModifier : StatModifier
+    public struct AttributeTestStatModifier : IStatModifier
     {
         public string AttributeTestName { get; private set; }
         public Dice Dice { get; private set; }
