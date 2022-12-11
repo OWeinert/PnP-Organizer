@@ -49,7 +49,7 @@ namespace PnP_Organizer.Views.Pages
         // TODO CalculateButton_Click: move logic to ViewModel
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.CalculateValues();
+            //ViewModel.CalculateValues();
         }
 
         private async void CopyResultButton_Click(object sender, RoutedEventArgs e)
