@@ -1,6 +1,9 @@
-﻿using PnP_Organizer.Core.Character;
+﻿using Octokit;
+using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.Inventory;
+using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
+using PnP_Organizer.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +12,9 @@ namespace PnP_Organizer.Core.BattleAssistant
 {
     public class BattleTurn
     {
-        public InventoryWeapon WeaponItem { get; }
-        public InventoryArmor ArmorItem { get; }
+        public InventoryWeapon? WeaponItem { get; }
+        public InventoryArmor? ArmorItem { get; } 
+        public InventoryShield? ShieldItem { get; } 
 
         public List<Skill> ActiveSkills { get; }
 
@@ -33,21 +37,22 @@ namespace PnP_Organizer.Core.BattleAssistant
         public int BaseInitiative { get; }
         public int ModifiedInitiative { get; private set; }
 
-        public int Damage { get; }
-        public int Hit { get; }
-        public int Armorpen { get; }
-        public int Armor { get; }
-        public int Parade { get; }
-        public int Dodge { get; }
+        public int Damage { get; private set; }
+        public int Hit { get; private set; }
+        public int Armorpen { get; private set; }
+        public int Armor { get; private set; }
+        public int Parade { get; private set; }
+        public int Dodge { get; private set; }
 
         private readonly List<CalculatorStatModifier> _modifiers;
 
-        public BattleTurn(InventoryWeapon weaponItem, InventoryArmor armorItem, List<Skill> activeSkills,
+        public BattleTurn(InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> activeSkills,
             BattleAction action, int currentHealth, int currentEnergy, int currentStamina, int initiative,
             int incomingDamage = 0)
         {
             WeaponItem = weaponItem;
             ArmorItem = armorItem;
+            ShieldItem = shieldItem;
             ActiveSkills = activeSkills;
 
             Action = action;
@@ -63,6 +68,8 @@ namespace PnP_Organizer.Core.BattleAssistant
 
             CalculateBattleStats();
             CalculateCharacterStats();
+
+            DecreaseSkillUses();
         }
 
         private List<CalculatorStatModifier> GetCalculatorModifiers()
@@ -77,8 +84,19 @@ namespace PnP_Organizer.Core.BattleAssistant
         }
 
         private void CalculateBattleStats() 
-        { 
-
+        {
+            if(Action == BattleAction.Attack)
+            {
+                Damage = StatCalculators.CalculateDamage(WeaponItem, _modifiers);
+                Hit = StatCalculators.CalculateHit(WeaponItem, _modifiers);
+                Armorpen = StatCalculators.CalculateArmorpen(WeaponItem, _modifiers);
+            }
+            else if(Action == BattleAction.Defend)
+            {
+                Armor = StatCalculators.CalculateArmor(ArmorItem, _modifiers);
+                Dodge = StatCalculators.CalculateDodge(_modifiers);
+                Parade = StatCalculators.CalculateParry(ShieldItem, _modifiers);
+            }
         }
 
         private void CalculateCharacterStats()
@@ -87,47 +105,49 @@ namespace PnP_Organizer.Core.BattleAssistant
             _healthAfter = HealthBefore;
             if (Action == BattleAction.Defend)
                 _healthAfter -= Math.Clamp(IncomingDamage - Armor, 0, IncomingDamage);
-
-            var healthModifiers = _modifiers.Where(modifier => modifier.CalculatorValueType == CalculatorValueType.Health);
-            if (healthModifiers.Any())
-                AddStatBoni(ref _healthAfter, healthModifiers);
+            AddStatBoni(ref _healthAfter, CalculatorValueType.Health);
 
             // Energy
             _energyAfter = EnergyBefore - ActiveSkills.Sum(skill => skill.EnergyCost);
-            var energyModifiers = _modifiers.Where(modifier => modifier.CalculatorValueType == CalculatorValueType.Energy);
-            if (energyModifiers.Any())
-                AddStatBoni(ref _energyAfter, energyModifiers);
+            AddStatBoni(ref _energyAfter, CalculatorValueType.Energy);
 
             // Stamina
             _staminaAfter = StaminaBefore - ActiveSkills.Sum(skill => skill.StaminaCost);
-            var staminaModifiers = _modifiers.Where(modifier => modifier.CalculatorValueType == CalculatorValueType.Stamina);
-            if(staminaModifiers.Any())
-                AddStatBoni(ref _staminaAfter, staminaModifiers);
+            AddStatBoni(ref _staminaAfter, CalculatorValueType.Stamina);
 
             // Initiative
             ModifiedInitiative = BaseInitiative;
             var initiativeModifiers = _modifiers.Where(modifier => modifier.CalculatorValueType == CalculatorValueType.Initiative);
-            if(initiativeModifiers.Any())
+            if (initiativeModifiers.Any())
             {
                 var initiativeBonusSum = initiativeModifiers.Sum(modifier => modifier.Bonus);
                 ModifiedInitiative += (int)Math.Ceiling(initiativeBonusSum);
             }
         }
 
-        private static void AddStatBoni(ref int statAfter, IEnumerable<CalculatorStatModifier> statModifiers)
+        private void AddStatBoni(ref int statAfter, CalculatorValueType valueType)
         {
-            var bonusSum = statModifiers.Sum(modifier => modifier.Bonus);
-            var diceBoni = statModifiers.Where(modifier => modifier.Dice.MaxValue > 1)
-                .ToList().ConvertAll(modifier => modifier.Dice);
-
-            statAfter += (int)Math.Ceiling(bonusSum);
-
-            foreach (var diceBonus in diceBoni)
+            var statModifiers = _modifiers.Where(modifier => modifier.CalculatorValueType == valueType);
+            if (statModifiers.Any())
             {
-                var random = new Random();
-                var rolledBonus = random.Next(1, diceBonus.MaxValue + 1);
-                statAfter += rolledBonus;
+                var bonusSum = statModifiers.Sum(modifier => modifier.Bonus);
+                var diceBoni = statModifiers.Where(modifier => modifier.Dice.MaxValue > 1)
+                    .ToList().ConvertAll(modifier => modifier.Dice);
+
+                statAfter += (int)Math.Ceiling(bonusSum);
+
+                foreach (var diceBonus in diceBoni)
+                {
+                    var random = new Random();
+                    var rolledBonus = random.Next(1, diceBonus.MaxValue + 1);
+                    statAfter += rolledBonus;
+                }
             }
+        }
+
+        private void DecreaseSkillUses()
+        {
+
         }
     }
 }
