@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core.BattleAssistant;
+using PnP_Organizer.Core.Character.Inventory;
+using PnP_Organizer.Core.Character;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using System.Collections.Generic;
@@ -9,162 +11,130 @@ using System.Linq;
 using System.Text;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using PnP_Organizer.IO;
+using PnP_Organizer.Views.Pages;
 
 namespace PnP_Organizer.ViewModels
 {
     public partial class CalculatorViewModel : ObservableObject, INavigationAware
     {
         [ObservableProperty]
-        private ObservableCollection<CalculatorModifierModel>? _calculatorModifiers;
+        private BattleTurn? _currentTurn;
+        [ObservableProperty]
+        private int _currentTurnCount = 0;
 
         [ObservableProperty]
-        private bool _isMelee = true;
+        private ObservableCollection<InventoryWeapon> _weapons = new();
         [ObservableProperty]
-        private bool _isRanged = false;
+        private InventoryWeapon? _selectedWeapon;
 
         [ObservableProperty]
-        private int _baseDamage = 0;
+        private ObservableCollection<InventoryArmor> _armors = new();
         [ObservableProperty]
-        private int _rollCount = 1;
-        [ObservableProperty]
-        private int _rollDamageBonus = 0;
+        private InventoryArmor? _selectedArmor;
 
         [ObservableProperty]
-        private int _baseDamageMult = 1;
+        private ObservableCollection<InventoryShield> _shields = new();
         [ObservableProperty]
-        private int _endDamageMult = 1;
+        private InventoryShield? _selectedShield;
 
         [ObservableProperty]
-        private int _baseArmor = 0;
+        private ObservableCollection<Skill> _activeSkills = new();
 
         [ObservableProperty]
-        private List<Dice>? _dices;
+        private BattleAction _action;
 
         [ObservableProperty]
-        private Dice _selectedDice;
+        private int _incomingDamage;
 
         [ObservableProperty]
-        private int _calculatedDamage;
+        private int _health = 0;
         [ObservableProperty]
-        private int _calculatedHit;
+        private int _energy = 0;
         [ObservableProperty]
-        private int _calculatedArmor;
+        private int _stamina = 0;
         [ObservableProperty]
-        private int _calculatedParry;
+        private int _initiative = 0;
 
+        [ObservableProperty]
+        private int _damage = 0;
+        [ObservableProperty]
+        private int _hit = 0;
+        [ObservableProperty]
+        private int _armorpen = 0;
+        [ObservableProperty]
+        private int _armor = 0;
+        [ObservableProperty]
+        private int _parade = 0;
+        [ObservableProperty]
+        private int _dodge = 0;
 
-        private readonly IPageService? _pageService;
+        private readonly IPageService _pageService;
 
         public CalculatorViewModel(IPageService pageService)
         {
             _pageService = pageService;
-
-            CalculatorModifiers = new();
-            UpdateCalculatorModifiers();
-
-            Dices = Dice.Dices;
-
             PropertyChanged += CalculatorViewModel_PropertyChanged;
         }
 
         private void CalculatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName is nameof(IsMelee) or nameof(IsRanged))
-                UpdateCalculatorModifiers();
+
         }
 
         public void OnNavigatedTo()
         {
-            UpdateCalculatorModifiers();
+            LoadItems();
+            LoadCharacterStats();
+            UpdateSkillsList();
         }
 
-        public void OnNavigatedFrom() { }
-
-
-        private void UpdateCalculatorModifiers()
+        public void OnNavigatedFrom() 
         {
-            CalculatorModifiers = new();
-
-            foreach (var modifier in StaticModifierModels.Modifiers)
-            {
-                if(modifier is ConditionalCalculatorModifierModel conditionalModifier)
-                {
-                    if (conditionalModifier.IsUsable())
-                    {
-                        if ((IsRanged && conditionalModifier.AttackMode == AttackMode.Ranged)
-                            || (IsMelee && conditionalModifier.AttackMode == AttackMode.Melee)
-                            || conditionalModifier.AttackMode == (AttackMode.Melee | AttackMode.Ranged))
-                        {
-                            CalculatorModifiers?.Add(conditionalModifier);
-                        }
-                    }
-                }
-                else
-                    CalculatorModifiers?.Add(modifier);
-            }
-
-            /*
-            SkillsViewModel viewModel = _pageService!.GetPage<SkillsPage>()!.ViewModel;
-            List<Skill> activeSkills = viewModel.SkillModels!.Where(skillModel => skillModel.Skill.IsActive() && skillModel.Skill.StatModifier is CalculatorModifierStatModifier)
-                .ToList().ConvertAll(skillModel => skillModel.Skill);
-
-            foreach (Skill skill in activeSkills)
-            {
-                CalculatorModifierModel modifierModel = new(skill.Name, skill.Description);
-                CalculatorModifiers?.Add(modifierModel);
-            }
-            */
+            SaveCharacterStats();
         }
 
-        // TODO CalculateValues(): Implement calculation for hit, armor and dodge/parry
-        /*
-        public void CalculateValues()
+        private void LoadCharacterStats()
         {
-            var activeModifiers = CalculatorModifiers!.Where(modifier => modifier.IsActive && modifier.ApplianceMode != null).ToList();
-            var baseDamageRoll = DamageCalculator.RollBaseDamage(RollCount, SelectedDice);
-            var fullDamageRoll = (baseDamageRoll + RollDamageBonus) * BaseDamageMult;
-            var endDamage = DamageCalculator.CalculateDamage(fullDamageRoll, activeModifiers);
-            CalculatedDamage = endDamage * EndDamageMult;
+            var character = FileIO.LoadedCharacter;
 
-            CalculatedHit = 0;
+            Health = character.CurrentHealth;
+            Energy = character.CurrentEnergy;
+            Stamina = character.CurrentStamina;
+            Initiative = _pageService.GetPage<OverviewPage>()!.ViewModel!.Initiative + character.InitiativeBonus;
+        }
 
-            CalculatedArmor = 0;
+        private void SaveCharacterStats()
+        {
+            FileIO.LoadedCharacter.CurrentHealth = Health;
+            FileIO.LoadedCharacter.CurrentEnergy = Energy;
+            FileIO.LoadedCharacter.CurrentStamina = Stamina;
+        }
 
-            CalculatedParry = 0;
+        private void UpdateSkillsList()
+        {
+            
+        }
 
-            if (Properties.Settings.Default.LogCalculations)
+        private void LoadItems()
+        {
+            var inventoryItems = _pageService.GetPage<InventoryPage>()!.ViewModel!.Items?
+                .Where(itemModel => itemModel is InventoryWeaponModel or InventoryArmorModel or InventoryShieldModel)
+                .ToList().ConvertAll(itemModel => itemModel.InventoryItem);
+
+            if (inventoryItems != null)
             {
-                var noActiveModifiers = activeModifiers.Count > 0 ? string.Empty : "none";
-
-                StringBuilder sb = new();
-                sb.AppendLine("Damage Calculation:");
-                sb.AppendLine($"Calculated Damage: {CalculatedDamage}");
-                sb.AppendLine($"Base Damage: {fullDamageRoll}");
-                sb.AppendLine($"    Rolled Damage: {baseDamageRoll} ({RollCount}D{SelectedDice.Name})");
-                sb.AppendLine($"    Base Damage Bonus: {RollDamageBonus}");
-                sb.AppendLine($"    Base Damage Multiplier: {BaseDamageMult}");
-                sb.AppendLine($"End Damage: {endDamage}");
-                sb.AppendLine($"    End Damage Multiplier: {EndDamageMult}");
-                sb.AppendLine($"----------------------------");
-                sb.AppendLine($"Calculated Hit: {CalculatedHit}");
-                sb.AppendLine($"----------------------------");
-                sb.AppendLine($"Calculated Armor: {CalculatedArmor}");
-                sb.AppendLine($"Base Armor: {BaseArmor}");
-                sb.AppendLine($"----------------------------");
-                sb.AppendLine($"Calculated Dodge/Parry: {CalculatedParry}");
-                sb.AppendLine($"----------------------------");
-                sb.Append($"Active Modifiers: {noActiveModifiers}");
-                if(activeModifiers.Count > 0)
-                {
-                    foreach (var modifier in activeModifiers)
-                    {
-                        sb.AppendLine($"    {modifier.Name}");
-                    }
-                }
-
-                Logger.Log(sb);
+                Weapons = new ObservableCollection<InventoryWeapon>(inventoryItems!.Where(item => item is InventoryWeapon).Cast<InventoryWeapon>());
+                Armors = new ObservableCollection<InventoryArmor>(inventoryItems!.Where(item => item is InventoryArmor).Cast<InventoryArmor>());
+                Shields = new ObservableCollection<InventoryShield>(inventoryItems!.Where(item => item is InventoryShield).Cast<InventoryShield>());
             }
         }
-        */
+
+        private void StartNewBattle()
+        {
+            CurrentTurnCount = 0;
+            CurrentTurn = new BattleTurn(SelectedWeapon, SelectedArmor, SelectedShield, ActiveSkills.ToList(), 
+                Action, Health, Energy, Stamina, Initiative, IncomingDamage);
+        }
     }
 }
