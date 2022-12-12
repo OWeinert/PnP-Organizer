@@ -3,6 +3,7 @@
     public enum CalculatorValueType
     {
         Damage,
+        DamageDice,
         Hit,
         ArmorPen,
         Parry,
