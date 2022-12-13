@@ -51,27 +51,5 @@ namespace PnP_Organizer.Views.Pages
         {
             //ViewModel.CalculateValues();
         }
-
-        private async void CopyResultButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = (Wpf.Ui.Controls.Button)sender;
-            var resultText = button.Tag switch
-            {
-                "hit" => HitTextBox.Text,
-                "armor" => ArmorTextBox.Text,
-                "damage" => DamageTextBox.Text,
-                "parry" => ParryTextBox.Text,
-                _ => string.Empty,
-            };
-            Clipboard.SetText(resultText);
-
-            
-            var snackbarTimeout = _snackbarService.Timeout;
-            _snackbarService.Timeout = 1000; // Temporarily set the Snackbar timeout to 1s
-
-            _ = await _snackbarService.ShowAsync(Properties.Resources.Snackbar_CopyToClipboard, "", Wpf.Ui.Common.SymbolRegular.Clipboard32);
-            
-            _snackbarService.Timeout = snackbarTimeout;
-        }
     }
 }
