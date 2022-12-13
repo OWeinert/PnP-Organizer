@@ -1,4 +1,5 @@
-﻿using PnP_Organizer.Core.Character.StatModifiers;
+﻿using PnP_Organizer.Core.Character.SkillSystem;
+using PnP_Organizer.Core.Character.StatModifiers;
 using System;
 
 namespace PnP_Organizer.Core.Character
@@ -14,6 +15,7 @@ namespace PnP_Organizer.Core.Character
         public int StaminaCost { get; set; }
 
         public bool IsRepeatable { get; set; }
+        public ActivationType ActivationType { get; set; }
 
         public int UsesLeft { get; set; }
         /// <summary>
@@ -36,7 +38,7 @@ namespace PnP_Organizer.Core.Character
         public string ForcedDependendSkillName { get; private set; } = string.Empty;
 
         public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, IStatModifier[]? statModifiers = null,
-            string[]? dependendSkillNames = null, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1)
+            string[]? dependendSkillNames = null, ActivationType activationType = ActivationType.Passive, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1)
         {
             Name = name;
             SkillCategory = skillCategory;
@@ -45,6 +47,7 @@ namespace PnP_Organizer.Core.Character
             StatModifiers = statModifiers;
             SkillPoints = 0;
 
+            ActivationType = activationType;
             EnergyCost = energyCost;
             StaminaCost = staminaCost;
 
