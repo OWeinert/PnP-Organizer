@@ -30,6 +30,13 @@ namespace PnP_Organizer.ViewModels
         private ObservableCollection<ItemSelectorModel> _itemSelectorModels = new();
 
         [ObservableProperty]
+        private InventoryWeapon? _selectedWeapon;
+        [ObservableProperty]
+        private InventoryArmor? _selectedArmor;
+        [ObservableProperty]
+        private InventoryShield? _selectedShield;
+
+        [ObservableProperty]
         private ObservableCollection<Skill> _passiveSkills = new();
         [ObservableProperty]
         private ObservableCollection<Skill> _activeSkills = new();
@@ -82,18 +89,14 @@ namespace PnP_Organizer.ViewModels
         public CalculatorViewModel(IPageService pageService)
         {
             _pageService = pageService;
-            PropertyChanged += CalculatorViewModel_PropertyChanged;
-
             BattleActions = Enum.GetValues<BattleAction>().ToList();
         }
 
         public void OnNavigatedTo()
         {
             if (BattlePhase == BattlePhase.BetweenBattles)
-        {
-            LoadItems();
-            if (BattlePhase == BattlePhase.PreBattle)
             {
+                LoadItems();
                 LoadCharacterStats();
                 UpdateSkillsList();
             }
@@ -102,6 +105,25 @@ namespace PnP_Organizer.ViewModels
         public void OnNavigatedFrom() 
         {
             SaveCharacterStats();
+        }
+
+        internal void PopulateCalculatorSkillModels()
+        {
+            var validWeaponSkills = ActiveSkills.Where(skill =>
+            {
+                if (SelectedWeapon != null)
+                {
+                    if (SelectedWeapon.AttackMode == AttackMode.Ranged)
+                        return skill.SkillCategory == SkillCategory.Ranged || skill.SkillCategory == SkillCategory.Character;
+
+                    return skill.SkillCategory == SkillCategory.Melee || skill.SkillCategory == SkillCategory.Character;
+                }
+                return skill.SkillCategory == SkillCategory.Character;
+            });
+
+            // TODO Add checks for armor and shield specific skills
+
+            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill)));
         }
 
         [RelayCommand]
@@ -132,7 +154,7 @@ namespace PnP_Organizer.ViewModels
         private void EndBattle()
         {
             EndTurn();
-            BattlePhase = BattlePhase.PreBattle;
+            BattlePhase = BattlePhase.BetweenBattles;
         }
 
         [RelayCommand]
@@ -149,11 +171,7 @@ namespace PnP_Organizer.ViewModels
             var usedSkills = CalculatorSkillModels.Where(calcSkillModel => calcSkillModel.IsActive && calcSkillModel.Skill.UsesLeft > 0)
                 .ToList().ConvertAll(calcSkillModel => calcSkillModel.Skill).Concat(PassiveSkills);
 
-            var selectedWeapon = (InventoryWeapon?)ItemSelectorModels.FirstOrDefault(selectorModel => selectorModel.Type == typeof(InventoryWeapon))?.SelectedItem;
-            var selectedArmor = (InventoryArmor?)ItemSelectorModels.FirstOrDefault(selectorModel => selectorModel.Type == typeof(InventoryArmor))?.SelectedItem;
-            var selectedShield = (InventoryShield?)ItemSelectorModels.FirstOrDefault(selectorModel => selectorModel.Type == typeof(InventoryShield))?.SelectedItem;
-
-            CurrentTurn = new BattleTurn(_pageService, selectedWeapon, selectedArmor, selectedShield, usedSkills.ToList(),
+            CurrentTurn = new BattleTurn(_pageService, SelectedWeapon, SelectedArmor, SelectedShield, usedSkills.ToList(),
                 Action, Health, Energy, Stamina, Initiative, IncomingDamage);
 
             foreach (var skill in usedSkills)
@@ -218,7 +236,7 @@ namespace PnP_Organizer.ViewModels
             PassiveSkills = new ObservableCollection<Skill>(skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Passive));
             ActiveSkills = new ObservableCollection<Skill>(skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Active));
 
-            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(ActiveSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill)));
+            PopulateCalculatorSkillModels();
         }
 
         private void LoadItems()
