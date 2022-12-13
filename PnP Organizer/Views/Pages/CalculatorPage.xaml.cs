@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using PnP_Organizer.Core.Character.Inventory;
+using PnP_Organizer.Models;
+using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
@@ -16,14 +18,10 @@ namespace PnP_Organizer.Views.Pages
             get;
         }
 
-        private readonly ISnackbarService _snackbarService;
-
         public CalculatorPage(ViewModels.CalculatorViewModel viewModel, ISnackbarService snackbarService)
         {
             ViewModel = viewModel;
             InitializeComponent();
-            _snackbarService = snackbarService;
-            
         }
 
         // TODO CalculatorModifierCard_Click: move logic to Model
@@ -46,10 +44,34 @@ namespace PnP_Organizer.Views.Pages
             numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
         }
 
-        // TODO CalculateButton_Click: move logic to ViewModel
-        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        private void ItemSelectorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ViewModel.CalculateValues();
+            var comboBox = (ComboBox)sender;
+            var itemSelector = (ItemSelectorModel)comboBox.DataContext;
+
+            if (itemSelector.Type == typeof(InventoryWeapon))
+            {
+                if (itemSelector.SelectedItem?.Name == "None")
+                    ViewModel.SelectedWeapon = null;
+                else
+                    ViewModel.SelectedWeapon = (InventoryWeapon?)itemSelector.SelectedItem;
+            }
+            else if (itemSelector.Type == typeof(InventoryArmor))
+            {
+                if (itemSelector.SelectedItem?.Name == "None")
+                    ViewModel.SelectedWeapon = null;
+                else
+                    ViewModel.SelectedArmor = (InventoryArmor?)itemSelector.SelectedItem;
+            }
+            else if (itemSelector.Type == typeof(InventoryShield))
+            {
+                if (itemSelector.SelectedItem?.Name == "None")
+                    ViewModel.SelectedWeapon = null;
+                else
+                    ViewModel.SelectedShield = (InventoryShield?)itemSelector.SelectedItem;
+            }
+
+            ViewModel.PopulateCalculatorSkillModels();
         }
     }
 }
