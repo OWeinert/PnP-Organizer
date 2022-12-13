@@ -246,6 +246,9 @@
   <data name="Calculator_Modifiers" xml:space="preserve">
     <value>Modifiers</value>
   </data>
+  <data name="Calculator_PlaceholderSearchSkills" xml:space="preserve">
+    <value>Search Skills...</value>
+  </data>
   <data name="Calculator_Ranged" xml:space="preserve">
     <value>Ranged</value>
   </data>

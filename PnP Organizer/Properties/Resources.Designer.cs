@@ -448,6 +448,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Skills....
+        /// </summary>
+        public static string Calculator_PlaceholderSearchSkills {
+            get {
+                return ResourceManager.GetString("Calculator_PlaceholderSearchSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ranged.
         /// </summary>
         public static string Calculator_Ranged {

@@ -1526,4 +1526,7 @@ Kosten: 3 Ausdauer</value>
   <data name="Calculator_TooltipRestartBattle" xml:space="preserve">
     <value>Kampf Neustarten</value>
   </data>
+  <data name="Calculator_PlaceholderSearchSkills" xml:space="preserve">
+    <value>Skills suchen...</value>
+  </data>
 </root>
