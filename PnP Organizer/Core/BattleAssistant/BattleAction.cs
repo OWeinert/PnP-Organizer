@@ -2,7 +2,6 @@
 {
     public enum BattleAction
     {
-        Idle,
         Attack,
         Defend,
         Move
