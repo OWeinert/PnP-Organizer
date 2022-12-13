@@ -295,6 +295,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string Calculator_Action {
+            get {
+                return ResourceManager.GetString("Calculator_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Armor.
         /// </summary>
         public static string Calculator_Armor {
@@ -336,6 +345,33 @@ namespace PnP_Organizer.Properties {
         public static string Calculator_BaseDamageMultiplier {
             get {
                 return ResourceManager.GetString("Calculator_BaseDamageMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Turn.
+        /// </summary>
+        public static string Calculator_ButtonEndTurn {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonEndTurn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Turn.
+        /// </summary>
+        public static string Calculator_ButtonNextTurn {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonNextTurn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Battle.
+        /// </summary>
+        public static string Calculator_ButtonStartBattle {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonStartBattle", resourceCulture);
             }
         }
         
@@ -385,6 +421,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incoming Damage.
+        /// </summary>
+        public static string Calculator_IncomingDamage {
+            get {
+                return ResourceManager.GetString("Calculator_IncomingDamage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Melee.
         /// </summary>
         public static string Calculator_Melee {
@@ -408,6 +453,51 @@ namespace PnP_Organizer.Properties {
         public static string Calculator_Ranged {
             get {
                 return ResourceManager.GetString("Calculator_Ranged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shield.
+        /// </summary>
+        public static string Calculator_Shield {
+            get {
+                return ResourceManager.GetString("Calculator_Shield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skills.
+        /// </summary>
+        public static string Calculator_Skills {
+            get {
+                return ResourceManager.GetString("Calculator_Skills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Battle.
+        /// </summary>
+        public static string Calculator_TooltipEndBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipEndBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Battle.
+        /// </summary>
+        public static string Calculator_TooltipRestartBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipRestartBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weapon.
+        /// </summary>
+        public static string Calculator_Weapon {
+            get {
+                return ResourceManager.GetString("Calculator_Weapon", resourceCulture);
             }
         }
         
@@ -493,7 +583,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calculator.
+        ///   Looks up a localized string similar to Battle Assistant.
         /// </summary>
         public static string Container_NavigationCalculator {
             get {

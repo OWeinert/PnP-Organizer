@@ -262,7 +262,7 @@
     <value>Attribut-Tests</value>
   </data>
   <data name="Container_NavigationCalculator" xml:space="preserve">
-    <value>Rechner</value>
+    <value>Kampfassistent</value>
   </data>
   <data name="Container_NavigationDashboard" xml:space="preserve">
     <value>Home</value>
@@ -1495,5 +1495,35 @@ Kosten: 3 Ausdauer</value>
   </data>
   <data name="Inventory_TooltipAddShield" xml:space="preserve">
     <value>Schild hinzufügen</value>
+  </data>
+  <data name="Calculator_Shield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="Calculator_Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="Calculator_Weapon" xml:space="preserve">
+    <value>Waffe</value>
+  </data>
+  <data name="Calculator_Action" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="Calculator_IncomingDamage" xml:space="preserve">
+    <value>Erhaltener Schaden</value>
+  </data>
+  <data name="Calculator_ButtonEndTurn" xml:space="preserve">
+    <value>Zug Beenden</value>
+  </data>
+  <data name="Calculator_ButtonNextTurn" xml:space="preserve">
+    <value>Nächster Zug</value>
+  </data>
+  <data name="Calculator_ButtonStartBattle" xml:space="preserve">
+    <value>Kampf Starten</value>
+  </data>
+  <data name="Calculator_TooltipEndBattle" xml:space="preserve">
+    <value>Kampf Beenden</value>
+  </data>
+  <data name="Calculator_TooltipRestartBattle" xml:space="preserve">
+    <value>Kampf Neustarten</value>
   </data>
 </root>
