@@ -5,6 +5,7 @@ using PnP_Organizer.IO;
 using PnP_Organizer.Properties;
 using PnP_Organizer.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -653,6 +654,17 @@ namespace PnP_Organizer.Core.Character
 
             #endregion Ranged
             #endregion Skill Definitions
+        }
+
+        public static List<TStatModifier> GetStatModifiers<TStatModifier>(IEnumerable<Skill> skills) where TStatModifier : IStatModifier
+        {
+            var validSkills = skills.Where(skill => skill.StatModifiers != null
+                && skill.StatModifiers.Any(modifier => modifier is TStatModifier));
+
+            var statModifiers = validSkills.SelectMany(skill => skill.StatModifiers!, (skill, modifier) => modifier is TStatModifier)
+                .Cast<TStatModifier>().ToList();
+
+            return statModifiers;
         }
 
         public int GetSkillIndexFromName(string name)
