@@ -78,12 +78,13 @@
                                        FontSize="14"
                                        FontWeight="SemiBold"/>
                                         <ComboBox Grid.Column="1"
-                                          HorizontalAlignment="Right"
-                                          MinWidth="240"
-                                          MaxWidth="240"
-                                          DisplayMemberPath="Name"
-                                          ItemsSource="{Binding Items}"
-                                          SelectedItem="{Binding SelectedItem}"/>
+                                                  HorizontalAlignment="Right"
+                                                  MinWidth="240"
+                                                  MaxWidth="240"
+                                                  DisplayMemberPath="Name"
+                                                  ItemsSource="{Binding Items}"
+                                                  SelectedItem="{Binding SelectedItem}"
+                                                  SelectionChanged="ItemSelectorComboBox_SelectionChanged"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -281,29 +282,28 @@
                     <DataTemplate DataType="{x:Type models:CalculatorSkillModel}">
                         <ui:CardControl x:Name="CalculatorModifierCard"
                                         Width="212"
-                                        Height="48"
                                         Margin="4,4"
                                         Click="CalculatorModifierCard_Click"
                                         HorizontalContentAlignment="Left"
-                                        Padding="10,0">
+                                        Padding="10,4">
                             <Grid Width="176">
                                 <ui:ToggleSwitch x:Name="ToggleActiveSwitch"
                                                  IsHitTestVisible="False"
                                                  IsChecked="{Binding IsActive, Mode=TwoWay}"
                                                  HorizontalAlignment="Right"/>
                                 <Viewbox MaxWidth="120"
-                                         MaxHeight="24"
+                                         MaxHeight="20"
                                          HorizontalAlignment="Left"
                                          Margin="8,0,0,0">
-                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Skill.Name}"/>
                                 </Viewbox>
 
                                 <ui:SymbolIcon Symbol="Info12"
                                                HorizontalAlignment="Left"
-                                               VerticalAlignment="Bottom"
+                                               VerticalAlignment="Center"
                                                Padding="0"
                                                Margin="-16,0,0,0"
-                                               ToolTip="{Binding Description}"
+                                               ToolTip="{Binding Skill.Description}"
                                                ToolTipService.InitialShowDelay="0"/>
                             </Grid>
                         </ui:CardControl>
