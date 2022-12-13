@@ -20,7 +20,7 @@ namespace PnP_Organizer.Helpers.Converters
             if (value.GetType() != typeof(bool))
                 throw new ArgumentException("", nameof(value));
 
-            return (bool)value ? BattlePhase.InBattle : BattlePhase.PreBattle;
+            return (bool)value ? BattlePhase.InBattle : BattlePhase.BetweenBattles;
         }
     }
 }

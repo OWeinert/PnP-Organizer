@@ -75,7 +75,7 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private TurnPhase _turnPhase = TurnPhase.PreTurn;
         [ObservableProperty]
-        private BattlePhase _battlePhase = BattlePhase.PreBattle;
+        private BattlePhase _battlePhase = BattlePhase.BetweenBattles;
 
         private readonly IPageService _pageService;
 
@@ -87,11 +87,9 @@ namespace PnP_Organizer.ViewModels
             BattleActions = Enum.GetValues<BattleAction>().ToList();
         }
 
-        private void CalculatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-        }
-
         public void OnNavigatedTo()
+        {
+            if (BattlePhase == BattlePhase.BetweenBattles)
         {
             LoadItems();
             if (BattlePhase == BattlePhase.PreBattle)
@@ -256,7 +254,7 @@ namespace PnP_Organizer.ViewModels
 
     public enum BattlePhase
     {
-        PreBattle,
+        BetweenBattles,
         InBattle
     }
 }
