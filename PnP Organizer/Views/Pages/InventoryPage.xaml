@@ -110,7 +110,7 @@
                      VerticalAlignment="Top"
                      Width="48"
                      Height="48"
-                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddArmor}"
+                     ToolTip="{x:Static p:Resources.Inventory_TooltipAddShield}"
                      Margin="0,8"
                      Padding="0"
                      Command="{Binding ViewModel.AddShieldCommand}">
