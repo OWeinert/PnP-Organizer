@@ -1,12 +1,10 @@
-﻿using Octokit;
-using PnP_Organizer.Core.Character;
+﻿using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.Inventory;
-using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
-using PnP_Organizer.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.Core.BattleAssistant
 {
@@ -45,11 +43,16 @@ namespace PnP_Organizer.Core.BattleAssistant
         public int Dodge { get; private set; }
 
         private readonly List<CalculatorStatModifier> _modifiers;
+        private readonly List<CalculatorActionStatModifier> _actionModifiers;
 
-        public BattleTurn(InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> activeSkills,
+        private readonly IPageService _pageService;
+
+        public BattleTurn(IPageService pageService, InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> activeSkills,
             BattleAction action, int currentHealth, int currentEnergy, int currentStamina, int initiative,
             int incomingDamage = 0)
         {
+            _pageService = pageService;
+
             WeaponItem = weaponItem;
             ArmorItem = armorItem;
             ShieldItem = shieldItem;
@@ -64,23 +67,12 @@ namespace PnP_Organizer.Core.BattleAssistant
             StaminaBefore = currentStamina;
             BaseInitiative = initiative;
 
-            _modifiers = GetCalculatorModifiers();
+            _modifiers = Skills.GetStatModifiers<CalculatorStatModifier>(activeSkills);
+            _actionModifiers = Skills.GetStatModifiers<CalculatorActionStatModifier>(activeSkills);
 
             CalculateBattleStats();
             CalculateCharacterStats();
-
-            DecreaseSkillUses();
-        }
-
-        private List<CalculatorStatModifier> GetCalculatorModifiers()
-        {
-            var validSkills = ActiveSkills.Where(skill => skill.StatModifiers != null
-                && skill.StatModifiers.Any(modifier => modifier is CalculatorStatModifier));
-
-            var statModifiers = validSkills.SelectMany(skill => skill.StatModifiers!, (skill, modifier) => modifier is CalculatorStatModifier)
-                .Cast<CalculatorStatModifier>().ToList();
-
-            return statModifiers;
+            ExecuteModifierActions();
         }
 
         private void CalculateBattleStats() 
@@ -145,9 +137,12 @@ namespace PnP_Organizer.Core.BattleAssistant
             }
         }
 
-        private void DecreaseSkillUses()
+        private void ExecuteModifierActions()
         {
-
+            foreach(var modifier in _actionModifiers)
+            {
+                modifier.Action(_pageService, this);
+            }
         }
     }
 }
