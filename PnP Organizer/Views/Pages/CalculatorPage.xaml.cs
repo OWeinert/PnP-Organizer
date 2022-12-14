@@ -24,7 +24,6 @@ namespace PnP_Organizer.Views.Pages
             InitializeComponent();
         }
 
-        // TODO CalculatorModifierCard_Click: move logic to Model
         private void CalculatorModifierCard_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var modifierCard = (CardControl)sender;
@@ -72,6 +71,15 @@ namespace PnP_Organizer.Views.Pages
             }
 
             ViewModel.PopulateCalculatorSkillModels();
+        }
+
+        private void ShieldComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(!(bool)e.NewValue)
+            {
+                var numBox = (NumberBox)sender;
+                numBox.Value = 0;
+            }
         }
     }
 }
