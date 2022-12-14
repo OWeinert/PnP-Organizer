@@ -16,7 +16,7 @@ namespace PnP_Organizer.Helpers.Converters
 
             var turnPhase = (TurnPhase)value;
 
-            if (turnPhase == TurnPhase.PostTurn)
+            if (turnPhase == TurnPhase.PreTurn)
                 return SymbolRegular.Checkmark24;
             return SymbolRegular.Next24;
         }

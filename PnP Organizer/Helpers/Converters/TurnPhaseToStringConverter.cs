@@ -15,7 +15,7 @@ namespace PnP_Organizer.Helpers.Converters
 
             var turnPhase = (TurnPhase)value;
 
-            if (turnPhase == TurnPhase.PostTurn)
+            if (turnPhase == TurnPhase.PreTurn)
                 return Resources.Calculator_ButtonEndTurn;
             return Resources.Calculator_ButtonNextTurn;
         }
