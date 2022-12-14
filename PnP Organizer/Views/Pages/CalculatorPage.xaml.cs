@@ -73,7 +73,7 @@ namespace PnP_Organizer.Views.Pages
             ViewModel.PopulateCalculatorSkillModels();
         }
 
-        private void ShieldComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void IncomingDamageComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if(!(bool)e.NewValue)
             {

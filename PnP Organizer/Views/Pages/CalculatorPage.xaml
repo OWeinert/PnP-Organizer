@@ -137,7 +137,7 @@
                                       Value="{Binding ViewModel.IncomingDamage, Mode=TwoWay}"
                                       Text="{Binding Value, RelativeSource={RelativeSource Self}}"
                                       IsEnabled="{Binding ViewModel.Action, Converter={StaticResource BattleActionToBooleanConverter},ConverterParameter=Defend}"
-                                      IsEnabledChanged="ShieldComboBox_IsEnabledChanged"
+                                      IsEnabledChanged="IncomingDamageComboBox_IsEnabledChanged"
                                       MouseWheel="NumBox_MouseWheel"/>
                     </Grid>
                 </StackPanel>
