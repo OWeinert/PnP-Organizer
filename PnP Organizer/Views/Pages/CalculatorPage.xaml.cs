@@ -18,7 +18,7 @@ namespace PnP_Organizer.Views.Pages
             get;
         }
 
-        public CalculatorPage(ViewModels.CalculatorViewModel viewModel, ISnackbarService snackbarService)
+        public CalculatorPage(ViewModels.CalculatorViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();
