@@ -258,7 +258,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillPlungeDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, 8) },
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 3);
             HardToKill = CreateAndAddSkill(Resources.Skills_SkillHardToKill, SkillCategory.Character, 2, 
                 Resources.Skills_SkillHardToKillDescr, null,
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
@@ -302,9 +302,9 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillHealingDescr, null,
                 new string[] { Climbing.Name, Teacher.Name, RescueIsNear.Name, HardToKill.Name, Etiquette.Name, Trading.Name, Alertness.Name });
             LastBreath = CreateAndAddSkill(Resources.Skills_SkillLastBreath, SkillCategory.Character, 2, 
-                Resources.Skills_SkillLastBreathDescr, null, new string[] { Perseverence.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillLastBreathDescr, null, new string[] { Perseverence.Name }, activationType: ActivationType.Active, usesPerBattle: 1);
             FutureMarket = CreateAndAddSkill(Resources.Skills_SkillFutureMarket, SkillCategory.Character, 2,
-                Resources.Skills_SkillFutureMarketDescr, null, new string[] { Perseverence.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillFutureMarketDescr, null, new string[] { Perseverence.Name }, activationType: ActivationType.Active, usesPerBattle: 1);
             Avenger = CreateAndAddSkill(Resources.Skills_SkillAvenger, SkillCategory.Character, 2,
                 Resources.Skills_SkillAvengerDescr, null, new string[] { Momentum.Name }, activationType: ActivationType.Active);
 
@@ -342,28 +342,29 @@ namespace PnP_Organizer.Core.Character
                 new IStatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Performance, 0, true) }); // Dummy StatModifier to show the skill on the AttributeTestsPage
             RunOver = CreateAndAddSkill(Resources.Skills_SkillRunOver, SkillCategory.Melee, 2, Resources.Skills_SkillRunOverDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D4, 2) },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 3);
             AimedAttackMelee = CreateAndAddSkill(Resources.Skills_SkillAimedAttackMelee, SkillCategory.Melee, 2,
                 Resources.Skills_SkillAimedAttackMeleeDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, -5) },
-                new string[] { LightBlow.Name }, activationType: ActivationType.Active);
+                new string[] { LightBlow.Name }, activationType: ActivationType.Active, staminaCost: 2);
             WeaponsAndArmor = CreateAndAddSkill(Resources.Skills_SkillWeaponsAndArmor, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillWeaponsAndArmorDescr, null, new string[] { Smithing.Name });
             Kick = CreateAndAddSkill(Resources.Skills_SkillKick, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillKickDescr, null, new string[] { RunOver.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillKickDescr, null, new string[] { RunOver.Name }, activationType: ActivationType.Active, staminaCost: 1);
             Taunt = CreateAndAddSkill(Resources.Skills_SkillTaunt, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillTauntDescr, null, new string[] { RunOver.Name });
             ArmorBreaker = CreateAndAddSkill(Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillArmorBreakerDescr, null, new string[] { AimedAttackMelee.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillArmorBreakerDescr, null, new string[] { AimedAttackMelee.Name }, activationType: ActivationType.Active,
+                staminaCost: 5);
             Assassinate = AddSkill(new Skill(Resources.Skills_SkillAssassinate, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillAssassinateDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Damage, ApplianceMode.EndValue, 3, CalculatorBonusType.Multiplicative)}, 
-                new string[] { AimedAttackMelee.Name }, activationType: ActivationType.Active)
+                new string[] { AimedAttackMelee.Name }, activationType: ActivationType.Active, staminaCost: 1)
                 .AddForcedDependency(Sneaking.Name));
             JumpAttack = CreateAndAddSkill(Resources.Skills_SkillJumpAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillJumpAttackDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D6, 2) },
-                new string[] { Kick.Name }, activationType: ActivationType.Active);
+                new string[] { Kick.Name }, activationType: ActivationType.Active, staminaCost: 1);
 
             // Checkpoint 1
             OneHandedCombat = CreateAndAddSkill(Resources.Skills_SkillOneHandedFighting, SkillCategory.Melee, 2, 
@@ -407,7 +408,7 @@ namespace PnP_Organizer.Core.Character
             FullDamage = CreateAndAddSkill(Resources.Skills_SkillFullDamage, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillFullDamageDescr, null, new string[] { SecondHand.Name });
             ShieldBash = CreateAndAddSkill(Resources.Skills_SkillShieldBash, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillShieldBashDescr, null, new string[] { Shield.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillShieldBashDescr, null, new string[] { Shield.Name }, activationType: ActivationType.Active, staminaCost: 2);
             Parade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillParadeDescr,
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, Dice.D4) },
@@ -415,31 +416,35 @@ namespace PnP_Organizer.Core.Character
             ThereAndAway = CreateAndAddSkill(Resources.Skills_SkillThereAndAway, SkillCategory.Melee, 2,
                 Resources.Skills_SkillThereAndAwayDescr, null, new string[] { Nimble.Name });
             RecklessAttack = CreateAndAddSkill(Resources.Skills_SkillRecklessAttack, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillRecklessAttackDescr, null, new string[] { AggressiveCombat.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillRecklessAttackDescr, null, new string[] { AggressiveCombat.Name }, activationType: ActivationType.Active,
+                staminaCost: 3);
             DuplexFerrum = CreateAndAddSkill(Resources.Skills_SkillDuplexFerrum, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillDuplexFerrumDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, Dice.D4) },
                 new string[] { FullDamage.Name });
             SomethingWithShield = CreateAndAddSkill(Resources.Skills_SkillSomethingWithShield, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillSomethingWithShieldDescr, null, new string[] { ShieldBash.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillSomethingWithShieldDescr, null, new string[] { ShieldBash.Name }, activationType: ActivationType.Active,
+                staminaCost: 3);
             QuickParade = CreateAndAddSkill(Resources.Skills_SkillQuickParade, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillQuickParadeDescr, null, new string[] { Parade.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillQuickParadeDescr, null, new string[] { Parade.Name }, activationType: ActivationType.Active,
+                staminaCost: 1);
             SkillfulRetreat = CreateAndAddSkill(Resources.Skills_SkillSkillfulRetreat, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillSkillfulRetreatDescr, null, new string[] { DefensiveFighting.Name, ThereAndAway.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillSkillfulRetreatDescr, null, new string[] { DefensiveFighting.Name, ThereAndAway.Name }, activationType: ActivationType.Active,
+                staminaCost: 1);
             Feint = CreateAndAddSkill(Resources.Skills_SkillFeint, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillFeintDescr,
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 4) },
                 new string[] { Nimble.Name });
             RoundHouseAttack = CreateAndAddSkill(Resources.Skills_SkillRoundHouseAttack, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillRoundHouseAttackDescr, null, new string[] { RecklessAttack.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillRoundHouseAttackDescr, null, new string[] { RecklessAttack.Name }, activationType: ActivationType.Active, staminaCost: 3);
             HeavyParade = CreateAndAddSkill(Resources.Skills_SkillHeavyParade, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillHeavyParadeDescr, null, new string[] { QuickParade.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillHeavyParadeDescr, null, new string[] { QuickParade.Name }, activationType: ActivationType.Active, staminaCost: 2);
             PerfectBlock = CreateAndAddSkill(Resources.Skills_SkillPerfectBlock, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillPerfectBlockDescr, null, new string[] { QuickParade.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillPerfectBlockDescr, null, new string[] { QuickParade.Name }, activationType: ActivationType.Active, staminaCost: 5);
             DevastatingAttack = CreateAndAddSkill(Resources.Skills_SkillDevastatingAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillDevastatingAttackDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Damage, ApplianceMode.EndValue, 2, CalculatorBonusType.Multiplicative) },
-                new string[] { RoundHouseAttack.Name }, activationType: ActivationType.Active);
+                new string[] { RoundHouseAttack.Name }, activationType: ActivationType.Active, staminaCost: 3);
 
             // Checkpoint 2
             Cavallery = CreateAndAddSkill(Resources.Skills_SkillCavallery, SkillCategory.Melee, 2, 
@@ -453,9 +458,9 @@ namespace PnP_Organizer.Core.Character
                     new CalculatorStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, Dice.D6, 2),
                 },
                 new string[] { Fencing.Name, DuplexFerrum.Name, HeavyParade.Name, PerfectBlock.Name, SkillfulRetreat.Name, Feint.Name, DevastatingAttack.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1);
             ArmorUp = CreateAndAddSkill(Resources.Skills_SkillArmorUp, SkillCategory.Melee, 2,
-                Resources.Skills_SkillArmorUpDescr, null, new string[] { DefensiveStance.Name });
+                Resources.Skills_SkillArmorUpDescr, null, new string[] { DefensiveStance.Name }, ActivationType.Active, staminaCost: 1);
             AccurateMelee = CreateAndAddSkill(Resources.Skills_SkillAccurateMelee, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillAccurateMeleeDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Parry, ApplianceMode.BaseValue, 2) },
@@ -471,15 +476,17 @@ namespace PnP_Organizer.Core.Character
             CripplingBlow = CreateAndAddSkill(Resources.Skills_SkillCripplingBlow, SkillCategory.Melee, 2,
                 Resources.Skills_SkillCripplingBlowDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, -1) }, 
-                new string[] { RecognizeStyle.Name }, activationType: ActivationType.Active);
+                new string[] { RecognizeStyle.Name }, activationType: ActivationType.Active, staminaCost: 2);
             HijackerMelee = CreateAndAddSkill(Resources.Skills_SkillHijackerMelee, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillHijackerMeleeDescr, null, new string[] { Cavallery.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillHijackerMeleeDescr, null, new string[] { Cavallery.Name }, activationType: ActivationType.Active,
+                staminaCost: 3);
             Armor = CreateAndAddSkill(Resources.Skills_SkillArmor, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillArmorDescr, null, new string[] { DefensiveStance.Name });
             Combo = CreateAndAddSkill(Resources.Skills_SkillCombo, SkillCategory.Melee, 2,
                 Resources.Skills_SkillComboDescr, null, new string[] { AccurateMelee.Name });
             PerfectBlow = CreateAndAddSkill(Resources.Skills_SkillPerfectBlow, SkillCategory.Melee, 2, 
-                Resources.Skills_SkillPerfectBlowDescr, null, new string[] { AccurateMelee.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillPerfectBlowDescr, null, new string[] { AccurateMelee.Name }, activationType: ActivationType.Active,
+                staminaCost: 5);
             EveryBlowAHit = CreateAndAddSkill(Resources.Skills_SkillEveryBlowAHit, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillEveryBlowAHitDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 2) },
@@ -491,11 +498,11 @@ namespace PnP_Organizer.Core.Character
             AttackOfOpportunity = CreateAndAddSkill(Resources.Skills_SkillAttackOfOpportunity, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillAttackOfOpportunityDescr, null,
                 new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1);
             DisarmMelee = CreateAndAddSkill(Resources.Skills_SkillDisarmMelee, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillDisarmMeleeDescr, null,
                 new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1);
             KillingSpree = CreateAndAddSkill(Resources.Skills_SkillKillingSpree, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillKillingSpreeDescr, null,
                 new string[] { HijackerMelee.Name, Armor.Name, ArmorUp.Name, Combo.Name, PerfectBlow.Name, EveryBlowAHit.Name, TakeAHit.Name });
@@ -518,13 +525,13 @@ namespace PnP_Organizer.Core.Character
                 activationType: ActivationType.Active);
             ChainAttack = CreateAndAddSkill(Resources.Skills_SkillChainAttack, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillChainAttackDescr, null, new string[] { DisarmMelee.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1);
             ShieldBreaker = CreateAndAddSkill(Resources.Skills_SkillShieldBreaker, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillShieldBreakerDescr, null, new string[] { HeavyFighting.Name },
                 activationType: ActivationType.Active);
             BladeFan = CreateAndAddSkill(Resources.Skills_SkillBladeFan, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillBladeFanDescr, null, new string[] { Riposte.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1, energyCost: 1);
 
             #endregion Melee
 
@@ -535,9 +542,9 @@ namespace PnP_Organizer.Core.Character
                 {
                     new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, Dice.D6, 2.0),
                     new CalculatorStatModifier(CalculatorValueType.Damage, ApplianceMode.EndValue, 0.5, CalculatorBonusType.Multiplicative)
-                }, activationType: ActivationType.Active);
+                }, activationType: ActivationType.Active, staminaCost: 1);
             Quickdraw = CreateAndAddSkill(Resources.Skills_SkillQuickdraw, SkillCategory.Ranged, 2, Resources.Skills_SkillQuickdrawDescr, null,
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost:1);
             SkilledWithThrowingWeapons = CreateAndAddSkill(Resources.Skills_SkillSkilledWithThrowingWeapons, SkillCategory.Ranged, 2, 
                 Resources.Skills_SkillSkilledWithThrowingWeaponsDescr,
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 1) });
@@ -548,7 +555,7 @@ namespace PnP_Organizer.Core.Character
                 new string[]{ LightShot.Name }, activationType: ActivationType.Active);
             DisarmRanged = CreateAndAddSkill(Resources.Skills_SkillDisarmRanged, SkillCategory.Ranged, 2,
                 Resources.Skills_SkillDisarmRangedDescr, null, new string[]{ Quickdraw.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 2);
             DualThrow = CreateAndAddSkill(Resources.Skills_SkillDualThrow, SkillCategory.Ranged, 2,
                 Resources.Skills_SkillDualThrowDescr, null, new string[]{ SkilledWithThrowingWeapons.Name });
             SlingshotMarksman = CreateAndAddSkill(Resources.Skills_SkillSlingshotMarksman, SkillCategory.Ranged, 2,
@@ -565,12 +572,12 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillPreciseThrowDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, -4) },
                 new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name }, 
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 1);
             AimedAttackRanged = CreateAndAddSkill(Resources.Skills_SkillAimedAttackRanged, SkillCategory.Ranged, 2, 
                 Resources.Skills_SkillAimedAttackRangedDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, -5) },
                 new string[]{ CalmAiming.Name, DisarmRanged.Name, DualThrow.Name, SlingshotMarksman.Name },
-                activationType: ActivationType.Active);
+                activationType: ActivationType.Active, staminaCost: 2);
             AccurateRanged = CreateAndAddSkill(Resources.Skills_SkillAccurateRanged, SkillCategory.Ranged, 2, 
                 Resources.Skills_SkillAccurateRangedDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 1) },
@@ -602,7 +609,8 @@ namespace PnP_Organizer.Core.Character
                 }, 
                 new string[]{ AccurateRanged.Name });
             PerfectShot = CreateAndAddSkill(Resources.Skills_SkillPerfectShot, SkillCategory.Ranged, 2, 
-                Resources.Skills_SkillPerfectShotDescr, null, new string[]{ BackLine.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillPerfectShotDescr, null, new string[]{ BackLine.Name }, activationType: ActivationType.Active,
+                staminaCost: 5);
 
             // Checkpoint 2
             SurpriseAttack = CreateAndAddSkill(Resources.Skills_SkillSurpriseAttack, SkillCategory.Ranged, 2, 
@@ -633,7 +641,7 @@ namespace PnP_Organizer.Core.Character
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, -6) },
                 new string[]{ CurvedShot.Name }, activationType: ActivationType.Active);
             DoubleShot = CreateAndAddSkill(Resources.Skills_SkillDoubleShot, SkillCategory.Ranged, 2, 
-                Resources.Skills_SkillDoubleShotDescr, null, new string[]{ QuickAim.Name }, activationType: ActivationType.Active);
+                Resources.Skills_SkillDoubleShotDescr, null, new string[]{ QuickAim.Name }, activationType: ActivationType.Active, usesPerBattle: 1);
             MasterfulArcher = CreateAndAddSkill(Resources.Skills_SkillMasterfulArcher, SkillCategory.Ranged, 2, 
                 Resources.Skills_SkillMasterfulArcherDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 2) },
