@@ -126,7 +126,7 @@
                                FontSize="14"
                                FontWeight="SemiBold"
                                IsEnabled="{Binding ViewModel.Action, Converter={StaticResource BattleActionToBooleanConverter},ConverterParameter=Defend}"/>
-                        <ui:NumberBox x:Name="ShieldComboBox"
+                        <ui:NumberBox x:Name="IncomingDamageComboBox"
                                       Grid.Column="1"
                                       HorizontalAlignment="Right"
                                       MinWidth="160"
@@ -137,6 +137,7 @@
                                       Value="{Binding ViewModel.IncomingDamage, Mode=TwoWay}"
                                       Text="{Binding Value, RelativeSource={RelativeSource Self}}"
                                       IsEnabled="{Binding ViewModel.Action, Converter={StaticResource BattleActionToBooleanConverter},ConverterParameter=Defend}"
+                                      IsEnabledChanged="ShieldComboBox_IsEnabledChanged"
                                       MouseWheel="NumBox_MouseWheel"/>
                     </Grid>
                 </StackPanel>
@@ -152,95 +153,144 @@
                         Background="{DynamicResource ControlFillColorDefaultBrush}"
                         CornerRadius="8">
                     <Grid>
-                        <Viewbox Width="24"
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                CornerRadius="8,8,0,0"/>
+
+                        <Viewbox Grid.Row="0"
+                                 Grid.Column="0"
+                                 Width="24"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
-                                 Margin="4">
+                                 Margin="2,1">
                             <ui:SymbolIcon Symbol="Info24"
                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                         </Viewbox>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Content="Character Stats"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+
+                        <Separator Grid.Column="1"
+                                   Grid.RowSpan="2"
+                                   Margin="4,4"/>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Content="Activated Skills"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+                        
                     </Grid>
                 </Border>
             </Grid>
 
             <Grid Grid.Row="3">
-                <Button x:Name="TurnButton"
-                        HorizontalAlignment="Left"
-                        FontSize="20"
-                        Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
-                        Command="{Binding ViewModel.ManageTurnCommand}">
-                    <Button.Content>
+                <ui:Button x:Name="TurnButton"
+                           HorizontalAlignment="Left"
+                           FontSize="20"
+                           Appearance="Primary"
+                           Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                           Command="{Binding ViewModel.ManageTurnCommand}">
+                    <ui:Button.Content>
                         <Grid MinWidth="180">
                             <TextBlock HorizontalAlignment="Center"
                                        Text="{Binding ViewModel.TurnPhase, Converter={StaticResource TurnPhaseToStringConverter}}"
-                                       Margin="0,0,32,0"/>
+                                       Margin="0,0,32,0"
+                                       FontWeight="SemiBold"/>
                             <Viewbox Width="24"
                                      HorizontalAlignment="Right">
                                 <ui:SymbolIcon Symbol="{Binding ViewModel.TurnPhase, Converter={StaticResource TurnPhaseToSymbolConverter}}"
-                                               Filled="True"/>
+                                               Filled="True"
+                                               Foreground="{DynamicResource TextFillColorInvertedBrush}"/>
                             </Viewbox>
                         </Grid>
-                    </Button.Content>
-                </Button>
+                    </ui:Button.Content>
+                </ui:Button>
 
-                <Button x:Name="NewBattleButtonPrimary"
-                        HorizontalAlignment="Left"
-                        FontSize="20"
-                        Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}, ConverterParameter=true}"
-                        Command="{Binding ViewModel.StartNewBattleCommand}">
-                    <Button.Content>
+                <ui:Button x:Name="NewBattleButtonPrimary"
+                           HorizontalAlignment="Left"
+                           FontSize="20"
+                           Appearance="Primary"
+                           Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}, ConverterParameter=true}"
+                           Command="{Binding ViewModel.StartNewBattleCommand}">
+                    <ui:Button.Content>
                         <Grid MinWidth="180">
                             <Viewbox Width="160"
                                      Height="24">
                                 <TextBlock HorizontalAlignment="Center"
                                            Text="{x:Static p:Resources.Calculator_ButtonStartBattle}"
-                                           Margin="0,0,32,0"/>
+                                           Margin="0,0,32,0"
+                                           FontWeight="SemiBold"/>
                             </Viewbox>
                             <Viewbox Width="24"
                                      HorizontalAlignment="Right">
                                 <ui:SymbolIcon Symbol="Play24"
-                                               Filled="True"/>
+                                               Filled="True"
+                                               Foreground="{DynamicResource TextFillColorInvertedBrush}"/>
                             </Viewbox>
                         </Grid>
-                    </Button.Content>
-                </Button>
+                    </ui:Button.Content>
+                </ui:Button>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
-                    <Button x:Name="EndBattleButton"
-                            Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
-                            Command="{Binding ViewModel.EndBattleCommand}"
-                            MinWidth="42"
-                            MinHeight="42"
-                            Margin="0,0,8,0"
-                            Padding="0"
-                            ToolTip="{x:Static p:Resources.Calculator_TooltipEndBattle}"
-                            ToolTipService.InitialShowDelay="0">
-                        <Button.Content>
+                    <ui:Button x:Name="EndBattleButton"
+                               Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                               Command="{Binding ViewModel.EndBattleCommand}"
+                               MinWidth="42"
+                               MinHeight="42"
+                               Margin="0,0,8,0"
+                               Padding="0"
+                               Appearance="Primary"
+                               ToolTip="{x:Static p:Resources.Calculator_TooltipEndBattle}"
+                               ToolTipService.InitialShowDelay="0">
+                        <ui:Button.Content>
                             <Viewbox Width="28"
                                      HorizontalAlignment="Right">
-                                <ui:SymbolIcon Symbol="RecordStop24"/>
+                                <ui:SymbolIcon Symbol="RecordStop24"
+                                               Foreground="{DynamicResource TextFillColorInvertedBrush}"/>
                             </Viewbox>
-                        </Button.Content>
-                    </Button>
+                        </ui:Button.Content>
+                    </ui:Button>
 
-                    <Button x:Name="RestartBattleButton"
-                            Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
-                            Command="{Binding ViewModel.RestartBattleCommand}"
-                            MinWidth="42"
-                            MinHeight="42"
-                            Margin="0,0,8,0"
-                            Padding="0"
-                            ToolTip="{x:Static p:Resources.Calculator_TooltipRestartBattle}"
-                            ToolTipService.InitialShowDelay="0">
-                        <Button.Content>
+                    <ui:Button x:Name="RestartBattleButton"
+                               Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                               Command="{Binding ViewModel.RestartBattleCommand}"
+                               MinWidth="42"
+                               MinHeight="42"
+                               Margin="0,0,8,0"
+                               Padding="0"
+                               Appearance="Primary"
+                               ToolTip="{x:Static p:Resources.Calculator_TooltipRestartBattle}"
+                               ToolTipService.InitialShowDelay="0">
+                        <ui:Button.Content>
                             <Viewbox Width="28"
                                      HorizontalAlignment="Right">
                                 <ui:SymbolIcon Symbol="Replay20"
+                                               Foreground="{DynamicResource TextFillColorInvertedBrush}"
                                                Filled="True"/>
                             </Viewbox>
-                        </Button.Content>
-                    </Button>
+                        </ui:Button.Content>
+                    </ui:Button>
                 </StackPanel>
             </Grid>
         </Grid>
