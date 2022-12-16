@@ -36,8 +36,6 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private int _maxSkillPoints = 0;
         [ObservableProperty]
-        private SolidColorBrush _brush = Brushes.Gray;
-        [ObservableProperty]
         private bool _isActive = false;
         [ObservableProperty]
         private bool _isSkillable = false;
@@ -58,12 +56,6 @@ namespace PnP_Organizer.Models
             SkillCategoryTooltip = $"Category: {SkillCategory}";
             SkillPoints = skill.SkillPoints;
             MaxSkillPoints = skill.MaxSkillPoints;
-            Brush = SkillCategory switch
-            {
-                SkillCategory.Melee => (SolidColorBrush)Application.Current.Resources["PaletteBlueBrush"],
-                SkillCategory.Ranged => (SolidColorBrush)Application.Current.Resources["PaletteGreenBrush"],
-                _ => (SolidColorBrush)Application.Current.Resources["ControlSolidFillColorDefaultBrush"]
-            };
             LocalizedSkillCategory = SkillCategory switch
             {
                 SkillCategory.Melee => Properties.Resources.Skills_Melee,
@@ -125,7 +117,5 @@ namespace PnP_Organizer.Models
             ActiveOverlayVisibility = IsActive ? Visibility.Hidden : Visibility.Visible;
             SkillableOverlayVisibility = IsSkillable ? Visibility.Hidden : Visibility.Visible;
         }
-
-        
     }
 }
