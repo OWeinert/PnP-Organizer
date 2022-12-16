@@ -14,12 +14,13 @@ using PnP_Organizer.Core.Character.SkillSystem;
 using System.Collections.Generic;
 using System;
 using CommunityToolkit.Mvvm.Input;
+using PnP_Organizer.Properties;
 
 namespace PnP_Organizer.ViewModels
 {
     public partial class CalculatorViewModel : ObservableObject, INavigationAware
     {
-        public List<BattleAction> BattleActions { get; }
+        public List<LocalizedBattleAction> BattleActions { get; }
 
         [ObservableProperty]
         private BattleTurn? _currentTurn;
@@ -45,7 +46,7 @@ namespace PnP_Organizer.ViewModels
         private ObservableCollection<CalculatorSkillModel> _calculatorSkillModels = new();
 
         [ObservableProperty]
-        private BattleAction _action;
+        private LocalizedBattleAction _action;
 
         [ObservableProperty]
         private int _incomingDamage;
@@ -89,17 +90,15 @@ namespace PnP_Organizer.ViewModels
         public CalculatorViewModel(IPageService pageService)
         {
             _pageService = pageService;
-            BattleActions = Enum.GetValues<BattleAction>().ToList();
+            BattleActions = Enum.GetValues<BattleAction>().ToList()
+                .ConvertAll(battleAction => new LocalizedBattleAction(battleAction, Resources.ResourceManager.GetString($"Calculator_BattleAction{battleAction}")!));
+            PropertyChanged += CalculatorViewModel_PropertyChanged;
         }
 
         public void OnNavigatedTo()
         {
             if (BattlePhase == BattlePhase.BetweenBattles)
-            {
-                LoadItems();
                 LoadCharacterStats();
-                UpdateSkillsList();
-            }
         }
 
         public void OnNavigatedFrom() 
@@ -107,23 +106,17 @@ namespace PnP_Organizer.ViewModels
             SaveCharacterStats();
         }
 
-        internal void PopulateCalculatorSkillModels()
+        [RelayCommand]
+        public void AbortBattle()
         {
-            var validWeaponSkills = ActiveSkills.Where(skill =>
-            {
-                if (SelectedWeapon != null)
-                {
-                    if (SelectedWeapon.AttackMode == AttackMode.Ranged)
-                        return skill.SkillCategory == SkillCategory.Ranged || skill.SkillCategory == SkillCategory.Character;
+            BattlePhase = BattlePhase.BetweenBattles;
 
-                    return skill.SkillCategory == SkillCategory.Melee || skill.SkillCategory == SkillCategory.Character;
-                }
-                return skill.SkillCategory == SkillCategory.Character;
-            });
+            LoadCharacterStats();
 
-            // TODO Add checks for armor and shield specific skills
+            CurrentTurn = null;
 
-            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill)));
+            ItemSelectorModels?.Clear();
+            CalculatorSkillModels?.Clear();
         }
 
         [RelayCommand]
@@ -139,6 +132,8 @@ namespace PnP_Organizer.ViewModels
                 activeSkill.UsesLeft = activeSkill.UsesPerBattle;
             }
             CurrentTurnCount = -1; // NewTurn() increases the CurrentTurnCount by one, so the start count must be one less than 0
+
+            LoadItems();
             UpdateSkillsList();
             NewTurn();
         }
@@ -146,7 +141,7 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         private void RestartBattle()
         {
-            LoadCharacterStats();
+            AbortBattle();
             StartNewBattle();
         }
 
@@ -166,13 +161,45 @@ namespace PnP_Organizer.ViewModels
                 NewTurn();
         }
 
+        private void CalculatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is nameof(SelectedWeapon) or nameof(SelectedArmor) or nameof(SelectedShield)
+                or nameof(Action) or nameof(PassiveSkills) or nameof(ActiveSkills))
+            {
+                PopulateCalculatorSkillModels();
+            }
+        }
+
+        private void PopulateCalculatorSkillModels()
+        {
+            var validWeaponSkills = ActiveSkills.Where(skill =>
+            {
+                if (SelectedWeapon != null)
+                {
+                    if (SelectedWeapon.AttackMode == AttackMode.Ranged)
+                        return skill.SkillCategory == SkillCategory.Ranged || skill.SkillCategory == SkillCategory.Character;
+
+                    return skill.SkillCategory == SkillCategory.Melee || skill.SkillCategory == SkillCategory.Character;
+                }
+                return skill.SkillCategory == SkillCategory.Character;
+            });
+
+            // TODO Add checks for armor and shield specific skills
+
+            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill)));
+        }
+
         private void EndTurn()
         {
             var usedSkills = CalculatorSkillModels.Where(calcSkillModel => calcSkillModel.IsActive && calcSkillModel.Skill.UsesLeft > 0)
                 .ToList().ConvertAll(calcSkillModel => calcSkillModel.Skill).Concat(PassiveSkills);
 
+            var activatedPassiveSkills = PassiveSkills.Where(skill => IsSkillUsable(skill));
+
+            //usedSkills.ToList().AddRange()
+
             CurrentTurn = new BattleTurn(_pageService, SelectedWeapon, SelectedArmor, SelectedShield, usedSkills.ToList(),
-                Action, Health, Energy, Stamina, Initiative, IncomingDamage);
+                Action.BattleAction, Health, Energy, Stamina, Initiative, IncomingDamage);
 
             foreach (var skill in usedSkills)
             {
@@ -262,6 +289,45 @@ namespace PnP_Organizer.ViewModels
                     ItemSelectorModels.Add(new ItemSelectorModel(shields));
             }
         }
+
+        private bool IsSkillUsable(Skill skill)
+        {
+            var action = Action.BattleAction;
+            var isUsable = true;
+            if(action == BattleAction.Attack)
+            {
+                var usableWithWeapon = true;
+                if(SelectedWeapon != null)
+                {
+                    if (SelectedWeapon.AttackMode == AttackMode.Melee)
+                    {
+                        if (skill.Name == Skills.Instance.OneHandedCombat.Name)
+                            usableWithWeapon = !SelectedWeapon.IsTwoHanded;
+                        else
+                            usableWithWeapon = skill.SkillCategory == SkillCategory.Melee;
+                    }
+                    else
+                        usableWithWeapon = skill.SkillCategory == SkillCategory.Ranged && skill.SkillCategory == SkillCategory.Ranged;
+                }
+                var usableWithShield = true;
+                if (SelectedShield != null)
+                {
+                    if (skill.Name == Skills.Instance.ShieldBash.Name || skill.Name == Skills.Instance.SomethingWithShield.Name)
+                        usableWithShield = action == BattleAction.Attack;
+                    else
+                        usableWithShield = action == BattleAction.Defend;
+                }
+                isUsable = usableWithWeapon || usableWithShield;
+            }
+            else if(action == BattleAction.Defend) 
+            { 
+                // TODO
+            }
+
+            return isUsable;
+        }
+
+        
     }
 
     public enum TurnPhase
@@ -274,5 +340,17 @@ namespace PnP_Organizer.ViewModels
     {
         BetweenBattles,
         InBattle
+    }
+
+    public struct LocalizedBattleAction
+    {
+        public BattleAction BattleAction { get; set; }
+        public string LocalizedName { get; set; }
+
+        public LocalizedBattleAction(BattleAction battleAction, string localizedName)
+        {
+            BattleAction = battleAction;
+            LocalizedName = localizedName;
+        }
     }
 }
