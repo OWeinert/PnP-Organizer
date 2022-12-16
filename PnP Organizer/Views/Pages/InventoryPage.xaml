@@ -26,7 +26,6 @@
         <conv:StringToIntConverter x:Key="StringToIntConverter"/>
         <conv:StringToFloatConverter x:Key="StringToFloatConverter"/>
         <conv:NullToVisibilityConverter x:Key="ObjectNotNullConverter"/>
-        <conv:IsShieldToLocalizationConverter x:Key="IsShieldToLocalizationConverter"/>
         <conv:StringAddColonConverter x:Key="StringAddColonConverter"/>
         <conv:AttackModeLocalizationConverter x:Key="AttackModeLocalizationConverter"/>
     </ui:UiPage.Resources>
