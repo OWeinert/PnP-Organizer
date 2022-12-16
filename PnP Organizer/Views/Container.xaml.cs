@@ -62,7 +62,10 @@ namespace PnP_Organizer.Views
 
         private async void Container_Loaded(object sender, RoutedEventArgs e)
         {
+#if !DEBUG   // Don't check version in debug build (i.e. in dev environment)
             await CheckVersion();
+#endif
+            await Task.CompletedTask;
         }
 
         #region INavigationWindow methods
