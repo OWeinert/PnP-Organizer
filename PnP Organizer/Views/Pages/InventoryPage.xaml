@@ -1271,7 +1271,7 @@
                                                 <StackPanel Grid.Row="0">
                                                     <StackPanel Orientation="Horizontal">
                                                         <StackPanel>
-                                                            <Label Content="{Binding IsShield, Converter={StaticResource IsShieldToLocalizationConverter}}"
+                                                            <Label Content="{x:Static p:Resources.Inventory_Armor}"
                                                                    FontSize="14"
                                                                    FontWeight="SemiBold"
                                                                    Margin="1,8"/>
@@ -1346,14 +1346,6 @@
                                                                           SpinButtonsEnabled="False"
                                                                           MouseWheel="NumBox_MouseWheel"/>
                                                         </StackPanel>
-                                                    </StackPanel>
-
-                                                    <StackPanel>
-                                                        <Label Content="{x:Static p:Resources.Inventory_Shield}"
-                                                                   FontSize="14"
-                                                                   FontWeight="SemiBold"
-                                                                   Margin="1,8"/>
-                                                        <ui:ToggleSwitch IsChecked="{Binding IsShield, Mode=TwoWay}"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Grid>
