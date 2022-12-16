@@ -69,8 +69,6 @@ namespace PnP_Organizer.Views.Pages
                 else
                     ViewModel.SelectedShield = (InventoryShield?)itemSelector.SelectedItem;
             }
-
-            ViewModel.PopulateCalculatorSkillModels();
         }
 
         private void IncomingDamageComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

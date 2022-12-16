@@ -214,8 +214,8 @@ namespace PnP_Organizer.Views
             {
                 var dialog = (Dialog)_dialogControl;
                 dialog.Tag = "openChar_save";
-                dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonYes;
-                dialog.ButtonRightName = Properties.Resources.Dialog_ButtonNo;
+                dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonSaveCharacter;
+                dialog.ButtonRightName = Properties.Resources.Dialog_ButtonContinueWithoutSaving;
                 dialog.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Caution;
                 dialog.ButtonLeftClick += (sender, e) =>
                 {
