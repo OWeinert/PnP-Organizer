@@ -28,7 +28,7 @@ namespace PnP_Organizer.Models
             Name = Resources.ResourceManager.GetString($"Calculator_{typeName}")!;
             
             Items = new List<InventoryItem>(items);
-            ((List<InventoryItem>)Items).Insert(0, new InventoryItem("None", ""));
+            ((List<InventoryItem>)Items).Insert(0, new InventoryItem(Resources.InventoryItem_None, ""));
         }
     }
 }
