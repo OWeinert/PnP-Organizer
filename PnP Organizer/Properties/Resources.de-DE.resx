@@ -1529,4 +1529,28 @@ Kosten: 3 Ausdauer</value>
   <data name="Calculator_PlaceholderSearchSkills" xml:space="preserve">
     <value>Skills suchen...</value>
   </data>
+  <data name="Dialog_ButtonContinueWithoutSaving" xml:space="preserve">
+    <value>Nicht Speichern</value>
+  </data>
+  <data name="Dialog_ButtonSaveCharacter" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="InventoryItem_None" xml:space="preserve">
+    <value>Keine/-s</value>
+  </data>
+  <data name="Calculator_BattleActionAttack" xml:space="preserve">
+    <value>Angreifen</value>
+  </data>
+  <data name="Calculator_BattleActionDefend" xml:space="preserve">
+    <value>Verteidigen</value>
+  </data>
+  <data name="Calculator_BattleActionMove" xml:space="preserve">
+    <value>Bewegen</value>
+  </data>
+  <data name="Calculator_TooltipAbortBattle" xml:space="preserve">
+    <value>Kampf Abbrechen</value>
+  </data>
+  <data name="Calculator_InfoTextShowInventory" xml:space="preserve">
+    <value>Starte einen Kampf, um das Inventar anzuzeigen</value>
+  </data>
 </root>

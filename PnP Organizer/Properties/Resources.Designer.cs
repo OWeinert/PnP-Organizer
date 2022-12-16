@@ -349,6 +349,33 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attack.
+        /// </summary>
+        public static string Calculator_BattleActionAttack {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defend.
+        /// </summary>
+        public static string Calculator_BattleActionDefend {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionDefend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        public static string Calculator_BattleActionMove {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Turn.
         /// </summary>
         public static string Calculator_ButtonEndTurn {
@@ -430,6 +457,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Battle to show the Inventory.
+        /// </summary>
+        public static string Calculator_InfoTextShowInventory {
+            get {
+                return ResourceManager.GetString("Calculator_InfoTextShowInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Melee.
         /// </summary>
         public static string Calculator_Melee {
@@ -480,6 +516,15 @@ namespace PnP_Organizer.Properties {
         public static string Calculator_Skills {
             get {
                 return ResourceManager.GetString("Calculator_Skills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abort Battle.
+        /// </summary>
+        public static string Calculator_TooltipAbortBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipAbortBattle", resourceCulture);
             }
         }
         
@@ -700,6 +745,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t Save.
+        /// </summary>
+        public static string Dialog_ButtonContinueWithoutSaving {
+            get {
+                return ResourceManager.GetString("Dialog_ButtonContinueWithoutSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Dialog_ButtonDelete {
@@ -732,6 +786,15 @@ namespace PnP_Organizer.Properties {
         public static string Dialog_ButtonSaveChanges {
             get {
                 return ResourceManager.GetString("Dialog_ButtonSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Dialog_ButtonSaveCharacter {
+            get {
+                return ResourceManager.GetString("Dialog_ButtonSaveCharacter", resourceCulture);
             }
         }
         
@@ -1137,6 +1200,15 @@ namespace PnP_Organizer.Properties {
         public static string Inventory_Weight {
             get {
                 return ResourceManager.GetString("Inventory_Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string InventoryItem_None {
+            get {
+                return ResourceManager.GetString("InventoryItem_None", resourceCulture);
             }
         }
         

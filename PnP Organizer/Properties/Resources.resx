@@ -213,6 +213,15 @@
   <data name="Calculator_BaseDamageMultiplier" xml:space="preserve">
     <value>Base Damage Multiplier</value>
   </data>
+  <data name="Calculator_BattleActionAttack" xml:space="preserve">
+    <value>Attack</value>
+  </data>
+  <data name="Calculator_BattleActionDefend" xml:space="preserve">
+    <value>Defend</value>
+  </data>
+  <data name="Calculator_BattleActionMove" xml:space="preserve">
+    <value>Move</value>
+  </data>
   <data name="Calculator_ButtonEndTurn" xml:space="preserve">
     <value>End Turn</value>
   </data>
@@ -240,6 +249,9 @@
   <data name="Calculator_IncomingDamage" xml:space="preserve">
     <value>Incoming Damage</value>
   </data>
+  <data name="Calculator_InfoTextShowInventory" xml:space="preserve">
+    <value>Start Battle to show the Inventory</value>
+  </data>
   <data name="Calculator_Melee" xml:space="preserve">
     <value>Melee</value>
   </data>
@@ -257,6 +269,9 @@
   </data>
   <data name="Calculator_Skills" xml:space="preserve">
     <value>Skills</value>
+  </data>
+  <data name="Calculator_TooltipAbortBattle" xml:space="preserve">
+    <value>Abort Battle</value>
   </data>
   <data name="Calculator_TooltipEndBattle" xml:space="preserve">
     <value>End Battle</value>
@@ -330,6 +345,9 @@
   <data name="Dialog_ButtonClear" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="Dialog_ButtonContinueWithoutSaving" xml:space="preserve">
+    <value>Don't Save</value>
+  </data>
   <data name="Dialog_ButtonDelete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -341,6 +359,9 @@
   </data>
   <data name="Dialog_ButtonSaveChanges" xml:space="preserve">
     <value>Save Changes</value>
+  </data>
+  <data name="Dialog_ButtonSaveCharacter" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Dialog_ButtonUpdate" xml:space="preserve">
     <value>Download Update</value>
@@ -395,6 +416,9 @@
   </data>
   <data name="Dialog_UpdateTitle" xml:space="preserve">
     <value>Update Available</value>
+  </data>
+  <data name="InventoryItem_None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="Inventory_Armor" xml:space="preserve">
     <value>Armor</value>
