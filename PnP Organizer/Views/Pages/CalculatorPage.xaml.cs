@@ -50,22 +50,22 @@ namespace PnP_Organizer.Views.Pages
 
             if (itemSelector.Type == typeof(InventoryWeapon))
             {
-                if (itemSelector.SelectedItem?.Name == "None")
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
                     ViewModel.SelectedWeapon = null;
                 else
                     ViewModel.SelectedWeapon = (InventoryWeapon?)itemSelector.SelectedItem;
             }
             else if (itemSelector.Type == typeof(InventoryArmor))
             {
-                if (itemSelector.SelectedItem?.Name == "None")
-                    ViewModel.SelectedWeapon = null;
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
+                    ViewModel.SelectedArmor = null;
                 else
                     ViewModel.SelectedArmor = (InventoryArmor?)itemSelector.SelectedItem;
             }
             else if (itemSelector.Type == typeof(InventoryShield))
             {
-                if (itemSelector.SelectedItem?.Name == "None")
-                    ViewModel.SelectedWeapon = null;
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
+                    ViewModel.SelectedShield = null;
                 else
                     ViewModel.SelectedShield = (InventoryShield?)itemSelector.SelectedItem;
             }
