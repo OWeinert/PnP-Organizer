@@ -14,8 +14,9 @@ namespace PnP_Organizer.Core.BattleAssistant
         public InventoryArmor? ArmorItem { get; } 
         public InventoryShield? ShieldItem { get; } 
 
-        public List<Skill> ActiveSkills { get; }
-
+        public List<Skill> ActiveSkillsBefore { get; }
+        public List<Skill>? ActiveSkillsAfter { get; private set; }
+        
         public BattleAction Action { get; }
 
         public int IncomingDamage { get; }
@@ -48,15 +49,14 @@ namespace PnP_Organizer.Core.BattleAssistant
         private readonly IPageService _pageService;
 
         public BattleTurn(IPageService pageService, InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> activeSkills,
-            BattleAction action, int currentHealth, int currentEnergy, int currentStamina, int initiative,
-            int incomingDamage = 0)
+            BattleAction action, int currentHealth, int currentEnergy, int currentStamina, int initiative, int incomingDamage = 0)
         {
             _pageService = pageService;
 
             WeaponItem = weaponItem;
             ArmorItem = armorItem;
             ShieldItem = shieldItem;
-            ActiveSkills = activeSkills;
+            ActiveSkillsBefore = activeSkills;
 
             Action = action;
 
@@ -69,10 +69,15 @@ namespace PnP_Organizer.Core.BattleAssistant
 
             _modifiers = Skills.GetStatModifiers<CalculatorStatModifier>(activeSkills);
             _actionModifiers = Skills.GetStatModifiers<CalculatorActionStatModifier>(activeSkills);
+        }
 
+        public void CalculateTurnResults()
+        {
             CalculateBattleStats();
             CalculateCharacterStats();
             ExecuteModifierActions();
+            DecreaseUsesLeft();
+            FilterStillActiveSkills();
         }
 
         private void CalculateBattleStats() 
@@ -100,11 +105,11 @@ namespace PnP_Organizer.Core.BattleAssistant
             AddStatBoni(ref _healthAfter, CalculatorValueType.Health);
 
             // Energy
-            _energyAfter = EnergyBefore - ActiveSkills.Sum(skill => skill.EnergyCost);
+            _energyAfter = EnergyBefore - ActiveSkillsBefore.Sum(skill => skill.EnergyCost);
             AddStatBoni(ref _energyAfter, CalculatorValueType.Energy);
 
             // Stamina
-            _staminaAfter = StaminaBefore - ActiveSkills.Sum(skill => skill.StaminaCost);
+            _staminaAfter = StaminaBefore - ActiveSkillsBefore.Sum(skill => skill.StaminaCost);
             AddStatBoni(ref _staminaAfter, CalculatorValueType.Stamina);
 
             // Initiative
@@ -144,5 +149,16 @@ namespace PnP_Organizer.Core.BattleAssistant
                 modifier.Action(_pageService, this);
             }
         }
+
+        private void DecreaseUsesLeft()
+        {
+            foreach(var skill in ActiveSkillsBefore)
+            {
+                if (skill.UsesLeft > 0)
+                    skill.UsesLeft--;
+            }
+        }
+
+        private void FilterStillActiveSkills() => ActiveSkillsAfter = ActiveSkillsBefore.Where(skill => skill.UsesLeft != 0).ToList();
     }
 }
