@@ -38,11 +38,6 @@ namespace PnP_Organizer.ViewModels
         private InventoryShield? _selectedShield;
 
         [ObservableProperty]
-        private ObservableCollection<Skill> _passiveSkills = new();
-        [ObservableProperty]
-        private ObservableCollection<Skill> _activeSkills = new();
-
-        [ObservableProperty]
         private ObservableCollection<CalculatorSkillModel> _calculatorSkillModels = new();
 
         [ObservableProperty]
@@ -85,6 +80,9 @@ namespace PnP_Organizer.ViewModels
         [ObservableProperty]
         private BattlePhase _battlePhase = BattlePhase.BetweenBattles;
 
+        private List<Skill> _passiveSkills = new();
+        private List<Skill> _activeSkills = new();
+
         private readonly IPageService _pageService;
 
         public CalculatorViewModel(IPageService pageService)
@@ -123,18 +121,18 @@ namespace PnP_Organizer.ViewModels
         private void StartNewBattle()
         {
             BattlePhase = BattlePhase.InBattle;
-            foreach (var passiveSkill in PassiveSkills)
+            foreach (var passiveSkill in _passiveSkills)
             {
                 passiveSkill.UsesLeft = passiveSkill.UsesPerBattle;
             }
-            foreach (var activeSkill in ActiveSkills)
+            foreach (var activeSkill in _activeSkills)
             {
                 activeSkill.UsesLeft = activeSkill.UsesPerBattle;
             }
             CurrentTurnCount = -1; // NewTurn() increases the CurrentTurnCount by one, so the start count must be one less than 0
 
             LoadItems();
-            UpdateSkillsList();
+            LoadCharacterSkills();
             NewTurn();
         }
 
@@ -164,7 +162,7 @@ namespace PnP_Organizer.ViewModels
         private void CalculatorViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName is nameof(SelectedWeapon) or nameof(SelectedArmor) or nameof(SelectedShield)
-                or nameof(Action) or nameof(PassiveSkills) or nameof(ActiveSkills))
+                or nameof(Action) or nameof(_passiveSkills) or nameof(_activeSkills))
             {
                 PopulateCalculatorSkillModels();
             }
@@ -172,7 +170,7 @@ namespace PnP_Organizer.ViewModels
 
         private void PopulateCalculatorSkillModels()
         {
-            var validWeaponSkills = ActiveSkills.Where(skill =>
+            var validWeaponSkills = _activeSkills.Where(skill =>
             {
                 if (SelectedWeapon != null)
                 {
@@ -192,20 +190,14 @@ namespace PnP_Organizer.ViewModels
         private void EndTurn()
         {
             var usedSkills = CalculatorSkillModels.Where(calcSkillModel => calcSkillModel.IsActive && calcSkillModel.Skill.UsesLeft > 0)
-                .ToList().ConvertAll(calcSkillModel => calcSkillModel.Skill).Concat(PassiveSkills);
+                .ToList().ConvertAll(calcSkillModel => calcSkillModel.Skill).Concat(_passiveSkills);
 
-            var activatedPassiveSkills = PassiveSkills.Where(skill => IsSkillUsable(skill));
-
-            //usedSkills.ToList().AddRange()
+            var activatedPassiveSkills = _passiveSkills.Where(skill => IsSkillUsable(skill));
 
             CurrentTurn = new BattleTurn(_pageService, SelectedWeapon, SelectedArmor, SelectedShield, usedSkills.ToList(),
                 Action.BattleAction, Health, Energy, Stamina, Initiative, IncomingDamage);
 
-            foreach (var skill in usedSkills)
-            {
-                if (skill.UsesPerBattle > 0)
-                    skill.UsesLeft--;
-            }
+            CurrentTurn.CalculateTurnResults();
 
             Health = CurrentTurn.HealthAfter;
             Energy = CurrentTurn.EnergyAfter;
@@ -228,6 +220,10 @@ namespace PnP_Organizer.ViewModels
                 Dodge = CurrentTurn.Dodge;
                 Parade = CurrentTurn.Parade;
             }
+
+            var usableSkills = CurrentTurn.ActiveSkillsAfter;
+            _passiveSkills = usableSkills.Where(skill => skill.ActivationType == ActivationType.Passive).ToList();
+            _activeSkills = usableSkills.Where(skill => skill.ActivationType == ActivationType.Active).ToList();
 
             TurnPhase = TurnPhase.PostTurn;
         }
@@ -255,13 +251,13 @@ namespace PnP_Organizer.ViewModels
             FileIO.LoadedCharacter.CurrentStamina = Stamina;
         }
 
-        private void UpdateSkillsList()
+        private void LoadCharacterSkills()
         {
             var skillModels = _pageService.GetPage<SkillsPage>()!.ViewModel!.SkillModels;
             var skilledSkills = skillModels!.Where(skillModel => skillModel.IsActive && skillModel is not RepeatableSkillModel)
                 .ToList().ConvertAll(skillModel => skillModel.Skill!);
-            PassiveSkills = new ObservableCollection<Skill>(skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Passive));
-            ActiveSkills = new ObservableCollection<Skill>(skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Active));
+            _passiveSkills = skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Passive).ToList();
+            _activeSkills = skilledSkills!.Where(skill => skill.ActivationType == ActivationType.Active).ToList();
 
             PopulateCalculatorSkillModels();
         }
@@ -326,8 +322,6 @@ namespace PnP_Organizer.ViewModels
 
             return isUsable;
         }
-
-        
     }
 
     public enum TurnPhase
