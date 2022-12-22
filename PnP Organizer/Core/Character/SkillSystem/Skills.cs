@@ -691,17 +691,6 @@ namespace PnP_Organizer.Core.Character
             #endregion Skill Definitions
         }
 
-        public static List<TStatModifier> GetStatModifiers<TStatModifier>(IEnumerable<Skill> skills) where TStatModifier : IStatModifier
-        {
-            var validSkills = skills.Where(skill => skill.StatModifiers != null
-                && skill.StatModifiers.Any(modifier => modifier is TStatModifier));
-
-            var statModifiers = validSkills.SelectMany(skill => skill.StatModifiers!, (skill, modifier) => modifier is TStatModifier ? modifier : null)
-                .Where(modifier => modifier != null).Cast<TStatModifier>().ToList();
-
-            return statModifiers;
-        }
-
         public int GetSkillIndexFromName(string name)
         {
             var l = 0;
