@@ -1,6 +1,8 @@
 ﻿using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
+using PnP_Organizer.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace PnP_Organizer.Core.Character
 {
@@ -17,6 +19,9 @@ namespace PnP_Organizer.Core.Character
         public bool IsRepeatable { get; set; }
         public ActivationType ActivationType { get; set; }
 
+        public bool UsableWithOtherSkills { get; private set; }
+        public bool HasRoundDependendModifiers { get; private set; }
+
         public int UsesLeft { get; set; }
         /// <summary>
         /// -1 = infinite uses
@@ -24,6 +29,13 @@ namespace PnP_Organizer.Core.Character
         public int UsesPerBattle { get; set; }
 
         public IStatModifier[]? StatModifiers { get; private set; }
+        public List<IStatModifier[]> RoundDependendStatModifiers { get; private set; }
+
+        /// <summary>
+        /// True if the skill has round dependend StatModifiers AND does not depend on UsesLeft
+        /// </summary>
+        public bool IsRoundDependend { get; private set; }
+        public int CurrentRound { get; set; }
 
         /// <summary>
         /// Names of skills of which at least one has to be skilled in order to unlock this skill.
@@ -51,16 +63,16 @@ namespace PnP_Organizer.Core.Character
             EnergyCost = energyCost;
             StaminaCost = staminaCost;
 
+            IsRoundDependend = false;
+            HasRoundDependendModifiers = false;
+            UsableWithOtherSkills = true;
+
             UsesLeft = UsesPerBattle = usesPerBattle;
 
             DependendSkillNames = dependendSkillNames ?? Array.Empty<string>();
-        }
 
-        /// <summary>
-        /// Checks if the skill is active, i.e. the max skill points are reached
-        /// </summary>
-        /// <returns></returns>
-        public bool IsActive() => SkillPoints == MaxSkillPoints;
+            RoundDependendStatModifiers = new List<IStatModifier[]>();
+        }
 
         public Skill SetRepeatable(bool repeatable = true)
         {
@@ -72,6 +84,48 @@ namespace PnP_Organizer.Core.Character
         {
             ForcedDependendSkillName = forcedDependendSkillName;
             return this;
+        }
+
+        public Skill AddRoundDependendModifiers(int round, IStatModifier[] roundStatModifiers)
+        {
+            RoundDependencyModifierCheck();
+            RoundDependendStatModifiers.Insert(round, roundStatModifiers);
+            HasRoundDependendModifiers = true;
+            return this;
+        }
+
+        public Skill AddRoundDependendModifier(int round, IStatModifier roundStatModifier) => AddRoundDependendModifiers(round, new IStatModifier[] { roundStatModifier });
+
+        public Skill SetDependendOnUsesLeft()
+        {
+            IsRoundDependend = false;
+            return this;
+        }
+
+        public Skill SetOnlySoloUsable()
+        {
+            UsableWithOtherSkills = false;
+            return this;
+        }
+
+        /// <summary>
+        /// Checks if the skill is active, which means that the max skill points are reached
+        /// </summary>
+        /// <returns></returns>
+        public bool IsActive() => SkillPoints == MaxSkillPoints;
+
+        private void RoundDependencyModifierCheck()
+        {
+            if (!IsRoundDependend && RoundDependendStatModifiers.Count > UsesPerBattle)
+            {
+                Logger.LogWarning($"Skill \"{Name}\" has more round dependend StatModifiers than uses per battle!\n" +
+                    $"The excess StatModifiers will not be used!");
+            }
+            if (StatModifiers != null)
+            {
+                Logger.LogWarning($"Skill \"{Name}\" has set StatModifiers! They will be discarded in favor of round dependend StatModifiers.");
+                StatModifiers = null; // Setting StatModifiers to null here, so they can't be used if set before, to prevent unwanted behaviour
+            }
         }
     }
 }
