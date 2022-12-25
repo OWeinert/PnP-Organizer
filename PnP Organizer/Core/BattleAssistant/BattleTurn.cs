@@ -1,4 +1,5 @@
-﻿using PnP_Organizer.Core.Character;
+﻿using PnP_Organizer.Core.BattleAssistant.Events;
+using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.Core.Character.StatModifiers;
 using System;
@@ -10,12 +11,20 @@ namespace PnP_Organizer.Core.BattleAssistant
 {
     public class BattleTurn
     {
+        #region Events
+        public delegate void OnStatsCalculated(StatsCalculatedEventArgs e);
+        /// <summary>
+        /// Invoked after the stats of one attack in this turn are calculated
+        /// </summary>
+        public event OnStatsCalculated? StatsCalculated;
+        #endregion Events
+
         public InventoryWeapon? WeaponItem { get; }
         public InventoryArmor? ArmorItem { get; } 
         public InventoryShield? ShieldItem { get; } 
 
-        public List<Skill> ActiveSkillsBefore { get; }
-        public List<Skill>? ActiveSkillsAfter { get; private set; }
+        public List<Skill> UsedSkillsBefore { get; }
+        public List<Skill>? UsedSkillsAfter { get; private set; }
         
         public BattleAction Action { get; }
 
@@ -43,12 +52,14 @@ namespace PnP_Organizer.Core.BattleAssistant
         public int Parade { get; private set; }
         public int Dodge { get; private set; }
 
+        public int Attacks { get; private set; }
+
         private readonly List<CalculatorStatModifier> _modifiers;
         private readonly List<CalculatorActionStatModifier> _actionModifiers;
 
         private readonly IPageService _pageService;
 
-        public BattleTurn(IPageService pageService, InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> activeSkills,
+        public BattleTurn(IPageService pageService, InventoryWeapon? weaponItem, InventoryArmor? armorItem, InventoryShield? shieldItem, List<Skill> usedSkills,
             BattleAction action, int currentHealth, int currentEnergy, int currentStamina, int initiative, int incomingDamage = 0)
         {
             _pageService = pageService;
@@ -56,7 +67,7 @@ namespace PnP_Organizer.Core.BattleAssistant
             WeaponItem = weaponItem;
             ArmorItem = armorItem;
             ShieldItem = shieldItem;
-            ActiveSkillsBefore = activeSkills;
+            UsedSkillsBefore = usedSkills;
 
             Action = action;
 
@@ -67,17 +78,25 @@ namespace PnP_Organizer.Core.BattleAssistant
             StaminaBefore = currentStamina;
             BaseInitiative = initiative;
 
-            _modifiers = Skills.GetStatModifiers<CalculatorStatModifier>(activeSkills);
-            _actionModifiers = Skills.GetStatModifiers<CalculatorActionStatModifier>(activeSkills);
+            Attacks = 1;
+
+            _modifiers = GetStatModifiers<CalculatorStatModifier>(usedSkills);
+            _actionModifiers = GetStatModifiers<CalculatorActionStatModifier>(usedSkills);
         }
 
         public void CalculateTurnResults()
         {
-            CalculateBattleStats();
-            CalculateCharacterStats();
-            ExecuteModifierActions();
-            DecreaseUsesLeft();
-            FilterStillActiveSkills();
+            for(var i = 0; i < Attacks; i++)
+            {
+                CalculateBattleStats();
+                CalculateCharacterStats();
+                ExecuteModifierActions();
+                DecreaseUsesLeft();
+                IncreaseSkillRound();
+                FilterStillActiveSkills();
+
+                StatsCalculated?.Invoke(new StatsCalculatedEventArgs(this));
+            }
         }
 
         private void CalculateBattleStats() 
@@ -105,11 +124,11 @@ namespace PnP_Organizer.Core.BattleAssistant
             AddStatBoni(ref _healthAfter, CalculatorValueType.Health);
 
             // Energy
-            _energyAfter = EnergyBefore - ActiveSkillsBefore.Sum(skill => skill.EnergyCost);
+            _energyAfter = EnergyBefore - UsedSkillsBefore.Sum(skill => skill.EnergyCost);
             AddStatBoni(ref _energyAfter, CalculatorValueType.Energy);
 
             // Stamina
-            _staminaAfter = StaminaBefore - ActiveSkillsBefore.Sum(skill => skill.StaminaCost);
+            _staminaAfter = StaminaBefore - UsedSkillsBefore.Sum(skill => skill.StaminaCost);
             AddStatBoni(ref _staminaAfter, CalculatorValueType.Stamina);
 
             // Initiative
@@ -152,13 +171,58 @@ namespace PnP_Organizer.Core.BattleAssistant
 
         private void DecreaseUsesLeft()
         {
-            foreach(var skill in ActiveSkillsBefore)
+            foreach(var skill in UsedSkillsBefore)
             {
                 if (skill.UsesLeft > 0)
                     skill.UsesLeft--;
             }
         }
 
-        private void FilterStillActiveSkills() => ActiveSkillsAfter = ActiveSkillsBefore.Where(skill => skill.UsesLeft != 0).ToList();
+        private void IncreaseSkillRound()
+        {
+            foreach(var skill in UsedSkillsBefore)
+            {
+                skill.CurrentRound++;
+            }
+        }
+
+        private void FilterStillActiveSkills() => UsedSkillsAfter = UsedSkillsBefore.Where(skill => skill.UsesLeft != 0).ToList();
+
+        private static List<TStatMod> GetStatModifiers<TStatMod>(List<Skill> skills) where TStatMod : IStatModifier
+        {
+            var validSkills = skills.Where(skill => (skill.StatModifiers != null // StatModifiers
+               && skill.StatModifiers.Any(modifier => modifier is TStatMod))
+               || (skill.HasRoundDependendModifiers && skill.RoundDependendStatModifiers != null // RoundDependendStatModifiers
+               && skill.RoundDependendStatModifiers.Any(modifier => modifier is TStatMod)));
+
+            var statModifiers = new List<TStatMod>();
+
+            foreach(var skill in validSkills)
+            {
+                if (skill.HasRoundDependendModifiers)
+                {
+                    if (skill.IsRoundDependend && skill.CurrentRound >= skill.RoundDependendStatModifiers!.Count)
+                        skill.CurrentRound = 0;
+
+                    var round = skill.IsRoundDependend ? skill.CurrentRound : skill.UsesPerBattle - skill.UsesLeft;
+
+                    var roundModifiers = skill.RoundDependendStatModifiers[round];
+                    foreach(var modifier in roundModifiers)
+                    {
+                        if(modifier is TStatMod statMod)
+                            statModifiers.Add(statMod);
+                    }
+                }
+                else
+                {
+                    foreach(var modifier in skill.StatModifiers!)
+                    {
+                        if(modifier is TStatMod statMod)
+                            statModifiers.Add(statMod);
+                    }
+                }
+            }
+            return statModifiers;
+        }
     }
 }
