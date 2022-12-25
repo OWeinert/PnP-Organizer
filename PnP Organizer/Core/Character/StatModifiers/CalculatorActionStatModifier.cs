@@ -8,9 +8,16 @@ namespace PnP_Organizer.Core.Character.StatModifiers
     {
         public Action<IPageService, BattleTurn> Action { get; }
 
-        public CalculatorActionStatModifier(Action<IPageService, BattleTurn> action)
+        public CalculatorActionStatModifier(Action<IPageService, BattleTurn> action, TurnPriority priority)
         {
             Action = action;
         }
+    }
+
+    public enum TurnPriority
+    {
+        PreBattleStatCalculation = 0,
+        PreCharacterStatCalculation = 1,
+        PostCharacterStatCalculation = 2
     }
 }
