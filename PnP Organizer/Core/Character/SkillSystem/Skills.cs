@@ -486,7 +486,7 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillComboDescr, null, new string[] { AccurateMelee.Name });
             PerfectBlow = CreateAndAddSkill(Resources.Skills_SkillPerfectBlow, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillPerfectBlowDescr, null, new string[] { AccurateMelee.Name }, activationType: ActivationType.Active,
-                staminaCost: 5);
+                staminaCost: 5).SetOnlySoloUsable();
             EveryBlowAHit = CreateAndAddSkill(Resources.Skills_SkillEveryBlowAHit, SkillCategory.Melee, 2, 
                 Resources.Skills_SkillEveryBlowAHitDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Hit, ApplianceMode.BaseValue, 2) },
