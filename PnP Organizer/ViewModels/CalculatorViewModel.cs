@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System;
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Properties;
+using System.Windows.Media.Media3D;
+using System.Diagnostics;
 
 namespace PnP_Organizer.ViewModels
 {
@@ -70,8 +72,9 @@ namespace PnP_Organizer.ViewModels
             BattleActions = Enum.GetValues<BattleAction>().ToList()
                 .ConvertAll(battleAction => new LocalizedBattleAction(battleAction, Resources.ResourceManager.GetString($"Calculator_BattleAction{battleAction}")!));
             PropertyChanged += CalculatorViewModel_PropertyChanged;
-        }
 
+            CalculatorSkillModels.CollectionChanged += CalculatorSkillModels_CollectionChanged;
+        }
         public void OnNavigatedTo()
         {
             if (BattlePhase == BattlePhase.BetweenBattles)
@@ -151,6 +154,42 @@ namespace PnP_Organizer.ViewModels
                 PopulateCalculatorSkillModels();
             }
         }
+        private void CalculatorSkillModels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var obj in e.NewItems)
+                {
+                    var calculatorSkillModel = (CalculatorSkillModel)obj;
+                    calculatorSkillModel.PropertyChanged += (sender, e) =>
+                    {
+                        // Checks if each CalculatorSkillModel is Activatable depending on the stamina and energy costs
+                        // of the currently activated skills
+                        if (e.PropertyName == nameof(CalculatorSkillModel.IsActive))
+                        {
+                            var validModels = CalculatorSkillModels.Where(model => model.IsActive
+                                && (model.Skill.EnergyCost > 0 || model.Skill.StaminaCost > 0));
+
+                            var energyCostSum = validModels.Sum(model => model.Skill.EnergyCost);
+                            var staminaCostSum = validModels.Sum(model => model.Skill.StaminaCost);
+
+                            Debug.WriteLine($"{_energy}:{energyCostSum} || {_stamina}:{staminaCostSum}");
+
+                            var otherModels = CalculatorSkillModels.Except(validModels);
+                            foreach (var otherModel in otherModels)
+                            {
+                                var enoughEnergy = otherModel.Skill.EnergyCost <= 0
+                                    || otherModel.Skill.EnergyCost > 0 && energyCostSum + otherModel.Skill.EnergyCost <= _energy;
+                                var enoughStamina = otherModel.Skill.StaminaCost <= 0
+                                    || otherModel.Skill.StaminaCost > 0 && staminaCostSum + otherModel.Skill.StaminaCost <= _stamina;
+
+                                otherModel.IsActivatable = enoughEnergy && enoughStamina;
+                            }
+                        }
+                    };
+                }
+            }
+        }
 
         private void PopulateCalculatorSkillModels()
         {
@@ -168,7 +207,14 @@ namespace PnP_Organizer.ViewModels
 
             // TODO Add checks for armor and shield specific skills
 
-            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill, CalculatorSkillModels)));
+            // this has to be done to invoke the CollectionChanged event
+            // populating the collection with the constructor will not invoke it
+            var calculatorSkillModels = validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill, CalculatorSkillModels));
+            CalculatorSkillModels.Clear();
+            foreach (var model in calculatorSkillModels)
+            {
+                CalculatorSkillModels.Add(model);
+            }
         }
 
         private void EndTurn()
