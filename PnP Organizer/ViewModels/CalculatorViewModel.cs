@@ -80,7 +80,8 @@ namespace PnP_Organizer.ViewModels
 
         public void OnNavigatedFrom() 
         {
-            SaveCharacterStats();
+            // only uncomment after the calculator is working fully!
+            //SaveCharacterStats();
         }
 
         [RelayCommand]
