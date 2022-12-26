@@ -41,44 +41,23 @@ namespace PnP_Organizer.ViewModels
         private ObservableCollection<CalculatorSkillModel> _calculatorSkillModels = new();
 
         [ObservableProperty]
+        private ObservableCollection<CalculatorStatResultModel> _calculatorResultModels = new();
+
+        [ObservableProperty]
         private LocalizedBattleAction _action;
 
         [ObservableProperty]
         private int _incomingDamage;
 
         [ObservableProperty]
-        private int _health = 0;
-        [ObservableProperty]
-        private int _energy = 0;
-        [ObservableProperty]
-        private int _stamina = 0;
-        [ObservableProperty]
-        private int _initiative = 0;
-
-        [ObservableProperty]
-        private int _healthDiff = 0;
-        [ObservableProperty]
-        private int _energyDiff = 0;
-        [ObservableProperty]
-        private int _staminaDiff = 0;
-
-        [ObservableProperty]
-        private int _damage = 0;
-        [ObservableProperty]
-        private int _hit = 0;
-        [ObservableProperty]
-        private int _armorpen = 0;
-        [ObservableProperty]
-        private int _armor = 0;
-        [ObservableProperty]
-        private int _parade = 0;
-        [ObservableProperty]
-        private int _dodge = 0;
-
-        [ObservableProperty]
         private TurnPhase _turnPhase = TurnPhase.PreTurn;
         [ObservableProperty]
         private BattlePhase _battlePhase = BattlePhase.BetweenBattles;
+
+        private int _health = 0;
+        private int _energy = 0;
+        private int _stamina = 0;
+        private int _initiative = 0;
 
         private List<Skill> _passiveSkills = new();
         private List<Skill> _activeSkills = new();
@@ -107,6 +86,8 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         public void AbortBattle()
         {
+            // TODO add optional dialog
+            CalculatorResultModels?.Clear();
             BattlePhase = BattlePhase.BetweenBattles;
 
             LoadCharacterStats();
@@ -139,6 +120,7 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         private void RestartBattle()
         {
+            // TODO add dialog
             AbortBattle();
             StartNewBattle();
         }
@@ -146,6 +128,7 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         private void EndBattle()
         {
+            // TODO add dialog
             EndTurn();
             BattlePhase = BattlePhase.BetweenBattles;
         }
@@ -184,7 +167,7 @@ namespace PnP_Organizer.ViewModels
 
             // TODO Add checks for armor and shield specific skills
 
-            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill)));
+            CalculatorSkillModels = new ObservableCollection<CalculatorSkillModel>(validWeaponSkills.ToList().ConvertAll(skill => new CalculatorSkillModel(skill, CalculatorSkillModels)));
         }
 
         private void EndTurn()
@@ -195,42 +178,58 @@ namespace PnP_Organizer.ViewModels
             var activatedPassiveSkills = _passiveSkills.Where(skill => IsSkillUsable(skill));
 
             CurrentTurn = new BattleTurn(_pageService, SelectedWeapon, SelectedArmor, SelectedShield, usedSkills.ToList(),
-                Action.BattleAction, Health, Energy, Stamina, Initiative, IncomingDamage);
+                Action.BattleAction, _health, _energy, _stamina, _initiative, IncomingDamage);
 
+            CurrentTurn.StatsCalculated += e =>
+            {
+                // TODO Create a model for the stats of this calculation
+
+                if (Action.BattleAction == BattleAction.Attack)
+                {
+                    // TODO implement ability to cycle through the stats of multiple attacks if needed
+                }
+                else
+                {
+
+                }
+
+                var turnProperties = CurrentTurn.GetType().GetProperties().Where(propInfo => propInfo.PropertyType == typeof(int));
+                var filteredProperties = turnProperties.Where(propInfo => !propInfo.Name.Contains("Before")
+                                                                       && !propInfo.Name.Contains("Initiative")
+                                                                       && !propInfo.Name.Contains("Attacks")
+                                                                       && propInfo.Name != nameof(BattleTurn.IncomingDamage));
+                foreach (var propertyInfo in filteredProperties)
+                {
+                    var propertyBaseName = propertyInfo.Name.Replace("After", "");
+                    var propertyValue = (int)propertyInfo.GetValue(CurrentTurn)!;
+
+                    if (propertyInfo.Name.Contains("After"))
+                    {
+                        var beforeProperty = turnProperties.First(propInfo => propInfo.Name == $"{propertyBaseName}Before");
+                        var beforeValue = (int)beforeProperty.GetValue(CurrentTurn)!;
+
+                        if(beforeValue != propertyValue)
+                        {
+                            var difference = propertyValue - beforeValue;
+                            CalculatorResultModels.Add(new CalculatorStatResultModel(propertyBaseName, propertyValue, difference));
+                        }
+                    }
+                    else
+                        CalculatorResultModels.Add(new CalculatorStatResultModel(propertyBaseName, propertyValue, 0));
+                }
+
+                var usableSkills = CurrentTurn.UsedSkillsAfter;
+                _passiveSkills = usableSkills!.Where(skill => skill.ActivationType == ActivationType.Passive).ToList();
+                _activeSkills = usableSkills!.Where(skill => skill.ActivationType == ActivationType.Active).ToList();
+            };
             CurrentTurn.CalculateTurnResults();
-
-            Health = CurrentTurn.HealthAfter;
-            Energy = CurrentTurn.EnergyAfter;
-            Stamina = CurrentTurn.StaminaAfter;
-            Initiative = CurrentTurn.ModifiedInitiative;
-
-            HealthDiff = Health - CurrentTurn.HealthBefore;
-            EnergyDiff = Energy - CurrentTurn.EnergyBefore;
-            StaminaDiff = Stamina - CurrentTurn.StaminaBefore;
-
-            if (CurrentTurn.Action == BattleAction.Attack)
-            {
-                Damage = CurrentTurn.Damage;
-                Hit = CurrentTurn.Hit;
-                Armorpen = CurrentTurn.Armorpen;
-            }
-            else if (CurrentTurn.Action == BattleAction.Defend)
-            {
-                Armor = CurrentTurn.Armor;
-                Dodge = CurrentTurn.Dodge;
-                Parade = CurrentTurn.Parade;
-            }
-
-            var usableSkills = CurrentTurn.ActiveSkillsAfter;
-            _passiveSkills = usableSkills.Where(skill => skill.ActivationType == ActivationType.Passive).ToList();
-            _activeSkills = usableSkills.Where(skill => skill.ActivationType == ActivationType.Active).ToList();
-
             TurnPhase = TurnPhase.PostTurn;
         }
 
         private void NewTurn()
         {
             CurrentTurnCount++;
+            CalculatorResultModels?.Clear();
             TurnPhase = TurnPhase.PreTurn;
         }
 
@@ -238,17 +237,17 @@ namespace PnP_Organizer.ViewModels
         {
             var character = FileIO.LoadedCharacter;
 
-            Health = character.CurrentHealth;
-            Energy = character.CurrentEnergy;
-            Stamina = character.CurrentStamina;
-            Initiative = _pageService.GetPage<OverviewPage>()!.ViewModel!.Initiative + character.InitiativeBonus;
+            _health = character.CurrentHealth;
+            _energy = character.CurrentEnergy;
+            _stamina = character.CurrentStamina;
+            _initiative = _pageService.GetPage<OverviewPage>()!.ViewModel!.Initiative + character.InitiativeBonus;
         }
 
         private void SaveCharacterStats()
         {
-            FileIO.LoadedCharacter.CurrentHealth = Health;
-            FileIO.LoadedCharacter.CurrentEnergy = Energy;
-            FileIO.LoadedCharacter.CurrentStamina = Stamina;
+            FileIO.LoadedCharacter.CurrentHealth = _health;
+            FileIO.LoadedCharacter.CurrentEnergy = _energy;
+            FileIO.LoadedCharacter.CurrentStamina = _stamina;
         }
 
         private void LoadCharacterSkills()
