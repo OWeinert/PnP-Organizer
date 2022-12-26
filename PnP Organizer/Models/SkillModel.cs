@@ -2,9 +2,13 @@
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
+using PnP_Organizer.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace PnP_Organizer.Models
@@ -26,6 +30,8 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private string _description = string.Empty;
         [ObservableProperty]
+        private string _tooltip = string.Empty;
+        [ObservableProperty]
         private SkillCategory _skillCategory = SkillCategory.Character;
         [ObservableProperty]
         private string _localizedSkillCategory = string.Empty;
@@ -44,9 +50,6 @@ namespace PnP_Organizer.Models
         [ObservableProperty]
         private Visibility _skillableOverlayVisibility = Visibility.Hidden;
 
-        [ObservableProperty]
-        private List<SkillModel>? _children;
-
         public SkillModel(Skill skill)
         {
             Skill = skill;
@@ -63,7 +66,7 @@ namespace PnP_Organizer.Models
                 _ => Properties.Resources.Skills_Character,
             };
 
-            Children = new();
+            Tooltip = Skill.CreateTooltip(Skill);
 
             UpdateVisuals();
             PropertyChanged += OnSkillPropertyChanged;
