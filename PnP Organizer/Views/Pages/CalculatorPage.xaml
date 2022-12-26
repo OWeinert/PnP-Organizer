@@ -24,6 +24,7 @@
         <conv:BattlePhaseToVisibilityConverter x:Key="BattlePhaseToVisibilityConverter"/>
         <conv:BattleActionToBooleanConverter x:Key="BattleActionToBooleanConverter"/>
         <conv:SkillCategoryToBrushConverter x:Key="SkillCategoryToBrushConverter"/>
+        <conv:CalculatorStatResultToStringConverter x:Key="CalculatorStatResultToStringConverter"/>
     </ui:UiPage.Resources>
 
     <Grid Margin="24,0,0,0">
@@ -200,6 +201,36 @@
                                Content="Character Stats"
                                FontSize="16"
                                FontWeight="SemiBold"/>
+
+                        <ui:VirtualizingItemsControl Grid.Row="1"
+                                                     Grid.Column="0"
+                                                     ItemsSource="{Binding ViewModel.CalculatorResultModels}"
+                                                     Margin="4">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="models:CalculatorStatResultModel">
+                                    <Border Width="370"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="2">
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=name}"
+                                                       HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=value}"/>
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=diff}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ui:VirtualizingItemsControl>
 
                         <Separator Grid.Column="1"
                                    Grid.RowSpan="2"
