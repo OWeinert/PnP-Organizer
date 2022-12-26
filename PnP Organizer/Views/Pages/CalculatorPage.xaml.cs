@@ -27,9 +27,13 @@ namespace PnP_Organizer.Views.Pages
         private void CalculatorModifierCard_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var modifierCard = (CardControl)sender;
-            var cardGrid = (Grid)modifierCard.Content;
-            var toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
-            toggleSwitch.IsChecked = !toggleSwitch.IsChecked;
+            var model = (CalculatorSkillModel)modifierCard.DataContext;
+            if (model.IsActivatable)
+            {
+                var cardGrid = (Grid)modifierCard.Content;
+                var toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
+                toggleSwitch.IsChecked = !toggleSwitch.IsChecked;
+            }
         }
 
         //TODO NumBox_MouseWheel move to static function 2/2
