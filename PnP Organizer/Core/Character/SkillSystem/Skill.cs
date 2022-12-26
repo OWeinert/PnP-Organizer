@@ -1,8 +1,10 @@
 ﻿using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.Logging;
+using PnP_Organizer.Properties;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace PnP_Organizer.Core.Character
 {
@@ -72,6 +74,25 @@ namespace PnP_Organizer.Core.Character
             DependendSkillNames = dependendSkillNames ?? Array.Empty<string>();
 
             RoundDependendStatModifiers = new List<IStatModifier[]>();
+        }
+
+        public static string CreateTooltip(Skill skill)
+        {
+            var sb = new StringBuilder(skill.Description);
+            if (skill.StaminaCost > 0 || skill.EnergyCost > 0)
+            {
+                sb.Append($"\n{Resources.Skills_Cost}: ");
+
+                if (skill.StaminaCost > 0)
+                    sb.Append($"{skill.StaminaCost} {Resources.Overview_Stamina}");
+
+                if (skill.StaminaCost > 0 && skill.EnergyCost > 0)
+                    sb.Append(", ");
+
+                if (skill.EnergyCost > 0)
+                    sb.Append($"{skill.StaminaCost} {Resources.Overview_Energy}");
+            }
+            return sb.ToString();
         }
 
         public Skill SetRepeatable(bool repeatable = true)
