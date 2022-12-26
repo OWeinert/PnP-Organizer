@@ -125,7 +125,7 @@
                     <ui:SymbolIcon.ToolTip>
                         <ToolTip x:Name="InfoToolTip"
                                  HasDropShadow="True"
-                                 Content="{Binding Description}"/>
+                                 Content="{Binding Tooltip}"/>
                     </ui:SymbolIcon.ToolTip>
                 </ui:SymbolIcon>
             </Grid>
