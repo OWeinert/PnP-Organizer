@@ -591,6 +591,9 @@
   <data name="Skills_Character" xml:space="preserve">
     <value>Character</value>
   </data>
+  <data name="Skills_Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
   <data name="Skills_Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
@@ -641,16 +644,14 @@
   </data>
   <data name="Skills_SkillAimedAttackMeleeDescr" xml:space="preserve">
     <value>-5 on the Hit Throw, Enemy's Armor is halfed
-this Round. Melee only.
-Cost: 2 Stamina</value>
+this Round. Melee only.</value>
   </data>
   <data name="Skills_SkillAimedAttackRanged" xml:space="preserve">
     <value>Aimed Attack</value>
   </data>
   <data name="Skills_SkillAimedAttackRangedDescr" xml:space="preserve">
     <value>-5 on the Hit Throw, Enemy's Armor is halfed
-this Round. Ranged only.
-Cost: 2 Stamina</value>
+this Round. Ranged only.</value>
   </data>
   <data name="Skills_SkillAlertness" xml:space="preserve">
     <value>Alertness</value>
@@ -665,8 +666,7 @@ Cost: 2 Stamina</value>
     <value>Armor Breaker</value>
   </data>
   <data name="Skills_SkillArmorBreakerDescr" xml:space="preserve">
-    <value>Reduce Enemy's Armor by 3.
-Cost: 5 Stamina</value>
+    <value>Reduce Enemy's Armor by 3.</value>
   </data>
   <data name="Skills_SkillArmorDescr" xml:space="preserve">
     <value>Negate negative Effects of Armor Weight</value>
@@ -681,15 +681,13 @@ Cost: 5 Stamina</value>
     <value>Assassinate</value>
   </data>
   <data name="Skills_SkillAssassinateDescr" xml:space="preserve">
-    <value>End Damage * 3, Enemy needs to not perceive the Character.
-Cost: 1 Stamina</value>
+    <value>End Damage * 3, Enemy needs to not perceive the Character.</value>
   </data>
   <data name="Skills_SkillAttackOfOpportunity" xml:space="preserve">
     <value>Attack of Opportunity</value>
   </data>
   <data name="Skills_SkillAttackOfOpportunityDescr" xml:space="preserve">
-    <value>When an Enemy leaves the direct Fight with you, you can Hit him once more.
-Cost: 1 Stamina</value>
+    <value>When an Enemy leaves the direct Fight with you, you can Hit him once more.</value>
   </data>
   <data name="Skills_SkillAvenger" xml:space="preserve">
     <value>Avenger</value>
@@ -717,8 +715,7 @@ Ranged Only.</value>
   </data>
   <data name="Skills_SkillBladeFanDescr" xml:space="preserve">
     <value>Grants the Ability to summon a Blade Fan in front of yourself.
-Can only be penetrated by a Critical Hit. -10 on Hit Throws.
-Cost: 1 Energy and 1 Stamina per Round</value>
+Can only be penetrated by a Critical Hit. -10 on Hit Throws.</value>
   </data>
   <data name="Skills_SkillBowMaking" xml:space="preserve">
     <value>Bow Making</value>
@@ -736,8 +733,7 @@ Cost: 1 Energy and 1 Stamina per Round</value>
     <value>Calm Aiming</value>
   </data>
   <data name="Skills_SkillCalmAimingDescr" xml:space="preserve">
-    <value>Initiative decreased (Always last in Turn Order), but +2 on Hit Throw.
-Cost: None</value>
+    <value>Initiative decreased (Always last in Turn Order), but +2 on Hit Throw.</value>
   </data>
   <data name="Skills_SkillCavallery" xml:space="preserve">
     <value>Cavallery</value>
@@ -749,8 +745,7 @@ Cost: None</value>
     <value>Chain Attack</value>
   </data>
   <data name="Skills_SkillChainAttackDescr" xml:space="preserve">
-    <value>After disarming an Enemy, you can throw their Weapon on another Enemy.
-Cost: 1 Stamina</value>
+    <value>After disarming an Enemy, you can throw their Weapon on another Enemy.</value>
   </data>
   <data name="Skills_SkillClimbing" xml:space="preserve">
     <value>Climbing</value>
@@ -783,8 +778,7 @@ when attempting to perform Counterfeiting.</value>
     <value>Crippling Blow</value>
   </data>
   <data name="Skills_SkillCripplingBlowDescr" xml:space="preserve">
-    <value>-1 on Hit Throw, Enemy's Initiative is decreased by 3.
-Cost: 2 Stamina</value>
+    <value>-1 on Hit Throw, Enemy's Initiative is decreased by 3.</value>
   </data>
   <data name="Skills_SkillCurvedShot" xml:space="preserve">
     <value>Curved Shot</value>
@@ -803,29 +797,25 @@ Hit Throw Penalty depends on how hard it is to hit them.</value>
     <value>Defensive Stance</value>
   </data>
   <data name="Skills_SkillDefensiveStanceDescr" xml:space="preserve">
-    <value>Armor is doubled, +1D6+2 on Parade Throws, but you can't attack.
-Cost: 1 Stamina per Round</value>
+    <value>Armor is doubled, +1D6+2 on Parade Throws, but you can't attack.</value>
   </data>
   <data name="Skills_SkillDevastatingAttack" xml:space="preserve">
     <value>Devastating Attack</value>
   </data>
   <data name="Skills_SkillDevastatingAttackDescr" xml:space="preserve">
-    <value>End Damage * 2 for the next Attack. You skip your next Turn and can't parry or dodge when being attacked.
-Cost: 3 Stamina</value>
+    <value>End Damage * 2 for the next Attack. You skip your next Turn and can't parry or dodge when being attacked.</value>
   </data>
   <data name="Skills_SkillDisarmMelee" xml:space="preserve">
     <value>Disarm</value>
   </data>
   <data name="Skills_SkillDisarmMeleeDescr" xml:space="preserve">
-    <value>Grants the Ability to disarm an Enemy. Deals no Damage.
-Cost: 1 Stamina</value>
+    <value>Grants the Ability to disarm an Enemy. Deals no Damage.</value>
   </data>
   <data name="Skills_SkillDisarmRanged" xml:space="preserve">
     <value>Disarm</value>
   </data>
   <data name="Skills_SkillDisarmRangedDescr" xml:space="preserve">
-    <value>Grants the Ability and a Bonus of +3 to disarm an Enemy. Deals no Damage.
-Cost: 2 Stamina</value>
+    <value>Grants the Ability and a Bonus of +3 to disarm an Enemy. Deals no Damage.</value>
   </data>
   <data name="Skills_SkillDoubleShot" xml:space="preserve">
     <value>Doubleshot</value>
@@ -837,8 +827,7 @@ Cost: 2 Stamina</value>
     <value>Dual Throw</value>
   </data>
   <data name="Skills_SkillDualThrowDescr" xml:space="preserve">
-    <value>Grants the Ability to throw 2 weapons in 1 Round.
-Cost: 1 Stamina</value>
+    <value>Grants the Ability to throw 2 weapons in 1 Round.</value>
   </data>
   <data name="Skills_SkillDuplexFerrum" xml:space="preserve">
     <value>Duplex Ferrum</value>
@@ -908,8 +897,7 @@ Cost: 1 Stamina</value>
   </data>
   <data name="Skills_SkillFeintDescr" xml:space="preserve">
     <value>+1D4 on Feints. A successful Feint will result in the Enemy having a penalty of -5 on Parades and Dodges.
-Enemies can learn to see through your Feints.
-Cost: 2 Stamina</value>
+Enemies can learn to see through your Feints.</value>
   </data>
   <data name="Skills_SkillFencing" xml:space="preserve">
     <value>Fencing</value>
@@ -978,22 +966,19 @@ Cost: 2 Stamina</value>
     <value>Heavy Parade</value>
   </data>
   <data name="Skills_SkillHeavyParadeDescr" xml:space="preserve">
-    <value>Strong Blows can be blocked by a Parade.
-Cost: 2 Stamina</value>
+    <value>Strong Blows can be blocked by a Parade.</value>
   </data>
   <data name="Skills_SkillHijackerMelee" xml:space="preserve">
     <value>Hijacker</value>
   </data>
   <data name="Skills_SkillHijackerMeleeDescr" xml:space="preserve">
-    <value>Grants the Ability to Hijack a Horse ridden by another Person.
-Cost: 3 Stamina</value>
+    <value>Grants the Ability to Hijack a Horse ridden by another Person.</value>
   </data>
   <data name="Skills_SkillHijackerRanged" xml:space="preserve">
     <value>Hijacker</value>
   </data>
   <data name="Skills_SkillHijackerRangedDescr" xml:space="preserve">
-    <value>Grants the Ability to Hijack a Horse ridden by another Person.
-Cost: 3 Stamina</value>
+    <value>Grants the Ability to Hijack a Horse ridden by another Person.</value>
   </data>
   <data name="Skills_SkillHP" xml:space="preserve">
     <value>HP</value>
@@ -1007,8 +992,7 @@ Cost: 3 Stamina</value>
   <data name="Skills_SkillHuntersMarkDescr" xml:space="preserve">
     <value>An Enemy can be marked for 3 Rounds.
 Grants 2 Hit Throws and the better one will count, +1D4 Damage.
-When attacking a different Enemy, the worse of the 2 Throws will count.
-Cost: </value>
+When attacking a different Enemy, the worse of the 2 Throws will count.</value>
   </data>
   <data name="Skills_SkillIntimidate" xml:space="preserve">
     <value>Intimidate</value>
@@ -1029,15 +1013,13 @@ of -3 on Parade and Dodge Throws until your next Turn.</value>
   <data name="Skills_SkillKickDescr" xml:space="preserve">
     <value>After a Hit the Enemy can be kicked.
 Success: -2 on Parade and Dodges for the Enemy and 1D4 True Damage.
-Fail: -1 on Parade and Dodge Throws until your next Turn.
-Cost: 1 Stamina</value>
+Fail: -1 on Parade and Dodge Throws until your next Turn.</value>
   </data>
   <data name="Skills_SkillKillingSpree" xml:space="preserve">
     <value>Killing Spree</value>
   </data>
   <data name="Skills_SkillKillingSpreeDescr" xml:space="preserve">
-    <value>After killing an Enemy you can attack again.
-Cost: 1 Stamina</value>
+    <value>After killing an Enemy you can attack again.</value>
   </data>
   <data name="Skills_SkillKnowledgeOfPeople" xml:space="preserve">
     <value>Knowledge of People</value>
@@ -1056,8 +1038,7 @@ Cost: 1 Stamina</value>
   </data>
   <data name="Skills_SkillLastShotDescr" xml:space="preserve">
     <value>+2.5 * Wood Pearls Damage, +1D6 on the Hit Throw,
-but will destroy your Bow.
-Cost: 8 Energy</value>
+but will destroy your Bow.</value>
   </data>
   <data name="Skills_SkillLieDetector" xml:space="preserve">
     <value>Lie Detector</value>
@@ -1069,15 +1050,13 @@ Cost: 8 Energy</value>
     <value>Light Blow</value>
   </data>
   <data name="Skills_SkillLightBlowDescr" xml:space="preserve">
-    <value>+1D6+2 on the Hit Throw. Deals half Damage.
-Cost: 1 Stamina</value>
+    <value>+1D6+2 on the Hit Throw. Deals half Damage.</value>
   </data>
   <data name="Skills_SkillLightShot" xml:space="preserve">
     <value>Light Shot</value>
   </data>
   <data name="Skills_SkillLightShotDescr" xml:space="preserve">
-    <value>+1D6+2 on the Hit Throw. Deals half Damage.
-Cost: 1 Stamina</value>
+    <value>+1D6+2 on the Hit Throw. Deals half Damage.</value>
   </data>
   <data name="Skills_SkillLockpicking" xml:space="preserve">
     <value>Lockpicking</value>
@@ -1183,22 +1162,19 @@ The Base Damage Bonus of your Weapon will be ignored for the Damage Roll.</value
     <value>Perfect Block</value>
   </data>
   <data name="Skills_SkillPerfectBlockDescr" xml:space="preserve">
-    <value>The next incoming Hit will be blocked.
-Cost: 5 Stamina</value>
+    <value>The next incoming Hit will be blocked.</value>
   </data>
   <data name="Skills_SkillPerfectBlow" xml:space="preserve">
     <value>Perfect Blow</value>
   </data>
   <data name="Skills_SkillPerfectBlowDescr" xml:space="preserve">
-    <value>The next Hit will definetly succeed. Can't be used with other Skills.
-Cost: 5 Stamina</value>
+    <value>The next Hit will definetly succeed. Can't be used with other Skills.</value>
   </data>
   <data name="Skills_SkillPerfectShot" xml:space="preserve">
     <value>Perfect Shot</value>
   </data>
   <data name="Skills_SkillPerfectShotDescr" xml:space="preserve">
-    <value>The next Shot will definetly succeed. Can't be used with other Skills.
-Cost: 5 Stamina</value>
+    <value>The next Shot will definetly succeed. Can't be used with other Skills.</value>
   </data>
   <data name="Skills_SkillPerseverence" xml:space="preserve">
     <value>Perseverence</value>
@@ -1216,8 +1192,7 @@ Cost: 5 Stamina</value>
     <value>Plunge</value>
   </data>
   <data name="Skills_SkillPlungeDescr" xml:space="preserve">
-    <value>+8 on the next Dodge Throw.
-Cost: 3 Stamina</value>
+    <value>+8 on the next Dodge Throw.</value>
   </data>
   <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
     <value>Poison Knowledge</value>
@@ -1229,8 +1204,7 @@ Cost: 3 Stamina</value>
     <value>Precise Throw</value>
   </data>
   <data name="Skills_SkillPreciseThrowDescr" xml:space="preserve">
-    <value>-4 on the Hit Throw, Enemy's Armor is halfed this Round. Throwing Weapons only.
-Cost: 1 Stamina</value>
+    <value>-4 on the Hit Throw, Enemy's Armor is halfed this Round. Throwing Weapons only.</value>
   </data>
   <data name="Skills_SkillProfession" xml:space="preserve">
     <value>Profession</value>
@@ -1254,15 +1228,13 @@ Cost: 1 Stamina</value>
     <value>QuickDraw</value>
   </data>
   <data name="Skills_SkillQuickdrawDescr" xml:space="preserve">
-    <value>The Bow can be drawn in a Side Action.
-Cost: 1 Stamina</value>
+    <value>The Bow can be drawn in a Side Action.</value>
   </data>
   <data name="Skills_SkillQuickParade" xml:space="preserve">
     <value>Quick Parade</value>
   </data>
   <data name="Skills_SkillQuickParadeDescr" xml:space="preserve">
-    <value>Grants 1 additional Parade for the Round.
-Cost: 1 Stamina</value>
+    <value>Grants 1 additional Parade for the Round.</value>
   </data>
   <data name="Skills_SkillReadiness" xml:space="preserve">
     <value>Readiness</value>
@@ -1305,8 +1277,7 @@ Cost: 1 Stamina</value>
     <value>Round-House Attack</value>
   </data>
   <data name="Skills_SkillRoundHouseAttackDescr" xml:space="preserve">
-    <value>Hit every Enemy in your Attack Range.
-Cost: 3 Stamina</value>
+    <value>Hit every Enemy in your Attack Range.</value>
   </data>
   <data name="Skills_SkillRoutinedWithThrowingWeapons" xml:space="preserve">
     <value>Routined with Throwing Weapons</value>
@@ -1319,15 +1290,13 @@ Cost: 3 Stamina</value>
   </data>
   <data name="Skills_SkillRunOverDescr" xml:space="preserve">
     <value>+1D4+2 on Running Over an Enemy. The Enemy gets -1 on Parades and Dodges 
-and skips the next Turn.
-Cost: 3 Stamina</value>
+and skips the next Turn.</value>
   </data>
   <data name="Skills_SkillSecondHand" xml:space="preserve">
     <value>Second Hand</value>
   </data>
   <data name="Skills_SkillSecondHandDescr" xml:space="preserve">
-    <value>No Hit Throw Penalty when attacking with your second dual-wield Weapon.
-Cost: 1 Stamina</value>
+    <value>No Hit Throw Penalty when attacking with your second dual-wield Weapon.</value>
   </data>
   <data name="Skills_SkillShield" xml:space="preserve">
     <value>Shield</value>
@@ -1337,8 +1306,7 @@ Cost: 1 Stamina</value>
   </data>
   <data name="Skills_SkillShieldBashDescr" xml:space="preserve">
     <value>Forces the Enemy to the Ground. The Enemy has to skip their next Turn.
-An Attack from behind will force the Enemy to skip 3 Turns.
-Cost: 2 Stamina</value>
+An Attack from behind will force the Enemy to skip 3 Turns.</value>
   </data>
   <data name="Skills_SkillShieldBreaker" xml:space="preserve">
     <value>Shield Breaker</value>
@@ -1378,8 +1346,7 @@ After the second hit it will be destroyed.</value>
     <value>Skillful Retreat</value>
   </data>
   <data name="Skills_SkillSkillfulRetreatDescr" xml:space="preserve">
-    <value>Denies "Attack of Opportunity".
-Cost: 1 Stamina</value>
+    <value>Denies "Attack of Opportunity".</value>
   </data>
   <data name="Skills_SkillSlingshotMarksman" xml:space="preserve">
     <value>Slingshot Marksman</value>
@@ -1403,8 +1370,7 @@ Cost: 1 Stamina</value>
     <value>Something with Shield</value>
   </data>
   <data name="Skills_SkillSomethingWithShieldDescr" xml:space="preserve">
-    <value>Hit aside the Enemy's Weapon and Attack. Enemy has -5 on Parade.
-Cost: 3 Stamina</value>
+    <value>Hit aside the Enemy's Weapon and Attack. Enemy has -5 on Parade.</value>
   </data>
   <data name="Skills_SkillStamina2" xml:space="preserve">
     <value>Stamina +2</value>
@@ -1478,8 +1444,7 @@ when attempting to perform Pickpocketing</value>
     <value>There and Away</value>
   </data>
   <data name="Skills_SkillThereAndAwayDescr" xml:space="preserve">
-    <value>+1/2 Side Action with Weapon Weight &lt; 2.
-Cost: 1 Stamina</value>
+    <value>+1/2 Side Action with Weapon Weight &lt; 2.</value>
   </data>
   <data name="Skills_SkillTracking" xml:space="preserve">
     <value>Tracking</value>
