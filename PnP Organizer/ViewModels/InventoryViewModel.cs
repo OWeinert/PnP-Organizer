@@ -104,11 +104,6 @@ namespace PnP_Organizer.ViewModels
             var itemModels = new ObservableCollection<InventoryItemModel>();
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
-                foreach (var property in item.GetType().GetProperties())
-                {
-                    Debug.WriteLine($"{property.Name}: {property.GetValue(item)}");
-                }
-
                 InventoryItemModel? model;
                 if (item is InventoryWeapon weapon)
                     model = new InventoryWeaponModel(weapon);
