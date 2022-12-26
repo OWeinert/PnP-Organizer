@@ -25,6 +25,7 @@
         <conv:BattleActionToBooleanConverter x:Key="BattleActionToBooleanConverter"/>
         <conv:SkillCategoryToBrushConverter x:Key="SkillCategoryToBrushConverter"/>
         <conv:CalculatorStatResultToStringConverter x:Key="CalculatorStatResultToStringConverter"/>
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </ui:UiPage.Resources>
 
     <Grid Margin="24,0,0,0">
@@ -404,15 +405,22 @@
                         <ui:CardControl x:Name="CalculatorModifierCard"
                                         Width="212"
                                         Margin="8,3"
-                                        Click="CalculatorModifierCard_Click"
                                         HorizontalContentAlignment="Left"
                                         Background="{Binding Skill.SkillCategory, Converter={StaticResource SkillCategoryToBrushConverter}}"
-                                        Padding="10,6">
+                                        Padding="10,6"
+                                        Click="CalculatorModifierCard_Click">
                             <Grid Width="176">
                                 <ui:ToggleSwitch x:Name="ToggleActiveSwitch"
                                                  IsHitTestVisible="False"
                                                  IsChecked="{Binding IsActive, Mode=TwoWay}"
                                                  HorizontalAlignment="Right"/>
+
+                                <Border x:Name="NotActivatableOverlay"
+                                        Background="#80000000"
+                                        Visibility="{Binding IsActivatable, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}"
+                                        CornerRadius="3"
+                                        Margin="-24,-6,-10,-6"/>
+
                                 <Viewbox MaxWidth="120"
                                          MaxHeight="20"
                                          HorizontalAlignment="Left"
@@ -425,7 +433,7 @@
                                                VerticalAlignment="Center"
                                                Padding="0"
                                                Margin="-16,0,0,0"
-                                               ToolTip="{Binding Skill.Description}"
+                                               ToolTip="{Binding Tooltip}"
                                                ToolTipService.InitialShowDelay="0"
                                                ToolTipService.Placement="Right"/>
                             </Grid>
