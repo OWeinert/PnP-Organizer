@@ -42,7 +42,7 @@ namespace PnP_Organizer.ViewModels
 
             Languages = Language.Languages;
 
-            AppVersion = $"PnP_Organizer - {GetAssemblyVersion()}";
+            AppVersion = $"PnP Organizer - {GetAssemblyVersion()}";
 
             MaxLogFiles = Properties.Settings.Default.MaxLogFiles;
             LogCalculationsEnabled = Properties.Settings.Default.LogCalculations;

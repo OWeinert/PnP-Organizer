@@ -1533,4 +1533,7 @@ Bei einem weiteren Schlag wird er zerstört.</value>
   <data name="Overview_Stamina" xml:space="preserve">
     <value>Ausdauer</value>
   </data>
+  <data name="Settings_AboutInfo" xml:space="preserve">
+    <value>Erstellt von Ole Weinert</value>
+  </data>
 </root>

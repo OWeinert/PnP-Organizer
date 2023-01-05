@@ -78,6 +78,7 @@
             FontSize="20"
             FontWeight="Medium"
             Text="{x:Static p:Resources.Settings_About}"/>
-        <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.AppVersion, Mode=OneWay}" />
+        <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.AppVersion, Mode=OneWay}"/>
+        <TextBlock Margin="0,12,0,0" Text="{x:Static p:Resources.Settings_AboutInfo}"/>
     </StackPanel>
 </ui:UiPage>

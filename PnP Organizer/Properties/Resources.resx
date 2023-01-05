@@ -567,6 +567,9 @@
   <data name="Settings_About" xml:space="preserve">
     <value>About PnP-Organizer</value>
   </data>
+  <data name="Settings_AboutInfo" xml:space="preserve">
+    <value>Created by Ole Weinert</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Language</value>
   </data>

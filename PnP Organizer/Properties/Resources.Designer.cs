@@ -1411,6 +1411,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by Ole Weinert.
+        /// </summary>
+        public static string Settings_AboutInfo {
+            get {
+                return ResourceManager.GetString("Settings_AboutInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Settings_Language {
