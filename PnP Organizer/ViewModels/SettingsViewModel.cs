@@ -80,7 +80,13 @@ namespace PnP_Organizer.ViewModels
 
         private static string GetAssemblyVersion()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+            var productVersion = fvi.ProductVersion;
+
+            if (productVersion != null)
+                return productVersion;
+            return assembly.GetName().Version?.ToString()!;
         }
     }
 
