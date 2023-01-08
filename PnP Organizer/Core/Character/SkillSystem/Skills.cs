@@ -273,7 +273,7 @@ namespace PnP_Organizer.Core.Character
                 new string[] { Gambling.Name, SkilledLier.Name, LieDetector.Name, SkilledSpeaker.Name, ActorByBirth.Name, Tracking.Name, PoisonKnowledge.Name });
             RescueIsNear = CreateAndAddSkill(Resources.Skills_SkillRescueIsNear, SkillCategory.Character, 2, 
                 Resources.Skills_SkillRescueIsNearDescr, null, new string[] { Plunge.Name }, activationType: ActivationType.Active);
-            Etiquette = CreateAndAddSkill(Resources.Skills_SkillEtiquette, SkillCategory.Character, 2, 
+            Etiquette = CreateAndAddSkill(Resources.Skills_SkillEtiquette, SkillCategory.Character, 1, 
                 Resources.Skills_SkillEtiquetteDescr, null, new string[] { Sympathic.Name });
             Trading = CreateAndAddSkill(Resources.Skills_SkillTrading, SkillCategory.Character, 2, 
                 Resources.Skills_SkillTradingDescr, new IStatModifier[] { new AttributeTestStatModifier(Resources.AttributeTests_Persuade, Dice.D4, 0, true) },
