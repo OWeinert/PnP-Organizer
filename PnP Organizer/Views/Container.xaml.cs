@@ -119,7 +119,10 @@ namespace PnP_Organizer.Views
         {
             var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
             var latestRelease = (await github.Repository.Release.GetAll(563509297))[0];
-            var latestVersion = new Version(latestRelease.TagName);
+            // remove -rc for release candidate versions so versions like 2.0.0.0-rc1 are now 2.0.0.01
+            // This means a newer rc version will also be handled like a newer version in general
+            var tagName = latestRelease.TagName.Replace("-rc", "");
+            var latestVersion = new Version(tagName);
             var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             Logger.Log($"Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)");
