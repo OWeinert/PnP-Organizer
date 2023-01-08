@@ -69,7 +69,7 @@
         <ui:ToggleSwitch Content="{x:Static p:Resources.Settings_OpenLastCharacterDialogEnable}"
                          Margin="0,16,0,0"
                          FontSize="14"
-                         IsChecked="{Binding ViewModel.OpenLastCharacterDialogEnabled}"/>
+                         IsChecked="{Binding ViewModel.OpenLastLoadedCharacterDialogEnabled}"/>
 
         <Separator Margin="0,12,0,0"/>
 
