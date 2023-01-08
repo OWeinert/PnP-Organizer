@@ -48,12 +48,6 @@ namespace PnP_Organizer.ViewModels
 
             ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
 
-            ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
-
-            ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
-
-            ProfessionModels!.CollectionChanged += ProfessionModels_CollectionChanged;
-
             AttributeTestModelsView = CollectionViewSource.GetDefaultView(AttributeTestModels);
 
             AttributeTestModelsView.Filter += AttributeTestModelsView_Filter;
@@ -163,7 +157,7 @@ namespace PnP_Organizer.ViewModels
 
                 foreach (var statModifier in aTSkillModel.StatModifiers)
                 {
-                    var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
+                    var attributeTest = AttributeTestModels.First(model => model.Name == statModifier.AttributeTestName);
 
                     if (aTSkillModel.IsActive)
                     {
