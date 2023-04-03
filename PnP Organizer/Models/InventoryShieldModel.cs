@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PnP_Organizer.Core;
 using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Core.Character.Inventory;
 using System.Collections.Generic;
@@ -32,7 +33,13 @@ namespace PnP_Organizer.Models
             ParadeDiceBonus = inventoryShield.ParadeDiceBonus;
             Weight = inventoryShield.Weight;
 
-            Brush = (SolidColorBrush)Application.Current.Resources["PaletteDeepPurpleBrush"];
+            if (inventoryShield.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color)
+                && inventoryShield.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PaletteDeepPurpleBrush"]).Color))
+            {
+                Brush = new SolidColorBrush(Utils.GetColorFromValue(inventoryShield.Color));
+            }
+            else
+                Brush = (SolidColorBrush)Application.Current.Resources["PaletteDeepPurpleBrush"];
 
             PropertyChanged += InventoryShieldModel_PropertyChanged;
 

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character.Inventory;
 using System.Windows;
 using System.Windows.Media;
@@ -28,7 +29,13 @@ namespace PnP_Organizer.Models
             Weight = inventoryArmor.Weight;
             Loudness = inventoryArmor.Loudness;
 
-            Brush = (SolidColorBrush)Application.Current.Resources["PaletteBrownBrush"];
+            if (inventoryArmor.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color)
+                && inventoryArmor.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PaletteBrownBrush"]).Color))
+            {
+                Brush = new SolidColorBrush(Utils.GetColorFromValue(inventoryArmor.Color));
+            }
+            else
+                Brush = (SolidColorBrush)Application.Current.Resources["PaletteBrownBrush"];
 
             PropertyChanged += InventoryArmorModel_PropertyChanged;
 

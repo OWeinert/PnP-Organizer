@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PnP_Organizer.Core;
 using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Core.Character.Inventory;
 using System.Collections.Generic;
@@ -52,7 +53,13 @@ namespace PnP_Organizer.Models
             Weight = inventoryWeapon.Weight;
             IsTwoHanded = inventoryWeapon.IsTwoHanded;
 
-            Brush = (SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"];
+            if (inventoryWeapon.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color)
+                && inventoryWeapon.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"]).Color))
+            {
+                Brush = new SolidColorBrush(Utils.GetColorFromValue(inventoryWeapon.Color));
+            }
+            else
+                Brush = (SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"];
 
             PropertyChanged += InventoryWeaponModel_PropertyChanged;
 
