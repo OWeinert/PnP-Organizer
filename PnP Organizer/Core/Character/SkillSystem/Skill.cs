@@ -1,4 +1,5 @@
-﻿using PnP_Organizer.Core.Character.SkillSystem;
+﻿using Microsoft.Extensions.Logging;
+using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.Logging;
 using PnP_Organizer.Properties;
@@ -43,23 +44,26 @@ namespace PnP_Organizer.Core.Character
         /// Names of skills of which at least one has to be skilled in order to unlock this skill.
         /// </summary>
         // HACK Direct Skill references would be better, but maybe won't work with the SkillModel
-        public string[] DependendSkillNames { get; private set; }
+        public SkillIdentifier[] DependendSkills { get; private set; }
 
         /// <summary>
         /// A name of a skill which has to be skilled in order to unlock this skill.
         /// This skill AND one of the other dependend skills have to be skilled.
         /// </summary>
-        public string ForcedDependendSkillName { get; private set; } = string.Empty;
+        public SkillIdentifier? ForcedDependendSkill { get; private set; }
 
         public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, IStatModifier[]? statModifiers = null,
             string[]? dependendSkillNames = null, ActivationType activationType = ActivationType.Passive, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1)
+        public Skill(SkillIdentifier identifier, string displayName, int maxSkillPoints, string description, IStatModifier[]? statModifiers = null,
+            SkillIdentifier[]? dependendSkillNames = null, ActivationType activationType = ActivationType.Passive, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1,
+            int skillTreeCheckpoint = 0)
         {
             Name = name;
             SkillCategory = skillCategory;
             Description = description;
             MaxSkillPoints = maxSkillPoints;
             StatModifiers = statModifiers;
-            SkillPoints = 0;
+            _skillPoints = 0;
 
             ActivationType = activationType;
             EnergyCost = energyCost;
@@ -71,7 +75,7 @@ namespace PnP_Organizer.Core.Character
 
             UsesLeft = UsesPerBattle = usesPerBattle;
 
-            DependendSkillNames = dependendSkillNames ?? Array.Empty<string>();
+            DependendSkills = dependendSkillNames ?? Array.Empty<SkillIdentifier>();
 
             RoundDependendStatModifiers = new List<IStatModifier[]>();
         }
@@ -101,9 +105,9 @@ namespace PnP_Organizer.Core.Character
             return this;
         }
 
-        public Skill AddForcedDependency(string forcedDependendSkillName)
+        public Skill AddForcedDependency(SkillIdentifier forcedDependendSkillName)
         {
-            ForcedDependendSkillName = forcedDependendSkillName;
+            ForcedDependendSkill = forcedDependendSkillName;
             return this;
         }
 

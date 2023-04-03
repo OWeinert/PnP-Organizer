@@ -2,14 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
-using PnP_Organizer.Properties;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace PnP_Organizer.Models
 {
@@ -53,9 +47,9 @@ namespace PnP_Organizer.Models
         public SkillModel(Skill skill)
         {
             Skill = skill;
-            Name = skill.Name;
+            Name = skill.DisplayName;
             Description = skill.Description;
-            SkillCategory = skill.SkillCategory;
+            SkillCategory = skill.Identifier.SkillCategory;
             SkillCategoryTooltip = $"Category: {SkillCategory}";
             SkillPoints = skill.SkillPoints;
             MaxSkillPoints = skill.MaxSkillPoints;
@@ -86,10 +80,7 @@ namespace PnP_Organizer.Models
                 
             if (e.PropertyName is not nameof(IsActive) or nameof(ActiveOverlayVisibility))
             {
-                Skill!.Name = Name;
-                Skill.Description = Description;
-                Skill.SkillCategory = SkillCategory;
-                Skill.SkillPoints = SkillPoints;
+                Skill!.SkillPoints = SkillPoints;
 
                 UpdateVisuals();
                 FileIO.IsCharacterSaved = false;

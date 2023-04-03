@@ -347,18 +347,18 @@ namespace PnP_Organizer.ViewModels
                 {
                     if (SelectedWeapon.AttackMode == AttackMode.Melee)
                     {
-                        if (skill.Name == Skills.Instance.OneHandedCombat.Name)
+                        if (skill.Identifier == Skills.Instance.OneHandedCombat.Identifier)
                             usableWithWeapon = !SelectedWeapon.IsTwoHanded;
                         else
-                            usableWithWeapon = skill.SkillCategory == SkillCategory.Melee;
+                            usableWithWeapon = skill.Identifier.SkillCategory == SkillCategory.Melee;
                     }
                     else
-                        usableWithWeapon = skill.SkillCategory == SkillCategory.Ranged && skill.SkillCategory == SkillCategory.Ranged;
+                        usableWithWeapon = skill.Identifier.SkillCategory == SkillCategory.Ranged && skill.Identifier.SkillCategory == SkillCategory.Ranged;
                 }
                 var usableWithShield = true;
                 if (SelectedShield != null)
                 {
-                    if (skill.Name == Skills.Instance.ShieldBash.Name || skill.Name == Skills.Instance.SomethingWithShield.Name)
+                    if (skill.Identifier == Skills.Instance.ShieldBash.Identifier || skill.Identifier == Skills.Instance.SomethingWithShield.Identifier)
                         usableWithShield = action == BattleAction.Attack;
                     else
                         usableWithShield = action == BattleAction.Defend;

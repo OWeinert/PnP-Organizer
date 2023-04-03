@@ -95,13 +95,13 @@ namespace PnP_Organizer.ViewModels
         {
             SkillModels = new ObservableCollection<SkillModel>();
             SkillModels.CollectionChanged += SkillModels_CollectionChanged;
-            foreach (var skill in Skills.Instance.SkillsList)
+            foreach (var skill in Skills.Instance.Registry)
             {
                 SkillModel skillModel;
-                if (skill.IsRepeatable)
-                    skillModel = new RepeatableSkillModel(skill);
+                if (skill.Value.IsRepeatable)
+                    skillModel = new RepeatableSkillModel(skill.Value);
                 else
-                    skillModel = new SkillModel(skill);
+                    skillModel = new SkillModel(skill.Value);
 
                 SkillModels.Add(skillModel);
             }
@@ -131,13 +131,13 @@ namespace PnP_Organizer.ViewModels
             {
                 await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkillNames.Contains(senderSkillModel.Skill!.Name));
+                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkills.Contains(senderSkillModel.Skill!.Identifier));
                     foreach (var skillModel in dependendSkillModels)
                     {
                         await CheckSkillModelSkillability(skillModel);
                     }
 
-                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkillName == senderSkillModel.Skill!.Name);
+                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkill == senderSkillModel.Skill!.Identifier);
                     if (forcedDependendSkillModel != default)
                         await CheckSkillModelSkillability(forcedDependendSkillModel);
 
@@ -149,17 +149,17 @@ namespace PnP_Organizer.ViewModels
         // TODO simplify
         private async Task CheckSkillModelSkillability(SkillModel skillModel)
         {
-            if(!skillModel.Skill!.DependendSkillNames.Any() && string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName)) // if this is true, there's no need to check further
+            if(!skillModel.Skill!.DependendSkills.Any() && skillModel.Skill!.ForcedDependendSkill == null) // if this is true, there's no need to check further
             {
                 skillModel.IsSkillable = true;
                 return;
             }
             var dependedActiveSkills = SkillModels! // Get a list of active skills which the given skill depends on
-                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkillNames.Contains(dependendSkill.Name));
+                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkills.Contains(dependendSkill.Skill!.Identifier));
 
-            if (!string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName))
+            if (skillModel.Skill!.ForcedDependendSkill != null)
             {
-                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Name == skillModel.Skill!.ForcedDependendSkillName);  // get the skill which the given skill is forced to depend on
+                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Identifier == skillModel.Skill!.ForcedDependendSkill);  // get the skill which the given skill is forced to depend on
                 skillModel.IsSkillable = dependedActiveSkills.Any() && forcedDependendSkill!.IsActive;
             }
             else
@@ -189,6 +189,7 @@ namespace PnP_Organizer.ViewModels
             // Filter by SearchBox text
             if((skill.Name.Contains(SearchBoxText, StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(SearchBoxText)))
             {
+                await Task.Delay(0);
                 // Filter by Skillability
                 var skillability = SelectedSkillableFilter.SkillableType switch
                 {
@@ -198,11 +199,9 @@ namespace PnP_Organizer.ViewModels
                     _ => true
                 };
 
-                await Task.Delay(0);
-
                 if (SelectedTreeFilterIndex == 0)
                     return skillability;
-                // additionaly Filter by SkillCategory
+                // additionally Filter by SkillCategory
                 return skill.SkillCategory == SelectedTreeFilter.SkillCategory && skillability;
             }
             return false;
@@ -221,17 +220,17 @@ namespace PnP_Organizer.ViewModels
                 _logger.LogInformation("Saving Skills...");
 
                 List<SkillSaveData> skills = new();
-                for(var i = 0; i < SkillModels!.Count; i++)
+                foreach(var skillModel in SkillModels!)
                 {
-                    if (SkillModels[i].SkillPoints > 0 ||
-                        (SkillModels[i] is RepeatableSkillModel model && model.Repetition > 0))
+                    if (skillModel.SkillPoints > 0 ||
+                        (skillModel is RepeatableSkillModel model && model.Repetition > 0))
                     {
                         SkillSaveData skillSaveData = new()
                         {
-                            Index = i,
-                            SkillPoints = SkillModels[i]!.SkillPoints
+                            Identifier = skillModel.Skill!.Identifier,
+                            SkillPoints = skillModel.SkillPoints
                         };
-                        if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
+                        if (skillModel is RepeatableSkillModel repeatableSkillModel)
                             skillSaveData.Repetition = repeatableSkillModel.Repetition;
 
                         skills.Add(skillSaveData);
@@ -257,16 +256,14 @@ namespace PnP_Organizer.ViewModels
 
                 foreach (var skillSaveData in FileIO.LoadedCharacter.Skills!)
                 {
-                    var skill = Skills.Instance.SkillsList[skillSaveData.Index];
+                    var skill = Skills.Instance.Registry[skillSaveData.Identifier];
                     skill.SkillPoints = skillSaveData.SkillPoints;
 
-                    var skillModel = SkillModels![skillSaveData.Index];
+                    var skillModel = SkillModels!.First(sM => sM.Skill!.Identifier == skillSaveData.Identifier);
 
                     skillModel.SkillPoints = skillSaveData.SkillPoints;
                     if (skill.IsRepeatable)
                         ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
-
-                    //SkillModels![skillSaveData.Index] = skillModel;
                 }
                 foreach(var skillModel in SkillModels!)
                 {
