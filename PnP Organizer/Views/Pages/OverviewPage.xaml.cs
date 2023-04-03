@@ -25,7 +25,7 @@ namespace PnP_Organizer.Views.Pages
             InitializeComponent();
         }
 
-        // TODO CharacterImageBtn_Click: move logic to ViewModel
+        // TODO CharacterImageBtn_Click: move logic to ViewModel (low prio)
         /// <summary>
         /// Opens an OpenFileDialog which lets the User select a CharacterImage,
         /// which then will be loaded and set as the CharacterImage in the ViewModel
