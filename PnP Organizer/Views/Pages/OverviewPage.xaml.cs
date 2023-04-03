@@ -6,8 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Controls.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace PnP_Organizer.Views.Pages
 {
@@ -27,7 +25,7 @@ namespace PnP_Organizer.Views.Pages
             InitializeComponent();
         }
 
-        // TODO CharacterImageBtn_Click: move logic to ViewModel
+        // TODO CharacterImageBtn_Click: move logic to ViewModel (low prio)
         /// <summary>
         /// Opens an OpenFileDialog which lets the User select a CharacterImage,
         /// which then will be loaded and set as the CharacterImage in the ViewModel
@@ -35,7 +33,7 @@ namespace PnP_Organizer.Views.Pages
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CharacterImageBtn_Click(object sender, System.Windows.RoutedEventArgs e)
-        {           
+        {
             OpenFileDialog openImageDialog = new()
             {
                 Title = Properties.Resources.Dialog_OpenImage,

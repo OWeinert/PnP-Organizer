@@ -26,6 +26,10 @@ namespace PnP_Organizer.Core.IO
             var attributeTestsViewModel = attributeTestsPage?.ViewModel;
             attributeTestsViewModel?.LoadProfessions();
 
+            var calculatorPage = pageService.GetPage<CalculatorPage>();
+            var calculatorViewModel = calculatorPage?.ViewModel;
+            calculatorViewModel?.AbortBattle();
+
             var notesPage = pageService.GetPage<NotesPage>();
             notesPage?.LoadNotesDocumentFromCharacter();
 

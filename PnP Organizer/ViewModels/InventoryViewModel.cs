@@ -1,27 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Data;
+using Wpf.Ui.Common;
 
 namespace PnP_Organizer.ViewModels
 {
-    // TODO InventoryViewModel: Implement Searchable Items
     public partial class InventoryViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
-
         [ObservableProperty]
         private ICollectionView? _itemsView;
-
         [ObservableProperty]
         private ObservableCollection<InventoryItemModel>? _items;
-
         [ObservableProperty]
         private string _searchBarText = string.Empty;
+
+        private bool _isInitialized = false;
 
         public InventoryViewModel()
         {
@@ -60,7 +62,7 @@ namespace PnP_Organizer.ViewModels
         private bool ItemsView_Filter(object obj)
         {
             var item = (InventoryItemModel)obj;
-            return string.IsNullOrWhiteSpace(SearchBarText) || item.Name.Contains(SearchBarText) || item.Description.Contains(SearchBarText);
+            return string.IsNullOrWhiteSpace(SearchBarText) || item.Name.Contains(SearchBarText, StringComparison.OrdinalIgnoreCase) || item.Description.Contains(SearchBarText, StringComparison.OrdinalIgnoreCase);
         }
 
         private void OnInventoryChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -75,6 +77,18 @@ namespace PnP_Organizer.ViewModels
             }
         }
 
+        [RelayCommand]
+        private void AddItem() => Items!.Add(new InventoryItemModel());
+
+        [RelayCommand]
+        private void AddWeapon() => Items!.Add(new InventoryWeaponModel());
+
+        [RelayCommand]
+        private void AddArmor() => Items!.Add(new InventoryArmorModel());
+
+        [RelayCommand]
+        private void AddShield() => Items!.Add(new InventoryShieldModel());
+
         public void SaveCharacterInventory()
         {
             if(_isInitialized)
@@ -87,13 +101,20 @@ namespace PnP_Organizer.ViewModels
 
         public void LoadCharacterInventory()
         {
-            if(FileIO.LoadedCharacter.Inventory.Count > 0)
-                Items?.Clear(); // Clear inventory first if the character has saved items to remove
-                                // the default empty item
-            ObservableCollection<InventoryItemModel> itemModels = new();
+            var itemModels = new ObservableCollection<InventoryItemModel>();
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
-                itemModels.Add(new InventoryItemModel(item));
+                InventoryItemModel? model;
+                if (item is InventoryWeapon weapon)
+                    model = new InventoryWeaponModel(weapon);
+                else if (item is InventoryArmor armor)
+                    model = new InventoryArmorModel(armor);
+                else if (item is InventoryShield shield)
+                    model = new InventoryShieldModel(shield);
+                else 
+                    model = new InventoryItemModel(item);
+
+                itemModels.Add(model);
             }
             Items = itemModels;
 

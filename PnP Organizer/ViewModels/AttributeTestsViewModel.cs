@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using PnP_Organizer.Core;
-using PnP_Organizer.Core.Calculators;
+using PnP_Organizer.Core.BattleAssistant;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.IO;
@@ -99,6 +99,11 @@ namespace PnP_Organizer.ViewModels
                 ProfessionModels!.Insert(ProfessionModels.Count - 1, professionModel);
             }
             ApplyProfessionBoni();
+
+            ApplySkillBoni();
+            AddToggleableSkills();
+
+            UpdateAttributeTestBoni();
         }
 
         private void ApplyAllBoni()
@@ -152,7 +157,7 @@ namespace PnP_Organizer.ViewModels
 
                 foreach (var statModifier in aTSkillModel.StatModifiers)
                 {
-                    var attributeTest = AttributeTestModels.Where(model => model.Name == statModifier.AttributeTestName).First();
+                    var attributeTest = AttributeTestModels.First(model => model.Name == statModifier.AttributeTestName);
 
                     if (aTSkillModel.IsActive)
                     {
@@ -233,33 +238,30 @@ namespace PnP_Organizer.ViewModels
             var skillsViewModel = _pageService.GetPage<SkillsPage>()!.ViewModel;
 
             var skillModels = skillsViewModel.SkillModels!
-                .Where(skillModel => skillModel.Skill.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
+                .Where(skillModel => skillModel.Skill!.StatModifiers != null && skillModel.Skill.StatModifiers.Any() && skillModel.IsActive); // Filter out skills inactive skills and those without stat modifiers
 
             var attributeTestModifiers = skillModels
-                .SelectMany(skillModel => skillModel.Skill.StatModifiers!, (skillModel, statModifier) =>    // Select all stat modifiers which are AttributeTestStatModifiers
+                .SelectMany(skillModel => skillModel.Skill!.StatModifiers!, (skillModel, statModifier) =>    // Select all stat modifiers which are AttributeTestStatModifiers
                 {
                     if (statModifier is AttributeTestStatModifier attributeTestStatModifier && !attributeTestStatModifier.Toggleable
                     && (attributeTestFilter == null || attributeTestFilter.Contains(attributeTestStatModifier.AttributeTestName)))
                         return attributeTestStatModifier;
-                    return null;
+                    return default;
                 })
-                .Where(statModifier => statModifier != null) // Filter out null values
+                .Where(statModifier => !string.IsNullOrWhiteSpace(statModifier.AttributeTestName)) // Filter out empty modifiers
                 .Cast<AttributeTestStatModifier>();
 
             foreach (var modifier in attributeTestModifiers)
             {
-                if (modifier != null)
-                {
-                    var attributeTestModel = AttributeTestModels.Where(aTM => aTM.Name == modifier.AttributeTestName)
+                var attributeTestModel = AttributeTestModels.Where(aTM => aTM.Name == modifier.AttributeTestName)
                         .Cast<AttributeTestModel>().First();
 
-                    if (attributeTestModel != null)
-                    {
-                        if (modifier.Bonus != 0)
-                            attributeTestModel.ExternalBoni.Add(modifier.Bonus);
-                        if (modifier.Dice.MaxValue > 1)
-                            attributeTestModel.ExternalDiceBoni.Add(modifier.Dice);
-                    }
+                if (attributeTestModel != null)
+                {
+                    if (modifier.Bonus != 0)
+                        attributeTestModel.ExternalBoni.Add(modifier.Bonus);
+                    if (modifier.Dice.MaxValue > 1)
+                        attributeTestModel.ExternalDiceBoni.Add(modifier.Dice);
                 }
             }
         }

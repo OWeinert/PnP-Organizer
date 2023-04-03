@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Properties;
 using System;
@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace PnP_Organizer.ViewModels
 {
@@ -41,8 +42,13 @@ namespace PnP_Organizer.ViewModels
 
         private bool _isInitialized = false;
 
-        public SkillsViewModel()
+        private DispatcherTimer? _searchBoxTimer;
+
+        private readonly ILogger<SkillsViewModel> _logger;
+
+        public SkillsViewModel(ILogger<SkillsViewModel> logger)
         {
+            _logger = logger;
             if (!_isInitialized)
                 InitializeViewModel();
         }
@@ -71,7 +77,16 @@ namespace PnP_Organizer.ViewModels
             
             InitializeSkillModels();
 
-            SkillModelsView!.Filter += SkillModelsView_Filter;
+            SkillModelsView!.Filter += (item) =>
+            {
+                return SkillModelsView_Filter(item).Result;
+            };
+
+            _searchBoxTimer = new DispatcherTimer()
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, 100)
+            };
+            _searchBoxTimer.Tick += SearchBoxTimer_Tick;
 
             _isInitialized = true;
         }
@@ -80,19 +95,19 @@ namespace PnP_Organizer.ViewModels
         {
             SkillModels = new ObservableCollection<SkillModel>();
             SkillModels.CollectionChanged += SkillModels_CollectionChanged;
-            foreach (var skill in Skills.Instance.SkillsList)
+            foreach (var skill in Skills.Instance.Registry)
             {
                 SkillModel skillModel;
-                if (skill.IsRepeatable)
-                    skillModel = new RepeatableSkillModel(skill);
+                if (skill.Value.IsRepeatable)
+                    skillModel = new RepeatableSkillModel(skill.Value);
                 else
-                    skillModel = new SkillModel(skill);
+                    skillModel = new SkillModel(skill.Value);
 
                 SkillModels.Add(skillModel);
             }
             SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
 
-            Logger.Log($"{SkillModels.Count} SkillModels for {Skills.Instance.SkillsList.Count} Skills initialized");
+            _logger.LogInformation("{models} SkillModels for {skills} Skills initialized", SkillModels.Count, Skills.Instance.Registry.Count);
         }
 
         private async void SkillModels_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -116,13 +131,13 @@ namespace PnP_Organizer.ViewModels
             {
                 await Application.Current.Dispatcher.InvokeAsync(async () =>
                 {
-                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkillNames.Contains(senderSkillModel.Skill!.Name));
+                    var dependendSkillModels = SkillModels!.Where(sM => sM.Skill!.DependendSkills.Contains(senderSkillModel.Skill!.Identifier));
                     foreach (var skillModel in dependendSkillModels)
                     {
                         await CheckSkillModelSkillability(skillModel);
                     }
 
-                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkillName == senderSkillModel.Skill!.Name);
+                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkill == senderSkillModel.Skill!.Identifier);
                     if (forcedDependendSkillModel != default)
                         await CheckSkillModelSkillability(forcedDependendSkillModel);
 
@@ -134,17 +149,17 @@ namespace PnP_Organizer.ViewModels
         // TODO simplify
         private async Task CheckSkillModelSkillability(SkillModel skillModel)
         {
-            if(!skillModel.Skill!.DependendSkillNames.Any() && string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName)) // if this is true, there's no need to check further
+            if(!skillModel.Skill!.DependendSkills.Any() && skillModel.Skill!.ForcedDependendSkill == null) // if this is true, there's no need to check further
             {
                 skillModel.IsSkillable = true;
                 return;
             }
             var dependedActiveSkills = SkillModels! // Get a list of active skills which the given skill depends on
-                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkillNames.Contains(dependendSkill.Name));
+                .Where(dependendSkill => dependendSkill.IsActive && skillModel.Skill!.DependendSkills.Contains(dependendSkill.Skill!.Identifier));
 
-            if (!string.IsNullOrWhiteSpace(skillModel.Skill!.ForcedDependendSkillName))
+            if (skillModel.Skill!.ForcedDependendSkill != null)
             {
-                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Name == skillModel.Skill!.ForcedDependendSkillName);  // get the skill which the given skill is forced to depend on
+                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Identifier == skillModel.Skill!.ForcedDependendSkill);  // get the skill which the given skill is forced to depend on
                 skillModel.IsSkillable = dependedActiveSkills.Any() && forcedDependendSkill!.IsActive;
             }
             else
@@ -155,21 +170,26 @@ namespace PnP_Organizer.ViewModels
 
         private void SelectedFiltersChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName is nameof(SelectedTreeFilterIndex) or nameof(SelectedSkillableFilterIndex) or nameof(SearchBoxText))
+            if(e.PropertyName is nameof(SelectedTreeFilterIndex) or nameof(SelectedSkillableFilterIndex))
             {
                 SelectedTreeFilter = TreeFilters![SelectedTreeFilterIndex];
                 SelectedSkillableFilter = SkillableFilters![SelectedSkillableFilterIndex];
-                SkillModelsView?.Refresh();
+                Application.Current.Dispatcher.Invoke(() => SkillModelsView?.Refresh());
+            }
+            if(e.PropertyName == nameof(SearchBoxText))
+            {
+                _searchBoxTimer?.Start();
             }
         }
 
-        private bool SkillModelsView_Filter(object item)
+        private async Task<bool> SkillModelsView_Filter(object item)
         {
             var skill = (SkillModel)item;
 
             // Filter by SearchBox text
-            if((skill.Name.Contains(SearchBoxText) || string.IsNullOrEmpty(SearchBoxText)))
+            if((skill.Name.Contains(SearchBoxText, StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(SearchBoxText)))
             {
+                await Task.Delay(0);
                 // Filter by Skillability
                 var skillability = SelectedSkillableFilter.SkillableType switch
                 {
@@ -181,30 +201,36 @@ namespace PnP_Organizer.ViewModels
 
                 if (SelectedTreeFilterIndex == 0)
                     return skillability;
-                // additionaly Filter by SkillCategory
+                // additionally Filter by SkillCategory
                 return skill.SkillCategory == SelectedTreeFilter.SkillCategory && skillability;
             }
             return false;
+        }
+
+        private void SearchBoxTimer_Tick(object? sender, EventArgs e)
+        {
+            _searchBoxTimer?.Dispatcher.Invoke(() => SkillModelsView?.Refresh());
+            _searchBoxTimer?.Stop();
         }
 
         public void SaveCharacterSkills()
         {
             if (_isInitialized)
             {
-                Logger.Log("Saving Skills...");
+                _logger.LogInformation("Saving Skills...");
 
                 List<SkillSaveData> skills = new();
-                for(var i = 0; i < SkillModels!.Count; i++)
+                foreach(var skillModel in SkillModels!)
                 {
-                    if (SkillModels[i].SkillPoints > 0 ||
-                        (SkillModels[i] is RepeatableSkillModel model && model.Repetition > 0))
+                    if (skillModel.SkillPoints > 0 ||
+                        (skillModel is RepeatableSkillModel model && model.Repetition > 0))
                     {
                         SkillSaveData skillSaveData = new()
                         {
-                            Index = i,
-                            SkillPoints = SkillModels[i]!.SkillPoints
+                            Identifier = skillModel.Skill!.Identifier,
+                            SkillPoints = skillModel.SkillPoints
                         };
-                        if (SkillModels[i] is RepeatableSkillModel repeatableSkillModel)
+                        if (skillModel is RepeatableSkillModel repeatableSkillModel)
                             skillSaveData.Repetition = repeatableSkillModel.Repetition;
 
                         skills.Add(skillSaveData);
@@ -212,7 +238,7 @@ namespace PnP_Organizer.ViewModels
                 }
                 FileIO.LoadedCharacter.Skills = skills;
 
-                Logger.Log("Skills saved successfully!");
+                _logger.LogInformation("Skills saved successfully!");
             }  
         }
 
@@ -220,35 +246,24 @@ namespace PnP_Organizer.ViewModels
         {
             if (_isInitialized)
             {
-                Logger.Log("Loading Skills...");
-
-                if (FileIO.LoadedCharacter.Skills.Count == 0)
-                    FileIO.LoadedCharacter.InitSkillSaveData();
-
-                SkillModels?.Clear();
-                foreach (var skill in Skills.Instance.SkillsList)
+                _logger.LogInformation("Loading Skills...");
+                foreach (var skillModel in SkillModels!)
                 {
-                    SkillModel skillModel;
-                    if (skill.IsRepeatable)
-                        skillModel = new RepeatableSkillModel(skill);
-                    else
-                        skillModel = new SkillModel(skill);
-
-                    SkillModels!.Add(skillModel);
+                    skillModel.SkillPoints = 0;
+                    if (skillModel.Skill!.IsRepeatable)
+                        ((RepeatableSkillModel)skillModel).Repetition = 0;
                 }
 
                 foreach (var skillSaveData in FileIO.LoadedCharacter.Skills!)
                 {
-                    var skill = Skills.Instance.SkillsList[skillSaveData.Index];
+                    var skill = Skills.Instance.Registry[skillSaveData.Identifier];
                     skill.SkillPoints = skillSaveData.SkillPoints;
 
-                    var skillModel = SkillModels![skillSaveData.Index];
+                    var skillModel = SkillModels!.First(sM => sM.Skill!.Identifier == skillSaveData.Identifier);
 
                     skillModel.SkillPoints = skillSaveData.SkillPoints;
                     if (skill.IsRepeatable)
                         ((RepeatableSkillModel)skillModel).Repetition = skillSaveData.Repetition ?? 0;
-
-                    //SkillModels![skillSaveData.Index] = skillModel;
                 }
                 foreach(var skillModel in SkillModels!)
                 {
@@ -259,7 +274,7 @@ namespace PnP_Organizer.ViewModels
 
                 CalculateUsedSkillPoints();
 
-                Logger.Log("Skills loaded successfully!");
+                _logger.LogInformation("Skills loaded successfully!");
             }
         }
 

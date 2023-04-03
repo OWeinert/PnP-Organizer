@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PnP_Organizer.Core.Calculators
+namespace PnP_Organizer.Core.BattleAssistant
 {
     public struct Dice
     {

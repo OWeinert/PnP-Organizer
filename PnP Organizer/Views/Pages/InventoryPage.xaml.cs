@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using PnP_Organizer.Controls;
+using PnP_Organizer.Core;
 using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using System;
@@ -39,14 +40,6 @@ namespace PnP_Organizer.Views.Pages
 
             _dialogControl = dialogService.GetDialogControl();
         }
-
-        #region Page Button Event Handlers
-        // TODO AddItemButton_Click: move logic to ViewModel
-        private void AddItemButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ViewModel.Items?.Add(new InventoryItemModel());
-        }
-        #endregion Page Button Event Handlers
 
         #region InventoryItem Button Event Handlers
         // TODO ItemImageButton_Click: move logic to Model
@@ -101,11 +94,13 @@ namespace PnP_Organizer.Views.Pages
                 if(((string)dialog.Tag) == "clearItem")
                 {
                     var index = ViewModel.Items!.IndexOf(inventoryItem);
-                    InventoryItemModel newInventoryItem = new()
-                    {
-                        Brush = inventoryItem.Brush
-                    };
-                    ViewModel.Items[index] = newInventoryItem;
+
+                    if (index < 0 || index > ViewModel.Items.Count - 1)
+                        return;
+
+                    var newInventoryItem = Activator.CreateInstance(inventoryItem.GetType());
+
+                    ViewModel.Items[index] = (InventoryItemModel)newInventoryItem!;
                     dialog.Hide();
                 }
             };
@@ -145,8 +140,7 @@ namespace PnP_Organizer.Views.Pages
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
-                System.Diagnostics.Debug.WriteLine(e.OriginalSource);
-                var lbi = FindVisualParent<Border>(((DependencyObject)e.OriginalSource));
+                var lbi = Utils.FindVisualParent<Border>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                     DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
             }
@@ -158,10 +152,16 @@ namespace PnP_Organizer.Views.Pages
             if (sender is Border itemBorder)
             {
                 var source = (InventoryItemModel)e.Data.GetData(typeof(InventoryItemModel));
+                source ??= (InventoryWeaponModel)e.Data.GetData(typeof(InventoryWeaponModel));    // If source is null at this point, try getting data for an InventoryWeaponModel
+                source ??= (InventoryArmorModel)e.Data.GetData(typeof(InventoryArmorModel));  // If source is still null, try getting data for an InventoryArmorModel
+
                 var target = (InventoryItemModel)itemBorder.DataContext;
 
                 var sourceIndex = InventoryItemsControl.Items.IndexOf(source);
                 var targetIndex = InventoryItemsControl.Items.IndexOf(target);
+
+                if (sourceIndex == targetIndex)
+                    return;
 
                 Move(source, sourceIndex, targetIndex);
                 ViewModel.ItemsView?.Refresh();
@@ -170,6 +170,12 @@ namespace PnP_Organizer.Views.Pages
 
         private void Move(InventoryItemModel source, int sourceIndex, int targetIndex)
         {
+            if(sourceIndex < 0 || sourceIndex > ViewModel.Items!.Count - 1
+                || targetIndex < 0 || targetIndex > ViewModel.Items.Count - 1)
+            {
+                return;
+            }
+                
             if (sourceIndex < targetIndex)
             {
                 ViewModel.Items?.Insert(targetIndex + 1, source);
@@ -186,19 +192,6 @@ namespace PnP_Organizer.Views.Pages
             }
         }
 
-        private T? FindVisualParent<T>(DependencyObject child)
-            where T : DependencyObject
-        {
-            if (child is T t)
-                return t;
-            var parentObject = VisualTreeHelper.GetParent(child);
-            if (parentObject == null)
-                return null;
-            if (parentObject is T parent)
-                return parent;
-            return FindVisualParent<T>(parentObject);
-        }
-
         #endregion InventoryItem Drag Drop Control
 
         #region Color Picker
@@ -208,7 +201,7 @@ namespace PnP_Organizer.Views.Pages
             var itemModel = (InventoryItemModel)colorPicker.DataContext;
             itemModel.Brush = e.SelectedBrush;
 
-            if (colorPicker.SelectedBrushName is "Red" or "Pink" or "Purple" or "DeepPurple" or "Indigo" or "DeepOrange" or "Brown" or "BlueGrey" or "Default")
+            if (colorPicker.SelectedBrushName is "Red" or "Pink" or "Purple" or "DeepPurple" or "Indigo" or "DeepOrange" or "Brown" or "BlueGrey" or "Primary")
                 itemModel.Foreground = (SolidColorBrush)Application.Current.Resources["TextFillColorPrimaryBrush"];
             else 
                 itemModel.Foreground = (SolidColorBrush)Application.Current.Resources["TextFillColorInverseBrush"];
@@ -216,5 +209,16 @@ namespace PnP_Organizer.Views.Pages
         }
 
         #endregion Color Picker
+
+        //TODO NumBox_MouseWheel move to static function 2/2
+        private void NumBox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            var numBox = (NumberBox)sender;
+
+            if (numBox.Value > numBox.Max || numBox.Value < numBox.Min || e.Delta == 0)
+                return;
+
+            numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
+        }
     }
 }

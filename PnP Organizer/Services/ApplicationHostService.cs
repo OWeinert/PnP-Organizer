@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.Views;
 using System;
 using System.Linq;
@@ -30,8 +30,6 @@ namespace PnP_Organizer.Services
         /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            Logger.StartLogging();
-
             FileIO.InitLocalization();
 
             await HandleActivationAsync();
@@ -47,7 +45,6 @@ namespace PnP_Organizer.Services
         {
             Properties.Settings.Default.Save();
             await Task.CompletedTask;
-            Logger.EndLogging();
         }
 
         /// <summary>

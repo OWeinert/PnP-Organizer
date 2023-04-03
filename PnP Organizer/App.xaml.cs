@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PnP_Organizer.IO;
 using PnP_Organizer.Models;
 using PnP_Organizer.Services;
+using Serilog;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -17,54 +20,7 @@ namespace PnP_Organizer
     /// </summary>
     public partial class App
     {
-        // The.NET Generic Host provides dependency injection, configuration, logging, and other services.
-        // https://docs.microsoft.com/dotnet/core/extensions/generic-host
-        // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
-        // https://docs.microsoft.com/dotnet/core/extensions/configuration
-        // https://docs.microsoft.com/dotnet/core/extensions/logging
-        private static readonly IHost _host = Host
-            .CreateDefaultBuilder()
-            .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
-            .ConfigureServices((context, services) =>
-            {
-                // App Host
-                services.AddHostedService<ApplicationHostService>();
-
-                // Services
-                services.AddSingleton<IPageService, PageService>();
-                services.AddSingleton<IThemeService, ThemeService>();
-                services.AddSingleton<ITaskBarService, TaskBarService>(); 
-                services.AddSingleton<IDialogService, DialogService>();
-                services.AddSingleton<ISnackbarService, SnackbarService>();
-                services.AddSingleton<INavigationService, NavigationService>();
-
-                // Main window container with navigation
-                services.AddScoped<INavigationWindow, Views.Container>();
-                services.AddScoped<ViewModels.ContainerViewModel>();
-
-                // Views and ViewModels
-                services.AddScoped<Views.Pages.DashboardPage>();
-                services.AddScoped<ViewModels.DashboardViewModel>();
-
-                services.AddScoped<Views.Pages.OverviewPage>();
-                services.AddScoped<ViewModels.OverviewViewModel>();
-                services.AddScoped<Views.Pages.InventoryPage>();
-                services.AddScoped<ViewModels.InventoryViewModel>();
-                services.AddScoped<Views.Pages.SkillsPage>();
-                services.AddScoped<ViewModels.SkillsViewModel>();
-                services.AddScoped<Views.Pages.AttributeTestsPage>();
-                services.AddScoped<ViewModels.AttributeTestsViewModel>();
-                services.AddScoped<Views.Pages.CalculatorPage>();
-                services.AddScoped<ViewModels.CalculatorViewModel>();
-                services.AddScoped<Views.Pages.NotesPage>();
-                services.AddScoped<ViewModels.NotesViewModel>();
-
-                services.AddScoped<Views.Pages.SettingsPage>();
-                services.AddScoped<ViewModels.SettingsViewModel>();
-
-                // Configuration
-                services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
-            }).Build();
+        private static IHost? _host;
 
         /// <summary>
         /// Gets registered service.
@@ -74,7 +30,7 @@ namespace PnP_Organizer
         public static T? GetService<T>()
             where T : class
         {
-            return _host.Services.GetService(typeof(T)) as T;
+            return _host?.Services.GetService(typeof(T)) as T;
         }
 
         /// <summary>
@@ -82,6 +38,65 @@ namespace PnP_Organizer
         /// </summary>
         private async void OnStartup(object sender, StartupEventArgs e)
         {
+            Log.Logger = new LoggerConfiguration()
+                    .Enrich.FromLogContext()
+                    .MinimumLevel.Debug()
+                    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+                    .WriteTo.Console()
+                    .WriteTo.Debug()
+                    .WriteTo.File($"{FileIO.LogsDirectoryPath}\\log_.txt", rollingInterval: RollingInterval.Minute, fileSizeLimitBytes: 52428800)
+                    .CreateLogger();
+
+            _host = Host
+                .CreateDefaultBuilder()
+                .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
+                .ConfigureLogging((c, loggerBuilder) =>
+                {
+                    loggerBuilder.AddSerilog(dispose: true);
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    // App Host
+                    services.AddHostedService<ApplicationHostService>();
+
+                    // Services
+                    services.AddSingleton<IPageService, PageService>();
+                    services.AddSingleton<IThemeService, ThemeService>();
+                    services.AddSingleton<ITaskBarService, TaskBarService>();
+                    services.AddSingleton<IDialogService, DialogService>();
+                    services.AddSingleton<ISnackbarService, SnackbarService>();
+                    services.AddSingleton<INavigationService, NavigationService>();
+
+                    // Main window container with navigation
+                    services.AddScoped<INavigationWindow, Views.Container>();
+                    services.AddScoped<ViewModels.ContainerViewModel>();
+
+                    // Views and ViewModels
+                    services.AddScoped<Views.Pages.DashboardPage>();
+                    services.AddScoped<ViewModels.DashboardViewModel>();
+
+                    services.AddScoped<Views.Pages.OverviewPage>();
+                    services.AddScoped<ViewModels.OverviewViewModel>();
+                    services.AddScoped<Views.Pages.InventoryPage>();
+                    services.AddScoped<ViewModels.InventoryViewModel>();
+                    services.AddScoped<Views.Pages.SkillsPage>();
+                    services.AddScoped<ViewModels.SkillsViewModel>();
+                    services.AddScoped<Views.Pages.AttributeTestsPage>();
+                    services.AddScoped<ViewModels.AttributeTestsViewModel>();
+                    services.AddScoped<Views.Pages.CalculatorPage>();
+                    services.AddScoped<ViewModels.CalculatorViewModel>();
+                    services.AddScoped<Views.Pages.NotesPage>();
+                    services.AddScoped<ViewModels.NotesViewModel>();
+
+                    services.AddScoped<Views.Pages.SettingsPage>();
+                    services.AddScoped<ViewModels.SettingsViewModel>();
+
+                    // Configuration
+                    services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
+                })
+                .UseSerilog(dispose: true)
+                .Build();
+
             await _host.StartAsync();
         }
 
@@ -90,7 +105,7 @@ namespace PnP_Organizer
         /// </summary>
         private async void OnExit(object sender, ExitEventArgs e)
         {
-            await _host.StopAsync();
+            await _host!.StopAsync();
             _host.Dispose();
         }
 
@@ -99,7 +114,12 @@ namespace PnP_Organizer
         /// </summary>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
+            LogException(e.Exception);
+        }
+
+        private static void LogException(Exception exception)
+        {
+            Log.Fatal(exception, "{exType}: {message}", exception.GetType(), exception.Message);
         }
     }
 }
