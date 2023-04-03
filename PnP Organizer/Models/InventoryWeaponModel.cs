@@ -1,5 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+<<<<<<< HEAD
 using PnP_Organizer.Core.Calculators;
+=======
+using PnP_Organizer.Core;
+using PnP_Organizer.Core.BattleAssistant;
+>>>>>>> 49-rework-calculator-into-a-full-fledged-battle-round-calculator-and-info-page
 using PnP_Organizer.Core.Character.Inventory;
 using System.Collections.Generic;
 using System.Windows;
@@ -52,7 +57,17 @@ namespace PnP_Organizer.Models
             Weight = inventoryWeapon.Weight;
             IsTwoHanded = inventoryWeapon.IsTwoHanded;
 
+<<<<<<< HEAD
             Brush = (SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"];
+=======
+            if (inventoryWeapon.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PalettePrimaryBrush"]).Color)
+                && inventoryWeapon.Color != Utils.GetColorValue(((SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"]).Color))
+            {
+                Brush = new SolidColorBrush(Utils.GetColorFromValue(inventoryWeapon.Color));
+            }
+            else
+                Brush = (SolidColorBrush)Application.Current.Resources["PaletteIndigoBrush"];
+>>>>>>> 49-rework-calculator-into-a-full-fledged-battle-round-calculator-and-info-page
 
             PropertyChanged += InventoryWeaponModel_PropertyChanged;
 

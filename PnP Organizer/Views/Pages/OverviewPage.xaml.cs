@@ -33,7 +33,7 @@ namespace PnP_Organizer.Views.Pages
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CharacterImageBtn_Click(object sender, System.Windows.RoutedEventArgs e)
-        {           
+        {
             OpenFileDialog openImageDialog = new()
             {
                 Title = Properties.Resources.Dialog_OpenImage,

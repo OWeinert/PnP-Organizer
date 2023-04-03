@@ -1,7 +1,8 @@
-﻿using PnP_Organizer.Core;
+﻿using Microsoft.Extensions.Logging;
+using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.IO;
-using PnP_Organizer.Logging;
+using Serilog;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -33,7 +34,6 @@ namespace PnP_Organizer.IO
 
         public static event EventHandler? OnNewCharacterCreated;
 
-
         #region Character File Save/Load/Creation
         /// <summary>
         /// Saves the LoadedCharacter to the given FileStream <paramref name="fs"/>.
@@ -46,11 +46,11 @@ namespace PnP_Organizer.IO
                 if (fs != null)
                 {
                     // Setting the length of the FileStream to 0 will clear a pre-existing File
-                    Logger.Log($"Clearing previous character file at: \"{fs.Name}\"");
+                    Log.Information("Clearing previous character file at: \"{name}\"", fs.Name);
                     fs.SetLength(0);
 
                     // Write the preset as xml to the FileStream.
-                    Logger.Log($"Saving character to file to: \"{fs.Name}\"");
+                    Log.Information("Saving character to file to: \"{name}\"", fs.Name);
                     Utils.SerializeAndWriteToXml(LoadedCharacter, fs);
                     fs.Dispose();
                     Properties.Settings.Default.LastLoadedCharacter = fs.Name;                   
@@ -59,7 +59,7 @@ namespace PnP_Organizer.IO
             }
             catch (IOException e)
             {
-                Logger.LogException(e, message: $"Failed to save character file to: \"{fs.Name}\"");
+                Log.Error(e, "Failed to save character file to: \"{name}\"", fs.Name);
             }
         }
 
@@ -74,7 +74,7 @@ namespace PnP_Organizer.IO
             {
                 if (fs != null)
                 {
-                    Logger.Log($"Loading character from file located at: \"{fs.Name}\"");
+                    Log.Information("Loading character from file located at: \"{name}\"", fs.Name);
                     LoadedCharacter = Utils.ReadAndDeserializeFromXml<CharacterData>(fs);
                     Properties.Settings.Default.LastLoadedCharacter = fs.Name;
                     fs.Dispose();
@@ -82,7 +82,7 @@ namespace PnP_Organizer.IO
             }
             catch (IOException e)
             {
-                Logger.LogException(e, message: $"Failed to load character file located at: \"{fs.Name}\"");
+                Log.Error(e, "Failed to load character file located at: \"{name}\"", fs.Name);
             }
         }
 
@@ -101,14 +101,14 @@ namespace PnP_Organizer.IO
         {
             try
             {
-                Logger.Log("Creating new character...");
+                Log.Information("Creating new character...");
                 LoadedCharacter = new();
                 Properties.Settings.Default.LastLoadedCharacter = string.Empty;
                 OnNewCharacterCreated?.Invoke(null, new EventArgs());
             }
             catch (IOException e)
             {
-                Logger.LogException(e, message: "Failed to create new character!");
+                Log.Error(e, "Failed to create new character!");
             }
         }
         #endregion  Character File Save/Load/Creation
@@ -126,13 +126,13 @@ namespace PnP_Organizer.IO
             {
                 if (!Directory.Exists(CharacterDirectoryPath))
                 {
-                    Logger.Log("No character directory found. Creating new one...");
+                    Log.Information("No character directory found. Creating new one...");
                     Directory.CreateDirectory(CharacterDirectoryPath);
                 }
             }
             catch (IOException e)
             {
-                Logger.LogException(e, message: "Failed to setup file structure!");
+                Log.Error(e, "Failed to setup file structure!");
             }
         }
 
@@ -144,7 +144,7 @@ namespace PnP_Organizer.IO
         {
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Localization))
             {
-                Logger.Log("Setting localization to OS language...");
+                Log.Information("Setting localization to OS language...");
 
                 var localization = CultureInfo.CurrentCulture.NativeName;
                 if (!Language.Languages.Any(language => language.Key == localization))

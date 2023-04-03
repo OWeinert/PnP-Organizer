@@ -1,5 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+<<<<<<< HEAD
 using PnP_Organizer.Core.Calculators;
+=======
+using PnP_Organizer.Core.BattleAssistant;
+>>>>>>> 49-rework-calculator-into-a-full-fledged-battle-round-calculator-and-info-page
 using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.IO;
 using System;

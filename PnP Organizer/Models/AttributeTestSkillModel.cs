@@ -1,4 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+<<<<<<< HEAD
+=======
+using CommunityToolkit.Mvvm.Input;
+>>>>>>> 49-rework-calculator-into-a-full-fledged-battle-round-calculator-and-info-page
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.StatModifiers;
 using System.Collections.ObjectModel;

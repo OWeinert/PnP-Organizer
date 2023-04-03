@@ -8,12 +8,25 @@
     xmlns:models="clr-namespace:PnP_Organizer.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:p="clr-namespace:PnP_Organizer.Properties"
+    xmlns:conv="clr-namespace:PnP_Organizer.Helpers.Converters"
     Title="DataPage"
     d:DataContext="{d:DesignInstance local:CalculatorPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+
+    <ui:UiPage.Resources>
+        <conv:StringAddColonConverter x:Key="StringAddColonConverter"/>
+        <conv:TurnPhaseToStringConverter x:Key="TurnPhaseToStringConverter"/>
+        <conv:TurnPhaseToSymbolConverter x:Key="TurnPhaseToSymbolConverter"/>
+        <conv:BattlePhaseToBooleanConverter x:Key="BattlePhaseToBooleanConverter"/>
+        <conv:BattlePhaseToVisibilityConverter x:Key="BattlePhaseToVisibilityConverter"/>
+        <conv:BattleActionToBooleanConverter x:Key="BattleActionToBooleanConverter"/>
+        <conv:SkillCategoryToBrushConverter x:Key="SkillCategoryToBrushConverter"/>
+        <conv:CalculatorStatResultToStringConverter x:Key="CalculatorStatResultToStringConverter"/>
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </ui:UiPage.Resources>
 
     <Grid Margin="24,0,0,0">
 
@@ -23,305 +36,411 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="1"
-                    Grid.RowSpan="2"
-                    Orientation="Horizontal">
-            <Separator Margin="0,0,0,8"/>
-        </StackPanel>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Grid.Column="0">
+                <Border Grid.Column="0"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        CornerRadius="8"
+                        MinWidth="320"
+                        Height="174">
+                    <Grid>
+                        <Label Content="{x:Static p:Resources.Container_NavigationInventory}"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Margin="8,2,0,0"/>
 
-            <Label Content="{x:Static p:Resources.Calculator_AttackMode}"
-                   FontSize="16"
-                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                   Margin="1,0,0,0"/>
-            <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    HorizontalAlignment="Left"
-                    CornerRadius="4"
-                    Padding="0">
-                <StackPanel Orientation="Horizontal"
-                        Margin="20,2,0,2">
-                    <RadioButton Content="{x:Static p:Resources.Calculator_Melee}"
-                             IsChecked="{Binding ViewModel.IsMelee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <RadioButton Content="{x:Static p:Resources.Calculator_Ranged}"
-                             IsChecked="{Binding ViewModel.IsRanged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Viewbox HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 MaxWidth="300">
+                            <Label Content="{x:Static p:Resources.Calculator_InfoTextShowInventory}"
+                                   FontSize="16"
+                                   Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}, ConverterParameter=true}"/>
+                        </Viewbox>
+
+                        <ItemsControl x:Name="ItemListView"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  ItemsSource="{Binding ViewModel.ItemSelectorModels}"
+                                  Margin="8,32,8,8" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="ItemSelectorModel">
+                                    <Grid Margin="0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.33*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                       Content="{Binding Name, Converter={StaticResource StringAddColonConverter}}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"/>
+                                        <ComboBox Grid.Column="1"
+                                                  HorizontalAlignment="Right"
+                                                  MinWidth="240"
+                                                  MaxWidth="240"
+                                                  DisplayMemberPath="Name"
+                                                  ItemsSource="{Binding Items}"
+                                                  SelectedIndex="0"
+                                                  SelectedItem="{Binding SelectedItem}"
+                                                  SelectionChanged="ItemSelectorComboBox_SelectionChanged"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+
+                <StackPanel Grid.Column="2"
+                            Margin="8,0">
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.33*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Content="{Binding Source={x:Static p:Resources.Calculator_Action}, Converter={StaticResource StringAddColonConverter}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               IsEnabled="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToBooleanConverter}}"/>
+                        <ComboBox x:Name="ActionComboBox"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  MinWidth="160"
+                                  MaxWidth="160"
+                                  DisplayMemberPath="LocalizedName"
+                                  ItemsSource="{Binding ViewModel.BattleActions}"
+                                  SelectedIndex="0"
+                                  SelectedItem="{Binding ViewModel.Action}"
+                                  IsEnabled="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToBooleanConverter}}" VerticalAlignment="Bottom"/>
+                    </Grid>
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.33*"/>
+                            <ColumnDefinition Width="0.33*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Content="{Binding Source={x:Static p:Resources.Calculator_IncomingDamage}, Converter={StaticResource StringAddColonConverter}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               IsEnabled="{Binding ViewModel.Action.BattleAction, Converter={StaticResource BattleActionToBooleanConverter},ConverterParameter=Defend}"/>
+                        <ui:NumberBox x:Name="IncomingDamageComboBox"
+                                      Grid.Column="1"
+                                      HorizontalAlignment="Right"
+                                      MinWidth="160"
+                                      MaxWidth="160"
+                                      IntegersOnly="True"
+                                      Min="0"
+                                      Max="999"
+                                      Value="{Binding ViewModel.IncomingDamage, Mode=TwoWay}"
+                                      Text="{Binding Value, RelativeSource={RelativeSource Self}}"
+                                      IsEnabled="{Binding ViewModel.Action.BattleAction, Converter={StaticResource BattleActionToBooleanConverter},ConverterParameter=Defend}"
+                                      IsEnabledChanged="IncomingDamageComboBox_IsEnabledChanged"
+                                      MouseWheel="NumBox_MouseWheel"/>
+                    </Grid>
                 </StackPanel>
-            </Border>
+            </Grid>
 
-            <Label Content="{x:Static p:Resources.Calculator_BaseDamage}"
-                   FontSize="16"
-                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                   Margin="0,12,0,0"/>
+            <Separator Grid.Row="1"
+                       Margin="2,0,6,4"/>
 
-            <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    HorizontalAlignment="Left"
-                    CornerRadius="4"
-                    Padding="0">
-                <StackPanel Orientation="Horizontal">
-                    <ui:NumberBox x:Name="RollCountNumBox"
-                                  ClearButtonEnabled="False"
-                                  FontSize="16"
-                                  BorderThickness="0"
-                                  IntegersOnly="True"
-                                  Value="{Binding ViewModel.RollCount, Mode=OneWayToSource}"
-                                  DecimalPlaces="1"
-                                  Step="1"
-                                  Min="1"
-                                  Max="100"
-                                  Width="54"
-                                  SpinButtonsEnabled="False"
-                                  MouseWheel="NumBox_MouseWheel"/>
-                    <Label Content="D"
-                           FontSize="16"
-                           VerticalAlignment="Center"
-                           Margin="4,0,4,-4"
-                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+            <Grid Grid.Row="2"
+                  Margin="0,0,8,0">
+                <Border HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{DynamicResource ControlFillColorDefaultBrush}"
+                        CornerRadius="8">
                     <Grid>
-                        <Border x:Name="AccentBorder"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                BorderThickness="0,0,0,1"
-                                CornerRadius="4">
-                            <Border.BorderBrush>
-                                <SolidColorBrush Color="{DynamicResource ControlStrongStrokeColorDefault}" />
-                            </Border.BorderBrush>
-                        </Border>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                        <ComboBox ItemsSource="{Binding ViewModel.Dices, Mode=TwoWay}"
-                                  DisplayMemberPath="Name"
-                                  FontSize="16"
-                                  BorderThickness="0"
-                                  SelectedIndex="3"
-                                  SelectedItem="{Binding ViewModel.SelectedDice, Mode=TwoWay}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="0.66*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                CornerRadius="8,8,0,0"/>
+
+                        <Viewbox Grid.Row="0"
+                                 Grid.Column="0"
+                                 Width="24"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Margin="2,1">
+                            <ui:SymbolIcon Symbol="Info24"
+                                           Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+                        </Viewbox>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Content="Character Stats"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+
+                        <ui:VirtualizingItemsControl Grid.Row="1"
+                                                     Grid.Column="0"
+                                                     ItemsSource="{Binding ViewModel.CalculatorResultModels}"
+                                                     Margin="4">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="models:CalculatorStatResultModel">
+                                    <Border Width="370"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="4"
+                                            Margin="2">
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=name}"
+                                                       HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=value}"/>
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Path=., Converter={StaticResource CalculatorStatResultToStringConverter}, ConverterParameter=diff}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ui:VirtualizingItemsControl>
+
+                        <Separator Grid.Column="1"
+                                   Grid.RowSpan="2"
+                                   Margin="4,4"/>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Content="Activated Skills"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+
                     </Grid>
-                    <Label Content="+"
-                           FontSize="16"
-                           VerticalAlignment="Center"
-                           Margin="4,0,4,-4"
-                           Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
-                    <ui:NumberBox x:Name="RollDamageBonusNumBox"
-                                  ClearButtonEnabled="False"
-                                  FontSize="16"
-                                  BorderThickness="0"
-                                  Value="{Binding ViewModel.RollDamageBonus, Mode=OneWayToSource}"
-                                  IntegersOnly="True"
-                                  DecimalPlaces="1"
-                                  Step="1"
-                                  Min="0"
-                                  Max="100"
-                                  Width="54"
-                                  SpinButtonsEnabled="False"
-                                  MouseWheel="NumBox_MouseWheel"/>
-                </StackPanel>
-            </Border>
+                </Border>
+            </Grid>
 
-            <Label Content="{x:Static p:Resources.Calculator_BaseDamageMultiplier}"
-                   FontSize="16"
-                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                   Margin="0,12,0,0"/>
-            <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    HorizontalAlignment="Left"
-                    CornerRadius="4"
-                    Padding="0">
-                <ui:NumberBox x:Name="BaseDamageMultNumBox"
-                              ClearButtonEnabled="False"
-                              FontSize="16"
-                              BorderThickness="0"
-                              Value="{Binding ViewModel.BaseDamageMult, Mode=OneWayToSource}"
-                              IntegersOnly="True"
-                              DecimalPlaces="1"
-                              Step="1"
-                              Min="1"
-                              Max="100"
-                              Width="54"
-                              SpinButtonsEnabled="False"
-                              MouseWheel="NumBox_MouseWheel"/>
-            </Border>
-
-            <Label Content="{x:Static p:Resources.Calculator_EndDamageMultiplier}"
-                   FontSize="16"
-                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                   Margin="0,12,0,0"/>
-            <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    HorizontalAlignment="Left"
-                    CornerRadius="4"
-                    Padding="0">
-                <ui:NumberBox x:Name="EndDamageMulNumBox"
-                              ClearButtonEnabled="False"
-                              FontSize="16"
-                              BorderThickness="0"
-                              Value="{Binding ViewModel.EndDamageMult, Mode=OneWayToSource}"
-                              IntegersOnly="True"
-                              DecimalPlaces="1"
-                              Step="1"
-                              Min="1"
-                              Max="100"
-                              Width="54"
-                              SpinButtonsEnabled="False"
-                              MouseWheel="NumBox_MouseWheel"/>
-            </Border>
-        </StackPanel>
-
-        <StackPanel Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,16,0">
-            <Label Content="{x:Static p:Resources.Calculator_BaseArmor}"
-                   FontSize="16"
-                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
-            <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
-                    HorizontalAlignment="Right"
-                    CornerRadius="4"
-                    Padding="0">
-                <ui:NumberBox x:Name="BaseArmorNumBox"
-                              ClearButtonEnabled="False"
-                              FontSize="16"
-                              BorderThickness="0"
-                              Value="{Binding ViewModel.BaseDamageMult, Mode=OneWayToSource}"
-                              IntegersOnly="True"
-                              DecimalPlaces="1"
-                              Step="1"
-                              Min="1"
-                              Max="100"
-                              Width="54"
-                              SpinButtonsEnabled="False"
-                              MouseWheel="NumBox_MouseWheel"/>
-            </Border>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1"
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,8,28">
-            <ui:Button x:Name="CalculateButton"
-                       Content="{x:Static p:Resources.Calculator_Calculate}"
-                       HorizontalAlignment="Center"
-                       MinWidth="168"
-                       Margin="0,0,0,8"
-                       Click="CalculateButton_Click"/>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel.Resources>
-                    <Style TargetType="ui:TextBox" BasedOn="{StaticResource {x:Type ui:TextBox}}">
-                        <Setter Property="IsReadOnly" Value="True"/>
-                        <Setter Property="MinWidth" Value="160"/>
-                    </Style>
-                </StackPanel.Resources>
-
-                <StackPanel>
-                    <Grid>
-                        <ui:TextBox x:Name="HitTextBox"/>
-                        <ui:Button HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Icon="Copy24"
-                                   Padding="5"
-                                   Margin="0,0,3,2"
-                                   Tag="hit"
-                                   Click="CopyResultButton_Click"/>
-                    </Grid>
-                    <Label Content="{x:Static p:Resources.Calculator_Hit}"
-                           HorizontalAlignment="Center"/>
-                    
-                    <Grid>
-                        <ui:TextBox x:Name="ArmorTextBox"/>
-                        <ui:Button HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Icon="Copy24"
-                                   Padding="5"
-                                   Margin="0,0,3,2"
-                                   Tag="armor"
-                                   Click="CopyResultButton_Click"/>
-                    </Grid>
-                    <Label Content="{x:Static p:Resources.Calculator_Armor}"
-                           HorizontalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Margin="8,0">
-                    <Grid>
-                        <ui:TextBox x:Name="DamageTextBox"
-                                    Text="{Binding ViewModel.CalculatedDamage}"/>
-                        <ui:Button HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Icon="Copy24"
-                                   Padding="5"
-                                   Margin="0,0,3,2"
-                                   Tag="damage"
-                                   Click="CopyResultButton_Click"/>
-                    </Grid>
-                    <Label Content="{x:Static p:Resources.Calculator_Damage}"
-                           HorizontalAlignment="Center"/>
-                    
-                    <Grid>
-                        <ui:TextBox x:Name="ParryTextBox"/>
-                        <ui:Button HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Icon="Copy24"
-                                   Padding="5"
-                                   Margin="0,0,3,2"
-                                   Tag="parry"
-                                   Click="CopyResultButton_Click"/>
-                    </Grid>
-                    <Label Content="{x:Static p:Resources.Calculator_DodgeParry}"
-                           HorizontalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
-
-        <Label Grid.Row="0"
-               Grid.Column="2" 
-               Content="{x:Static p:Resources.Calculator_Modifiers}"
-               Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-               FontSize="28"
-               FontWeight="SemiBold"
-               Margin="18,0,0,0"/>
-
-        <ui:VirtualizingItemsControl Grid.Row="0"
-                                     Grid.RowSpan="3"
-                                     Grid.Column="2" 
-                                     x:Name="CalculatorModifiersControl"
-                                     VerticalAlignment="Stretch"
-                                     HorizontalAlignment="Stretch"
-                                     MaxWidth="470"
-                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                     ItemsSource="{Binding ViewModel.CalculatorModifiers, Mode=TwoWay}"
-                                     VirtualizingPanel.CacheLengthUnit="Item"
-                                     Margin="0,40,0,4">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:CalculatorModifierModel}">
-                    <ui:CardControl x:Name="CalculatorModifierCard"
-                                    Width="220"
-                                    Height="56"
-                                    Margin="4,4"
-                                    Click="CalculatorModifierCard_Click"
-                                    HorizontalContentAlignment="Left">
-                        <Grid Width="176">
-                            <ui:ToggleSwitch x:Name="ToggleActiveSwitch"
-                                             IsHitTestVisible="False"
-                                             IsChecked="{Binding IsActive, Mode=TwoWay}"
-                                             HorizontalAlignment="Right"/>
-                            <Viewbox MaxWidth="130"
-                                     MaxHeight="24"
-                                     HorizontalAlignment="Left"
-                                     Margin="-6,0,0,0">
-                                <TextBlock Text="{Binding Name}"/>
+            <Grid Grid.Row="3">
+                <ui:Button x:Name="TurnButton"
+                           HorizontalAlignment="Left"
+                           FontSize="20"
+                           Appearance="Primary"
+                           Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                           Command="{Binding ViewModel.ManageTurnCommand}">
+                    <ui:Button.Content>
+                        <Grid MinWidth="180">
+                            <Viewbox Width="160"
+                                     Height="26">
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="{Binding ViewModel.TurnPhase, Converter={StaticResource TurnPhaseToStringConverter}}"
+                                           Margin="0,0,32,0"
+                                           Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"
+                                           FontWeight="SemiBold"/>
                             </Viewbox>
-
-                            <ui:SymbolIcon Symbol="Info12"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Bottom"
-                                           Padding="0"
-                                           Margin="-26,0,0,-16"
-                                           ToolTip="{Binding Description}"
-                                           ToolTipService.InitialShowDelay="0"/>
+                            <Viewbox Width="24"
+                                     HorizontalAlignment="Right">
+                                <ui:SymbolIcon Symbol="{Binding ViewModel.TurnPhase, Converter={StaticResource TurnPhaseToSymbolConverter}}"
+                                               Filled="True"
+                                               Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"/>
+                            </Viewbox>
                         </Grid>
-                    </ui:CardControl>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ui:VirtualizingItemsControl>
+                    </ui:Button.Content>
+                </ui:Button>
+
+                <ui:Button x:Name="NewBattleButtonPrimary"
+                           HorizontalAlignment="Left"
+                           FontSize="20"
+                           Appearance="Primary"
+                           Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}, ConverterParameter=true}"
+                           Command="{Binding ViewModel.StartNewBattleCommand}">
+                    <ui:Button.Content>
+                        <Grid MinWidth="180">
+                            <Viewbox Width="160"
+                                     Height="26">
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="{x:Static p:Resources.Calculator_ButtonStartBattle}"
+                                           Margin="0,0,32,0"
+                                           Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"
+                                           FontWeight="SemiBold"/>
+                            </Viewbox>
+                            <Viewbox Width="24"
+                                     HorizontalAlignment="Right">
+                                <ui:SymbolIcon Symbol="Play24"
+                                               Filled="True"
+                                               Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"/>
+                            </Viewbox>
+                        </Grid>
+                    </ui:Button.Content>
+                </ui:Button>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <ui:Button x:Name="AbortBattleButton"
+                               Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                               Command="{Binding ViewModel.AbortBattleCommand}"
+                               MinWidth="42"
+                               MinHeight="42"
+                               Margin="0,0,8,0"
+                               Padding="0"
+                               Appearance="Primary"
+                               ToolTip="{x:Static p:Resources.Calculator_TooltipAbortBattle}"
+                               ToolTipService.InitialShowDelay="0">
+                        <ui:Button.Content>
+                            <Viewbox Width="28"
+                                     HorizontalAlignment="Right">
+                                <ui:SymbolIcon Symbol="Dismiss24"
+                                               Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"
+                                               Filled="True"/>
+                            </Viewbox>
+                        </ui:Button.Content>
+                    </ui:Button>
+
+                    <ui:Button x:Name="EndBattleButton"
+                               Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                               Command="{Binding ViewModel.EndBattleCommand}"
+                               MinWidth="42"
+                               MinHeight="42"
+                               Margin="0,0,8,0"
+                               Padding="0"
+                               Appearance="Primary"
+                               ToolTip="{x:Static p:Resources.Calculator_TooltipEndBattle}"
+                               ToolTipService.InitialShowDelay="0">
+                        <ui:Button.Content>
+                            <Viewbox Width="28"
+                                     HorizontalAlignment="Right">
+                                <ui:SymbolIcon Symbol="RecordStop24"
+                                               Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"/>
+                            </Viewbox>
+                        </ui:Button.Content>
+                    </ui:Button>
+
+                    <ui:Button x:Name="RestartBattleButton"
+                               Visibility="{Binding ViewModel.BattlePhase, Converter={StaticResource BattlePhaseToVisibilityConverter}}"
+                               Command="{Binding ViewModel.RestartBattleCommand}"
+                               MinWidth="42"
+                               MinHeight="42"
+                               Margin="0,0,8,0"
+                               Padding="0"
+                               Appearance="Primary"
+                               ToolTip="{x:Static p:Resources.Calculator_TooltipRestartBattle}"
+                               ToolTipService.InitialShowDelay="0">
+                        <ui:Button.Content>
+                            <Viewbox Width="28"
+                                     HorizontalAlignment="Right">
+                                <ui:SymbolIcon Symbol="Replay20"
+                                               Foreground="{DynamicResource ControlOnImageFillColorSecondaryBrush}"
+                                               Filled="True"/>
+                            </Viewbox>
+                        </ui:Button.Content>
+                    </ui:Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Separator Grid.Column="1"
+                   Margin="0,0,0,4"/>
+
+        <Grid Grid.Row="0"
+              Grid.RowSpan="3"
+              Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   Content="{x:Static p:Resources.Calculator_Skills}"
+                   Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                   FontSize="28"
+                   FontWeight="SemiBold"/>
+
+            <ui:TextBox Grid.Row="1"
+                        VerticalAlignment="Top"
+                        PlaceholderText="{x:Static p:Resources.Calculator_PlaceholderSearchSkills}"
+                        Margin="8,7,15,4"/>
+
+            <ui:VirtualizingItemsControl Grid.Row="2"
+                                         x:Name="CalculatorModifiersControl"
+                                         VerticalAlignment="Stretch"
+                                         HorizontalAlignment="Stretch"
+                                         MaxWidth="235"
+                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                         ItemsSource="{Binding ViewModel.CalculatorSkillModels, Mode=TwoWay}"
+                                         VirtualizingPanel.CacheLengthUnit="Item"
+                                         ScrollViewer.CanContentScroll="False"
+                                         Margin="0,0,0,4">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:CalculatorSkillModel}">
+                        <ui:CardControl x:Name="CalculatorModifierCard"
+                                        Width="212"
+                                        Margin="8,3"
+                                        HorizontalContentAlignment="Left"
+                                        Background="{Binding Skill.SkillCategory, Converter={StaticResource SkillCategoryToBrushConverter}}"
+                                        Padding="10,6"
+                                        Click="CalculatorModifierCard_Click">
+                            <Grid Width="176">
+                                <ui:ToggleSwitch x:Name="ToggleActiveSwitch"
+                                                 IsHitTestVisible="False"
+                                                 IsChecked="{Binding IsActive, Mode=TwoWay}"
+                                                 HorizontalAlignment="Right"/>
+
+                                <Border x:Name="NotActivatableOverlay"
+                                        Background="#80000000"
+                                        Visibility="{Binding IsActivatable, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=true}"
+                                        CornerRadius="3"
+                                        Margin="-24,-6,-10,-6"/>
+
+                                <Viewbox MaxWidth="120"
+                                         MaxHeight="20"
+                                         HorizontalAlignment="Left"
+                                         Margin="8,0,0,0">
+                                    <TextBlock Text="{Binding Skill.Name}"/>
+                                </Viewbox>
+
+                                <ui:SymbolIcon Symbol="Info12"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Padding="0"
+                                               Margin="-16,0,0,0"
+                                               ToolTip="{Binding Tooltip}"
+                                               ToolTipService.InitialShowDelay="0"
+                                               ToolTipService.Placement="Right"/>
+                            </Grid>
+                        </ui:CardControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
+        </Grid>
     </Grid>
 </ui:UiPage>

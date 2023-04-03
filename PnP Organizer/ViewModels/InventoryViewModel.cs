@@ -86,6 +86,9 @@ namespace PnP_Organizer.ViewModels
         [RelayCommand]
         private void AddArmor() => Items!.Add(new InventoryArmorModel());
 
+        [RelayCommand]
+        private void AddShield() => Items!.Add(new InventoryShieldModel());
+
         public void SaveCharacterInventory()
         {
             if(_isInitialized)
@@ -99,22 +102,16 @@ namespace PnP_Organizer.ViewModels
         public void LoadCharacterInventory()
         {
             var itemModels = new ObservableCollection<InventoryItemModel>();
-            if(FileIO.LoadedCharacter.Inventory.Count > 0)
-                Items?.Clear(); // Clear inventory first if the character has saved items to remove
-                                // the default empty item
             foreach(var item in FileIO.LoadedCharacter.Inventory!)
             {
-                foreach (var property in item.GetType().GetProperties())
-                {
-                    Debug.WriteLine($"{property.Name}: {property.GetValue(item)}");
-                }
-
                 InventoryItemModel? model;
                 if (item is InventoryWeapon weapon)
                     model = new InventoryWeaponModel(weapon);
                 else if (item is InventoryArmor armor)
                     model = new InventoryArmorModel(armor);
-                else
+                else if (item is InventoryShield shield)
+                    model = new InventoryShieldModel(shield);
+                else 
                     model = new InventoryItemModel(item);
 
                 itemModels.Add(model);

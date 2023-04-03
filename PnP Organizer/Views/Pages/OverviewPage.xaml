@@ -177,6 +177,9 @@
                         <Setter Property="Margin" Value="8,0,114,13"/>
                         <EventSetter Event="MouseWheel" Handler="AttributeNumBox_MouseWheel"/>
                     </Style>
+                    <Style TargetType="c:StatBonusSelector">
+                        <Setter Property="Margin" Value="0,0,8,0"/>
+                    </Style>
                 </Grid.Resources>
 
                 <Grid.ColumnDefinitions>

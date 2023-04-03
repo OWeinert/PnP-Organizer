@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using Octokit;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.IO;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.ViewModels;
 using PnP_Organizer.Views.Pages;
 using System;
@@ -35,11 +35,14 @@ namespace PnP_Organizer.Views
 
         private readonly ISnackbarService _snackbarService;
         private readonly IDialogControl _dialogControl;
+        private readonly ILogger<Container> _logger;
 
-        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService)
+        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService, ILogger<Container> logger)
         {
             ViewModel = viewModel;
             DataContext = this;
+
+            _logger = logger;
 
             Loaded += Container_Loaded;
 
@@ -63,6 +66,7 @@ namespace PnP_Organizer.Views
         private async void Container_Loaded(object sender, RoutedEventArgs e)
         {
             await CheckVersion();
+            await Task.CompletedTask;
         }
 
         #region INavigationWindow methods
@@ -116,19 +120,41 @@ namespace PnP_Organizer.Views
         {
             var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
             var latestRelease = (await github.Repository.Release.GetAll(563509297))[0];
-            var latestVersion = new Version(latestRelease.TagName);
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            var tagName = latestRelease.TagName;
 
-            Logger.Log($"Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)");
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var productVersion = fvi.ProductVersion;
 
-            if(latestVersion > currentVersion)
+            bool updateAvailable;
+            if (tagName.Contains("rc") && !string.IsNullOrWhiteSpace(productVersion))
             {
-                Logger.Log($"{latestVersion} > {currentVersion} => update available!");
+                updateAvailable = tagName != productVersion;
+                if (updateAvailable)
+                    _logger.LogInformation("{tagName} != {productVersion}", tagName, productVersion);
+                else
+                    _logger.LogInformation("{tagName} = {productVersion}", tagName, productVersion);
+            }
+            else
+            {
+                var latestVersion = new Version(tagName);
+                var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                updateAvailable = latestVersion > currentVersion;
+                _logger.LogInformation("Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)", latestVersion, currentVersion);
+                if (updateAvailable)
+                    _logger.LogInformation("{latestVersion} > {currentVersion}", latestVersion, currentVersion);
+                else
+                    _logger.LogInformation("{latestVersion} = {currentVersion}", latestVersion, currentVersion);
+            }
+            
+            if(updateAvailable)
+            {
+                _logger.LogInformation($"update available!");
                 await ShowUpdateDialog(latestRelease);
             }
             else
             {
-                Logger.Log($"{latestVersion} = {currentVersion} => up-to-date!");
+                _logger.LogInformation($" => up-to-date!");
                 await Task.CompletedTask;
             }
         }
@@ -214,8 +240,8 @@ namespace PnP_Organizer.Views
             {
                 var dialog = (Dialog)_dialogControl;
                 dialog.Tag = "openChar_save";
-                dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonYes;
-                dialog.ButtonRightName = Properties.Resources.Dialog_ButtonNo;
+                dialog.ButtonLeftName = Properties.Resources.Dialog_ButtonSaveCharacter;
+                dialog.ButtonRightName = Properties.Resources.Dialog_ButtonContinueWithoutSaving;
                 dialog.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Caution;
                 dialog.ButtonLeftClick += (sender, e) =>
                 {

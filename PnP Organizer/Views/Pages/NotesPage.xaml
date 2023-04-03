@@ -101,13 +101,14 @@
         <VirtualizingStackPanel Grid.Row="2"
                                 VerticalAlignment="Stretch">
             <RichTextBox x:Name="RootTextBox"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     Padding="0"
-                     VerticalScrollBarVisibility="Visible"
-                     UndoLimit="50"
-                     FontSize="14"
-                     TextChanged="RootTextBox_TextChanged">
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Padding="0"
+                         VerticalScrollBarVisibility="Visible"
+                         UndoLimit="50"
+                         FontSize="14"
+                         TextChanged="RootTextBox_TextChanged"
+                         MinHeight="456">
                 <RichTextBox.Resources>
                     <Style TargetType="{x:Type Paragraph}">
                         <Setter Property="Margin" Value="2"/>

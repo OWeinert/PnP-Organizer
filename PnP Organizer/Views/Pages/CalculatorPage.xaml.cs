@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using PnP_Organizer.Core.Character.Inventory;
+using PnP_Organizer.Models;
+using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
@@ -16,23 +18,22 @@ namespace PnP_Organizer.Views.Pages
             get;
         }
 
-        private readonly ISnackbarService _snackbarService;
-
-        public CalculatorPage(ViewModels.CalculatorViewModel viewModel, ISnackbarService snackbarService)
+        public CalculatorPage(ViewModels.CalculatorViewModel viewModel)
         {
             ViewModel = viewModel;
             InitializeComponent();
-            _snackbarService = snackbarService;
-            
         }
 
-        // TODO CalculatorModifierCard_Click: move logic to Model
         private void CalculatorModifierCard_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var modifierCard = (CardControl)sender;
-            var cardGrid = (Grid)modifierCard.Content;
-            var toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
-            toggleSwitch.IsChecked = !toggleSwitch.IsChecked;
+            var model = (CalculatorSkillModel)modifierCard.DataContext;
+            if (model.IsActivatable)
+            {
+                var cardGrid = (Grid)modifierCard.Content;
+                var toggleSwitch = (ToggleSwitch)cardGrid.Children[0];
+                toggleSwitch.IsChecked = !toggleSwitch.IsChecked;
+            }
         }
 
         //TODO NumBox_MouseWheel move to static function 2/2
@@ -46,32 +47,41 @@ namespace PnP_Organizer.Views.Pages
             numBox.Value = e.Delta > 0 ? numBox.Value + numBox.Step : numBox.Value - numBox.Step;
         }
 
-        // TODO CalculateButton_Click: move logic to ViewModel
-        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        private void ItemSelectorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.CalculateValues();
+            var comboBox = (ComboBox)sender;
+            var itemSelector = (ItemSelectorModel)comboBox.DataContext;
+
+            if (itemSelector.Type == typeof(InventoryWeapon))
+            {
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
+                    ViewModel.SelectedWeapon = null;
+                else
+                    ViewModel.SelectedWeapon = (InventoryWeapon?)itemSelector.SelectedItem;
+            }
+            else if (itemSelector.Type == typeof(InventoryArmor))
+            {
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
+                    ViewModel.SelectedArmor = null;
+                else
+                    ViewModel.SelectedArmor = (InventoryArmor?)itemSelector.SelectedItem;
+            }
+            else if (itemSelector.Type == typeof(InventoryShield))
+            {
+                if (itemSelector.SelectedItem?.Name == Properties.Resources.InventoryItem_None)
+                    ViewModel.SelectedShield = null;
+                else
+                    ViewModel.SelectedShield = (InventoryShield?)itemSelector.SelectedItem;
+            }
         }
 
-        private async void CopyResultButton_Click(object sender, RoutedEventArgs e)
+        private void IncomingDamageComboBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var button = (Wpf.Ui.Controls.Button)sender;
-            var resultText = button.Tag switch
+            if(!(bool)e.NewValue)
             {
-                "hit" => HitTextBox.Text,
-                "armor" => ArmorTextBox.Text,
-                "damage" => DamageTextBox.Text,
-                "parry" => ParryTextBox.Text,
-                _ => string.Empty,
-            };
-            Clipboard.SetText(resultText);
-
-            
-            var snackbarTimeout = _snackbarService.Timeout;
-            _snackbarService.Timeout = 1000; // Temporarily set the Snackbar timeout to 1s
-
-            _ = await _snackbarService.ShowAsync(Properties.Resources.Snackbar_CopyToClipboard, "", Wpf.Ui.Common.SymbolRegular.Clipboard32);
-            
-            _snackbarService.Timeout = snackbarTimeout;
+                var numBox = (NumberBox)sender;
+                numBox.Value = 0;
+            }
         }
     }
 }

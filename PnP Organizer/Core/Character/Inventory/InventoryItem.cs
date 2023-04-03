@@ -10,6 +10,7 @@ namespace PnP_Organizer.Core.Character.Inventory
 {
     [XmlInclude(typeof(InventoryWeapon))]
     [XmlInclude(typeof(InventoryArmor))]
+    [XmlInclude(typeof(InventoryShield))]
     public class InventoryItem
     {
         public string Name { get; set; }

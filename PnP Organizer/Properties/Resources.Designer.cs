@@ -295,6 +295,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string Calculator_Action {
+            get {
+                return ResourceManager.GetString("Calculator_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Armor.
         /// </summary>
         public static string Calculator_Armor {
@@ -336,6 +345,60 @@ namespace PnP_Organizer.Properties {
         public static string Calculator_BaseDamageMultiplier {
             get {
                 return ResourceManager.GetString("Calculator_BaseDamageMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attack.
+        /// </summary>
+        public static string Calculator_BattleActionAttack {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defend.
+        /// </summary>
+        public static string Calculator_BattleActionDefend {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionDefend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        public static string Calculator_BattleActionMove {
+            get {
+                return ResourceManager.GetString("Calculator_BattleActionMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Turn.
+        /// </summary>
+        public static string Calculator_ButtonEndTurn {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonEndTurn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Turn.
+        /// </summary>
+        public static string Calculator_ButtonNextTurn {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonNextTurn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Battle.
+        /// </summary>
+        public static string Calculator_ButtonStartBattle {
+            get {
+                return ResourceManager.GetString("Calculator_ButtonStartBattle", resourceCulture);
             }
         }
         
@@ -385,6 +448,24 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incoming Damage.
+        /// </summary>
+        public static string Calculator_IncomingDamage {
+            get {
+                return ResourceManager.GetString("Calculator_IncomingDamage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Battle to show the Inventory.
+        /// </summary>
+        public static string Calculator_InfoTextShowInventory {
+            get {
+                return ResourceManager.GetString("Calculator_InfoTextShowInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Melee.
         /// </summary>
         public static string Calculator_Melee {
@@ -403,11 +484,74 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Skills....
+        /// </summary>
+        public static string Calculator_PlaceholderSearchSkills {
+            get {
+                return ResourceManager.GetString("Calculator_PlaceholderSearchSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ranged.
         /// </summary>
         public static string Calculator_Ranged {
             get {
                 return ResourceManager.GetString("Calculator_Ranged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shield.
+        /// </summary>
+        public static string Calculator_Shield {
+            get {
+                return ResourceManager.GetString("Calculator_Shield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skills.
+        /// </summary>
+        public static string Calculator_Skills {
+            get {
+                return ResourceManager.GetString("Calculator_Skills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abort Battle.
+        /// </summary>
+        public static string Calculator_TooltipAbortBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipAbortBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Battle.
+        /// </summary>
+        public static string Calculator_TooltipEndBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipEndBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Battle.
+        /// </summary>
+        public static string Calculator_TooltipRestartBattle {
+            get {
+                return ResourceManager.GetString("Calculator_TooltipRestartBattle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weapon.
+        /// </summary>
+        public static string Calculator_Weapon {
+            get {
+                return ResourceManager.GetString("Calculator_Weapon", resourceCulture);
             }
         }
         
@@ -493,7 +637,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calculator.
+        ///   Looks up a localized string similar to Battle Assistant.
         /// </summary>
         public static string Container_NavigationCalculator {
             get {
@@ -601,6 +745,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t Save.
+        /// </summary>
+        public static string Dialog_ButtonContinueWithoutSaving {
+            get {
+                return ResourceManager.GetString("Dialog_ButtonContinueWithoutSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Dialog_ButtonDelete {
@@ -633,6 +786,15 @@ namespace PnP_Organizer.Properties {
         public static string Dialog_ButtonSaveChanges {
             get {
                 return ResourceManager.GetString("Dialog_ButtonSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Dialog_ButtonSaveCharacter {
+            get {
+                return ResourceManager.GetString("Dialog_ButtonSaveCharacter", resourceCulture);
             }
         }
         
@@ -888,6 +1050,7 @@ namespace PnP_Organizer.Properties {
             }
         }
         
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Inventory_PlaceholderDescription {
@@ -960,6 +1123,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Shield.
+        /// </summary>
+        public static string Inventory_TooltipAddShield {
+            get {
+                return ResourceManager.GetString("Inventory_TooltipAddShield", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Weapon.
         /// </summary>
         public static string Inventory_TooltipAddWeapon {
@@ -1028,6 +1200,15 @@ namespace PnP_Organizer.Properties {
         public static string Inventory_Weight {
             get {
                 return ResourceManager.GetString("Inventory_Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string InventoryItem_None {
+            get {
+                return ResourceManager.GetString("InventoryItem_None", resourceCulture);
             }
         }
         
@@ -1230,6 +1411,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by Ole Weinert.
+        /// </summary>
+        public static string Settings_AboutInfo {
+            get {
+                return ResourceManager.GetString("Settings_AboutInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Settings_Language {
@@ -1411,6 +1601,15 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost.
+        /// </summary>
+        public static string Skills_Cost {
+            get {
+                return ResourceManager.GetString("Skills_Cost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Skills_Filter {
@@ -1556,8 +1755,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to -5 on the Hit Throw, Enemy&apos;s Armor is halfed
-        ///this Round. Melee only.
-        ///Cost: 2 Stamina.
+        ///this Round. Melee only..
         /// </summary>
         public static string Skills_SkillAimedAttackMeleeDescr {
             get {
@@ -1576,8 +1774,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to -5 on the Hit Throw, Enemy&apos;s Armor is halfed
-        ///this Round. Ranged only.
-        ///Cost: 2 Stamina.
+        ///this Round. Ranged only..
         /// </summary>
         public static string Skills_SkillAimedAttackRangedDescr {
             get {
@@ -1622,8 +1819,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduce Enemy&apos;s Armor by 3.
-        ///Cost: 5 Stamina.
+        ///   Looks up a localized string similar to Reduce Enemy&apos;s Armor by 3..
         /// </summary>
         public static string Skills_SkillArmorBreakerDescr {
             get {
@@ -1668,8 +1864,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End Damage * 3, Enemy needs to not perceive the Character.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to End Damage * 3, Enemy needs to not perceive the Character..
         /// </summary>
         public static string Skills_SkillAssassinateDescr {
             get {
@@ -1687,8 +1882,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When an Enemy leaves the direct Fight with you, you can Hit him once more.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to When an Enemy leaves the direct Fight with you, you can Hit him once more..
         /// </summary>
         public static string Skills_SkillAttackOfOpportunityDescr {
             get {
@@ -1764,8 +1958,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Grants the Ability to summon a Blade Fan in front of yourself.
-        ///Can only be penetrated by a Critical Hit. -10 on Hit Throws.
-        ///Cost: 1 Energy and 1 Stamina per Round.
+        ///Can only be penetrated by a Critical Hit. -10 on Hit Throws..
         /// </summary>
         public static string Skills_SkillBladeFanDescr {
             get {
@@ -1819,8 +2012,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Initiative decreased (Always last in Turn Order), but +2 on Hit Throw.
-        ///Cost: None.
+        ///   Looks up a localized string similar to Initiative decreased (Always last in Turn Order), but +2 on Hit Throw..
         /// </summary>
         public static string Skills_SkillCalmAimingDescr {
             get {
@@ -1856,8 +2048,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to After disarming an Enemy, you can throw their Weapon on another Enemy.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to After disarming an Enemy, you can throw their Weapon on another Enemy..
         /// </summary>
         public static string Skills_SkillChainAttackDescr {
             get {
@@ -1950,8 +2141,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -1 on Hit Throw, Enemy&apos;s Initiative is decreased by 3.
-        ///Cost: 2 Stamina.
+        ///   Looks up a localized string similar to -1 on Hit Throw, Enemy&apos;s Initiative is decreased by 3..
         /// </summary>
         public static string Skills_SkillCripplingBlowDescr {
             get {
@@ -2006,8 +2196,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Armor is doubled, +1D6+2 on Parade Throws, but you can&apos;t attack.
-        ///Cost: 1 Stamina per Round.
+        ///   Looks up a localized string similar to Armor is doubled, +1D6+2 on Parade Throws, but you can&apos;t attack..
         /// </summary>
         public static string Skills_SkillDefensiveStanceDescr {
             get {
@@ -2025,8 +2214,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End Damage * 2 for the next Attack. You skip your next Turn and can&apos;t parry or dodge when being attacked.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to End Damage * 2 for the next Attack. You skip your next Turn and can&apos;t parry or dodge when being attacked..
         /// </summary>
         public static string Skills_SkillDevastatingAttackDescr {
             get {
@@ -2044,8 +2232,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants the Ability to disarm an Enemy. Deals no Damage.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to Grants the Ability to disarm an Enemy. Deals no Damage..
         /// </summary>
         public static string Skills_SkillDisarmMeleeDescr {
             get {
@@ -2063,8 +2250,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants the Ability and a Bonus of +3 to disarm an Enemy. Deals no Damage.
-        ///Cost: 2 Stamina.
+        ///   Looks up a localized string similar to Grants the Ability and a Bonus of +3 to disarm an Enemy. Deals no Damage..
         /// </summary>
         public static string Skills_SkillDisarmRangedDescr {
             get {
@@ -2100,8 +2286,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants the Ability to throw 2 weapons in 1 Round.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to Grants the Ability to throw 2 weapons in 1 Round..
         /// </summary>
         public static string Skills_SkillDualThrowDescr {
             get {
@@ -2309,8 +2494,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to +1D4 on Feints. A successful Feint will result in the Enemy having a penalty of -5 on Parades and Dodges.
-        ///Enemies can learn to see through your Feints.
-        ///Cost: 2 Stamina.
+        ///Enemies can learn to see through your Feints..
         /// </summary>
         public static string Skills_SkillFeintDescr {
             get {
@@ -2511,8 +2695,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Strong Blows can be blocked by a Parade.
-        ///Cost: 2 Stamina.
+        ///   Looks up a localized string similar to Strong Blows can be blocked by a Parade..
         /// </summary>
         public static string Skills_SkillHeavyParadeDescr {
             get {
@@ -2530,8 +2713,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants the Ability to Hijack a Horse ridden by another Person.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to Grants the Ability to Hijack a Horse ridden by another Person..
         /// </summary>
         public static string Skills_SkillHijackerMeleeDescr {
             get {
@@ -2549,8 +2731,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants the Ability to Hijack a Horse ridden by another Person.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to Grants the Ability to Hijack a Horse ridden by another Person..
         /// </summary>
         public static string Skills_SkillHijackerRangedDescr {
             get {
@@ -2588,8 +2769,7 @@ namespace PnP_Organizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An Enemy can be marked for 3 Rounds.
         ///Grants 2 Hit Throws and the better one will count, +1D4 Damage.
-        ///When attacking a different Enemy, the worse of the 2 Throws will count.
-        ///Cost: .
+        ///When attacking a different Enemy, the worse of the 2 Throws will count..
         /// </summary>
         public static string Skills_SkillHuntersMarkDescr {
             get {
@@ -2646,8 +2826,7 @@ namespace PnP_Organizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to After a Hit the Enemy can be kicked.
         ///Success: -2 on Parade and Dodges for the Enemy and 1D4 True Damage.
-        ///Fail: -1 on Parade and Dodge Throws until your next Turn.
-        ///Cost: 1 Stamina.
+        ///Fail: -1 on Parade and Dodge Throws until your next Turn..
         /// </summary>
         public static string Skills_SkillKickDescr {
             get {
@@ -2665,8 +2844,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to After killing an Enemy you can attack again.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to After killing an Enemy you can attack again..
         /// </summary>
         public static string Skills_SkillKillingSpreeDescr {
             get {
@@ -2721,8 +2899,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to +2.5 * Wood Pearls Damage, +1D6 on the Hit Throw,
-        ///but will destroy your Bow.
-        ///Cost: 8 Energy.
+        ///but will destroy your Bow..
         /// </summary>
         public static string Skills_SkillLastShotDescr {
             get {
@@ -2758,8 +2935,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D6+2 on the Hit Throw. Deals half Damage.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to +1D6+2 on the Hit Throw. Deals half Damage..
         /// </summary>
         public static string Skills_SkillLightBlowDescr {
             get {
@@ -2777,8 +2953,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1D6+2 on the Hit Throw. Deals half Damage.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to +1D6+2 on the Hit Throw. Deals half Damage..
         /// </summary>
         public static string Skills_SkillLightShotDescr {
             get {
@@ -3088,8 +3263,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The next incoming Hit will be blocked.
-        ///Cost: 5 Stamina.
+        ///   Looks up a localized string similar to The next incoming Hit will be blocked..
         /// </summary>
         public static string Skills_SkillPerfectBlockDescr {
             get {
@@ -3107,8 +3281,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The next Hit will definetly succeed. Can&apos;t be used with other Skills.
-        ///Cost: 5 Stamina.
+        ///   Looks up a localized string similar to The next Hit will definetly succeed. Can&apos;t be used with other Skills..
         /// </summary>
         public static string Skills_SkillPerfectBlowDescr {
             get {
@@ -3126,8 +3299,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The next Shot will definetly succeed. Can&apos;t be used with other Skills.
-        ///Cost: 5 Stamina.
+        ///   Looks up a localized string similar to The next Shot will definetly succeed. Can&apos;t be used with other Skills..
         /// </summary>
         public static string Skills_SkillPerfectShotDescr {
             get {
@@ -3181,8 +3353,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +8 on the next Dodge Throw.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to +8 on the next Dodge Throw..
         /// </summary>
         public static string Skills_SkillPlungeDescr {
             get {
@@ -3218,8 +3389,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -4 on the Hit Throw, Enemy&apos;s Armor is halfed this Round. Throwing Weapons only.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to -4 on the Hit Throw, Enemy&apos;s Armor is halfed this Round. Throwing Weapons only..
         /// </summary>
         public static string Skills_SkillPreciseThrowDescr {
             get {
@@ -3291,8 +3461,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Bow can be drawn in a Side Action.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to The Bow can be drawn in a Side Action..
         /// </summary>
         public static string Skills_SkillQuickdrawDescr {
             get {
@@ -3310,8 +3479,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grants 1 additional Parade for the Round.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to Grants 1 additional Parade for the Round..
         /// </summary>
         public static string Skills_SkillQuickParadeDescr {
             get {
@@ -3438,8 +3606,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hit every Enemy in your Attack Range.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to Hit every Enemy in your Attack Range..
         /// </summary>
         public static string Skills_SkillRoundHouseAttackDescr {
             get {
@@ -3476,8 +3643,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to +1D4+2 on Running Over an Enemy. The Enemy gets -1 on Parades and Dodges 
-        ///and skips the next Turn.
-        ///Cost: 3 Stamina.
+        ///and skips the next Turn..
         /// </summary>
         public static string Skills_SkillRunOverDescr {
             get {
@@ -3495,8 +3661,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Hit Throw Penalty when attacking with your second dual-wield Weapon.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to No Hit Throw Penalty when attacking with your second dual-wield Weapon..
         /// </summary>
         public static string Skills_SkillSecondHandDescr {
             get {
@@ -3524,8 +3689,7 @@ namespace PnP_Organizer.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Forces the Enemy to the Ground. The Enemy has to skip their next Turn.
-        ///An Attack from behind will force the Enemy to skip 3 Turns.
-        ///Cost: 2 Stamina.
+        ///An Attack from behind will force the Enemy to skip 3 Turns..
         /// </summary>
         public static string Skills_SkillShieldBashDescr {
             get {
@@ -3643,8 +3807,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Denies &quot;Attack of Opportunity&quot;.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to Denies &quot;Attack of Opportunity&quot;..
         /// </summary>
         public static string Skills_SkillSkillfulRetreatDescr {
             get {
@@ -3716,8 +3879,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hit aside the Enemy&apos;s Weapon and Attack. Enemy has -5 on Parade.
-        ///Cost: 3 Stamina.
+        ///   Looks up a localized string similar to Hit aside the Enemy&apos;s Weapon and Attack. Enemy has -5 on Parade..
         /// </summary>
         public static string Skills_SkillSomethingWithShieldDescr {
             get {
@@ -3935,8 +4097,7 @@ namespace PnP_Organizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +1/2 Side Action with Weapon Weight &lt; 2.
-        ///Cost: 1 Stamina.
+        ///   Looks up a localized string similar to +1/2 Side Action with Weapon Weight &lt; 2..
         /// </summary>
         public static string Skills_SkillThereAndAwayDescr {
             get {

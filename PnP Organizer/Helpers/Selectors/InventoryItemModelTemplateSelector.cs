@@ -14,6 +14,8 @@ namespace PnP_Organizer.Helpers.Selectors
                 return (DataTemplate)element.FindResource("InventoryWeaponModelTemplate");
             if (item is InventoryArmorModel)
                 return (DataTemplate)element.FindResource("InventoryArmorModelTemplate");
+            if (item is InventoryShieldModel)
+                return (DataTemplate)element.FindResource("InventoryShieldModelTemplate");
             return (DataTemplate)element.FindResource("InventoryItemModelTemplate");
         }
     }

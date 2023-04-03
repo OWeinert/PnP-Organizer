@@ -4,7 +4,7 @@ namespace PnP_Organizer.Core.IO
 {
     public struct Language
     {
-        public readonly static ObservableCollection<Language> Languages = new ObservableCollection<Language>()
+        public readonly static ObservableCollection<Language> Languages = new()
         {
                 new Language("English", "en-US"),
                 new Language("Deutsch", "de-DE")

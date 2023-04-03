@@ -41,18 +41,6 @@ namespace PnP_Organizer.Core.Character
             Inventory = new List<InventoryItem>();
             Professions = new List<ProfessionSaveData>();
         }
-
-        public void InitSkillSaveData()
-        {
-            for (var i = 0; i < Character.Skills.Instance.SkillsList.Count; i++)
-            {
-                Skills.Add(new SkillSaveData()
-                {
-                    Index = i,
-                    SkillPoints = 0
-                });
-            }
-        }
     }
 
     public struct CharacterPearls

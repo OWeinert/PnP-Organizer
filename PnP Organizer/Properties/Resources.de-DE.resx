@@ -262,7 +262,7 @@
     <value>Attribut-Tests</value>
   </data>
   <data name="Container_NavigationCalculator" xml:space="preserve">
-    <value>Rechner</value>
+    <value>Kampfassistent</value>
   </data>
   <data name="Container_NavigationDashboard" xml:space="preserve">
     <value>Home</value>
@@ -514,15 +514,13 @@
     <value>Gezielter Schlag</value>
   </data>
   <data name="Skills_SkillAimedAttackMeleeDescr" xml:space="preserve">
-    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.
-Kosten: 2 Ausdauer</value>
+    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.</value>
   </data>
   <data name="Skills_SkillAimedAttackRanged" xml:space="preserve">
     <value>Gezielter Angriff</value>
   </data>
   <data name="Skills_SkillAimedAttackRangedDescr" xml:space="preserve">
-    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.
-Kosten: 2 Ausdauer</value>
+    <value>-5 auf den Trefferwurf, gegnerische Rüstung wird für diese Runde halbiert.</value>
   </data>
   <data name="Skills_SkillAlertness" xml:space="preserve">
     <value>Aufmerksam</value>
@@ -537,8 +535,7 @@ Kosten: 2 Ausdauer</value>
     <value>Rüstungsbrecher</value>
   </data>
   <data name="Skills_SkillArmorBreakerDescr" xml:space="preserve">
-    <value>Reduziert gegnerische Rüstung um 3.
-Kosten: 5 Ausdauer</value>
+    <value>Reduziert gegnerische Rüstung um 3.</value>
   </data>
   <data name="Skills_SkillArmorDescr" xml:space="preserve">
     <value>Keine Nachteile mehr durch das Rüstungsgewicht.</value>
@@ -556,15 +553,13 @@ Kosten: 1 Ausdauer</value>
   </data>
   <data name="Skills_SkillAssassinateDescr" xml:space="preserve">
     <value>Endschaden * 3 bei einem Hinterrücksangriff. 
-Nicht mit "Reckless Attack" und "Vernichtender Angriff" kombinierbar.
-Kosten: 1 Ausdauer</value>
+Nicht mit "Reckless Attack" und "Vernichtender Angriff" kombinierbar.</value>
   </data>
   <data name="Skills_SkillAttackOfOpportunity" xml:space="preserve">
     <value>Attack of Opportunity</value>
   </data>
   <data name="Skills_SkillAttackOfOpportunityDescr" xml:space="preserve">
-    <value>Wenn ein Gegner den direkten Kampf mit dir verlässt, kann ein weiterer Schlag nach ihm gesetzt werden.
-Kosten: 1 Ausdauer</value>
+    <value>Wenn ein Gegner den direkten Kampf mit dir verlässt, kann ein weiterer Schlag nach ihm gesetzt werden.</value>
   </data>
   <data name="Skills_SkillAvenger" xml:space="preserve">
     <value>Rächer</value>
@@ -620,8 +615,7 @@ Kosten: 1 Ausdauer</value>
     <value>Kettenangrif</value>
   </data>
   <data name="Skills_SkillChainAttackDescr" xml:space="preserve">
-    <value>Nach dem Entwaffnen eines Gegners kann dessen Waffe auf einen Gegner geworfen werden.
-Kosten: 1 Ausdauer</value>
+    <value>Nach dem Entwaffnen eines Gegners kann dessen Waffe auf einen Gegner geworfen werden.</value>
   </data>
   <data name="Skills_SkillClimbing" xml:space="preserve">
     <value>Klettern</value>
@@ -651,8 +645,7 @@ Kosten: 1 Ausdauer</value>
     <value>Verkrüppelnder Schlag</value>
   </data>
   <data name="Skills_SkillCripplingBlowDescr" xml:space="preserve">
-    <value>-1 auf den Trefferwurf. Gegnerische Initiative -3.
-Kosten: 1 Ausdauer</value>
+    <value>-1 auf den Trefferwurf. Gegnerische Initiative -3.</value>
   </data>
   <data name="Skills_SkillCurvedShot" xml:space="preserve">
     <value>Curved Shot</value>
@@ -677,23 +670,20 @@ Erschwernis hängt von der Schwierigkeit des Schusses ab.</value>
     <value>Vernichtender Angriff</value>
   </data>
   <data name="Skills_SkillDevastatingAttackDescr" xml:space="preserve">
-    <value>Endschaden * 2, jedoch muss die nächste Runde ausgesetzt werden und bis dahin kann weder pariert noch ausgewichen werden.
-Kosten: 3 Ausdauer</value>
+    <value>Endschaden * 2, jedoch muss die nächste Runde ausgesetzt werden und bis dahin kann weder pariert noch ausgewichen werden.</value>
   </data>
   <data name="Skills_SkillDisarmMelee" xml:space="preserve">
     <value>Entwaffnen</value>
   </data>
   <data name="Skills_SkillDisarmMeleeDescr" xml:space="preserve">
-    <value>Ermöglicht es Gegner zu entwaffnen. Entwaffnungsschlag verursacht keinen Schaden.
-Kosten: 1 Ausdauer</value>
+    <value>Ermöglicht es Gegner zu entwaffnen. Entwaffnungsschlag verursacht keinen Schaden.</value>
   </data>
   <data name="Skills_SkillDisarmRanged" xml:space="preserve">
     <value>Entwaffnen</value>
   </data>
   <data name="Skills_SkillDisarmRangedDescr" xml:space="preserve">
     <value>Ermöglicht es Gegner zu entwaffnen. +3 auf den Entwaffnungsversuch. 
-Entwaffnungsschlag verursacht keinen Schaden.
-Kosten: 1 Ausdauer</value>
+Entwaffnungsschlag verursacht keinen Schaden.</value>
   </data>
   <data name="Skills_SkillDoubleShot" xml:space="preserve">
     <value>Doubleshot</value>
@@ -748,8 +738,7 @@ Kosten: 1 Ausdauer</value>
 Bei Erfolg erhält der Gegner -5 auf Parade- und 
 Ausweichwürfe.
 Bei Misserfolg wird der Schlag automatisch pariert.
-Gegner können Finten erkennen und aus ihnen lernen.
-Kosten: 2 Ausdauer</value>
+Gegner können Finten erkennen und aus ihnen lernen.</value>
   </data>
   <data name="Skills_SkillFencing" xml:space="preserve">
     <value>Fechter</value>
@@ -846,8 +835,7 @@ Bei dem Angriff auf Andere zählt der schlechtere Wurf.</value>
   </data>
   <data name="Skills_SkillJumpAttackDescr" xml:space="preserve">
     <value>+1D6+2 Schaden auf einen Angriff von oben. 
-Bei Misserfolg: -3 auf Ausweich- und Paradewürfe bis zur nächsten Hauptaktion.
-Kosten: 1 Ausdauer</value>
+Bei Misserfolg: -3 auf Ausweich- und Paradewürfe bis zur nächsten Hauptaktion.</value>
   </data>
   <data name="Skills_SkillKick" xml:space="preserve">
     <value>Tritt</value>
@@ -855,8 +843,7 @@ Kosten: 1 Ausdauer</value>
   <data name="Skills_SkillKickDescr" xml:space="preserve">
     <value>Nach dem Treffen eines Gegners kann dieser zusätzlich getreten werden.
 Bei Erfolg: +1D4 Truedamage.
-Bei Misserfolg: -1 auf Parade- und Ausweichwürfe.
-Kosten: 1 Ausdauer</value>
+Bei Misserfolg: -1 auf Parade- und Ausweichwürfe.</value>
   </data>
   <data name="Skills_SkillKillingSpree" xml:space="preserve">
     <value>Killing Spree</value>
@@ -892,15 +879,13 @@ Kosten: 1 Ausdauer</value>
     <value>Leichter Schlag</value>
   </data>
   <data name="Skills_SkillLightBlowDescr" xml:space="preserve">
-    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.
-Kosten: 1 Ausdauer</value>
+    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.</value>
   </data>
   <data name="Skills_SkillLightShot" xml:space="preserve">
     <value>Leichter Schuss</value>
   </data>
   <data name="Skills_SkillLightShotDescr" xml:space="preserve">
-    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.
-Kosten: 1 Ausdauer</value>
+    <value>+1D6+2 auf den Trefferwurf. Verursacht halben Schaden.</value>
   </data>
   <data name="Skills_SkillLockpicking" xml:space="preserve">
     <value>Schlösser knacken</value>
@@ -930,7 +915,7 @@ Kosten: 1 Ausdauer</value>
     <value>Magazin</value>
   </data>
   <data name="Skills_SkillMagazineDescr" xml:space="preserve">
-    <value>3 Shots per Round, but requires 3 Rounds to refill ( = skip 2 Turns )</value>
+    <value>3 Schüsse diese Runde, benötigt jedoch 3 Runden zum Nachladen (= 2 Runden aussetzen)</value>
   </data>
   <data name="Skills_SkillMasterfulArcher" xml:space="preserve">
     <value>Meisterlicher Bogenschütze</value>
@@ -992,22 +977,19 @@ Maximaler Bonus von +5.</value>
     <value>Perfekter Block</value>
   </data>
   <data name="Skills_SkillPerfectBlockDescr" xml:space="preserve">
-    <value>Der nächste erhaltene Treffer wird geblockt.
-Kosten: 5 Ausdauer</value>
+    <value>Der nächste erhaltene Treffer wird geblockt.</value>
   </data>
   <data name="Skills_SkillPerfectBlow" xml:space="preserve">
     <value>Perfekter Schlag</value>
   </data>
   <data name="Skills_SkillPerfectBlowDescr" xml:space="preserve">
-    <value>Der nächste Angriff trifft definitiv. Nicht mit anderen Skills kombinierbar.
-Kosten: 5 Ausdauer</value>
+    <value>Der nächste Angriff trifft definitiv. Nicht mit anderen Skills kombinierbar.</value>
   </data>
   <data name="Skills_SkillPerfectShot" xml:space="preserve">
     <value>Perfekter Schuss</value>
   </data>
   <data name="Skills_SkillPerfectShotDescr" xml:space="preserve">
-    <value>Der nächste Schuss trifft definitiv. Nicht mit anderen Skills kombinierbar.
-Kosten: 5 Ausdauer</value>
+    <value>Der nächste Schuss trifft definitiv. Nicht mit anderen Skills kombinierbar.</value>
   </data>
   <data name="Skills_SkillPerseverence" xml:space="preserve">
     <value>Ausdauernd</value>
@@ -1025,8 +1007,7 @@ Kosten: 5 Ausdauer</value>
     <value>Hechtsprung</value>
   </data>
   <data name="Skills_SkillPlungeDescr" xml:space="preserve">
-    <value>+8 auf den nächsten Ausweichwurf.
-Kosten: 3 Ausdauer</value>
+    <value>+8 auf den nächsten Ausweichwurf.</value>
   </data>
   <data name="Skills_SkillPoisonKnowledge" xml:space="preserve">
     <value>Gifte</value>
@@ -1038,8 +1019,7 @@ Kosten: 3 Ausdauer</value>
     <value>Präziser Wurf</value>
   </data>
   <data name="Skills_SkillPreciseThrowDescr" xml:space="preserve">
-    <value>-4 auf den Trefferwurf. Die gegnerische Rüstung ist für den Treffer halbiert. Nur für Wurfwaffen.
-Kosten: 1 Ausdauer</value>
+    <value>-4 auf den Trefferwurf. Die gegnerische Rüstung ist für den Treffer halbiert. Nur für Wurfwaffen.</value>
   </data>
   <data name="Skills_SkillProfessionalSlingshotMarksman" xml:space="preserve">
     <value>Professioneller Schleuderer</value>
@@ -1063,8 +1043,7 @@ Kosten: 1 Ausdauer</value>
     <value>Schnelle Parade</value>
   </data>
   <data name="Skills_SkillQuickParadeDescr" xml:space="preserve">
-    <value>Ermöglicht eine weitere Parade pro Runde.
-Kosten: 1 Ausdauer</value>
+    <value>Ermöglicht eine weitere Parade pro Runde.</value>
   </data>
   <data name="Skills_SkillReadiness" xml:space="preserve">
     <value>Bereitschaft</value>
@@ -1076,8 +1055,7 @@ Kosten: 1 Ausdauer</value>
     <value>Reckless Attack</value>
   </data>
   <data name="Skills_SkillRecklessAttackDescr" xml:space="preserve">
-    <value>Grundschaden * 2, jedoch kann bis zur nächsten Hauptaktion weder pariert noch ausgewichen werden.
-Kosten: 1 Ausdauer</value>
+    <value>Grundschaden * 2, jedoch kann bis zur nächsten Hauptaktion weder pariert noch ausgewichen werden.</value>
   </data>
   <data name="Skills_SkillRecognizeStyle" xml:space="preserve">
     <value>Stil erkennen</value>
@@ -1107,8 +1085,7 @@ Kosten: 1 Ausdauer</value>
     <value>Rundum-Angriff</value>
   </data>
   <data name="Skills_SkillRoundHouseAttackDescr" xml:space="preserve">
-    <value>Trifft jeden Gegner in Reichweite.
-Kosten: 3 Ausdauer</value>
+    <value>Trifft jeden Gegner in Reichweite.</value>
   </data>
   <data name="Skills_SkillRoutinedWithThrowingWeapons" xml:space="preserve">
     <value>Routiniert mit Wurfwaffen</value>
@@ -1120,8 +1097,7 @@ Kosten: 3 Ausdauer</value>
     <value>Umrennen</value>
   </data>
   <data name="Skills_SkillRunOverDescr" xml:space="preserve">
-    <value>+1D4+2 auf den Wurf beim Umrennen eines Gegners. Der Gegner erhält -1 auf Parade- und Ausweichwürfe und muss eine Runde aussetzen.
-Kosten: 3 Ausdauer</value>
+    <value>+1D4+2 auf den Wurf beim Umrennen eines Gegners. Der Gegner erhält -1 auf Parade- und Ausweichwürfe und muss eine Runde aussetzen.</value>
   </data>
   <data name="Skills_SkillSecondHand" xml:space="preserve">
     <value>Zweiter Schlag</value>
@@ -1136,8 +1112,7 @@ Kosten: 3 Ausdauer</value>
     <value>Schildschlag</value>
   </data>
   <data name="Skills_SkillShieldBashDescr" xml:space="preserve">
-    <value>Zwingt einen Gegner zu Boden. Der Gegner muss die nächste Runde aussetzen. Bei einem Angriff von hinten muss der Gegner 3 Runden aussetzen.
-Kosten: 2 Ausdauer</value>
+    <value>Zwingt einen Gegner zu Boden. Der Gegner muss die nächste Runde aussetzen. Bei einem Angriff von hinten muss der Gegner 3 Runden aussetzen.</value>
   </data>
   <data name="Skills_SkillShieldBreaker" xml:space="preserve">
     <value>Schildbrecher</value>
@@ -1201,8 +1176,7 @@ Bei einem weiteren Schlag wird er zerstört.</value>
     <value>Irgendwas mit Schild</value>
   </data>
   <data name="Skills_SkillSomethingWithShieldDescr" xml:space="preserve">
-    <value>Ermöglicht es, die gegnerische Waffe beseite zu schlagen. Der Gegner erhält -5 auf eine Parade.
-Kosten: 3 Ausdauer</value>
+    <value>Ermöglicht es, die gegnerische Waffe beseite zu schlagen. Der Gegner erhält -5 auf eine Parade.</value>
   </data>
   <data name="Skills_SkillStrongArrows" xml:space="preserve">
     <value>Starke Pfeile</value>
@@ -1492,5 +1466,74 @@ Kosten: 3 Ausdauer</value>
   </data>
   <data name="Inventory_Weapon" xml:space="preserve">
     <value>Waffe</value>
+  </data>
+  <data name="Inventory_TooltipAddShield" xml:space="preserve">
+    <value>Schild hinzufügen</value>
+  </data>
+  <data name="Calculator_Shield" xml:space="preserve">
+    <value>Schild</value>
+  </data>
+  <data name="Calculator_Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="Calculator_Weapon" xml:space="preserve">
+    <value>Waffe</value>
+  </data>
+  <data name="Calculator_Action" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="Calculator_IncomingDamage" xml:space="preserve">
+    <value>Erhaltener Schaden</value>
+  </data>
+  <data name="Calculator_ButtonEndTurn" xml:space="preserve">
+    <value>Zug Beenden</value>
+  </data>
+  <data name="Calculator_ButtonNextTurn" xml:space="preserve">
+    <value>Nächster Zug</value>
+  </data>
+  <data name="Calculator_ButtonStartBattle" xml:space="preserve">
+    <value>Kampf Starten</value>
+  </data>
+  <data name="Calculator_TooltipEndBattle" xml:space="preserve">
+    <value>Kampf Beenden</value>
+  </data>
+  <data name="Calculator_TooltipRestartBattle" xml:space="preserve">
+    <value>Kampf Neustarten</value>
+  </data>
+  <data name="Calculator_PlaceholderSearchSkills" xml:space="preserve">
+    <value>Skills suchen...</value>
+  </data>
+  <data name="Dialog_ButtonContinueWithoutSaving" xml:space="preserve">
+    <value>Nicht Speichern</value>
+  </data>
+  <data name="Dialog_ButtonSaveCharacter" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="InventoryItem_None" xml:space="preserve">
+    <value>Keine/-s</value>
+  </data>
+  <data name="Calculator_BattleActionAttack" xml:space="preserve">
+    <value>Angreifen</value>
+  </data>
+  <data name="Calculator_BattleActionDefend" xml:space="preserve">
+    <value>Verteidigen</value>
+  </data>
+  <data name="Calculator_BattleActionMove" xml:space="preserve">
+    <value>Bewegen</value>
+  </data>
+  <data name="Calculator_TooltipAbortBattle" xml:space="preserve">
+    <value>Kampf Abbrechen</value>
+  </data>
+  <data name="Calculator_InfoTextShowInventory" xml:space="preserve">
+    <value>Starte einen Kampf, um das Inventar anzuzeigen</value>
+  </data>
+  <data name="Skills_Cost" xml:space="preserve">
+    <value>Kosten</value>
+  </data>
+  <data name="Overview_Stamina" xml:space="preserve">
+    <value>Ausdauer</value>
+  </data>
+  <data name="Settings_AboutInfo" xml:space="preserve">
+    <value>Erstellt von Ole Weinert</value>
   </data>
 </root>

@@ -8,7 +8,6 @@ namespace PnP_Organizer.Core.Character.Inventory
         public float PutOnTime { get; set; }
         public float Weight { get; set; }
         public float Loudness { get; set; }
-        public bool IsShield { get; set; }
 
         public InventoryArmor() : base()
         {
@@ -16,16 +15,14 @@ namespace PnP_Organizer.Core.Character.Inventory
             PutOnTime = 0.0f;
             Weight = 1.0f;
             Loudness = 1.0f;
-            IsShield = false;
         }
 
-        public InventoryArmor(InventoryArmorModel inventoryArmorModel) : base(inventoryArmorModel)
+        public InventoryArmor(InventoryArmorModel inventoryShieldModel) : base(inventoryShieldModel)
         {
-            Armor = inventoryArmorModel.Armor;
-            PutOnTime = inventoryArmorModel.PutOnTime;
-            Weight = inventoryArmorModel.Weight;
-            Loudness = inventoryArmorModel.Loudness;
-            IsShield = inventoryArmorModel.IsShield;
+            Armor = inventoryShieldModel.Armor;
+            PutOnTime = inventoryShieldModel.PutOnTime;
+            Weight = inventoryShieldModel.Weight;
+            Loudness = inventoryShieldModel.Loudness;
         }
     }
 }
