@@ -147,9 +147,9 @@ namespace PnP_Organizer.Views
                     updateAvailable = tagBaseVersion > currentVersion;
 
                 if (updateAvailable)
-                    _logger.LogInformation("{tagName} != {productVersion}", tagName, productVersion);
+                    _logger.LogInformation("{tagVersion} > {productVersion}", tagName, productVersion);
                 else
-                    _logger.LogInformation("{tagName} = {productVersion}", tagName, productVersion);
+                    _logger.LogInformation("{tagVersion} <= {productVersion}", tagName, productVersion);
             }
             else
             {
@@ -159,7 +159,7 @@ namespace PnP_Organizer.Views
                 if (updateAvailable)
                     _logger.LogInformation("{latestVersion} > {currentVersion}", latestVersion, currentVersion);
                 else
-                    _logger.LogInformation("{latestVersion} = {currentVersion}", latestVersion, currentVersion);
+                    _logger.LogInformation("{latestVersion} <= {currentVersion}", latestVersion, currentVersion);
             }
             
             if(updateAvailable)
