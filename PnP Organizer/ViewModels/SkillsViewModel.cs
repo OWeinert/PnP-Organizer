@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Properties;
 using System;
@@ -10,7 +10,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -45,8 +44,11 @@ namespace PnP_Organizer.ViewModels
 
         private DispatcherTimer? _searchBoxTimer;
 
-        public SkillsViewModel()
+        private readonly ILogger<SkillsViewModel> _logger;
+
+        public SkillsViewModel(ILogger<SkillsViewModel> logger)
         {
+            _logger = logger;
             if (!_isInitialized)
                 InitializeViewModel();
         }
@@ -105,7 +107,7 @@ namespace PnP_Organizer.ViewModels
             }
             SkillModelsView = CollectionViewSource.GetDefaultView(SkillModels);
 
-            Logger.Log($"{SkillModels.Count} SkillModels for {Skills.Instance.SkillsList.Count} Skills initialized");
+            _logger.LogInformation("{models} SkillModels for {skills} Skills initialized", SkillModels.Count, Skills.Instance.Registry.Count);
         }
 
         private async void SkillModels_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -216,7 +218,7 @@ namespace PnP_Organizer.ViewModels
         {
             if (_isInitialized)
             {
-                Logger.Log("Saving Skills...");
+                _logger.LogInformation("Saving Skills...");
 
                 List<SkillSaveData> skills = new();
                 for(var i = 0; i < SkillModels!.Count; i++)
@@ -237,7 +239,7 @@ namespace PnP_Organizer.ViewModels
                 }
                 FileIO.LoadedCharacter.Skills = skills;
 
-                Logger.Log("Skills saved successfully!");
+                _logger.LogInformation("Skills saved successfully!");
             }  
         }
 
@@ -245,11 +247,7 @@ namespace PnP_Organizer.ViewModels
         {
             if (_isInitialized)
             {
-                Logger.Log("Loading Skills...");
-
-                if (FileIO.LoadedCharacter.Skills.Count == 0)
-                    FileIO.LoadedCharacter.InitSkillSaveData();
-
+                _logger.LogInformation("Loading Skills...");
                 foreach (var skillModel in SkillModels!)
                 {
                     skillModel.SkillPoints = 0;
@@ -279,7 +277,7 @@ namespace PnP_Organizer.ViewModels
 
                 CalculateUsedSkillPoints();
 
-                Logger.Log("Skills loaded successfully!");
+                _logger.LogInformation("Skills loaded successfully!");
             }
         }
 

@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.Character;
 using PnP_Organizer.Core.Character.StatModifiers;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.Models;
 using PnP_Organizer.Views.Pages;
 using System;
@@ -119,9 +119,12 @@ namespace PnP_Organizer.ViewModels
 
         private bool _isLoading = false;
 
-        public OverviewViewModel(IPageService pageService)
+        private readonly ILogger<OverviewViewModel> _logger;
+
+        public OverviewViewModel(IPageService pageService, ILogger<OverviewViewModel> logger)
         {
             _pageService = pageService;
+            _logger = logger;
             PropertyChanged += OnOverviewPropertyChanged;
         }
 
@@ -167,7 +170,7 @@ namespace PnP_Organizer.ViewModels
         /// </summary>
         public void SaveCharacterStats()
         {
-            Logger.Log("Saving Character Stats...");
+            _logger.LogInformation("Saving Character Stats...");
 
             FileIO.LoadedCharacter.Name = CharacterName;
             FileIO.LoadedCharacter.Age = GetCharacterAgeFromString(CharacterAgeStr);
@@ -186,7 +189,7 @@ namespace PnP_Organizer.ViewModels
             SaveCharacterPearls();
             SaveCharacterImage();
 
-            Logger.Log("Character Stats saved successfully!");
+            _logger.LogInformation("Character Stats saved successfully!");
         }
 
         /// <summary>
@@ -195,7 +198,7 @@ namespace PnP_Organizer.ViewModels
         public void LoadCharacterStats()
         {
             _isLoading = true;
-            Logger.Log("Loading Character Stats...");
+            _logger.LogInformation("Loading Character Stats...");
 
             CharacterName = FileIO.LoadedCharacter.Name;
             CharacterAgeStr = $"{FileIO.LoadedCharacter.Age}";
@@ -224,7 +227,7 @@ namespace PnP_Organizer.ViewModels
 
             _isLoading = false;
 
-            Logger.Log("Character Stats loaded successfully!");
+            _logger.LogInformation("Character Stats loaded successfully!");
         }
 
         private void SaveCharacterAttributes()

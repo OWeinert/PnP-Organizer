@@ -139,12 +139,12 @@ namespace PnP_Organizer.Core.Character
         {
             if (!IsRoundDependend && RoundDependendStatModifiers.Count > UsesPerBattle)
             {
-                Logger.LogWarning($"Skill \"{Name}\" has more round dependend StatModifiers than uses per battle!\n" +
-                    $"The excess StatModifiers will not be used!");
+                App.GetService<ILogger<Skill>>()?.LogWarning("Skill \"{name}\" has more round dependend StatModifiers than uses per battle!\n" +
+                    $"The excess StatModifiers will not be used!", DisplayName);
             }
             if (StatModifiers != null)
             {
-                Logger.LogWarning($"Skill \"{Name}\" has set StatModifiers! They will be discarded in favor of round dependend StatModifiers.");
+                App.GetService<ILogger<Skill>>()?.LogWarning("Skill \"{name}\" has set StatModifiers! They will be discarded in favor of round dependend StatModifiers.", DisplayName);
                 StatModifiers = null; // Setting StatModifiers to null here, so they can't be used if set before, to prevent unwanted behaviour
             }
         }

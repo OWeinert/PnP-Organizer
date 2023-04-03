@@ -1,7 +1,7 @@
-﻿using PnP_Organizer.Core.Character.Inventory;
+﻿using Microsoft.Extensions.Logging;
+using PnP_Organizer.Core.Character.Inventory;
 using PnP_Organizer.Core.Character.SkillSystem;
 using PnP_Organizer.Core.Character.StatModifiers;
-using PnP_Organizer.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +24,11 @@ namespace PnP_Organizer.Core.BattleAssistant
             if (damageDiceModifiers.Any())
             {
                 if (damageDiceModifiers.Count() > 1)
-                    Logger.LogException(new ArgumentOutOfRangeException(nameof(damageDiceModifiers), "There is only one skill, which modifies the BaseDice, but there are more than one modifiers in the given Enumerable!"));
+                    App.GetService<ILogger<StatCalculators>>()?.LogError(new ApplicationException(), "There is only one skill, which modifies the BaseDice, but there are more than one modifiers in the given Enumerable!");
 
                 var diceModifier = damageDiceModifiers.First();
                 if (diceModifier.ApplianceMode == ApplianceMode.EndValue)
-                    Logger.LogException(new ArgumentException("ApplianceMode can't be \"EndValue\" for Base Dice boni"));
+                    App.GetService<ILogger<StatCalculators>>()?.LogError(new ApplicationException(), "ApplianceMode can't be \"EndValue\" for Base Dice boni");
                 currentDice = diceModifier.Dice;
             }
 
