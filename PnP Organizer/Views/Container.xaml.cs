@@ -35,11 +35,14 @@ namespace PnP_Organizer.Views
 
         private readonly ISnackbarService _snackbarService;
         private readonly IDialogControl _dialogControl;
+        private readonly ILogger<Container> _logger;
 
         public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService)
         {
             ViewModel = viewModel;
             DataContext = this;
+
+            _logger = logger;
 
             Loaded += Container_Loaded;
 
@@ -117,22 +120,41 @@ namespace PnP_Organizer.Views
         {
             var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
             var latestRelease = (await github.Repository.Release.GetAll(563509297))[0];
-            // remove -rc for release candidate versions so versions like 2.0.0.0-rc1 are now 2.0.0.01
-            // This means a newer rc version will also be handled like a newer version in general
-            var tagName = latestRelease.TagName.Replace("-rc", "");
+            var tagName = latestRelease.TagName;
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var productVersion = fvi.ProductVersion;
+
+            bool updateAvailable;
+            if (tagName.Contains("rc") && !string.IsNullOrWhiteSpace(productVersion))
+            {
+                updateAvailable = tagName != productVersion;
+                if (updateAvailable)
+                    _logger.LogInformation("{tagName} != {productVersion}", tagName, productVersion);
+                else
+                    _logger.LogInformation("{tagName} = {productVersion}", tagName, productVersion);
+            }
+            else
+            {
             var latestVersion = new Version(tagName);
             var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                updateAvailable = latestVersion > currentVersion;
+                _logger.LogInformation("Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)", latestVersion, currentVersion);
+                if (updateAvailable)
+                    _logger.LogInformation("{latestVersion} > {currentVersion}", latestVersion, currentVersion);
+                else
+                    _logger.LogInformation("{latestVersion} = {currentVersion}", latestVersion, currentVersion);
+            }
 
-            Logger.Log($"Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)");
-
-            if(latestVersion > currentVersion)
+            if(updateAvailable)
             {
-                Logger.Log($"{latestVersion} > {currentVersion} => update available!");
+                _logger.LogInformation($"update available!");
                 await ShowUpdateDialog(latestRelease);
             }
             else
             {
-                Logger.Log($"{latestVersion} = {currentVersion} => up-to-date!");
+                _logger.LogInformation($" => up-to-date!");
                 await Task.CompletedTask;
             }
         }
