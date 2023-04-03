@@ -34,7 +34,6 @@ namespace PnP_Organizer.IO
 
         public static event EventHandler? OnNewCharacterCreated;
 
-
         #region Character File Save/Load/Creation
         /// <summary>
         /// Saves the LoadedCharacter to the given FileStream <paramref name="fs"/>.
