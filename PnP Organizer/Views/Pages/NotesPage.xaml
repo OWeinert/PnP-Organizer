@@ -99,30 +99,38 @@
         </ToolBarPanel>
 
         <VirtualizingStackPanel Grid.Row="2"
-                                VerticalAlignment="Stretch">
-            <RichTextBox x:Name="RootTextBox"
-                         Background="Transparent"
-                         BorderThickness="0"
-                         Padding="0"
-                         VerticalScrollBarVisibility="Visible"
-                         UndoLimit="50"
-                         FontSize="14"
-                         TextChanged="RootTextBox_TextChanged"
-                         MinHeight="456">
-                <RichTextBox.Resources>
-                    <Style TargetType="{x:Type Paragraph}">
-                        <Setter Property="Margin" Value="2"/>
-                    </Style>
-                </RichTextBox.Resources>
-                <RichTextBox.Document>
-                    <FlowDocument FontFamily="{StaticResource ContentControlThemeFontFamily}">
-                        <FlowDocument.Blocks>
-                            <Paragraph>
-                            </Paragraph>
-                        </FlowDocument.Blocks>
-                    </FlowDocument>
-                </RichTextBox.Document>
-            </RichTextBox>
+                                VerticalAlignment="Stretch"
+                                Margin="6,0,0,0">
+            <ui:DynamicScrollViewer HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    MaxHeight="496"
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Visible">
+                <RichTextBox x:Name="RootTextBox"
+                             MaxWidth="920"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             Padding="0,4"
+                             VerticalScrollBarVisibility="Visible"
+                             UndoLimit="50"
+                             FontSize="14"
+                             MinHeight="494"
+                             TextChanged="RootTextBox_TextChanged">
+                    <RichTextBox.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                    </RichTextBox.Resources>
+                    <RichTextBox.Document>
+                        <FlowDocument FontFamily="{StaticResource ContentControlThemeFontFamily}">
+                            <FlowDocument.Blocks>
+                                <Paragraph>
+                                </Paragraph>
+                            </FlowDocument.Blocks>
+                        </FlowDocument>
+                    </RichTextBox.Document>
+                </RichTextBox>
+            </ui:DynamicScrollViewer>
         </VirtualizingStackPanel>
     </Grid>
 </ui:UiPage>
