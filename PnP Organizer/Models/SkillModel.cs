@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PnP_Organizer.Core.Character;
+using PnP_Organizer.Core.Character.SkillSystem.EventArgs;
 using PnP_Organizer.IO;
 using System.ComponentModel;
 using System.Windows;
@@ -64,6 +65,17 @@ namespace PnP_Organizer.Models
 
             UpdateVisuals();
             PropertyChanged += OnSkillPropertyChanged;
+            Skill.SkillChanged += OnSkillValueChanged;
+        }
+
+        ~SkillModel()
+        {
+            Skill!.SkillChanged -= OnSkillValueChanged;
+        }
+
+        private void OnSkillValueChanged(object sender, SkillChangedEventArgs e)
+        {
+            // TODO
         }
 
         public void RaisePropertyChanged(string propertyName) => OnPropertyChanged(propertyName);
