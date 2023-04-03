@@ -13,7 +13,7 @@ namespace PnP_Organizer.Core.Character
 
         public bool IsRepeatable { get; set; }
 
-        public StatModifier[]? StatModifiers { get; private set; }
+        public IStatModifier[]? StatModifiers { get; private set; }
 
         /// <summary>
         /// Names of skills of which at least one has to be skilled in order to unlock this skill.
@@ -27,7 +27,7 @@ namespace PnP_Organizer.Core.Character
         /// </summary>
         public string ForcedDependendSkillName { get; private set; } = string.Empty;
 
-        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, StatModifier[]? statModifiers = null, string[]? dependendSkillNames = null)
+        public Skill(string name, SkillCategory skillCategory, int maxSkillPoints, string description, IStatModifier[]? statModifiers = null, string[]? dependendSkillNames = null)
         {
             Name = name;
             SkillCategory = skillCategory;
