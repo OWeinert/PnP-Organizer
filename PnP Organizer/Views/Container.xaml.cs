@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -126,10 +127,25 @@ namespace PnP_Organizer.Views
             var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             var productVersion = fvi.ProductVersion;
 
+            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
             bool updateAvailable;
             if (tagName.Contains("rc") && !string.IsNullOrWhiteSpace(productVersion))
             {
-                updateAvailable = tagName != productVersion;
+                var rcTagExclRegex = new Regex(@"-rc.*");
+                var productBaseVersion = new Version(rcTagExclRegex.Replace(productVersion, string.Empty));
+                var tagBaseVersion = new Version(rcTagExclRegex.Replace(tagName, string.Empty));
+
+                if (tagBaseVersion == productBaseVersion) 
+                {
+                    var versionExclRegex = new Regex(@".*-rc");
+                    var tagRCVersion = int.Parse(versionExclRegex.Replace(tagName, string.Empty));
+                    var productRCVersion = int.Parse(versionExclRegex.Replace(productVersion, string.Empty));
+                    updateAvailable = tagRCVersion > productRCVersion;
+                }
+                else
+                    updateAvailable = tagBaseVersion > currentVersion;
+
                 if (updateAvailable)
                     _logger.LogInformation("{tagName} != {productVersion}", tagName, productVersion);
                 else
@@ -138,7 +154,6 @@ namespace PnP_Organizer.Views
             else
             {
                 var latestVersion = new Version(tagName);
-                var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 updateAvailable = latestVersion > currentVersion;
                 _logger.LogInformation("Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)", latestVersion, currentVersion);
                 if (updateAvailable)
