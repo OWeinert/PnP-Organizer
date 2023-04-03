@@ -345,6 +345,14 @@ namespace PnP_Organizer.ViewModels
                     overviewStatModifier.StatPropertyInfo.SetValue(this, (int)overviewStatModifier.StatPropertyInfo.GetValue(this)! + overviewStatModifier.Bonus * multiplier);
                 }
             }
+
+            var rangedCP = skillsViewModel.SkillModels!
+                        .Where(sM => sM.SkillCategory == SkillCategory.Character)
+                        .Max(sM => sM.Skill!.SkillTreeCheckpoint);
+            for(var r = 0; r < rangedCP; r++)
+            {
+                InitiativeModifierBonus += 1;
+            }
         }
     }
 }
