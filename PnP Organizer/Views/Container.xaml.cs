@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using Octokit;
 using PnP_Organizer.Core;
 using PnP_Organizer.Core.IO;
 using PnP_Organizer.IO;
-using PnP_Organizer.Logging;
 using PnP_Organizer.ViewModels;
 using PnP_Organizer.Views.Pages;
 using System;
@@ -37,7 +37,7 @@ namespace PnP_Organizer.Views
         private readonly IDialogControl _dialogControl;
         private readonly ILogger<Container> _logger;
 
-        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService)
+        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService, ILogger<Container> logger)
         {
             ViewModel = viewModel;
             DataContext = this;
@@ -137,8 +137,8 @@ namespace PnP_Organizer.Views
             }
             else
             {
-            var latestVersion = new Version(tagName);
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                var latestVersion = new Version(tagName);
+                var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
                 updateAvailable = latestVersion > currentVersion;
                 _logger.LogInformation("Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)", latestVersion, currentVersion);
                 if (updateAvailable)
@@ -146,7 +146,7 @@ namespace PnP_Organizer.Views
                 else
                     _logger.LogInformation("{latestVersion} = {currentVersion}", latestVersion, currentVersion);
             }
-
+            
             if(updateAvailable)
             {
                 _logger.LogInformation($"update available!");
