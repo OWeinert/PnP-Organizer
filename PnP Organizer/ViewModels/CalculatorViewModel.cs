@@ -197,12 +197,16 @@ namespace PnP_Organizer.ViewModels
             {
                 if (SelectedWeapon != null)
                 {
-                    if (SelectedWeapon.AttackMode == AttackMode.Ranged)
-                        return skill.SkillCategory == SkillCategory.Ranged || skill.SkillCategory == SkillCategory.Character;
+                    var attackModeEqualsSkillCat = false;
 
-                    return skill.SkillCategory == SkillCategory.Melee || skill.SkillCategory == SkillCategory.Character;
+                    if (SelectedWeapon.AttackMode == AttackMode.Ranged)
+                        attackModeEqualsSkillCat = skill.Identifier.SkillCategory == SkillCategory.Ranged;
+                    else
+                        attackModeEqualsSkillCat = skill.Identifier.SkillCategory == SkillCategory.Melee;
+
+                    return attackModeEqualsSkillCat || skill.Identifier.SkillCategory == SkillCategory.Character;
                 }
-                return skill.SkillCategory == SkillCategory.Character;
+                return skill.Identifier.SkillCategory == SkillCategory.Character;
             });
 
             // TODO Add checks for armor and shield specific skills
