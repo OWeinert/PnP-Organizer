@@ -37,6 +37,7 @@ namespace PnP_Organizer.Views
         private readonly ISnackbarService _snackbarService;
         private readonly IDialogControl _dialogControl;
         private readonly ILogger<Container> _logger;
+        private const long _gitHubRepoID = 563509297;
 
         public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService, ILogger<Container> logger)
         {
@@ -120,7 +121,7 @@ namespace PnP_Organizer.Views
         private async Task CheckVersion()
         {
             var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
-            var latestRelease = (await github.Repository.Release.GetAll(563509297))[0];
+            var latestRelease = (await github.Repository.Release.GetAll(_gitHubRepoID))[0];
             var tagName = latestRelease.TagName;
 
             var assembly = Assembly.GetExecutingAssembly();
@@ -136,7 +137,7 @@ namespace PnP_Organizer.Views
                 var productBaseVersion = new Version(rcTagExclRegex.Replace(productVersion, string.Empty));
                 var tagBaseVersion = new Version(rcTagExclRegex.Replace(tagName, string.Empty));
 
-                if (tagBaseVersion == productBaseVersion) 
+                if (tagBaseVersion == productBaseVersion && productVersion.Contains("rc")) 
                 {
                     var versionExclRegex = new Regex(@".*-rc");
                     var tagRCVersion = int.Parse(versionExclRegex.Replace(tagName, string.Empty));
