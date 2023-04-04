@@ -6,6 +6,7 @@ using PnP_Organizer.Core.IO;
 using PnP_Organizer.IO;
 using PnP_Organizer.ViewModels;
 using PnP_Organizer.Views.Pages;
+using Serilog;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -36,15 +37,11 @@ namespace PnP_Organizer.Views
 
         private readonly ISnackbarService _snackbarService;
         private readonly IDialogControl _dialogControl;
-        private readonly ILogger<Container> _logger;
-        private const long _gitHubRepoID = 563509297;
 
-        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService, ILogger<Container> logger)
+        public Container(ContainerViewModel viewModel, IPageService pageService, INavigationService navigationService, ISnackbarService snackbarService, IDialogService dialogService)
         {
             ViewModel = viewModel;
             DataContext = this;
-
-            _logger = logger;
 
             Loaded += Container_Loaded;
 
@@ -67,8 +64,15 @@ namespace PnP_Organizer.Views
 
         private async void Container_Loaded(object sender, RoutedEventArgs e)
         {
-            await CheckVersion();
-            await Task.CompletedTask;
+            var updateAvailable = await Utils.CheckVersionAsync();
+
+            if (updateAvailable)
+            {
+                Log.Information($"update available!");
+                await ShowUpdateDialog(await Utils.GetLatestRelease());
+            }
+            else
+                Log.Information($" => up-to-date!");
         }
 
         #region INavigationWindow methods
@@ -118,62 +122,7 @@ namespace PnP_Organizer.Views
         #endregion
 
         #region UpdateCheck
-        private async Task CheckVersion()
-        {
-            var github = new GitHubClient(new ProductHeaderValue("PnP-Organizer"));
-            var latestRelease = (await github.Repository.Release.GetAll(_gitHubRepoID))[0];
-            var tagName = latestRelease.TagName;
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            var productVersion = fvi.ProductVersion;
-
-            var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
-            bool updateAvailable;
-            if (tagName.Contains("rc") && !string.IsNullOrWhiteSpace(productVersion))
-            {
-                var rcTagExclRegex = new Regex(@"-rc.*");
-                var productBaseVersion = new Version(rcTagExclRegex.Replace(productVersion, string.Empty));
-                var tagBaseVersion = new Version(rcTagExclRegex.Replace(tagName, string.Empty));
-
-                if (tagBaseVersion == productBaseVersion && productVersion.Contains("rc")) 
-                {
-                    var versionExclRegex = new Regex(@".*-rc");
-                    var tagRCVersion = int.Parse(versionExclRegex.Replace(tagName, string.Empty));
-                    var productRCVersion = int.Parse(versionExclRegex.Replace(productVersion, string.Empty));
-                    updateAvailable = tagRCVersion > productRCVersion;
-                }
-                else
-                    updateAvailable = tagBaseVersion > currentVersion;
-
-                if (updateAvailable)
-                    _logger.LogInformation("{tagVersion} > {productVersion}", tagName, productVersion);
-                else
-                    _logger.LogInformation("{tagVersion} <= {productVersion}", tagName, productVersion);
-            }
-            else
-            {
-                var latestVersion = new Version(tagName);
-                updateAvailable = latestVersion > currentVersion;
-                _logger.LogInformation("Checking Version: {currentVersion} (Current) || {latestVersion} (Latest)", latestVersion, currentVersion);
-                if (updateAvailable)
-                    _logger.LogInformation("{latestVersion} > {currentVersion}", latestVersion, currentVersion);
-                else
-                    _logger.LogInformation("{latestVersion} <= {currentVersion}", latestVersion, currentVersion);
-            }
-            
-            if(updateAvailable)
-            {
-                _logger.LogInformation($"update available!");
-                await ShowUpdateDialog(latestRelease);
-            }
-            else
-            {
-                _logger.LogInformation($" => up-to-date!");
-                await Task.CompletedTask;
-            }
-        }
+        
 
         private async Task ShowUpdateDialog(Release latestRelease)
         {
