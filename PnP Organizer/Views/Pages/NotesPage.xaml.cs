@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Win32;
+using PnP_Organizer.Core;
 using PnP_Organizer.IO;
 using System.IO;
 using System.Threading.Tasks;
@@ -79,37 +80,8 @@ namespace PnP_Organizer.Views.Pages
 
         private async Task ExportDocument()
         {
-            SaveFileDialog saveDialog = new()
-            {
-                InitialDirectory = Directory.GetCurrentDirectory(),
-                Filter = "RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt",
-                AddExtension = true,
-                DefaultExt = "rtf"
-            };
-            if (saveDialog.ShowDialog() == true)
-            {
-                TextRange docContent = new(RootTextBox.Document.ContentStart, RootTextBox.Document.ContentEnd);
-                var fileExtension = Path.GetExtension(saveDialog.FileName);
-
-                var dataFormat = string.Empty;
-                switch(fileExtension) {
-                    case ".rtf":
-                        dataFormat = DataFormats.Rtf;
-                        break;
-                    case ".txt":
-                        dataFormat = DataFormats.Text;
-                        break;
-                    default:
-                        break;
-                }
-
-                if (dataFormat != string.Empty && docContent.CanSave(dataFormat))
-                {
-                    using var fs = (FileStream)saveDialog.OpenFile();
-                    docContent.Save(fs, dataFormat);
-                }
-            }
-            await _snackbarControl.ShowAsync("Notes saved to:", $"\"{saveDialog.FileName}\"", Wpf.Ui.Common.SymbolRegular.Save28);
+            var fileName = Utils.ExportDocument(RootTextBox);
+            await _snackbarControl.ShowAsync("Notes saved to:", $"\"{fileName}\"", Wpf.Ui.Common.SymbolRegular.Save28);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace PnP_Organizer.Views.Pages
             get;
         }
 
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
         public DashboardPage(ViewModels.DashboardViewModel viewModel, INavigationService navigationService)
         {

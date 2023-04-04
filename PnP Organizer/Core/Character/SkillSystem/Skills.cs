@@ -308,36 +308,88 @@ namespace PnP_Organizer.Core.Character
                 Resources.Skills_SkillAvengerDescr, null, new SkillIdentifier[] { Momentum.Identifier }, activationType: ActivationType.Active);
 
             // Repeatable Skills
-            var hpID = new SkillIdentifier(SkillCategory.Character, nameof(HP));
+            var hpID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character, 
+                Name = nameof(HP)
+            };
             HP = AddSkill(hpID, new Skill(hpID, Resources.Skills_SkillHP, 3, Resources.Skills_SkillHPDescr, 
                 new IStatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxHealthModifierBonus), 6) }).SetRepeatable());
-            var professionID = new SkillIdentifier(SkillCategory.Character, nameof(Profession));
+            var professionID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Profession)
+            };
             Profession = AddSkill(professionID, new Skill(professionID, Resources.Skills_SkillProfession, 3, Resources.Skills_SkillProfessionDescr, null).SetRepeatable());
-            var stamina2ID = new SkillIdentifier(SkillCategory.Character, nameof(Stamina2));
+            var stamina2ID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Stamina2)
+            };
             Stamina2 = AddSkill(stamina2ID, new Skill(stamina2ID, Resources.Skills_SkillStamina2, 3, Resources.Skills_SkillStamina2Descr,
                 new IStatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 2) }).SetRepeatable());
-            var stamina4ID = new SkillIdentifier(SkillCategory.Character, nameof(Stamina4));
+            var stamina4ID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Stamina4)
+            };
             Stamina4 = AddSkill(stamina4ID, new Skill(stamina4ID, Resources.Skills_SkillStamina4, 5, Resources.Skills_SkillStamina4Descr,
                 new IStatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxStaminaModifierBonus), 4) }).SetRepeatable());
-            var statsID = new SkillIdentifier(SkillCategory.Character, nameof(Stats));
+            var statsID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Stats)
+            };
             Stats = AddSkill(statsID, new Skill(statsID, Resources.Skills_SkillStats, 5, Resources.Skills_SkillStatsDescr, null).SetRepeatable());
-            var energy3ID = new SkillIdentifier(SkillCategory.Character, nameof(Energy3));
+            var energy3ID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Energy3)
+            };
             Energy3 = (new Skill(energy3ID, Resources.Skills_SkillEnergy3, 3, Resources.Skills_SkillEnergy3Descr,
                 new IStatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 3) }).SetRepeatable());
-            var energy6ID = new SkillIdentifier(SkillCategory.Character, nameof(Energy6));
+            var energy6ID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(Energy6)
+            };
             Energy6 = AddSkill(energy6ID, new Skill(energy6ID, Resources.Skills_SkillEnergy6, 5, Resources.Skills_SkillEnergy6Descr,
                 new IStatModifier[] { new OverviewStatModifier(nameof(OverviewViewModel.MaxEnergyModifierBonus), 6) }).SetRepeatable());
-            var nextLevelID = new SkillIdentifier(SkillCategory.Character, nameof(NextLevel));
+            var nextLevelID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(NextLevel)
+            };
             NextLevel = AddSkill(nextLevelID, new Skill(nextLevelID, Resources.Skills_SkillNextLevel, 4, Resources.Skills_SkillNextLevelDescr, null).SetRepeatable());
-            var nextElementalID = new SkillIdentifier(SkillCategory.Character, nameof(NextElemental));
+            var nextElementalID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(NextElemental)
+            };
             NextElemental = AddSkill(nextElementalID, new Skill(nextElementalID, Resources.Skills_SkillNextElemental, 5, Resources.Skills_SkillNextElementalDescr, null).SetRepeatable());
-            var elemProfGreenID = new SkillIdentifier(SkillCategory.Character, nameof(ElementalProfessionGreen));
+            var elemProfGreenID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(ElementalProfessionGreen)
+            };
             ElementalProfessionGreen = AddSkill(elemProfGreenID, new Skill(elemProfGreenID, Resources.Skills_SkillElementalProfessionGreen, 1, Resources.Skills_SkillElementalProfessionGreenDescr, null).SetRepeatable());
-            var elemProfYellowID = new SkillIdentifier(SkillCategory.Character, nameof(ElementalProfessionYellow));
+            var elemProfYellowID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(ElementalProfessionYellow)
+            };
             ElementalProfessionYellow = AddSkill(elemProfYellowID, new Skill(elemProfYellowID, Resources.Skills_SkillElementalProfessionYellow, 3, Resources.Skills_SkillElementalProfessionYellowDescr, null).SetRepeatable());
-            var elemProfRedID = new SkillIdentifier(SkillCategory.Character, nameof(ElementalProfessionRed));
+            var elemProfRedID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(ElementalProfessionRed)
+            };
             ElementalProfessionRed = AddSkill(elemProfRedID, new Skill(elemProfRedID, Resources.Skills_SkillElementalProfessionRed, 5, Resources.Skills_SkillElementalProfessionRedDescr).SetRepeatable());
-            var fourthElementalID = new SkillIdentifier(SkillCategory.Character, nameof(FourthElemental));
+            var fourthElementalID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Character,
+                Name = nameof(FourthElemental)
+            };
             FourthElemental = AddSkill(fourthElementalID, new Skill(fourthElementalID, Resources.Skills_SkillFourthElemental, 6, Resources.Skills_SkillFourthElementalDescr, null).SetRepeatable());
 
             #endregion Character
@@ -368,7 +420,11 @@ namespace PnP_Organizer.Core.Character
             ArmorBreaker = CreateAndAddSkill(nameof(ArmorBreaker), Resources.Skills_SkillArmorBreaker, SkillCategory.Melee, 3, 
                 Resources.Skills_SkillArmorBreakerDescr, null, new SkillIdentifier[] { AimedAttackMelee.Identifier }, activationType: ActivationType.Active,
                 staminaCost: 5);
-            var assassinateID = new SkillIdentifier(SkillCategory.Melee, nameof(Assassinate));
+            var assassinateID = new SkillIdentifier
+            {
+                SkillCategory = SkillCategory.Melee,
+                Name = nameof(Assassinate)
+            };
             Assassinate = AddSkill(assassinateID, new Skill(assassinateID, Resources.Skills_SkillAssassinate, 2, 
                 Resources.Skills_SkillAssassinateDescr, 
                 new IStatModifier[] { new CalculatorStatModifier(CalculatorValueType.Damage, ApplianceMode.EndValue, 3, CalculatorBonusType.Multiplicative)}, 
@@ -713,7 +769,11 @@ namespace PnP_Organizer.Core.Character
             ActivationType activationType = ActivationType.Passive, int energyCost = 0, int staminaCost = 0, int usesPerBattle = -1,
             int skillTreeCheckpoint = 0) 
         {
-            var identifier = new SkillIdentifier(skillCategory, name);
+            var identifier = new SkillIdentifier
+            {
+                SkillCategory = skillCategory,
+                Name = name
+            };
             var skill = new Skill(identifier, displayName, maxSkillPoints, description, skillModifiers, skillDependencies,
                 activationType, energyCost, staminaCost, usesPerBattle , skillTreeCheckpoint);
             return AddSkill(identifier, skill);

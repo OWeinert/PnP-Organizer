@@ -347,7 +347,7 @@ namespace PnP_Organizer.ViewModels
                 {
                     if (SelectedWeapon.AttackMode == AttackMode.Melee)
                     {
-                        if (skill.Identifier == Skills.Instance.OneHandedCombat.Identifier)
+                        if (skill.Identifier.Equals(Skills.Instance.OneHandedCombat.Identifier))
                             usableWithWeapon = !SelectedWeapon.IsTwoHanded;
                         else
                             usableWithWeapon = skill.Identifier.SkillCategory == SkillCategory.Melee;
@@ -358,7 +358,7 @@ namespace PnP_Organizer.ViewModels
                 var usableWithShield = true;
                 if (SelectedShield != null)
                 {
-                    if (skill.Identifier == Skills.Instance.ShieldBash.Identifier || skill.Identifier == Skills.Instance.SomethingWithShield.Identifier)
+                    if (skill.Identifier.Equals(Skills.Instance.ShieldBash.Identifier) || skill.Identifier.Equals(Skills.Instance.SomethingWithShield.Identifier))
                         usableWithShield = action == BattleAction.Attack;
                     else
                         usableWithShield = action == BattleAction.Defend;
