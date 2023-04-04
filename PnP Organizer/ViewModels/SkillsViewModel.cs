@@ -137,7 +137,7 @@ namespace PnP_Organizer.ViewModels
                         await CheckSkillModelSkillability(skillModel);
                     }
 
-                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkill == senderSkillModel.Skill!.Identifier);
+                    var forcedDependendSkillModel = SkillModels!.FirstOrDefault(sM => sM.Skill!.ForcedDependendSkill.Equals(senderSkillModel.Skill!.Identifier));
                     if (forcedDependendSkillModel != default)
                         await CheckSkillModelSkillability(forcedDependendSkillModel);
 
@@ -159,7 +159,7 @@ namespace PnP_Organizer.ViewModels
 
             if (skillModel.Skill!.ForcedDependendSkill != null)
             {
-                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Identifier == skillModel.Skill!.ForcedDependendSkill);  // get the skill which the given skill is forced to depend on
+                var forcedDependendSkill = SkillModels!.First(dependendSkill => dependendSkill.Skill!.Identifier.Equals(skillModel.Skill!.ForcedDependendSkill));  // get the skill which the given skill is forced to depend on
                 skillModel.IsSkillable = dependedActiveSkills.Any() && forcedDependendSkill!.IsActive;
             }
             else
@@ -259,7 +259,7 @@ namespace PnP_Organizer.ViewModels
                     var skill = Skills.Instance.Registry[skillSaveData.Identifier];
                     skill.SkillPoints = skillSaveData.SkillPoints;
 
-                    var skillModel = SkillModels!.First(sM => sM.Skill!.Identifier == skillSaveData.Identifier);
+                    var skillModel = SkillModels!.First(sM => sM.Skill!.Identifier.Equals(skillSaveData.Identifier));
 
                     skillModel.SkillPoints = skillSaveData.SkillPoints;
                     if (skill.IsRepeatable)

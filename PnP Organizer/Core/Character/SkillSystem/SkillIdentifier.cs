@@ -2,15 +2,9 @@
 
 namespace PnP_Organizer.Core.Character.SkillSystem
 {
-    public record SkillIdentifier
+    public struct SkillIdentifier
     {
-        public SkillCategory SkillCategory { get; }
-        public string Name { get; }
-
-        public SkillIdentifier(SkillCategory skillTree, string name)
-        {
-            SkillCategory = skillTree;
-            Name = name;
-        }
+        public SkillCategory SkillCategory { get; init; }
+        public string Name { get; init; }
     }
 }

@@ -8,7 +8,7 @@ namespace PnP_Organizer.Core.Character
     /// </summary>
     public struct SkillSaveData
     {
-        public SkillIdentifier Identifier { get; set; } = new SkillIdentifier(SkillCategory.Character, string.Empty);
+        public SkillIdentifier Identifier { get; set; } = new SkillIdentifier() { SkillCategory = SkillCategory.Character, Name = string.Empty };
         public int SkillPoints { get; set; } = 0;
         public int? Repetition { get; set; } = null;
 
